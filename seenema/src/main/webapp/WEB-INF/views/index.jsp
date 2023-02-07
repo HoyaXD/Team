@@ -8,10 +8,6 @@
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<script>
-	$(document).ready(function(){
-		alert("hello");
-	});
-</script>
+<div>index</div>
 </body>
 </html>
