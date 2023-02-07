@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<a href="menu">이호영 메뉴</a>
 
 </body>
 </html>
