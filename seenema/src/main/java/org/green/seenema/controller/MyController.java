@@ -7,8 +7,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MyController {
 	@GetMapping("/")
-	public @ResponseBody String index() {
-		return "test";
+	public String index() {
+		return "index";
+	}
+	
+	@GetMapping("/menu")
+	public String menu() {
+		
+		return "menu";
 	}
 	
 }
