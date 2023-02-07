@@ -8,6 +8,6 @@
 </head>
 <body>
 <a href="menu">이호영 메뉴</a>
-
+<a href="test2">이호영 메뉴</a>
 </body>
 </html>
