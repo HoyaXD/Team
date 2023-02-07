@@ -5,9 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<a href="menu">이호영 메뉴</a>
-<a href="test2">이호영 메뉴</a>
+<script>
+	$(document).ready(function(){
+		alert("hello");
+	});
+</script>
 </body>
 </html>
