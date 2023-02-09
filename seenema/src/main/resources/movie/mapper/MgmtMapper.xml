@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 관리자가 회원 관리 -->  
+<mapper namespace="org.green.seenema.mapper.MgmtMapper">
+
+	<!-- 전체 회원 목록 출력 -->
+	<select id="memberView" resultType="org.green.seenema.vo.MemberVO">
+		SELECT * FROM member_tbl
+	</select>
+	<!-- 1명 회원 삭제 -->
+	<delete id="memberDel">
+		DELETE FROM member_tbl WHERE id = #{id} 
+	</delete>
+	<!-- 1명의 회원 목록 출력 -->
+	<select id="oneMemList" resultType="org.green.seenema.vo.MemberVO">
+		SELECT * FROM member_tbl WHERE ID = #{userid}
+	</select>
+	
+	<!-- 1명 회원 목록 수정 -->
+	<update id="editInfo">
+        UPDATE member_tbl SET pw = #{pw}, name = #{name}, tel = #{tel}, gender = #{gender}, birthday = #{birthday}, grade = #{grade} WHERE id = #{id}
+	</update>
+
+	
+</mapper>

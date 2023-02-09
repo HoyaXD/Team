@@ -1,7 +1,6 @@
 package org.green.seenema.controller;
 
 
-
 import java.io.File;
 import java.io.IOException;
 
@@ -11,8 +10,10 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.green.seenema.mapper.MgmtMapper;
 import org.green.seenema.mapper.MovieCRUDMapper;
 import org.green.seenema.mapper.TheaterCRUDMapper;
+import org.green.seenema.vo.MemberVO;
 import org.green.seenema.vo.MovieVO;
 import org.green.seenema.vo.TheaterVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
+   
+   @Autowired
+   MgmtMapper mgmt;
+   
+   @GetMapping("/MemberMGMT")
+   public void memberMGMTViewGo() {
+      
+   }
+   
+   //영화관 회원 목록 출력
+   @GetMapping("/MemberListView")
+   public @ResponseBody List<MemberVO> memberView() {
+      return mgmt.memberView();
+   }
+   
+   //영화관 회원 목록 삭제
+   @GetMapping("/MemberDel")
+   public void memberDel(String id) {
+      mgmt.memberDel(id);
+   }
+   
+   //영화관 회원 수정창
+   @GetMapping("/memEditPop")
+   public List<MemberVO> memEditViewGo(String id,Model model){
+      log.info("수정창으로 ㄱㄱ");
+      //id를 받음
+      log.info("id를 받은 값 : " + id);
+      log.info("투스트링 : "+mgmt.oneMemList(id).toString());
+      List<MemberVO> list = mgmt.oneMemList(id);
+      model.addAttribute("list", list);
+      return list;
+   }
+   //수정창
+   @ResponseBody
+   @PostMapping("/editInfo")
+   public int memberEdit(MemberVO m) {
+      log.info("수정버튼누름 : " + m.toString());
+      mgmt.editInfo(m);
+   return 0;
+   }
+   
+   
 	@Autowired
 	MovieCRUDMapper mapper;
 	
