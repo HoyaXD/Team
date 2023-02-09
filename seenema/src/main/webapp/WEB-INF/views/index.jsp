@@ -8,6 +8,8 @@
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-<div>index</div>
+<h1>메인페이지</h1>
+<hr>
+<button type="button" onclick="location.href='user/movieDetailView'">상세보기</button>
 </body>
 </html>
