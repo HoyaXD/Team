@@ -14,4 +14,6 @@ public class TheaterVO {
    private String theaterAddress;      //영화관주소
    private String theaterTel;         //영화관연락처
    private int theaterSeats;         //상영관좌석수
+   private double latitude; //지도 - 위도
+   private double longitude; //지도 - 경도
 }
