@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	session.setAttribute("id", "kim");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,8 +63,8 @@
 						<div class="commentCount">0자</div>
 			        	<div class="textTotal">&nbsp;/&nbsp;50자</div>
 					</div>
-					<input type="hidden" name="id" id="id" value="kim">
-					<input type="hidden" name="movieCode" id="movieCode" value="22">
+					<input type="hidden" name="id" id="id" value="${sessionScope.id }">
+					<input type="hidden" name="movieCode" id="movieCode" value="22"><!-- 영화코드(나중에 삭제해야함) -->
 				</form>
 				<div class="replyList">
 					<!-- 댓글 목록  -->
@@ -95,7 +98,7 @@
 						       	<div class="updateReplyFormTextTotal">&nbsp;/&nbsp;50자</div>
 							</div>
 							<input type="hidden" id="updateBoxReplyCode" value="">
-							<input type="hidden" name="id" id="id" value="kim">	<!-- 나중에 삭제 -->
+							<input type="hidden" name="id" id="uId">
 							<input type="hidden" name="movieCode" id="movieCode" value="22">	<!-- 나중에 삭제 -->
 						</form>
 						<div id="updateReplyDoBtn">수정</div>
@@ -109,6 +112,7 @@
 	getReplyList();
 	// 댓글 목록
 	function getReplyList(){
+		const id = $("#id").val();
 		const xhttp = new XMLHttpRequest();
 		xhttp.onload = function(){
 			let data = this.responseText;
@@ -140,10 +144,7 @@
 							+ "<div class='replyBoxTop'>" 
 								+ "<div id='replyStar'>" + star + "</div>"
 								+ "<div id='replyRate'>" + rate + "</div>"
-								+ "<div class='btnWrap'>"
-									+ "<div id='updateBtn'>수정</div>"
-									+ "<div id='deleteBtn'>삭제</div>"
-								+ "</div>"
+								+ (id == this.id? "<div class='btnWrap'><div id='updateBtn'>수정</div><div id='deleteBtn'>삭제</div></div>" : "")
 							+ "</div>"
 							+ "<div id='replyComment'>" + this.comment + "</div>" 
 							+ "<div class='replyBoxBottom'>"
@@ -226,6 +227,7 @@
 			$("#updateRate" + obj.rate).prop('checked', true);
 			$("#updateReplyBox").css("display", "block");
 			$("#updateBoxReplyCode").val(replyCode);
+			$("#uId").val(obj.id);
 		}
 		xhttp.open("post", "/user/getReplyInfo.do", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
