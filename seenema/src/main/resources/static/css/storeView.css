@@ -94,7 +94,7 @@ footer{
 	transition: transform 300ms ease-in-out;
 }
 .item:hover{
-    transform: scale(1.05, 1.05);
+    transform: scale(1.07, 1.07);
 }
 .item > img{
 	width: 300px;

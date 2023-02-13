@@ -110,6 +110,7 @@
 		//console.log(totalPriceStr);
 		//let price = priceStr.split(",").join("");	// 제품 판매가
 		//let pInfo = $(".productInfo").text();		// 제품 구성
+		
 		let pCode = $(".pCode").text();				// 제품 코드
 		let pCount = $(".count").text();			// 제품 개수
 		let id = $("#id").val();					// 회원 아이디
@@ -120,13 +121,9 @@
 			let data = this.responseText;
 			let result = parseInt(data, 10);
 			if(result == 1){
-				if(confirm("장바구니에 등록되었습니다.\n확인하시겠습니까?") == true){
-					location.href = "/user/myCart?id=" + id;
-				}
+				alert("장바구니에 등록되었습니다.");
 			}else if(result == -1){
-				if(confirm("이미 장바구니에 존재하는 상품입니다.\n장바구니 페이지로 이동하시겠습니까?") == true){
-					location.href = "/user/myCart?id=" + id;
-				}
+				alert("이미 장바구니에 존재하는 상품입니다.");
 			}
 		}
 		xhttp.open("post", "/user/addCart.do", true);

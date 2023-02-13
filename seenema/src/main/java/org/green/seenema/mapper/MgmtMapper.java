@@ -20,4 +20,15 @@ public interface MgmtMapper {
 	
 	//관리자가 회원목록 수정하기
 	public void editInfo(MemberVO v);
+	
+	//관리자가 아이디로 회원검색
+	public List<MemberVO> idSearch(@Param("searchId") String id);
+	
+	//관리자가 이름으로 회원검색
+	public List<MemberVO> nameSearch(@Param("searchName") String name);
+	
+	//관리자가 등급으로 회원검색
+	public List<MemberVO> gradeSearch(@Param("searchGrade") String grade);
+	
+
 }
