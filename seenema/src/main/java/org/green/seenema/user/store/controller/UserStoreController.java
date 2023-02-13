@@ -11,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -36,8 +38,8 @@ public class UserStoreController {
 	
 	// 제품 상세보기 이동
 	@GetMapping("/productDetailView")
-	public void productDetailView(int pCode, Model model) {
-		ProductVO product = mapper.getProductInfo(pCode);
+	public void productDetailView(int productCode, Model model) {
+		ProductVO product = mapper.getProductInfo(productCode);
 		//log.info("컨트롤러 : " + product.toString());
 		model.addAttribute("product", product);
 	}
@@ -55,5 +57,33 @@ public class UserStoreController {
 			int result = mapper.addCart(cart);
 			return result;
 		}
+	}
+	
+	
+	// 장바구니 개별삭제
+	@PostMapping("/deleteProduct.do")
+	@ResponseBody
+	public int deleteUser(@RequestParam int productCode, @RequestParam String id) {
+		//log.info(productCode + ", " + id);
+		int result = mapper.deleteProduct(productCode, id);
+		return result;
+	}
+	
+	// 장바구니 선택삭제
+	@PostMapping("/selectDelete.do")
+	@ResponseBody
+	public int selectDelete(@RequestParam("productCodes") int[] productCodes, String id) {
+		int result = 0;
+		for(int i = 0; i < productCodes.length; i++) {
+			result = mapper.deleteProduct(productCodes[i], id);
+		}
+		return result;
+	}
+	
+	@PostMapping("/updateProductCount.do")
+	@ResponseBody
+	public int updateProductCount(@RequestParam int productCode, @RequestParam String id, @RequestParam("count") int productCount) {
+		int result = mapper.updateProductCount(productCode, id, productCount);
+		return result;
 	}
 }
