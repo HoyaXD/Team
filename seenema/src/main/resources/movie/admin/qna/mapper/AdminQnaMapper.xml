@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 관리자 QnA -->
+<mapper namespace="org.green.seenema.mapper.AdminQnaMapper">
+	<!-- QnA 목록출력 -->
+	<select id="qnaListView" resultType="org.green.seenema.vo.QnaVO">
+		SELECT qcode, id, title, contents, regiDate, NVL2(fileName, 'Y', 'N') AS fileName FROM qna_mtbl	
+	</select>
+	
+	<!-- QnA목록 모달창에 출력 -->
+	<select id="qnaOneList" resultType="org.green.seenema.vo.QnaVO">
+		SELECT * FROM qna_mtbl WHERE qcode = #{qcode}
+	</select>
+
+
+</mapper>
