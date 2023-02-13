@@ -1,5 +1,6 @@
 package org.green.seenema.vo;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class NoticeVO {
 	private int noticeCode;
 	private String title;
-	private String content;
-	private Timestamp regDate;
+	private String contents;
+	private Date regiDate;
 	private int hit;
 }
