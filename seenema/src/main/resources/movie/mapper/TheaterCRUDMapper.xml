@@ -29,4 +29,16 @@
 	<delete id="delete">
 		DELETE FROM seenema.theater_tbl WHERE theaterCode=#{param1};
 	</delete>
+
+	<select id="getListGroupByPlace" resultType="org.green.seenema.vo.TheaterVO">
+		SELECT theaterPlace, COUNT(theaterPlace) AS cnt FROM seenema.theater_tbl GROUP BY theaterPlace
+	</select>
+
+	<select id="getListWherePlace" resultType="org.green.seenema.vo.TheaterVO">
+		SELECT * FROM seenema.theater_tbl WHERE theaterPlace = #{place};
+	</select>
+
+
+
+
  </mapper>
