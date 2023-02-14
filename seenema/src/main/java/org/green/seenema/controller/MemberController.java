@@ -41,7 +41,7 @@ public class MemberController {
     public String logout(HttpSession session) {
         session.invalidate();
 
-        return "user/main";
+        return "user/header";
     }
 
     @GetMapping("/idcheck.do") //아이디 중복확인

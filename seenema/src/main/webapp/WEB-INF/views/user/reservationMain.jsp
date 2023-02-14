@@ -93,9 +93,8 @@
   </style>
 </head>
 <body>
-  <div id="header">
-    헤더
-  </div>
+
+
   <div id="reservationMain">
       <div class="item" id="movieList">
             <div class="listMenu">
