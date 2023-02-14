@@ -17,4 +17,8 @@ public interface TheaterCRUDMapper {
 	public int update(TheaterVO theaterVO);
 	
 	public int delete(int theaterCode);
+
+	public ArrayList<TheaterVO> getListGroupByPlace();
+
+	public ArrayList<TheaterVO> getListWherePlace(String place);
 }

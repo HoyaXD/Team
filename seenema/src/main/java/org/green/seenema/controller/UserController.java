@@ -64,4 +64,9 @@ public class UserController {
 		int result = mapper.deleteReply(replyCode);
 		return result;
 	}
+
+	@GetMapping("/header")
+	public void header(){
+		log.info("헤더");
+	}
 }
