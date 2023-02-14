@@ -89,35 +89,7 @@
       });
       
    }
-      //alert(formData);
-      /*
-      $.ajax({
-        
-         url : "editInfo",
-         type : "POST",
-         data : $("#edit_frm").serialize();
-         dataType : 'json',
-         contentType : "application/x-www-form-urlencoded; charset=utf-8",
-         
-         success : function(data){
-          alert("성공");  
-         },
-         error : function(request, status, error){
-            alert("실패");
-         }
-         
-         
-      });
-   }*/
-   /*
-   function editAfterClose(){
-      $(document).on("click", "edit_btn", function(e){
-            window.opener.location.reload();    //부모창 reload
-            window.close();    //현재 팝업창 Close
-      });
-      // alert("수정이 완료되었습니다.");
-   }*/
-   
+
    
 
 </script>
