@@ -128,7 +128,7 @@
 			<div id="snackScroll">&nbsp;</div>
 			<div class="sectionTitle">스낵/음료</div>
 			<div class="itemWrap">
-				<a href="/user/productDetailView?pCode=2" class="item item1">
+				<a href="/user/productDetailView?productCode=2" class="item item1">
 					<img src="/images/sweetCombo.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -138,7 +138,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=3" class="item item2">
+				<a href="/user/productDetailView?productCode=3" class="item item2">
 					<img src="/images/doubleCombo.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -148,7 +148,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=4" class="item item3">
+				<a href="/user/productDetailView?productCode=4" class="item item3">
 					<img src="/images/colaM.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -158,7 +158,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=5" class="item item4">
+				<a href="/user/productDetailView?productCode=5" class="item item4">
 					<img src="/images/colaL.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -168,7 +168,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=6" class="item item5">
+				<a href="/user/productDetailView?productCode=6" class="item item5">
 					<img src="/images/cM.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -178,7 +178,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=7" class="item item6">
+				<a href="/user/productDetailView?productCode=7" class="item item6">
 					<img src="/images/cL.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -188,7 +188,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=8" class="item item7">
+				<a href="/user/productDetailView?productCode=8" class="item item7">
 					<img src="/images/originalPopcornM.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -198,7 +198,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=9" class="item item8">
+				<a href="/user/productDetailView?productCode=9" class="item item8">
 					<img src="/images/originalPopcornL.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -208,7 +208,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=10" class="item item9">
+				<a href="/user/productDetailView?productCode=10" class="item item9">
 					<img src="/images/caramelPopcornM.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -218,7 +218,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=11" class="item item10">
+				<a href="/user/productDetailView?productCode=11" class="item item10">
 					<img src="/images/caramelPopcornL.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -228,7 +228,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="/user/productDetailView?pCode=12" class="item item11">
+				<a href="/user/productDetailView?productCode=12" class="item item11">
 					<img src="/images/halfPopcornL.jpeg">
 					<div class="itemInfo">
 						<div class="itm_tit">
@@ -245,7 +245,7 @@
 <script>
 	// 스크롤 부드럽게
 	$(document).on('click', 'a[href^="#"]', function (event) {
-	    event.preventDefault();	// 이벤트 차단
+	    event.preventDefault();	// 기능 차단
 	    $('html, body').animate({
 	        scrollTop: $($.attr(this, 'href')).offset().top
 	    }, 300);
@@ -254,12 +254,12 @@
 	// 스크롤에 따라 보더
 	$(window).scroll(function () { 
 		let scrollY = $(document).scrollTop(); 
-		if(scrollY < 1377){
+		if(scrollY < 1370){
 			$("#best").css("border-bottom", "3px solid black");
 			$("#best").css("color", "black");
 			$("#ticket").css("border-bottom", "none");
 			$("#ticket").css("color", "gray");
-		}else if(scrollY > 1890){
+		}else if(scrollY > 1880){
 			$("#ticket").css("border-bottom", "none");
 			$("#ticket").css("color", "gray");
 			$("#snack").css("border-bottom", "3px solid black");

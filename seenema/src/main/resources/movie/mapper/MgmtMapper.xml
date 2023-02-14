@@ -23,6 +23,21 @@
 	<update id="editInfo">
         UPDATE member_tbl SET pw = #{pw}, name = #{name}, tel = #{tel}, gender = #{gender}, birthday = #{birthday}, grade = #{grade} WHERE id = #{id}
 	</update>
+	
+	<!-- 아이디로 회원 검색 -->
+	<select id="idSearch" resultType="org.green.seenema.vo.MemberVO">
+		SELECT * FROM member_tbl WHERE ID LIKE CONCAT('%', #{searchId}, '%')
+	</select>
+	
+	<!-- 이름로 회원 검색 -->
+	<select id="nameSearch" resultType="org.green.seenema.vo.MemberVO">
+		SELECT * FROM member_tbl WHERE name LIKE CONCAT('%', #{searchName}, '%')
+	</select>
+	
+	<!-- 등급로 회원 검색 -->
+	<select id="gradeSearch" resultType="org.green.seenema.vo.MemberVO">
+		SELECT * FROM member_tbl WHERE grade LIKE CONCAT('%', #{searchGrade}, '%')
+	</select>
 
 	
 </mapper>

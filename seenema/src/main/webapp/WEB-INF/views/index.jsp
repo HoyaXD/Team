@@ -11,6 +11,6 @@
 <h1>메인페이지</h1>
 <hr>
 <button type="button" onclick="location.href='user/movieDetailView'">상세보기</button>
-<a href = "MemberMGMT">태그추가(이호영)</a>
+<a href = "adminPage">관리자 메인페이지</a>
 </body>
 </html>
