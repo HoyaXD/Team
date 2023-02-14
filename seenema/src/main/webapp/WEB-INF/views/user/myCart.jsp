@@ -18,7 +18,23 @@
 		<input type="hidden" id="id" value="kim">
 		</header>
 		<c:if test="${empty list}">
-			<!-- 테스트 테스트 -->
+			<ul id="itemList">
+				<li class="listHead">
+					<div class="checkBox">
+						<input type="checkbox" class="emptyListCheckBox" id="checkAll"><label class="emptyListCheckBox" for="checkAll">✓</label>
+					</div>
+					<div>상품명</div>
+					<div>판매금액</div>
+					<div>수량</div>
+					<div>구매금액</div>
+					<div>선택</div>
+				</li>
+				<li>
+					<div id="emptyListWrap">
+						장바구니 내역이 존재하지 않습니다.
+					</div>
+				</li>
+			</ul>
 		</c:if>
 		<c:if test="${!empty list}">
 			<ul id="itemList">
@@ -95,6 +111,7 @@
 		</c:if>
 		<footer>푸터</footer>
 	</div>
+<c:if test="${!empty list }">
 <script>
 	const IMP = window.IMP;
 	IMP.init("imp58206540");
@@ -173,9 +190,6 @@
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send("productCodes=" + productCodes + "&id=" + id);
 	}
-	
-	
-	
 	
 	// 개별 구매
 	$(".buyNowBtn").on("click", function(){
@@ -405,5 +419,6 @@
 		xhttp.send("productCodes=" + productCodes + "&id=" + id);
 	});
 </script>
+</c:if>
 </body>
 </html>

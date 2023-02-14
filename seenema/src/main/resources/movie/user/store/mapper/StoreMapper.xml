@@ -9,7 +9,7 @@
 		VALUES (#{cart.productCode}, #{cart.productCount}, #{cart.id});
 	</insert>
 
-	<select id="getProductInfo" resultType="org.green.seenema.vo.ProductVO">
+	<select id="getProductInfo" resultType="ProductVO">
 		SELECT * FROM product_tbl WHERE productCode = #{productCode};
 	</select>
 
@@ -17,7 +17,7 @@
 		SELECT COUNT(*) FROM cart_tbl WHERE id = #{id} AND productCode = #{productCode};
 	</select>
 	
-	<select id="getCartList" resultType="org.green.seenema.vo.CartVO">
+	<select id="getCartList" resultType="CartVO">
 		SELECT 
 			ct.cartCode, pt.productCode, pt.productImage, pt.productName, pt.productInfo, pt.price, 
 			ct.productCount, (pt.price * ct.productCount) AS totalPrice, ct.id
