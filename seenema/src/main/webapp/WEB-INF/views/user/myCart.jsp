@@ -18,7 +18,7 @@
 		<input type="hidden" id="id" value="kim">
 		</header>
 		<c:if test="${empty list}">
-			
+			<!-- 테스트 테스트 -->
 		</c:if>
 		<c:if test="${!empty list}">
 			<ul id="itemList">
