@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.green.seenema.mapper.ProductCRUDMapper">
+	<!-- 상품등록 -->
+	<insert id="insert">
+		INSERT INTO seenema.product_tbl (productName, price, productInfo, productImage, productSales, category) 
+		VALUES(#{productName}, #{price}, #{productInfo}, #{productImage}, #{productSales}, #{category});
+	</insert>
+	
+	<!-- 상품조회 -->
+	<select id="getList" resultType="org.green.seenema.vo.ProductVO">
+		SELECT * FROM seenema.product_tbl
+	</select>
+	
+	<!-- 코드로 상품조회하기 -->
+	<select id="selectOne" resultType="org.green.seenema.vo.ProductVO">
+		SELECT * FROM seenema.product_tbl WHERE productCode = #{param1}
+	</select>
+	
+	<!-- 상품정보수정 -->
+	<update id="update">
+		UPDATE seenema.product_tbl 
+		SET productName=#{productName}, price=#{price}, productInfo=#{productInfo}, productImage=#{productImage}, productSales=#{productSales}, category=#{category} 
+		WHERE productCode=#{productCode}
+	</update>
+	
+	<!-- 상품정보삭제 -->
+	<delete id="delete">
+		DELETE FROM seenema.product_tbl
+		WHERE productCode=#{param1};
+	</delete>
+	
+	<!-- 상품명으로 상품조회하기 -->
+	<select id="getListByName" resultType="org.green.seenema.vo.ProductVO">
+		SELECT * FROM seenema.product_tbl WHERE productName LIKE #{param1}
+	</select>
+</mapper>
