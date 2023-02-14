@@ -5,13 +5,16 @@
   Time: 9:58 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
-<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
     <title>Title</title>
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
   <style>
     *{
       margin: 0 auto;
@@ -93,8 +96,9 @@
   </style>
 </head>
 <body>
-
-
+<header>
+    <%@ include file="../user/header.jsp"%>
+</header>
   <div id="reservationMain">
       <div class="item" id="movieList">
             <div class="listMenu">
