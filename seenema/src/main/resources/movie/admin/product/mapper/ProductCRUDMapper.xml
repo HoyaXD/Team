@@ -37,4 +37,9 @@
 	<select id="getListByName" resultType="org.green.seenema.vo.ProductVO">
 		SELECT * FROM seenema.product_tbl WHERE productName LIKE #{param1}
 	</select>
+	
+	<!-- 상품명으로 상품조회하기 -->
+	<select id="getListByPrice" resultType="org.green.seenema.vo.ProductVO">
+		SELECT * FROM seenema.product_tbl WHERE price LIKE #{param1}
+	</select>
 </mapper>
