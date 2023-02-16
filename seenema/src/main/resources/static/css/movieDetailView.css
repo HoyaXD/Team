@@ -145,17 +145,18 @@ footer{
     font-size: 2em;
     color: transparent;
     text-shadow: 0 0 0 #f0f0f0;
+    cursor: pointer;
 }
 #replyForm label:hover{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
 }
 #replyForm label:hover ~ label{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
 }
 
 
 #replyForm input[type=radio]:checked ~ label{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
     /* text-shadow: 0 0 0 rgba(250, 208, 0, 0.99); */
 }
 
@@ -180,7 +181,8 @@ footer{
 }
 #noticeComment{
 	margin-left: 10px;
-	color: blue;
+	font-weight: bold;
+	color: #e63737;
 	font-size: 10px;
 }
 .commentCount{
@@ -213,8 +215,15 @@ footer{
 
 /* 별 이모티콘 */
 #replyStar{
-	color: rgba(244, 42, 6, 1);
+	width: 57px;
 	margin-right: 5px;
+}
+
+.star{
+	color: #ffcc00;
+}
+.unstar{
+	color: gainsboro;
 }
 
 /* 별 갯수 */
@@ -234,7 +243,7 @@ footer{
 }
 
 #replyId{
-	color: #1f53ff;
+	color: #4a6cc2;
 	font-weight: bold;
 	margin-right: 5px;
 }
@@ -364,17 +373,17 @@ footer{
     font-size: 2em;
     color: transparent;
     text-shadow: 0 0 0 #f0f0f0;
+    cursor: pointer;
 }
 #updateReplyForm label:hover{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
 }
 #updateReplyForm label:hover ~ label{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
 }
 
-
 #updateReplyForm input[type=radio]:checked ~ label{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
     /* text-shadow: 0 0 0 rgba(250, 208, 0, 0.99); */
 }
 
