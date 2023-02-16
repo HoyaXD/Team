@@ -131,9 +131,19 @@ public class AdminProductController {
 	
 	@GetMapping("/getListByName.do")
 	public @ResponseBody ArrayList<ProductVO> getListByName(String productName){
+		//이름으로 상품 조회
 		String _productName = "%" + productName + "%";
 		ArrayList<ProductVO> listByName = mapper.getListByName(_productName);
 		
 		return listByName;
+	}
+	
+	@GetMapping("/getListByPrice.do")
+	public @ResponseBody ArrayList<ProductVO> getListByPrice(int price){
+		//가격으로 상품 조회
+		String _price = "%" + price + "%";
+		ArrayList<ProductVO> listByPrice = mapper.getListByPrice(_price);
+		
+		return listByPrice;
 	}
 }
