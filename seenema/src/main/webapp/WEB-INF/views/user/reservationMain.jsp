@@ -72,12 +72,15 @@
     }
     .movieTitle {
         width: 150px;
+        position: relative;
+        bottom: 5px;
     }
     .place{
-        background-color: #d5d4d2;
+        background-color: #dcdbd7;
     }
     #timeList{
         margin: 0 auto;
+
     }
     .time{
         display: inline-block;
@@ -93,6 +96,47 @@
         width: 1300px;
         justify-content: flex-start;
     }
+    .calendar {
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        overflow: scroll;
+        overflow-x: hidden;
+        height: 567px;
+    }
+    .calendar::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+        background-color: black;
+    }
+    .calendar::-webkit-scrollbar-thumb {
+        background: #a4a4a2; /* 스크롤바의 색상 */
+        height: 3px;
+        border-radius: 10px;
+    }
+    .calendar::-webkit-scrollbar-track {
+        background-color: #e8e5dd;
+        border-radius: 10px;
+        box-shadow: inset 0px 0px 5px white;
+    }
+    .calendar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .calendar li {
+        display: block;
+        margin-bottom: 10px;
+    }
+    .time{
+        display: none;
+    }
+    #hidden{
+        width: 1300px;
+        text-align: right;
+    }
+
+
   </style>
 </head>
 <body>
@@ -108,8 +152,9 @@
                 <c:forEach var="movie" items="${mlist }">
                     <div class="movie">
                         <span><img src="/images/${movie.viewAge }.png"></span>
-                        <span  class="movieTitle">${movie.movieTitle }</span>
+                        <span class="movieTitle">${movie.movieTitle }</span>
                         <span><input type="hidden"value="${movie.movieCode }"></span>
+                        <span id="postFileName2"><input type="hidden"value="${movie.postFileName }"></span>
                     </div>
                 </c:forEach>
           </div>
@@ -137,8 +182,8 @@
           <div class="listMenu">
             날짜
           </div>
-          <div>
-              <input type="date">
+          <div class="calendar">
+              <ul id="calendar-list"></ul>
           </div>
       </div>
       <div class="item" id="timeList">
@@ -179,10 +224,73 @@
     <div class="info" id="seatsInfo">영화선택</div>
     <div class="info" id="pay">좌석선택</div>
   </div>
+<div id="hidden">
+    <form action="reservationSeats" method="post">
+        <input type="hidden" name="movieCode" id="movieCode">
+        <input type="hidden" name="movieTitle" id="movieTitle">
+<%--        <input type="text" name="postFileName" id="postFileName">--%>
+        <input type="hidden" name="id" value="${sessionScope.logid}">
+        <input type="hidden" name="theaterPlace" id="theaterPlace" placeholder="지역">
+        <input type="hidden" name="theater" id="theater" placeholder="영화관">
+        <input type="hidden" name="movieDate" id="movieDate" placeholder="날짜">
+        <input type="hidden" name="reservateTime" id="reservateTime" placeholder="시간">
+        <input type="submit" value="좌석선택">
+    </form>
+</div>
+<footer>
+    <%@ include file="../user/footer.jsp"%>
+</footer>
 <script>
+    var today = new Date();
 
-    $('.time').click(function (e){
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2);
+    var day = ('0' + today.getDate()).slice(-2);
 
+    var dateString = year + '-' + month  + '-' + day; //오늘 날짜 구하기
+
+    let d = new Date();
+    let sel_month = 1; //
+    d.setMonth(d.getMonth() + sel_month );
+
+    let year2    = d.getFullYear();
+    let month2   = ('0' + (d.getMonth() +  1 )).slice(-2);
+    let day2     = ('0' + d.getDate()).slice(-2);
+    dt = year2+"-"+month2+"-"+day2;
+     //한달 뒤 날짜 구하기
+
+    const startDate = new Date(dateString); // 시작 날짜 설정 (오늘)
+    const endDate = new Date(dt); // 마지막 날짜 설정 (한달 뒤)
+
+    // Loop over each day and add it to the calendar
+    const calendarList = document.getElementById('calendar-list');
+    for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+        const listItem = document.createElement('li');
+        listItem.className = "cal_list";
+        const dateText = document.createTextNode(date.toISOString().slice(0, 10));
+        listItem.appendChild(dateText);
+        calendarList.appendChild(listItem);
+    }
+
+    $('.cal_list').click(function (e){  //날짜 선택시 css, hidden에 값 넣기
+        $('#movieDate').val($(e.target).text());
+        $('.cal_list').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
+        })
+
+        $(e.target).css({
+            "background-color":"#5c5c5c",
+            "color":"white"
+        });
+
+        $('.time').css({
+            "display" : "inline-block"
+        })
+    })
+
+    $('.time').click(function (e){  //시간 선택시 css, hidden에 값 넣기
+        $('#reservateTime').val($(e.target).text());
         $('.time').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -195,9 +303,14 @@
 
     })
 
-    $('.movieTitle').click(function (e){
+    $('.movieTitle').click(function (e){ //영화 제목 선택
 
-        alert($(e.target).next().children().val()); // movieCode
+
+        $('#movieCode').val($(e.target).next().children().val()); //영화코드에 값넣기
+        $('#postFileName').val($(e.target).nextAll('#postFileName2').children().val()); //파일네임에 값넣기
+        $('#movieTitle').val($(e.target).text()); //영화제목에 값넣기
+
+
         $('.movieTitle').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -219,9 +332,11 @@
         });
     })
 
-    $(document).on("click", ".theater",function (e){
+    $(document).on("click", ".theater",function (e){  //영화관 클릭
+        $('#theater').val($(e.target).text()); //영화관에 값넣기
+
         $('.theater').css({
-            "background-color":"#e8e5dd",
+            "background-color":"#dcdbd7",
             "color":"black"
         })
         $(e.target).css({
@@ -231,7 +346,8 @@
     })
 
 
-    $(document).on("click", ".placeList",function (e){
+    $(document).on("click", ".placeList",function (e){ // 선택된 영화지역에 있는 상영관 보여주기
+        $('#theaterPlace').val($(e.target).text()); //영화지역에 값넣기
 
         $('.placeList').css({
             "background-color":"#d5d4d2",

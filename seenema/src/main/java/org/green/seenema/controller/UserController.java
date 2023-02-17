@@ -69,4 +69,8 @@ public class UserController {
 	public void header(){
 		log.info("헤더");
 	}
+
+	@GetMapping("/footer")
+	public void footer(){
+	}
 }
