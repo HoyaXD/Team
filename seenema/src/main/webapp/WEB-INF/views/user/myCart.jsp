@@ -147,7 +147,7 @@
 	
 	// 일괄구매
 	$(document).on("click", ".buyBtn", function(){
-		let checks = $(".check");
+		let checks = $(".check:checked");
 		//let totalPrice = 0;	// 총 금액
 		let productCodes = new Array();	// 제품코드 배열
 		let prices = new Array();	// 제품수량 배열
@@ -435,6 +435,8 @@
 			xhttp.send("productCodes=" + productCodes + "&id=" + id);
 		}
 	});
+	
+	
 </script>
 </body>
 </html>

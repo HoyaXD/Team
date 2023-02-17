@@ -15,4 +15,6 @@ public class OrderVO {
 	private String productInfo;
 	private int totalPrice;
 	private int status;
+	private String searchDate;
+	private String productImage;
 }
