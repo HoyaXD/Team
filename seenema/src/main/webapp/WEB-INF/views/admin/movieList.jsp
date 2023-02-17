@@ -7,109 +7,195 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<style>
-	*{
-		font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
-	}
-</style>
+<link rel="stylesheet" href="/css/movieList.css">
+
 </head>
 <body>
 <!-- 등록된 영화 리스트 조회/삭제 페이지 -->
-<h1>등록된 영화 리스트</h1>
-<hr>
-<h3>영화검색</h3>
-<table border="1">
-	<tr>
-		<th>
-			<select name="serchType" id="serchType" size="1">
-				<option>-선택-</option>
-				<option value="MovieTitle">영화제목으로 검색</option>
-				<option value="MovieDate">개봉일로 검색</option>
-				<option value="MovieTitleDate">제목+개봉일로 검색</option>
-			</select>
-			<span id="serchBox">
-				<input type="text" id="serchWord" placeholder="검색어를 입력해주세요.">
-			</span>
-			<button id="btn_serchMovie" onclick="serchMovie();">검색</button>
-			<button onclick="location.href='movieList'">초기화</button>
-		</th>	
-		
-	</tr>
-</table>
-<hr>
-<table border="1">
-	<thead id="thead">
-		<tr>
-			<th><input type="checkbox" id="allChk"></th>
-			<th>영화코드</th>
-			<th>포스터</th>
-			<th>제목</th>
-			<th>개봉일</th>
-		</tr>
-	</thead>
-	<tbody id="tbody">
-		<c:forEach var="movie" items="${mList }">
-			<tr>
-				<td><input type="checkbox" class="chk" value="${movie.movieCode }"></td>
-				<td>${movie.movieCode }</td>
-				<td><img src="/resources/imgs/${movie.postFileName }" width="100px">
-				<td><a href="movieUpdate?movieCode=${movie.movieCode }">${movie.movieTitle }</a></td>
-				<td>${movie.releaseDate }</td>
-			</tr>
-		</c:forEach>
-		<tr>
-			<th colspan="5">
-				<button onclick="location.href='movieReg'">영화등록하기</button>
-				<button id="btn_delMovies">선택삭제</button>
-			</th>
-		</tr>
-	</tbody>
-	
-</table>
+   <div class="gamut">
 
-<script>
-	//전체선택
-	$("#allChk").on("change", allChk);
-	
-	const all = document.querySelector("#allChk");
-	const chks = document.querySelectorAll(".chk");
-	
-	function allChk(){
-		for(let i = 0; i < chks.length; i++){
-			chks[i].checked = all.checked;
-		}
-	};
-	
-	//선택삭제
-	$("#btn_delMovies").on("click", movies_delete);
-	function movies_delete(){
+      <div class="header">
+         <div class="logo">Ssenema</div>
+         <nav>
+            <ul class="mainmenu">
+               <li>영화 관리
+                  <ul class="submenu">
+                     <li><a href="admin/movieReg">영화등록</a></li>
+                     <li><a href="admin/movieList">영화 목록 및 괸리</a></li>
+                  </ul>
+               </li>
+               <li>영화관 관리
+                  <ul class="submenu">
+                     <li><a href="admin/theaterReg">영화관 등록</a></li>
+                     <li><a href="admin/theaterList">영화관 목록 및 관리</a></li>
+                  </ul>
+               </li>
+               <li>매출 관리
+                  <ul class="submenu">
+                     <li>매출 현황1</li>
+                     <li>매출 현황2</li>
+                     <li>매출 현황3</li>
+                     <li>매출 현황4</li>
+                  </ul>
+               </li>
+               <li>상품 관리
+                  <ul class="submenu">
+                     <li>상품 등록</li>
+                     <li>상품 수정</li>
+                     <li>상품 3</li>
+                     <li>상품 4</li>
+                  </ul>
+               </li>
+               <li><a href="admin/MemberMGMT">회원관리 관리</a></li>
+               <li><a href="admin/qnaView">Q&A 관리</a></li>
+               <li><a href="admin/adNoticeView">공지사항 관리</a></li>
+               <li><a href="">한줄평 관리//만들어야됨</a></li>
+            </ul>
+         </nav>
+      </div>
+      <!--상단바-->
+      <!--  <div class="top_bar">
+            상단바
+        </div> -->
+      <div class="main_view">
+
+         <div id="doToday_menu">
+            <div id="main_header">
+               <div id="menu_title">영화조회</div>
+               <table id="serch_tbl">
+                  <tr>
+                     <th>
+                        <select name="serchType" id="serchType" size="1">
+                           <option>-선택-</option>
+                           <option value="MovieTitle">영화제목으로 검색</option>
+                           <option value="MovieDate">개봉일로 검색</option>
+                           <option value="MovieTitleDate">제목+개봉일로 검색</option>
+                        </select>
+                        <span id="serchBox">
+                           <input type="text" id="serchWord" placeholder="검색어를 입력해주세요.">
+                        </span>
+                        <button id="btn_serchMovie" onclick="serchMovie();">검색</button>
+                        <button onclick="location.href='movieList'">초기화</button>
+                     </th>	
+                     
+                  </tr>
+               </table>
+            </div>
+         </div>
+
+         <div class="easy_menu">
+            <div id="listBox">
+               <table id="list_tbl">
+                  <thead id="thead">
+                     <tr>
+                        <th><input type="checkbox" id="allChk"></th>
+                        <th>영화코드</th>
+                        <th>포스터</th>
+                        <th>제목</th>
+                        <th>개봉일</th>
+                        <th>상영시작일</th>
+                        <th>상영마감일</th>
+                     </tr>
+                  </thead>
+                  <tbody id="tbody">
+                     <c:forEach var="movie" items="${mList }">
+                        <tr>
+                           <td><input type="checkbox" class="chk" value="${movie.movieCode }"></td>
+                           <td>${movie.movieCode }</td>
+                           <td><a href="movieUpdate?movieCode=${movie.movieCode }"><img src="/resources/imgs/${movie.postFileName }" width="50px"></a>
+                           <td><a href="movieUpdate?movieCode=${movie.movieCode }">${movie.movieTitle }</a></td>
+                           <td>${movie.releaseDate }</td>
+                           <td style='color:blue;'>${movie.start_date }</td>
+                           <td style='color:red;'>${movie.end_date }</td>
+                        </tr>
+                     </c:forEach>
+
+                     <tfoot id="tfoot">
+                        <tr>
+                           <th>
+                              <button id="btn_delMovies">선택삭제</button>
+                           </th>
+                           <th></th>
+                           <th></th>
+                           <th></th>
+                           <th></th>
+                           <th></th>
+                           <th> <button id="movieReg" onclick="location.href='movieReg'">영화등록</button></th>
+                           
+                        </tr>
+                        
+                        <tr>
+                           <th colspan="7">1 2 3 4 5 6 7 8 9</th>
+                        </tr>
+                        <tr>
+                        </tr>
+                     </tfoot>
+               </table>
+            </div>
+         </div>
+      </div>
+
+      <script>
+         $(document).ready(function() {
+
+            /* 메뉴바 slideUpDown */
+            // 첫번째 메뉴바 클릭시 이동   
+            $('.mainmenu > li').click(function() {
+               var index = $(this).index();
+               $('.submenu').eq(index).stop().slideDown();
+               //eq(index)는 큰메뉴li
+            })
+
+            $('.mainmenu > li').mouseleave(function() {
+               $('.submenu').stop().slideUp();
+            });
+
+         });
+     </script>
+  
+	<script>
+		//전체선택
+		$("#allChk").on("change", allChk);
 		
-		let chked = new Array();
+		const all = document.querySelector("#allChk");
+		const chks = document.querySelectorAll(".chk");
 		
-		for(let i = 0; i < chks.length; i++){
-			if(chks[i].checked){
-				chked.push(chks[i].value);
+		function allChk(){
+			for(let i = 0; i < chks.length; i++){
+				chks[i].checked = all.checked;
 			}
-		}
+		};
 		
-		const xhttp = new XMLHttpRequest();
-		xhttp.onload = function() {
-		let result = this.responseText; 
-			if(result == 1){
-				alert("삭제완료!");
-				location.href="movieList";
-			}else{
-				alert("삭제실패..");
-				location.href="movieList";
-			}
-		}
-		
-		xhttp.open("GET", "movies_delete.do?movieCodes="+chked, true); 
+		//선택삭제
+		$("#btn_delMovies").on("click", movies_delete);
+		function movies_delete(){
 			
-		xhttp.send();
-		}
-</script>
-<script>
+			let chked = new Array();
+			
+			for(let i = 0; i < chks.length; i++){
+				if(chks[i].checked){
+					chked.push(chks[i].value);
+				}
+			}
+			
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+			let result = this.responseText; 
+				if(result == 1){
+					alert("삭제완료!");
+					location.href="movieList";
+				}else{
+					alert("삭제실패..");
+					location.href="movieList";
+				}
+			}
+			
+			xhttp.open("GET", "movies_delete.do?movieCodes="+chked, true); 
+				
+			xhttp.send();
+			}
+	</script>
+	<script>
 	//serchType에 따른 검색창 변화
 	 $("#serchType").change(function(e){
 		 if($("#serchType option:selected").val() == "MovieTitle"){
@@ -119,14 +205,14 @@
 			 
 		 }else if($("#serchType option:selected").val() == "MovieDate"){
 			
-			 $("#serchBox").html("<span>"+
-					 				"<input type='date' id='start' name='start'> -"+
+			 $("#serchBox").html("<span id='in_serch_box'>"+
+					 				"<input type='date' id='start' name='start'> ~ "+
 					 				"<input type='date' id='end' name='end'>"+
 					 			"</span>"); 
 		 }else if($("#serchType option:selected").val() == "MovieTitleDate"){
-			 $("#serchBox").html("<span>"+
+			 $("#serchBox").html("<span id='in_serch_box'>"+
 					 					"<input type='text' id='serchWord' name='serchWord' placeholder='검색어를 입력해주세요.'>"+
-		 								"&nbsp;<input type='date' id='start' name='start'> - "+
+		 								"&nbsp;<input type='date' id='start' name='start'> ~ "+
 		 								"<input type='date' id='end' name='end'>"+
 		 						"</span>"); 
 		 }
@@ -143,30 +229,64 @@
 				$("#tbody").empty();
 				let result = this.responseText; 
 				let obj = JSON.parse(result);
-				
-				$("#thead").html("<tr>"+
-									"<th><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
-									"<th>영화코드</th>"+
-									"<th>포스터</th>"+
-									"<th>제목</th>"+
-									"<th>개봉일</th>"+
-								"</tr>");
-				for(let i = 0; i < obj.length; i++){
-					$("#tbody").append("<tr>"+
-											"<td><input type='checkbox' id='js_chk' name='js_chk' value='"+obj[i].movieCode+"'></td>"+
-											"<td>"+obj[i].movieCode+"</td>"+
-											"<td><img src='/resources/imgs/"+obj[i].postFileName+"' width='100px'></td>"+
-											"<td><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>"+obj[i].movieTitle+"</a></td>"+
-											"<td>"+obj[i].releaseDate+"</td>"+
-										"</tr>");
-				}
-				$("#tbody").append("<tr>"+
-										"<td colspan='5'>"+
-										"<button onclick='goProductRegPage();'>영화등록</button>"+
-										"<button id='js_del'>선택삭제</button>"+
-										"</td>"+
+				if(obj.length != 0){
+					$("#thead").html("<tr>"+
+										"<th><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
+										"<th>영화코드</th>"+
+										"<th>포스터</th>"+
+										"<th>제목</th>"+
+										"<th>개봉일</th>"+
+										"<th>상영시작일</th>"+
+										"<th>상영마감일</th>"+
 									"</tr>");
-				
+					for(let i = 0; i < obj.length; i++){
+						$("#tbody").append("<tr>"+
+												"<td><input type='checkbox' id='js_chk' name='js_chk' value='"+obj[i].movieCode+"'></td>"+
+												"<td>"+obj[i].movieCode+"</td>"+
+												"<td><img src='/resources/imgs/"+obj[i].postFileName+"' width='50px'></td>"+
+												"<td><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>"+obj[i].movieTitle+"</a></td>"+
+												"<td>"+obj[i].releaseDate+"</td>"+
+	                                 			"<td style='color:blue'>"+obj[i].start_date+"</td>"+
+	                                			"<td style='color:red'>"+obj[i].end_date+"</td>"+
+											"</tr>");
+					}
+					$("#tfoot").html("<tr>"+
+											"<th>"+
+												"<button id='js_del'>선택삭제</button>"+
+											"<th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th>"+
+												"<button onclick='goProductRegPage();'>영화등록</button>"+
+											"</th>"+
+										"</tr>");	
+				}else if(obj.length === 0){
+					$("#thead").html("<tr>"+
+							"<th style='width:120px'><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
+							"<th style='width:83px'>영화코드</th>"+
+							"<th style='width:75px'>포스터</th>"+
+							"<th style='width:221px'>제목</th>"+
+							"<th style='width:127px'>개봉일</th>"+
+							"<th style='width:122px'>상영시작일</th>"+
+							"<th style='width:122px'>상영마감일</th>"+
+						"</tr>");
+					$("#tbody").html("<tr>"+
+											"<th colspan='7' style='height:300px;'> 해당 영화는 존재 하지 않습니다. </th>"+
+									"</tr>");
+					$("#tfoot").html("<tr>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th>"+
+												"<button onclick='goProductRegPage();'>영화등록</button>"+
+											"</th>"+
+									"</tr>");	
+				}
 			}	//onload
 			xhttp.open("GET", "serchMvByTitle.do?movieTitle=" + serchWord, true); 
 			
@@ -178,30 +298,64 @@
 				$("#tbody").empty();
 				let result = this.responseText; 
 				let obj = JSON.parse(result);
-				
-				$("#thead").html("<tr>"+
-									"<th><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
-									"<th>영화코드</th>"+
-									"<th>포스터</th>"+
-									"<th>제목</th>"+
-									"<th>개봉일</th>"+
-								"</tr>");
-				for(let i = 0; i < obj.length; i++){
-					$("#tbody").append("<tr>"+
-											"<td><input type='checkbox' id='js_chk' name='js_chk' value='"+obj[i].movieCode+"'></td>"+
-											"<td>"+obj[i].movieCode+"</td>"+
-											"<td><img src='/resources/imgs/"+obj[i].postFileName+"' width='100px'></td>"+
-											"<td><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>"+obj[i].movieTitle+"</a></td>"+
-											"<td>"+obj[i].releaseDate+"</td>"+
-										"</tr>");
-				}
-				$("#tbody").append("<tr>"+
-										"<td colspan='5'>"+
-										"<button onclick='goProductRegPage();'>영화등록</button>"+
-										"<button id='js_del'>선택삭제</button>"+
-										"</td>"+
+				if(obj.length != 0){
+					$("#thead").html("<tr>"+
+										"<th><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
+										"<th>영화코드</th>"+
+										"<th>포스터</th>"+
+										"<th>제목</th>"+
+										"<th>개봉일</th>"+
+										"<th>상영시작일</th>"+
+										"<th>상영마감일</th>"+
 									"</tr>");
-				
+					for(let i = 0; i < obj.length; i++){
+						$("#tbody").append("<tr>"+
+												"<td><input type='checkbox' id='js_chk' name='js_chk' value='"+obj[i].movieCode+"'></td>"+
+												"<td>"+obj[i].movieCode+"</td>"+
+												"<td><img src='/resources/imgs/"+obj[i].postFileName+"' width='50px'></td>"+
+												"<td><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>"+obj[i].movieTitle+"</a></td>"+
+												"<td>"+obj[i].releaseDate+"</td>"+
+	                                 			"<td style='color:blue'>"+obj[i].start_date+"</td>"+
+	                                			"<td style='color:red'>"+obj[i].end_date+"</td>"+
+											"</tr>");
+					}
+					$("#tfoot").html("<tr>"+
+											"<th>"+
+												"<button id='js_del'>선택삭제</button>"+
+											"<th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th>"+
+												"<button onclick='goProductRegPage();'>영화등록</button>"+
+											"</th>"+
+										"</tr>");	
+				}else if(obj.length === 0){
+					$("#thead").html("<tr>"+
+							"<th style='width:120px'><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
+							"<th style='width:83px'>영화코드</th>"+
+							"<th style='width:75px'>포스터</th>"+
+							"<th style='width:221px'>제목</th>"+
+							"<th style='width:127px'>개봉일</th>"+
+							"<th style='width:122px'>상영시작일</th>"+
+							"<th style='width:122px'>상영마감일</th>"+
+						"</tr>");
+					$("#tbody").html("<tr>"+
+											"<th colspan='7' style='height:300px;'> 해당 영화는 존재 하지 않습니다. </th>"+
+									"</tr>");
+					$("#tfoot").html("<tr>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th>"+
+												"<button onclick='goProductRegPage();'>영화등록</button>"+
+											"</th>"+
+									"</tr>");	
+				}
 			}	//onload
 			xhttp.open("GET", "serchMvByDate.do?startDate=" + startDate+ "&endDate=" + endDate, true); 
 			
@@ -213,32 +367,64 @@
 				$("#tbody").empty();
 				let result = this.responseText; 
 				let obj = JSON.parse(result);
-				
-				$("#thead").html("<tr>"+
-									"<th><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
-									"<th>영화코드</th>"+
-									"<th>포스터</th>"+
-									"<th>제목</th>"+
-									"<th>개봉일</th>"+
-								"</tr>");
-				
-				for(let i = 0; i < obj.length; i++){
-					$("#tbody").append("<tr>"+
-											"<td><input type='checkbox' id='js_chk' name='js_chk' value='"+obj[i].movieCode+"'></td>"+
-											"<td>"+obj[i].movieCode+"</td>"+
-											"<td><img src='/resources/imgs/"+obj[i].postFileName+"' width='100px'></td>"+
-											"<td><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>"+obj[i].movieTitle+"</a></td>"+
-											"<td>"+obj[i].releaseDate+"</td>"+
-										"</tr>");
-				}
-				
-				$("#tbody").append("<tr>"+
-										"<td colspan='5'>"+
-										"<button onclick='goProductRegPage();'>영화등록</button>"+
-										"<button id='js_del'>선택삭제</button>"+
-										"</td>"+
+				if(obj.length != 0){
+					$("#thead").html("<tr>"+
+										"<th><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
+										"<th>영화코드</th>"+
+										"<th>포스터</th>"+
+										"<th>제목</th>"+
+										"<th>개봉일</th>"+
+										"<th>상영시작일</th>"+
+										"<th>상영마감일</th>"+
 									"</tr>");
-				
+					for(let i = 0; i < obj.length; i++){
+						$("#tbody").append("<tr>"+
+												"<td><input type='checkbox' id='js_chk' name='js_chk' value='"+obj[i].movieCode+"'></td>"+
+												"<td>"+obj[i].movieCode+"</td>"+
+												"<td><img src='/resources/imgs/"+obj[i].postFileName+"' width='50px'></td>"+
+												"<td><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>"+obj[i].movieTitle+"</a></td>"+
+												"<td>"+obj[i].releaseDate+"</td>"+
+	                                 			"<td style='color:blue'>"+obj[i].start_date+"</td>"+
+	                                			"<td style='color:red'>"+obj[i].end_date+"</td>"+
+											"</tr>");
+					}
+					$("#tfoot").html("<tr>"+
+											"<th>"+
+												"<button id='js_del'>선택삭제</button>"+
+											"<th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th>"+
+												"<button onclick='goProductRegPage();'>영화등록</button>"+
+											"</th>"+
+										"</tr>");	
+				}else if(obj.length === 0){
+					$("#thead").html("<tr>"+
+							"<th style='width:120px'><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
+							"<th style='width:83px'>영화코드</th>"+
+							"<th style='width:75px'>포스터</th>"+
+							"<th style='width:221px'>제목</th>"+
+							"<th style='width:127px'>개봉일</th>"+
+							"<th style='width:122px'>상영시작일</th>"+
+							"<th style='width:122px'>상영마감일</th>"+
+						"</tr>");
+					$("#tbody").html("<tr>"+
+											"<th colspan='7' style='height:300px;'> 해당 영화는 존재 하지 않습니다. </th>"+
+									"</tr>");
+					$("#tfoot").html("<tr>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th></th>"+
+											"<th>"+
+												"<button onclick='goProductRegPage();'>영화등록</button>"+
+											"</th>"+
+									"</tr>");	
+				}
 			}	//onload
 			xhttp.open("GET", "serchMvByTitleDate.do?startDate=" + startDate+ "&endDate=" + endDate + "&movieTitle=" + serchWord, true); 
 		
@@ -261,7 +447,7 @@
 	});
 	
 	//조회 선택 삭제
-	$("#tbody").on("click", $("#js_del"), serchDelete);
+	$("#tfoot").on("click", $("#js_del"), serchDelete);
 	function serchDelete(e){
 		
 		let checked_val = new Array();

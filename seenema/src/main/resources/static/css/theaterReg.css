@@ -79,7 +79,7 @@ a {
 
 .gamut {
    width: 1300px;
-   height: 1100px;
+   height: 1000px;
    border: 1px red solid;
 }
 /*
@@ -94,7 +94,7 @@ a {
 .main_view {
    float: right;
    width: 1094px;
-   height: 1100px;
+   height: 1000px;
    border: 1px solid green;
 }
 
@@ -115,8 +115,8 @@ a {
    font-size: 30px;
    font-weight: bolder;
 }
-#movieReg_form{
-  /*border: 1px solid black; */
+#theaterReg_Form{
+    /* border: 1px solid black; */
     width: 450px;
     height: 800px;
     margin-left: 30px;
@@ -128,12 +128,12 @@ a {
 #input_menu{
    /* border: 1px solid red; */
    width: 400px;
-   margin-top: 15px;
+   margin-top: 20px;
 }
 #input_menu_1{
-   /*  border: 1px solid red; */
+    /* border: 1px solid red; */
     width: 400px;
-    margin-top: 15px;
+    margin-top: 18px;
 }
 #menu_inMenu{
     /* border: 1px solid black; */
@@ -166,14 +166,13 @@ a {
     transition: 0.4s;
 }
 #textbox input:hover, #textbox input:active, #textbox input:focus, 
-textarea:hover, textarea:active, textarea:focus,
 #upload_btn:hover, #upload_btn:active, #upload_btn:focus,
 .selectMenu:hover, .selectMenu:active, .selectMenu:focus{
     transition: 0.4s;
     border: 1px solid black;
 }
-#selected_theater, #selected_time{
-    /* border: 1px solid black; */
+#selected_theater{
+    border: 1px solid black;
     width: 195px;
     height: 50px;
     line-height: 24px;
@@ -183,15 +182,9 @@ textarea:hover, textarea:active, textarea:focus,
     top: 10px;
 }
 #selected_theater button{
-    
+    width: 45px;
     background-color: transparent;
     border: none;
-    cursor: pointer;
-}
-#selected_time button{
-   background-color: transparent;
-    border: none;
-    padding: 3px;
     cursor: pointer;
 }
 #regied_content{
@@ -204,42 +197,63 @@ textarea:hover, textarea:active, textarea:focus,
     width: 370px;
     height: 450px;
     margin-top: 20px;
+    
 }
 img{
     object-fit: contain;
 }
-#regied_preview{
+#regied_map_preview{
     
     width: 370px;
     height: 300px;
     margin-top: 20px;
 }
-#regied_photo, #regied_preview{
+#regied_photo, #regied_map_preview{
     text-align: center;
     line-height: 270px;
     border-radius: 5px;
     border: 1px solid lightslategray;
     color: lightslategray;
 }
-textarea{
-    width: 380px;
-    height: 120px;
-    resize: none;
+#addressChange_btn{
+    display:inline-block;
+    line-height: 30px;
+    font-size: 13px;
+    width: 370px;
+    height: 30px;
     border-radius: 5px;
     border: none;
     border: 1px solid lightgray;
     outline: none;
-    margin-top: 3px;
-    padding-top:5px;
-    padding-left: 5px;
+    cursor: pointer;
+    padding-left: 4px;
+    background-color: transparent;
     transition: 0.4s;
 }
-
+#addressChange_btn:hover, #addressChange_btn:active,
+#map_preview:hover, #map_preview:active{
+    background-color: lightgray;
+}
+#map_preview{
+    display:inline-block;
+    line-height: 30px;
+    font-size: 13px;
+    width: 370px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    border: 1px solid lightgray;
+    outline: none;
+    cursor: pointer;
+    padding-left: 4px;
+    background-color: transparent;
+    transition: 0.4s;
+}
 #upload_btn{
     display:inline-block;
     line-height: 30px;
     font-size: 13px;
-    width: 170px;
+    width: 360px;
     height: 30px;
     border-radius: 5px;
     border: none;
@@ -248,12 +262,13 @@ textarea{
     cursor: pointer;
     padding-left: 4px;
     margin-top: 3px;
+    transition: 0.4s;
 }
 #submitBox{
     /* border: 1px solid red; */
     width: 400px;
     height: 30px;
-    margin-top: 25px;
+    margin-top: 13px;
     text-align: center;
 }
 #submitBox input{
@@ -267,6 +282,7 @@ textarea{
 }
 #submitBox input:hover{
     background-color: RGB(56, 29, 27);
+    border: 1px solid black;
     color:white;
 }
 
@@ -276,7 +292,7 @@ textarea{
    display: flex;
    flex-wrap: wrap;
    width: 1000px;
-   height: 900px;
+   height: 800px;
    border: 1px solid darkgreen;
 }
 
