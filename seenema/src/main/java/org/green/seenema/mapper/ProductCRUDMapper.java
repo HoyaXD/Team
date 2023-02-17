@@ -24,4 +24,7 @@ public interface ProductCRUDMapper {
 	
 	//상품명으로 상품조회
 	public ArrayList<ProductVO> getListByName(String productName);
+	
+	//가격으로 상품조회
+	public ArrayList<ProductVO> getListByPrice(String _price);
 }

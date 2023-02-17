@@ -7,18 +7,39 @@
 	
 	<!-- 등록 -->
 	<insert id="insertMovie">
-		INSERT INTO seenema.movie_tbl(movieTitle, genre, plot, director, actors, viewAge, releaseDate, runningTime, postFileName, previewURL) 
-			VALUES(#{movieTitle}, #{genre}, #{plot}, #{director}, #{actors}, #{viewAge}, #{releaseDate}, #{runningTime}, #{postFileName}, #{previewURL})
+		INSERT INTO seenema.movie_tbl(movieTitle, genre, plot, director, actors, viewAge, releaseDate, runningTime, postFileName, previewURL, hit) 
+			VALUES(#{movieTitle}, #{genre}, #{plot}, #{director}, #{actors}, #{viewAge}, #{releaseDate}, #{runningTime}, #{postFileName}, #{previewURL}, #{hit})
 	</insert>
 	
 	<!-- 전체 조회 -->
-	<select id="getList" resultType="org.green.seenema.vo.MovieVO">
+	<select id="getList" resultType="MovieVO">
 		SELECT * FROM seenema.movie_tbl;
 	</select>
 	
 	<!-- 영화 코드로 조회 -->
-	<select id="selectOne" resultType="org.green.seenema.vo.MovieVO">
+	<select id="selectOne" resultType="MovieVO">
 		SELECT * FROM seenema.movie_tbl WHERE movieCode = #{param1};
+	</select>
+	
+	<!-- 영화 제목으로 조회 -->
+	<select id="getListByTitle" resultType="MovieVO">
+		SELECT * FROM seenema.movie_tbl WHERE movieTitle LIKE #{param1};
+	</select>
+	
+	<!-- 영화 개봉일로 조회 -->
+	<select id="getListByreleaseDate" resultType="MovieVO">
+		 <![CDATA[ 
+			SELECT * FROM seenema.movie_tbl
+			WHERE releaseDate >= #{param1} and releaseDate <= #{param2}; 
+		]]>
+	</select>
+	
+	<!-- 제목+개봉일로 조회 -->
+	<select id="getListByTitleDate" resultType="MovieVO">
+		 <![CDATA[ 
+			SELECT * FROM seenema.movie_tbl
+			WHERE movieTitle LIKE #{param1} and releaseDate >= #{param2} and releaseDate <= #{param3}; 
+		]]>
 	</select>
 	
 	<!-- 영화 정보 수정 -->

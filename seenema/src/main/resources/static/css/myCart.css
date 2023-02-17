@@ -48,6 +48,7 @@ input[type="checkbox"]:checked ~ label{
 	border: none;
 }
 #itemList{
+	margin-top: 10px;
 	border-top: 3px solid black;
 	text-align: center;
 }
@@ -284,4 +285,15 @@ input[type="checkbox"]:checked ~ label{
 	text-align: center;
 	font-size: 25px;
 	cursor: pointer;
+}
+
+#emptyListWrap{
+	border-bottom: 1px solid #c7c7c7;
+	height: 300px;
+	line-height: 300px;
+	color: gray;
+	margin-bottom: 10px;
+}
+.emptyListCheckBox{
+	pointer-events: none;
 }

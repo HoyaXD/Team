@@ -121,18 +121,23 @@
 			$(obj).each(function(index){
 				//console.log(obj[index].comment);
 				let star;
+				let unstar;
 				let rate;
 				if(obj[index].rate == "1"){
 					star = "★";
+					unstar = "★★★★";
 					rate = "1";
 				}else if(obj[index].rate == "2"){
 					star = "★★";
+					unstar = "★★★";
 					rate = "2";
 				}else if(obj[index].rate == "3"){
 					star = "★★★";
+					unstar = "★★";
 					rate = "3";
 				}else if(obj[index].rate == "4"){
 					star = "★★★★";
+					unstar = "★";
 					rate = "4";
 				}else{
 					star = "★★★★★";
@@ -141,9 +146,18 @@
 				$(".replyList").append(
 						"<div class='replyBox'>"
 							+ "<input type='hidden' id='replyCode' value=" + this.replyCode + ">"
-							+ "<div class='replyBoxTop'>" 
-								+ "<div id='replyStar'>" + star + "</div>"
-								+ "<div id='replyRate'>" + rate + "</div>"
+							+ "<div class='replyBoxTop'>"
+							+ (rate != 5? 
+									"<div id='replyStar'>" 
+										+ "<span class='star'>" + star + "</span>" 
+										+ "<span class='unstar'>" + unstar + "</span>" 
+									+ "</div>" 
+									+ "<div id='replyRate'>" + rate + "</div>"
+									: 
+									"<div id='replyStar'>" 
+										+ "<span class='star'>" + star + "</span>" 
+									+ "</div>" 
+									+ "<div id='replyRate'>" + rate + "</div>")
 								+ (id == this.id? "<div class='btnWrap'><div id='updateBtn'>수정</div><div id='deleteBtn'>삭제</div></div>" : "")
 							+ "</div>"
 							+ "<div id='replyComment'>" + this.comment + "</div>" 

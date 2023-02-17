@@ -1,4 +1,4 @@
-package org.green.seenema.mapper;
+package org.green.seenema.user.store.mapper;
 
 import java.util.ArrayList;
 

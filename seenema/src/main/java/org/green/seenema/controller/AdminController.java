@@ -84,7 +84,8 @@ public class AdminController {
 	}
 	
 	@PostMapping("/movieUplode.do")
-	public String uploadMovieDo(MovieVO movieVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {
+	public String uploadMovieDo(String selected_result, MovieVO movieVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {
+		System.out.println(selected_result);
 		//영화등록실행
 		String fileName = file.getOriginalFilename();
 		
