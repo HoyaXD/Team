@@ -10,7 +10,7 @@
 <body>
 <h1>영화관 정보 수정 페이지</h1>
 <hr>
-<form action="theaterUpdate.do" method="post">
+<form action="theaterUpdate.do" method="post" enctype="multipart/form-data">
 	<table border="1">
 		<tr>
 			<th>영화관 코드</th>
@@ -71,7 +71,6 @@
 		location.href="theaterDelete.do?theaterCode=" + $("#theaterCode").val();
 	})
 </script>
-
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3e2cb63af5ce21e3e335968b15d8713a"></script>
 <script>

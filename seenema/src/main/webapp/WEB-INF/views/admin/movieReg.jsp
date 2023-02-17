@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,17 +117,31 @@
                     <span id="menu_inMenu">
                         <div id="input_title">상영관</div>
                         <div id="textbox">
-                            <select class="selectMenu" id="theater" name="theater" size="1">
-                                <option value="none">-선택-</option>
-                                <option value="서울">서울</option>
-                                <option value="부산">부산</option>
-                                <option value="창원">창원</option>
+                            <select class="selectMenu" id="theater" size="1">
+	                                <option value="none">-선택-</option>
+                                <c:forEach var="t" items="${theater }">
+	                                <option value="${t.theaterName }">${t.theaterName }</option>
+                                </c:forEach>
                             </select>
                         </div>
                     </span>
                     <span id="selected_theater">
                         <div id="input_title" class="selected_theater"></div>
                         <div id="textbox" class="selected_result" name="selected_result">
+                           
+                        </div>
+                    </span>
+                </div>
+                <div id="input_menu_1">
+                    <span id="menu_inMenu">
+                        <div id="input_title">상영시간</div>
+                        <div id="textbox">
+                            <input type="time" id="sel_playingTime">
+                        </div>
+                    </span>
+                    <span id="selected_time">
+                        <div id="input_title" class="selected_time"></div>
+                        <div id="textbox" class="selected_time_result" name="selected_time_result">
                            
                         </div>
                     </span>
@@ -217,7 +232,7 @@
                 $(".selected_result").append("<button value='" + $("#theater").val() + "' id='theater_del'>" 
                                                 + $("#theater").val() + 
                                             " X</button>"+
-                                            "<input type='hidden' name='selected_result' value='"+$("#theater").val()+"'> "
+                                            "<input type='hidden' name='theater' value='"+$("#theater").val()+"'> "
                                             );
             }else if($("#theater").val() == "none"){
                 
@@ -227,6 +242,23 @@
         });
         
         $(".selected_result").on("click", $("#theater_del"), function(e){
+        	e.target.remove(); 
+        });
+
+        $("#sel_playingTime").on("change", function(){
+            $(".selected_time").text("선택된 상영시간");
+            if($(".selected_time_result").text().includes($("#sel_playingTime").val() + " X") == false){
+                $(".selected_time_result").append("<button value='" + $("#sel_playingTime").val() + "' id='playingTime_del'>" 
+                                                + $("#sel_playingTime").val() + 
+                                            " X</button>"+
+                                            "<input type='hidden' name='playingTime' value='"+$("#sel_playingTime").val()+"'> "
+                                            );
+            }else{
+                alert("이미 추가된 상영시간 입니다.");
+            }
+        });
+
+        $(".selected_time_result").on("click", $("#playingTime_del"), function(e){
         	e.target.remove(); 
         });
       </script>

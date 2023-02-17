@@ -115,7 +115,7 @@ a {
    font-size: 30px;
    font-weight: bolder;
 }
-#movieReg_form{
+#movieUpdate_form{
   /*border: 1px solid black; */
     width: 450px;
     height: 800px;
@@ -165,6 +165,10 @@ a {
     padding-left: 5px;
     transition: 0.4s;
 }
+#movieCode{
+	background-color: lightgray;
+	
+}
 #textbox input:hover, #textbox input:active, #textbox input:focus, 
 textarea:hover, textarea:active, textarea:focus,
 #upload_btn:hover, #upload_btn:active, #upload_btn:focus,
@@ -183,10 +187,11 @@ textarea:hover, textarea:active, textarea:focus,
     top: 10px;
 }
 #selected_theater button{
-    
     background-color: transparent;
     border: none;
     cursor: pointer;
+    margin-left:3px;
+    
 }
 #selected_time button{
    background-color: transparent;
@@ -194,6 +199,7 @@ textarea:hover, textarea:active, textarea:focus,
     padding: 3px;
     cursor: pointer;
 }
+
 #regied_content{
     /* border: 1px solid black; */
     width: 380px;
@@ -205,7 +211,11 @@ textarea:hover, textarea:active, textarea:focus,
     height: 450px;
     margin-top: 20px;
 }
-img{
+#photo{
+	width:370px;
+	height:450px;
+}
+img, #photo{
     object-fit: contain;
 }
 #regied_preview{
@@ -221,6 +231,8 @@ img{
     border: 1px solid lightslategray;
     color: lightslategray;
 }
+
+
 textarea{
     width: 380px;
     height: 120px;

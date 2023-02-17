@@ -79,7 +79,7 @@ a {
 
 .gamut {
    width: 1300px;
-   height: 1100px;
+   height: 1000px;
    border: 1px red solid;
 }
 /*
@@ -94,7 +94,7 @@ a {
 .main_view {
    float: right;
    width: 1094px;
-   height: 1100px;
+   height: 1000px;
    border: 1px solid green;
 }
 
@@ -115,8 +115,8 @@ a {
    font-size: 30px;
    font-weight: bolder;
 }
-#movieReg_form{
-  /*border: 1px solid black; */
+#productReg_form{
+    /* border: 1px solid black; */
     width: 450px;
     height: 800px;
     margin-left: 30px;
@@ -128,12 +128,12 @@ a {
 #input_menu{
    /* border: 1px solid red; */
    width: 400px;
-   margin-top: 15px;
+   margin-top: 30px;
 }
 #input_menu_1{
-   /*  border: 1px solid red; */
+    /* border: 1px solid red; */
     width: 400px;
-    margin-top: 15px;
+    margin-top: 30px;
 }
 #menu_inMenu{
     /* border: 1px solid black; */
@@ -172,57 +172,29 @@ textarea:hover, textarea:active, textarea:focus,
     transition: 0.4s;
     border: 1px solid black;
 }
-#selected_theater, #selected_time{
-    /* border: 1px solid black; */
-    width: 195px;
-    height: 50px;
-    line-height: 24px;
-    display: inline-block;
-    overflow: auto;
-    position: relative;
-    top: 10px;
-}
-#selected_theater button{
-    
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-#selected_time button{
-   background-color: transparent;
-    border: none;
-    padding: 3px;
-    cursor: pointer;
-}
+
 #regied_content{
     /* border: 1px solid black; */
     width: 380px;
     height: 800px;
 }
 #regied_photo{
-    
     width: 370px;
     height: 450px;
-    margin-top: 20px;
+    margin-top: 50px;
 }
-img{
-    object-fit: contain;
-}
-#regied_preview{
-    
-    width: 370px;
-    height: 300px;
-    margin-top: 20px;
-}
-#regied_photo, #regied_preview{
+#regied_photo{
     text-align: center;
     line-height: 270px;
     border-radius: 5px;
     border: 1px solid lightslategray;
     color: lightslategray;
 }
+img{
+    object-fit: contain;
+}
 textarea{
-    width: 380px;
+    width: 370px;
     height: 120px;
     resize: none;
     border-radius: 5px;
@@ -234,12 +206,11 @@ textarea{
     padding-left: 5px;
     transition: 0.4s;
 }
-
 #upload_btn{
     display:inline-block;
     line-height: 30px;
     font-size: 13px;
-    width: 170px;
+    width: 360px;
     height: 30px;
     border-radius: 5px;
     border: none;
@@ -253,7 +224,7 @@ textarea{
     /* border: 1px solid red; */
     width: 400px;
     height: 30px;
-    margin-top: 25px;
+    margin-top: 30px;
     text-align: center;
 }
 #submitBox input{
@@ -276,7 +247,7 @@ textarea{
    display: flex;
    flex-wrap: wrap;
    width: 1000px;
-   height: 900px;
+   height: 800px;
    border: 1px solid darkgreen;
 }
 
