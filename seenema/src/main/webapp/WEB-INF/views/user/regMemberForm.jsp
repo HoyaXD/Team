@@ -5,14 +5,19 @@
   Time: 5:43 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
 </head>
 <body>
 <div class="mainContainer">
+    <header>
+        <%@ include file="header.jsp"%>
+    </header>
     <h1>회원가입</h1>
     <br>
     <table>
