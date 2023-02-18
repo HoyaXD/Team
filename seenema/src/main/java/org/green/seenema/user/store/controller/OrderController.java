@@ -51,14 +51,31 @@ public class OrderController {
 		return result;
 	}
 	
-	// 구매내역 목록 가져오기
+	// 결제내역 목록 가져오기
 	@GetMapping("/order/getOrderList.do")
-	public List<OrderVO> getOrderList(String id, HttpServletRequest request) {
-		HttpSession session = request.getSession();	// 나웅에 지워야함
-		session.setAttribute("id", "kim");	// 나중에 지워야함
+	public List<OrderVO> getOrderList(String id) {
 		List<OrderVO> list = mapper.getOrderList(id);
 		return list;
 	}
 	
+	// 결제내역 날짜선택 조회
+	@PostMapping("/order/searchGetOrderList.do")
+	public List<OrderVO> getSearchOrderList(String id, String startDate, String endDate, int status){
+		List<OrderVO> list = mapper.getSearchOrderList(id, startDate, endDate, status);
+		return list;
+	}
 	
+	// 결제 상세페이지 정보 가져오기
+	@GetMapping("/order/getDetail.do")
+	public OrderVO getDetail(Long orderNum){
+		OrderVO order = mapper.getOrderDetail(orderNum);
+		return order;
+	}
+	
+	// 결제 취소
+	@PostMapping("/order/refund.do")
+	public int refund(Long orderNum) {
+		int result = mapper.refund(orderNum);
+		return result;
+	}
 }

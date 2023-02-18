@@ -79,7 +79,7 @@ a {
 
 .gamut {
    width: 1300px;
-   height: 1000px;
+   height: 1100px;
    border: 1px red solid;
 }
 /*
@@ -94,7 +94,7 @@ a {
 .main_view {
    float: right;
    width: 1094px;
-   height: 1000px;
+   height: 1100px;
    border: 1px solid green;
 }
 
@@ -116,7 +116,7 @@ a {
    font-weight: bolder;
 }
 #movieReg_form{
-    /* border: 1px solid black; */
+  /*border: 1px solid black; */
     width: 450px;
     height: 800px;
     margin-left: 30px;
@@ -128,12 +128,12 @@ a {
 #input_menu{
    /* border: 1px solid red; */
    width: 400px;
-   margin-top: 10px;
+   margin-top: 15px;
 }
 #input_menu_1{
-    /* border: 1px solid red; */
+   /*  border: 1px solid red; */
     width: 400px;
-    margin-top: 18px;
+    margin-top: 15px;
 }
 #menu_inMenu{
     /* border: 1px solid black; */
@@ -172,8 +172,8 @@ textarea:hover, textarea:active, textarea:focus,
     transition: 0.4s;
     border: 1px solid black;
 }
-#selected_theater{
-   /*  border: 1px solid black; */
+#selected_theater, #selected_time{
+    /* border: 1px solid black; */
     width: 195px;
     height: 50px;
     line-height: 24px;
@@ -183,9 +183,15 @@ textarea:hover, textarea:active, textarea:focus,
     top: 10px;
 }
 #selected_theater button{
-    width: 45px;
+    
     background-color: transparent;
     border: none;
+    cursor: pointer;
+}
+#selected_time button{
+   background-color: transparent;
+    border: none;
+    padding: 3px;
     cursor: pointer;
 }
 #regied_content{
@@ -198,6 +204,9 @@ textarea:hover, textarea:active, textarea:focus,
     width: 370px;
     height: 450px;
     margin-top: 20px;
+}
+img{
+    object-fit: contain;
 }
 #regied_preview{
     
@@ -213,7 +222,7 @@ textarea:hover, textarea:active, textarea:focus,
     color: lightslategray;
 }
 textarea{
-    width: 400px;
+    width: 380px;
     height: 120px;
     resize: none;
     border-radius: 5px;
@@ -241,7 +250,7 @@ textarea{
     margin-top: 3px;
 }
 #submitBox{
-  /*   border: 1px solid red; */
+    /* border: 1px solid red; */
     width: 400px;
     height: 30px;
     margin-top: 25px;
@@ -267,7 +276,7 @@ textarea{
    display: flex;
    flex-wrap: wrap;
    width: 1000px;
-   height: 800px;
+   height: 900px;
    border: 1px solid darkgreen;
 }
 

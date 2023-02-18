@@ -24,14 +24,15 @@ public class UserController {
 	@Autowired
 	private ReplyMapper mapper;
 	
+	@GetMapping("/main")
+	public void main() {}
+	
 	@GetMapping("/movieDetailView")
 	public void movieDetailView() {}
 	
 	@PostMapping("/getReplyList.do")
 	@ResponseBody
-	public ArrayList<ReplyVO> getReplyList(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		session.setAttribute("id", "lee");
+	public ArrayList<ReplyVO> getReplyList(){
 		ArrayList<ReplyVO> list = mapper.getReplyList();
 		return list;
 	}

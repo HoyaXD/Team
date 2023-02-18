@@ -54,4 +54,9 @@ public class UserStoreController {
 	@GetMapping("/myOrderList")
 	public void myOrderList() {}
 	
+	// 결제내역 상세페이지
+	@GetMapping("/orderDetailView")
+	public void orderDetailView(Long orderNum, Model model) {
+		model.addAttribute("orderNum", orderNum);
+	}
 }

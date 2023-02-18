@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+* {
+   font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
+   padding: 0;
+   margin: 0 auto;
+}
+
+header{
+	width: 1300px;
+	height: 150px;
+	border-bottom: 1px solid red;
+}
+
+section{
+	width: 100%;
+	height: 400px;
+	background-color: black;
+}
+main{
+}
+footer{
+	width: 1300px;
+	height: 150px;
+	border-top: 1px solid gainsboro;
+}

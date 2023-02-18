@@ -7,62 +7,26 @@
 <head>
 <meta charset="UTF-8">
 <title>결제내역 - 시네마</title>
-<!-- <script src="/webjars/jquery/3.5.1/jquery.min.js"></script> -->
+<script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/myOrderList.css">
- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
- <link rel="stylesheet" href="/resources/demos/style.css">
- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
 	<div class="container">
-		<c:if test="${sessionScope.id eq null}">
 		<header>
-			<input type="hidden" id="id" value="kim">
+			<input type="hidden" id="id" value="${sessionScope.logid }">
 		</header>
 		<main>
-			<div class="searchBarWrap">
-				<div id="searchContentChoice">
-					<span>조회 내용</span>
-					<button class="grayBtn on">결제완료</button>
-					<button class="grayBtn">결제취소</button>
-				</div>
-				<div id="searchDateChoice">
-					<span>조회 기간</span>
-					<button class="grayBtn">1개월</button>
-					<button class="grayBtn">3개월</button>
-					<button class="grayBtn">6개월</button>
-					<button class="grayBtn">직접/입력</button>
-				</div>
-			</div>
-			<ul id="itemList">
-				<li class="listHead">
-					<div>구매일</div>
-					<div>주문번호</div>
-					<div>상품명</div>
-					<div>결제금액</div>
-					<div>상태</div>
-				</li>
-				<li>
-					<div id="emptyListWrap">
-						구매 내역이 존재하지 않습니다.
-					</div>
-				</li>
-			</ul>
-		</main>
-		<footer>푸터</footer>
-		</c:if>
-		<c:if test="${sessionScope.id != null}">
-		<header>
-			<input type="hidden" id="id" value="kim">
-		</header>
 			<div class="buyListWrap">
 				<div class="myOrderListTitle">나의️ 결제내역</div>
 				<div class="searchBarWrap">
 					<div id="searchContentChoice">
 						<span>조회 내용</span>
-						<button class="grayBtn on" value="0">결제완료</button>
-						<button class="grayBtn">결제취소</button>
+						<button class="grayBtn on" value="1">결제완료</button>
+						<button class="grayBtn" value="0">결제취소</button>
 					</div>
 					<div id="searchDateChoice">
 						<span>조회 기간</span>
@@ -73,25 +37,82 @@
 					<div class="calendar">
 						<span>기간 선택</span>
 						<input type="text" class="before" id="datepicker1" readonly>
+						<label id="img" for="datepicker1"></label>
 						 ~ 
-						<input type="text" class="now" id="datepicker2" readonly placeholder="">
+						<input type="text" class="now" id="datepicker2" readonly>
+						<label id="img" for="datepicker2"></label>
 						<input type="button" id="searchBtn" value="조회하기">
 					</div>
 				</div>
 				<div id="totalCountWrap">
 					<div id="productNotice">※ (주문번호 또는 상품명을 클릭하면 결제내역 상세조회가 가능합니다.)</div>
 					<div id="right">
-						<span>총</span><span class="listSize">${list.size()}</span><span>개</span>
+						<span>총</span><span class="listSize"></span><span>개</span>
 					</div>
 				</div>
 				<ul id="itemList">
 				<!-- 데이터 -->
 				</ul>
 			</div>
-			<footer>푸터</footer>
-		</c:if>
+		</main>
+		<footer>푸터</footer>
 	</div>
 <script>
+	// 조회하기 버튼
+	$("#searchBtn").on("click", function(){
+		const xhttp = new XMLHttpRequest();
+		xhttp.onload = function(){
+			let data = this.responseText;
+			let obj = JSON.parse(data);
+			if(obj.length == 0){
+				$("#itemList").empty();
+				$("#itemList").append(
+					"<li class='listHead'>"
+						+ "<div>구매일</div>"
+						+ "<div>주문번호</div>"
+						+ "<div>상품명</div>"
+						+ "<div>결제금액</div>"
+						+ "<div>상태</div>"
+					+ "</li>"
+					+ "<li>"
+						+ "<div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div>"
+					+ "</li>"
+				);
+			}else{
+				$("#itemList").empty();
+				$("#itemList").html(
+						"<li class='listHead'>"
+							+ "<div>구매일</div>"
+							+ "<div>주문번호</div>"
+							+ "<div>상품명</div>"
+							+ "<div>결제금액</div>"
+							+ "<div>상태</div>"
+						+ "</li>"
+				);
+				$(obj).each(function(index){
+					$("#itemList").append(
+							"<li class='item'>"
+								+ "<div class='orderDate'>" + this.orderDate + "</div>"
+								+ "<div><a href='/user/orderDetailView?orderNum=" + this.orderNum + "'>" + this.orderNum + "</a></div>"
+								+ "<div><a href='/user/orderDetailView?orderNum=" + this.orderNum + "' class='productName'>" + this.productName + "</a></div>"
+								+ "<div>" + this.totalPrice + "<span>원</span></div>"
+								+ (this.status == 1? "<div class='useable'>사용가능</div>" : "<div class='unUseable'>환불완료</div>")
+							+ "</li>"
+							
+					);
+				});
+				$(".listSize").text(obj.length);	// 총 ??개
+			}
+		}
+		let id = $("#id").val();
+		let startDate = $("#datepicker1").val();
+		let endDate = $("#datepicker2").val();
+		let status = $("#searchContentChoice > .grayBtn.on").val();
+		//alert(status + "," + id + "," + startDate + "," + endDate);
+		xhttp.open("post", "/user/order/searchGetOrderList.do", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send("id=" + id + "&startDate=" + startDate + "&endDate=" + endDate + "&status=" + status);
+	});
 	// 데이트 피커 초기값 세팅
 	$(document).ready(function () {
 	    $.datepicker.setDefaults($.datepicker.regional['ko']); 
@@ -135,13 +156,13 @@
 	    $("#datepicker2").val(today);
 	});
 	
-	$("#searchDateChoice > button").on("click", function(){
-		let setMonth = $(this).val();
-		let day = new Date();
-	    let today = day.toISOString().substring(0,10);
-	    let calcDate = new Date(day.setMonth(day.getMonth() - setMonth)).toISOString().substring(0,10);
-		//console.log(calcDate);
-		$("#datepicker1").val(calcDate);
+	// 1개월 3개월 6개월 버튼
+	$(document).on("click", "#searchDateChoice > button", function(){
+		let month = $(this).val();
+		let afterDate = new Date($("#datepicker2").val());
+		afterDate.setMonth(afterDate.getMonth() - month);
+		let beforeDate = afterDate.toISOString().substring(0,10)
+		$("#datepicker1").val(beforeDate);
 	});
 	
 	// 페이지 로드되면 리스트 보여주기
@@ -150,24 +171,41 @@
 		xhttp.onload = function(){
 			let data = this.responseText;
 			let obj = JSON.parse(data);
-			if(obj.length == null){
-				alert("없음");
+			if(obj.length == 0){
+				$("#itemList").append(
+					"<li class='listHead'>"
+						+ "<div>구매일</div>"
+						+ "<div>주문번호</div>"
+						+ "<div>상품명</div>"
+						+ "<div>결제금액</div>"
+						+ "<div>상태</div>"
+					+ "</li>"
+					+ "<li>"
+						+ "<div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div>"
+					+ "</li>"
+				);
 			}else{
+				$("#itemList").html(
+					"<li class='listHead'>"
+						+ "<div>구매일</div>"
+						+ "<div>주문번호</div>"
+						+ "<div>상품명</div>"
+						+ "<div>결제금액</div>"
+						+ "<div>상태</div>"
+					+ "</li>"
+				);
 				$(obj).each(function(index){
 					$("#itemList").append(
-							"<li class='listHead'>"
-							+ "<div>구매일</div>"
-							+ "<div>주문번호</div>"
-							+ "<div>상품명</div>"
-							+ "<div>결제금액</div>"
-							+ "<div>상태</div>"
-							+ "</li>"
-							+ "<li class='item'>"
+							 "<li class='item'>"
 								+ "<div class='orderDate'>" + this.orderDate + "</div>"
-								+ "<div><a href=''>" + this.orderNum + "</a></div>"
-								+ "<div><a href='' class='productName'>" + this.productName + "</a></div>"
-								+ "<div>" + this.totalPrice + "<span>원</span></div>"
-								+ (this.status == 0? "<div class='useable'>사용가능</div>" : "<div class='unUseable'>사용완료</div>")
+								+ "<div>"
+									+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "'>" + this.orderNum + "</a>"
+								+ "</div>"
+								+ "<div>" 
+									+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "' class='productName'>" + this.productName + "</a>" 
+								+ "</div>"
+								+ "<div>" + this.totalPrice.toLocaleString('ko-KR') + "<span>원</span></div>"
+								+ (this.status == 1? "<div class='useable'>사용가능</div>" : "<div class='unUseable'>환불완료</div>")
 							+ "</li>"
 							
 					);
@@ -175,25 +213,12 @@
 				$(".listSize").text(obj.length);	// 총 ??개
 			}
 		}
-		xhttp.open("get", "/user/order/getOrderList.do?id=kim", true);
+		let id = $("#id").val();
+		xhttp.open("get", "/user/order/getOrderList.do?id=" + id, true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send();
 	});
 	
-	// 조회하기 버튼
-	$("#searchBtn").on("click", function(){
-		//console.log($("#datepicker1").val());
-		//console.log($("#datepicker2").val());
-		const xhttp = new XMLHttpRequest();
-		xhttp.onload = function(){
-			
-		}
-		let startDate = $("#datepicker1").val();
-		let endDate = $("#datepicker2").val();
-		xhttp.open("post", "/user/searchGetOrderList.do", true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.send();
-	});
 	
 	// 조회 내용 선택
 	$("#searchContentChoice > button").on("click", function(){

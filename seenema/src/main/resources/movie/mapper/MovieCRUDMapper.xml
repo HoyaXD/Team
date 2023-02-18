@@ -7,13 +7,16 @@
 	
 	<!-- 등록 -->
 	<insert id="insertMovie">
-		INSERT INTO seenema.movie_tbl(movieTitle, genre, plot, director, actors, viewAge, releaseDate, runningTime, postFileName, previewURL, hit) 
-			VALUES(#{movieTitle}, #{genre}, #{plot}, #{director}, #{actors}, #{viewAge}, #{releaseDate}, #{runningTime}, #{postFileName}, #{previewURL}, #{hit})
+		INSERT INTO seenema.movie_tbl
+			(movieTitle, genre, plot, director, actors, viewAge, releaseDate, theater, runningTime, postFileName, previewURL, hit, playingTime, start_date, end_date) 
+		VALUES
+			(#{movieTitle}, #{genre}, #{plot}, #{director}, #{actors}, #{viewAge}, #{releaseDate}, #{theater}, #{runningTime}, #{postFileName}, #{previewURL}, #{hit}, #{playingTime}, #{start_date}, #{end_date})
 	</insert>
 	
 	<!-- 전체 조회 -->
 	<select id="getList" resultType="MovieVO">
-		SELECT * FROM seenema.movie_tbl;
+		SELECT *
+		FROM seenema.movie_tbl order by movieCode DESC LIMIT 8;
 	</select>
 	
 	<!-- 영화 코드로 조회 -->
@@ -45,9 +48,10 @@
 	<!-- 영화 정보 수정 -->
 	<update id="update">
 		UPDATE seenema.movie_tbl SET movieTitle=#{movieTitle}, genre=#{genre}, plot=#{plot}, 
-			director=#{director}, actors=#{actors}, viewAge=#{viewAge}, 
-			releaseDate=#{releaseDate}, runningTime=#{runningTime}, 
-			postFileName=#{postFileName}, previewURL=#{previewURL}
+				director=#{director}, actors=#{actors}, viewAge=#{viewAge}, 
+				releaseDate=#{releaseDate}, runningTime=#{runningTime}, 
+				postFileName=#{postFileName}, previewURL=#{previewURL}, theater=#{theater},
+				playingTime=#{playingTime}, start_date=#{start_date}, end_date=#{end_date} 
 			WHERE movieCode=#{movieCode};
 	</update>
 	

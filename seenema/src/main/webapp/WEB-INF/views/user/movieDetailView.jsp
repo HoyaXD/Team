@@ -293,21 +293,23 @@
 	
 	// 댓글 삭제
 	$(document).on("click", "#deleteBtn", function(e){
-		const replyCode = e.target.parentElement.parentElement.parentElement.children[0].value;
-		replyCode;
-		const xhttp = new XMLHttpRequest();
-		xhttp.onload = function(){
-			let result = this.responseText;
-			if(result == "1"){
-				alert("댓글을 삭제 완료.");
-				getReplyList();
-			}else{
-				alert("댓글 삭제 실패");
+		if(confirm("댓글을 삭제하시겠습니까?") == true){
+			const replyCode = e.target.parentElement.parentElement.parentElement.children[0].value;
+			replyCode;
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function(){
+				let result = this.responseText;
+				if(result == "1"){
+					alert("댓글을 삭제 완료하였습니다");
+					getReplyList();
+				}else{
+					alert("댓글 삭제 실패");
+				}
 			}
+			xhttp.open("post", "/user/deleteReply.do", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("replyCode=" + replyCode);
 		}
-		xhttp.open("post", "/user/deleteReply.do", true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.send("replyCode=" + replyCode);
 	});
 	
 </script>
