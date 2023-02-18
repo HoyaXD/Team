@@ -16,9 +16,8 @@
       text-align: center;
     }
     #header_top{
-      padding-top: 30px;
       width: 1300px;
-      height: 100px;
+      height: 130px;
       border-bottom: 1px solid #d2cece;
     }
     #top_logo{
@@ -26,8 +25,8 @@
       float: left;
     }
     #top_logo img{
-      width: 250px;
-      height: 80px;
+      width: 300px;
+      height: 120px;
     }
     .top_menu{
       display: inline-block;
@@ -36,7 +35,7 @@
     }
     .top_menu li{
       font-size: 12px;
-      margin-top: 30px;
+      margin-top: 60px;
       float:right;
       margin-left:40px;
     }
@@ -48,11 +47,16 @@
       text-decoration-line: none;
       color: black;
     }
-    .menu_wrap{
-      position: relative;
-      width:1300px;
+
+
+
+    .menu_wrap {
+
+      width: 1300px;
       height: 40px;
-      text-align:left;
+      text-align: left;
+      border-bottom: solid 2px red;
+      z-index: 3;
     }
     .menu_wrap li{
       margin-top: 10px;
@@ -60,36 +64,51 @@
       margin-right: 80px;
       font-size: 18px;
     }
-    .menu_wrap_after{
-      border: solid 1px red;
-    }
+
     .nav_active{
-      height: 300px;
+      position: absolute;
+      z-index: 2;
+      width: 1500px;
+      left: 280px;
+      height: 230px;
+      background-color: white;
       display: none;
-      position: relative;
-      z-index: 3;
-    }
-    .nav_flex{
-      display: flex;
     }
     .nav_active li{
       margin-top: 25px;
     }
     .active_title{
-      font-size: 24px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+    .nav_flex{
+      position: absolute;
+      z-index: 1;
+      text-align: left;
+    }
+    .under_menu{
+      position: relative;
     }
     .active_menu{
+      display: inline-block;
+      z-index: 3;
+      border-right: solid 1px #d2cece;
+      width: 250px;
     }
-    .test{
-      border: #1f53ff;
-      height: 80px;
+    .active_menu li{
+      text-align: left;
     }
+    #active_board{
+      border: none;
+    }
+
+
   </style>
 </head>
 <body>
   <header>
     <div id="header_top">
-      <a href="#"><div id="top_logo"><img src="/images/logo.png"></div></a>
+      <a href="main"><div id="top_logo"><img src="/images/logo2.png"></div></a>
       <div class="top_menu">
         <ul>
           <c:if test="${sessionScope.logid == null }">
@@ -99,70 +118,71 @@
             </c:if>
             <c:if test="${sessionScope.logid != null }">
             <li><a href="#"><img src="/images/service.png"><br>고객센터</a>
-            <li id="mypage"><a href="regMain"><img src="/images/my.png"><br>마이페이지</a>
+            <li id="mypage"><a href="myPage"><img src="/images/my.png"><br>마이페이지</a>
             <li><a href="logout"><img src="/images/login.png"><br>로그아웃</a>
             </c:if>
         </ul>
       </div>
     </div>
-    <div class = "menu_wrap">
-      <ul class="dep1">
-        <li><a href="#">영화</a></li>
-        <li><a href="reservationMain">예매</a></li>
-        <li><a href="storeView">스토어</a></li>
-        <li><a href="menu">게시판</a></li>
-      </ul>
+    <div class = "under_menu">
+      <div class = "menu_wrap">
+        <ul class="dep1">
+          <li><a href="#">영화</a></li>
+          <li><a href="reservationMain">예매</a></li>
+          <li><a href="storeView">스토어</a></li>
+          <li><a href="menu">게시판</a></li>
+        </ul>
+      </div>
+      <div class = "nav_active">
+        <div class="nav_flex">
+          <div id="active_movie" class="active_menu">
+            <ul>
+              <a href="#"><li class="active_title">영화</li></a>
+              <a href="#"><li>무비차트</li></a>
+              <a href="#"><li>아트하우스</li></a>
+              <a href="#"><li>icecon</li></a>
+            </ul>
+          </div>
+          <div id="active_reservation" class="active_menu">
+            <ul>
+              <a href="reservationMain"><li class="active_title">예매</li></a>
+              <a href="reservationMain"><li>빠른예매</li></a>
+              <a href="reservationHistory"><li>내 예매내역</li></a>
+              <a href="#"><li>icecon</li></a>
+            </ul>
+          </div>
+          <div id="active_store" class="active_menu">
+            <ul>
+              <a href="storeView"><li class="active_title">스토어</li></a>
+              <a href="#"><li>무비차트</li></a>
+              <a href="#"><li>아트하우스</li></a>
+              <a href="#"><li>icecon</li></a>
+            </ul>
+          </div>
+          <div id="active_board" class="active_menu">
+            <ul>
+              <a href="#"><li class="active_title">게시판</li></a>
+              <a href="#"><li>무비차트</li></a>
+              <a href="#"><li>아트하우스</li></a>
+              <a href="#"><li>icecon</li></a>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class = "menu_wrap_after"></div>
-    <div class = "nav_active">
-      <div class="nav_flex">
-      <div id="active_moive" class="active_menu">
-        <ul>
-          <a href="#"><li class="active_title">영화</li></a>
-          <a href="#"><li>무비차트</li></a>
-          <a href="#"><li>아트하우스</li></a>
-          <a href="#"><li>icecon</li></a>
-        </ul>
-      </div>
-      <div id="active_reservation" class="active_menu">
-        <ul>
-          <a href="#"><li class="active_title">영화</li></a>
-          <a href="#"><li>무비차트</li></a>
-          <a href="#"><li>아트하우스</li></a>
-          <a href="#"><li>icecon</li></a>
-        </ul>
-      </div>
-      <div id="active_store">
-        <ul>
-          <a href="#"><li class="active_title">영화</li></a>
-          <a href="#"><li>무비차트</li></a>
-          <a href="#"><li>아트하우스</li></a>
-          <a href="#"><li>icecon</li></a>
-        </ul>
-      </div>
-      <div id="active_board">
-        <ul>
-          <a href="#"><li class="active_title">영화</li></a>
-          <a href="#"><li>무비차트</li></a>
-          <a href="#"><li>아트하우스</li></a>
-          <a href="#"><li>icecon</li></a>
-        </ul>
-      </div>
-      </div>
-    </div>
-
   </header>
 <script>
-  $('.dep1').hover(function (){
-    $('.nav_active').css("display", "block");
+
+  $(".dep1").hover(()=>{
+      $(".nav_active").slideDown(500);
+  });
+
+  $('.under_menu').mouseleave(function (){
+    $(".nav_active").slideUp(300);
   })
 
-  $('.nav_active').mouseleave(function (){
-    $('.nav_active').css("display", "none");
-  })
-  // $('.menu_wrap').mouseleave(function (){
-  //   $('.nav_active').css("display", "none");
-  // })
+
+
 
 
 </script>

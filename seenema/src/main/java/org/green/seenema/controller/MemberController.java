@@ -2,7 +2,9 @@ package org.green.seenema.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.green.seenema.mapper.MemberMapper;
+import org.green.seenema.mapper.ReservationMapper;
 import org.green.seenema.vo.MemberVO;
+import org.green.seenema.vo.ReservationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -19,6 +22,9 @@ import javax.servlet.http.HttpSession;
 public class MemberController {
     @Autowired
     MemberMapper mapper;
+
+    @Autowired
+    ReservationMapper reservationMapper;
 
     @GetMapping("/loginForm")  //로그인폼으로 가기
     public void loginFomr(){}
@@ -28,7 +34,7 @@ public class MemberController {
         if(n == 1) {
             session.setAttribute("logid", stu.getId());
             model.addAttribute("msg", stu.getId()+"님 로그인완료");
-            model.addAttribute("url", "index");
+            model.addAttribute("url", "header");
 
         }else {
             model.addAttribute("msg", "아이디와 비밀번호를 다시 확인해주세요");
@@ -49,13 +55,10 @@ public class MemberController {
         String msg = null;
         int n = mapper.idCheck(id);
         if(n == 1) {
-            msg = "<span style = 'color : red';>사용불가</span>";
-            model.addAttribute("msg", "<span style = 'color : red';>사용불가</span>");
+            msg = "<span style = 'color : red';>이미 사용 중인 아이디입니다.</span>";
         }else {
             msg = "<span style = 'color : green';>사용가능</span>";
-            model.addAttribute("msg","<span style = 'color : green';>사용가능</span>");
         }
-
         return msg;
     }
 
@@ -69,5 +72,14 @@ public class MemberController {
         return "index";
     }
 
+    @GetMapping("/myPage")
+    public void mypage(){}
+
+
+    @GetMapping("/reservationHistory")
+    public void reservationHistory(Model model, HttpSession session){
+        List<ReservationVO> list =  reservationMapper.searchReservation((String) session.getAttribute("logid"));
+        model.addAttribute("list", list);
+    }
 
 }
