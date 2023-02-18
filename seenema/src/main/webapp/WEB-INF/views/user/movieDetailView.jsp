@@ -17,20 +17,21 @@
 		<main>
 			<div class="movieInfoWrap">
 				<!-- 영화 포스터 이미지 -->
-				<div class="movieImage">영화 포스터</div>
+				<div class="movieImage">
+					<img src="/images/${movie.postFileName }">
+				</div>
 				<!-- 상단 영화 정보 박스 -->
 				<div class="movieInfo">
 					<div class="movieTitle">
-						<div id="title">타이타닉</div>
-						<div id="titleReservationStatus">예매중</div>
+						<div id="title">${movie.movieTitle }</div>
+						<div id="titleReservationStatus">현재 상영중</div>
 						<div id="titleDday">D-1</div>
 					</div>
-					<div class="movieEnglishTitle">Titanic</div>
 					<div class="reservationRate">예매율 33.4%</div>
 					<div class="director_ActorInfoWrap">
-						<div id="director_Actor">감독 : 제임스 카메론 / 배우 : 레오나르도 디카프리오 , 케이트 윈슬렛</div>
-						<div id="genre">장르 : 드라마, 로맨스, 멜로, 액션 / 기본 : 15, 195분, 미국</div>
-						<div id="openDate">개봉 : 2023.02.08</div>
+						<div id="director_Actor">감독 : ${movie.director } / 배우 : ${movie.actors }</div>
+						<div id="genre">장르 : ${movie.genre } / 관람연령 : ${movie.viewAge } / 러닝타임 : ${movie.runningTime }분</div>
+						<div id="openDate">개봉일 : ${movie.releaseDate }</div>
 					</div>
 				</div>
 			</div>

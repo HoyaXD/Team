@@ -25,4 +25,5 @@ public class MovieVO {
 	private String postFileName;  //파일이름
 	private String previewURL;  //예고편URL
 	private int hit; //영화 예매율
+	private int rate;	// 영화 평점
 }

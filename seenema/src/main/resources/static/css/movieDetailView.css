@@ -37,6 +37,10 @@ footer{
 	height: 200px;
 	border: 1px solid black;
 }
+.movieImage > img{
+	width: 155px;
+	height: 200px;
+}
 .movieInfo{
 	width: 80%;
 	padding: 10px;
@@ -105,6 +109,7 @@ footer{
 #replyTopWrap{
 	display: flex;
 	height: 30px;
+	margin-bottom: 10px;
 }
 #replySectionTitle{
 	line-height: 30px;
@@ -115,7 +120,8 @@ footer{
 	line-height: 30px;
 	background-color: #ff4d4d;
 	color: white;
-	font-size: 10px;
+	font-size: 13px;
+	font-weight: bold;
 	border-radius: 5px;
 	border: none;
 	text-align: center;
