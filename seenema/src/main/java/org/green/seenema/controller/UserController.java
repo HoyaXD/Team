@@ -1,14 +1,15 @@
 package org.green.seenema.controller;
 
 import java.util.ArrayList;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 import org.green.seenema.mapper.ReplyMapper;
+import org.green.seenema.user.main.mapper.UserMainMapper;
+import org.green.seenema.vo.MovieVO;
 import org.green.seenema.vo.ReplyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,11 +25,17 @@ public class UserController {
 	@Autowired
 	private ReplyMapper mapper;
 	
+	@Autowired
+	private UserMainMapper mainMapper;
+	
 	@GetMapping("/main")
 	public void main() {}
 	
 	@GetMapping("/movieDetailView")
-	public void movieDetailView() {}
+	public void movieDetailView(String movieCode, Model model) {
+		MovieVO movie = mainMapper.getMovieDetail(movieCode);
+		model.addAttribute("movie", movie);
+	}
 	
 	@PostMapping("/getReplyList.do")
 	@ResponseBody
