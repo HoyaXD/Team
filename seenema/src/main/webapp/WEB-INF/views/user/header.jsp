@@ -108,7 +108,7 @@
 <body>
   <header>
     <div id="header_top">
-      <a href="#"><div id="top_logo"><img src="/images/logo2.png"></div></a>
+      <a href="main"><div id="top_logo"><img src="/images/logo2.png"></div></a>
       <div class="top_menu">
         <ul>
           <c:if test="${sessionScope.logid == null }">

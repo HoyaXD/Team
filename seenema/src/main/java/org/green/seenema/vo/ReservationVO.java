@@ -1,7 +1,6 @@
 package org.green.seenema.vo;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
@@ -22,7 +21,7 @@ public class ReservationVO {
 	private int ticketPrice;
 	private Timestamp reservationDate;
 	private Date movieDate;
-	private String reservateTime;
+	private String reservationTime;
 	private String seats;
 	private int visitors;
 }

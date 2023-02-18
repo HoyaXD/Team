@@ -7,4 +7,8 @@
     <select id="searchReservation" resultType="org.green.seenema.vo.ReservationVO">
         SELECT * FROM reservation_tbl WHERE id = #{id}
     </select>
+
+    <insert id="regReservation">
+        INSERT INTO reservation_tbl (id, movieCode, movieTitle, theaterPlace, theater, ticketPrice,  reservationDate, movieDate, reservationTime, seats, visitors) VALUES (#{id}, #{movieCode}, #{movieTitle}, #{theaterPlace}, #{theater}, #{ticketPrice}, NOW(), #{movieDate}, #{reservationTime}, #{seats}, #{visitors})
+    </insert>
 </mapper>

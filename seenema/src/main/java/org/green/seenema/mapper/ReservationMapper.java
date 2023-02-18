@@ -10,4 +10,6 @@ import java.util.List;
 @Mapper
 public interface ReservationMapper {
     public List<ReservationVO> searchReservation(String id);
+
+    public int regReservation(ReservationVO reservation);
 }

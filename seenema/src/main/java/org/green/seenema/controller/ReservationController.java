@@ -10,11 +10,9 @@ import org.green.seenema.vo.TheaterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @Controller
@@ -22,7 +20,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class ReservationController {
     @Autowired
-    ReservationMapper regMapper;
+    ReservationMapper reservationMapper;
     @Autowired
     MovieMapper movieMapper;
 
@@ -46,8 +44,19 @@ public class ReservationController {
         return tcMapper.getListWherePlace(place);
     }
 
-    @PostMapping("/reservationSeats")
+    @PostMapping("/reservationSeats") //영화관 좌석선택으로 이동하기
     public void reservationSeats(Model model, ReservationVO reservation){
         model.addAttribute("reservation", reservation);
     }
+
+    @PostMapping("/reservation.do") // 예매하기
+    public String reservationdo(ReservationVO reservation, Model model){
+        log.info("예약정보 : " + reservation.toString());
+        int result = reservationMapper.regReservation(reservation);
+        model.addAttribute("reservation", reservation);
+        return "user/reservationComplete";
+    }
+
+    @GetMapping("/reservationComplete")
+    public void reservationComplete(){}
 }

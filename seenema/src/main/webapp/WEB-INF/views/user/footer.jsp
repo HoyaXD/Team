@@ -44,9 +44,7 @@
           <p>이용약관</p>
           <p>편성기준</p>
           <p>법적고지</p>
-          <p>Gift Cards</p>
           <p>개인정보 처리방침</p>
-          <p>Accessibility Information</p>
       </div>
   </footer>
 

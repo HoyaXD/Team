@@ -190,30 +190,14 @@
           <div class="listMenu">
               시간
           </div>
-          <div class="time">
-              10:20
-          </div>
-          <div class="time">
-              12:20
-          </div>
-          <div class="time">
-              13:30
-          </div>
-          <div class="time">
-              17:20
-          </div>
-          <div class="time">
-              18:30
-          </div>
-          <div class="time">
-              19:40
-          </div>
-          <div class="time">
-              21:30
-          </div>
-          <div class="time">
-              23:20
-          </div>
+          <div class="time">10:20</div>
+          <div class="time">12:20</div>
+          <div class="time">13:30</div>
+          <div class="time">17:20</div>
+          <div class="time">18:30</div>
+          <div class="time">19:40</div>
+          <div class="time">21:30</div>
+          <div class="time">23:20</div>
       </div>
   </div>
   <div class="reservationInfo">
@@ -225,7 +209,7 @@
     <div class="info" id="pay">좌석선택</div>
   </div>
 <div id="hidden">
-    <form action="reservationSeats" method="post">
+    <form action="reservationSeats" method="post" name="frm">
         <input type="hidden" name="movieCode" id="movieCode">
         <input type="hidden" name="movieTitle" id="movieTitle">
 <%--        <input type="text" name="postFileName" id="postFileName">--%>
@@ -233,8 +217,8 @@
         <input type="hidden" name="theaterPlace" id="theaterPlace" placeholder="지역">
         <input type="hidden" name="theater" id="theater" placeholder="영화관">
         <input type="hidden" name="movieDate" id="movieDate" placeholder="날짜">
-        <input type="hidden" name="reservateTime" id="reservateTime" placeholder="시간">
-        <input type="submit" value="좌석선택">
+        <input type="hidden" name="reservationTime" id="reservationTime" placeholder="시간">
+        <input type="submit" value="좌석선택" onclick="return validateForm();">
     </form>
 </div>
 <footer>
@@ -290,7 +274,7 @@
     })
 
     $('.time').click(function (e){  //시간 선택시 css, hidden에 값 넣기
-        $('#reservateTime').val($(e.target).text());
+        $('#reservationTime').val($(e.target).text());
         $('.time').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -388,6 +372,44 @@
             }
         });
     });
+
+    function validateForm() {     //유효성검사
+        var movieTitle = document.getElementById("movieTitle");
+        var id = document.getElementsByName("id")[0];
+        var theaterPlace = document.getElementById("theaterPlace");
+        var theater = document.getElementById("theater");
+        var movieDate = document.getElementById("movieDate");
+        var reservationTime = document.getElementById("reservationTime");
+
+        if (id.value === "") {
+            if (confirm("로그인이 필요한 서비스입니다. 로그인하시겠습니까?")) {
+                window.location.href = "loginForm"; // 로그인 페이지 경로
+            }
+            return false;
+        }
+        else if (movieTitle.value === "") {
+            alert("영화를 선택해주세요");
+            return false;
+        }
+
+        else if (theaterPlace.value === "") {
+            alert("상영관 지역을 선택해주세요");
+            return false;
+        }
+        else if (theater.value === "") {
+            alert("상영관을 선택해주세요");
+            return false;
+        }
+        else if (movieDate.value === "") {
+            alert("날짜를 선택해주세요");
+            return false;
+        }
+        else if (reservationTime.value === "") {
+            alert("상영 시간을 선택해주세요");
+            return false;
+        }
+        return true;
+    }
 
 
 </script>
