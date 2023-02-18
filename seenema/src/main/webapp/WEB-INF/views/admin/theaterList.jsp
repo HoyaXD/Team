@@ -18,14 +18,14 @@
             <ul class="mainmenu">
                <li>영화 관리
                   <ul class="submenu">
-                     <li><a href="admin/movieReg">영화등록</a></li>
-                     <li><a href="admin/movieList">영화 목록 및 괸리</a></li>
+                     <li><a href="movieReg">영화등록</a></li>
+                     <li><a href="movieList">영화 목록 및 괸리</a></li>
                   </ul>
                </li>
                <li>영화관 관리
                   <ul class="submenu">
-                     <li><a href="admin/theaterReg">영화관 등록</a></li>
-                     <li><a href="admin/theaterList">영화관 목록 및 관리</a></li>
+                     <li><a href="theaterReg">영화관 등록</a></li>
+                     <li><a href="theaterList">영화관 목록 및 관리</a></li>
                   </ul>
                </li>
                <li>매출 관리

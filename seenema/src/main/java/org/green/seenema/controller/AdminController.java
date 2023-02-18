@@ -279,7 +279,7 @@ public class AdminController {
 		return "redirect:theaterList";
 	}
 	
-	@GetMapping("/test2")
+	@GetMapping("/test")
 	public void test() {
 		
 	}

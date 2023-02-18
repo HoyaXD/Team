@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,13 +71,12 @@
                     <span id="menu_inMenu">
                         <div id="input_title">카테고리</div>
                         <div id="textbox">
-                            <select class="selectMenu" name="cartegory" size="1">
+                            <select class="selectMenu" name="category" size="1">
                                 <option value="">-선택-</option>
-                                <option value="팝콘">팝콘</option>
-                                <option value="음료">음료</option>
-                                <option value="콤보">콤보</option>
-                                <option value="기타">기타</option>
-                                <option value="영화상품권">영화 상품권</option>
+                                <option value="snack">스낵</option>
+                                <option value="ticket">관람권</option>
+                                <option value="best">베스트</option>
+                                <option value="ect">기타</option>
                             </select>
                         </div>
                     </span>
