@@ -13,6 +13,7 @@
 <body>
 	<input type="hidden" id="id" value="kim">
 	<div class="container">
+		<%-- <%@include file="header.jsp" %> --%>
 		<header>
 			<button type="button" id="goMyCartBtn" style="float: right; height: 50px; cursor: pointer;">내 장바구니 가기</button>
 		</header>

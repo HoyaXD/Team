@@ -10,21 +10,24 @@
 <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-	<%@include file="header.jsp" %>
-	<!-- <header>헤더</header> -->
+	<%-- <%@include file="header.jsp" %> --%>
+	<header id="header">헤더</header>
     <div class="content">
         <div class="videoWrap">
             <video autoplay muted loop>
                 <source src="https://adimg.cgv.co.kr/images/202301/antman/0215_antman_pc_1080x608.mp4" type="video/mp4">
                 <!-- <source src="https://adimg.cgv.co.kr/images/202302/MySweetMonster/pc_1080x608.mp4" type="video/mp4"> -->
             </video>
+            <div>상세보기</div>
         </div>
     </div>
         <main>
+        <div>
             <div class="titleWrap">
                 <div class="sectionTitle on" id="movieChartTitle">무비차트</div>
                 <div class="sectionTitle" id="upcomingTitle">상영예정작</div>
             </div>
+		</div>
             <div class="section">
                 <input type="radio" name="slide" id="slide01" checked>
                 <input type="radio" name="slide" id="slide02">
@@ -37,16 +40,43 @@
                 </div>
             </div>
             <div class="storeSection">
-                스토어
+                <div class="package">
+                	<h2>패키지</h2>
+                	<div class="packageWrap">
+                		<a href="#" class="storeItem storeItem1">
+                			<img src="/images/kkeullimPackage.jpeg">
+                			<div class="infoWrap">
+    		            		<div>끌림 패키지</div>
+    		            		<div>아이스 커피 + 콜라</div>
+                			</div>
+							<span>12,000원</span>
+                		</a>
+                	</div>
+                </div>
+                <div class="ticket">
+                	<h2>영화 관람권</h2>
+                	<div class="ticketWrap">
+                	</div>
+                </div>
+                <div class="drink">
+                	<h2>음료</h2>
+                	<div class="drinkWrap">
+                	</div>
+                </div>
             </div>
             <div class="noticeSection">
             	공지사항
             </div>
+        <div class="absoluteBtnWrap">
+        	<a href="#" class="nowReservBtn">예매하기</a>	<!-- 범수행님 매핑 -->
+        	<a href="#header" class="scrollTopBtn">↑</a>
+        </div>
         </main>
     <footer>푸터</footer>
 <script>
-	$(document).ready(getMainMovieList());
+	$(document).ready(getStoreList(), getMainMovieList());
 	
+	//무비차트 목록 불러오기
 	function getMainMovieList(){
 		const xhttp = new XMLHttpRequest();
 		xhttp.onload = function(){
@@ -115,14 +145,14 @@
                                     + "<button class='goMovieResrvBtn' value=" + list[index].movieCode + ">예매하기</button>"
                                 + "</div>"
                                 + "<div class='ranking'>" + (index + 1) + "</div>"
-                                + "<div class='gradient'></div>"
+                                + "<div class='gradient'></div>"	// 그라데이션
                             + "</div>"
                             + "<div class='movieInfo'>"
-                                + (list[index].movieTitle.length < 14 ? 
+                                + (list[index].movieTitle.length < 10 ? 
                                 		"<div class='movieInfoTitle'>" + list[index].movieTitle + "</div>"
-                                		: "<div class='movieInfoTitle'>" + list[index].movieTitle.substring(0, 14) + "···" + "</div>")
+                                		: "<div class='movieInfoTitle'>" + list[index].movieTitle.substring(0, 10) + "···" + "</div>")
                                 + "<div class='movieInfoBottomWrap'>"
-                                    + "<span class='rate'><span class='star'>★</span>" + list[index].rate + "</span><span class='reservationRate'>예매율 37.1%</span>"
+                                    + "<span class='rate'><span class='star'>★</span>" + list[index].avg + "</span><span class='reservationRate'>예매율 " + list[index].hit + "%</span>"
                                 + "</div>"
                             + "</div>"
                         + "</div>"
@@ -130,16 +160,37 @@
 					index++;
 				}
 			}
+			//alert("hello");
 		}
 		xhttp.open("get", "/user/main/getMainMoiveList.do", true);
 		xhttp.send();
 	}
 	
+	// 
+	function getStoreList(){
+		const xhttp = new XMLHttpRequest();
+		xhttp.onload = function(){
+			let data = this.responseText;
+			let list = JSON.parse(data);
+			
+		}
+		xhttp.open("get", "/user/main/getStoreList.do", true);
+		xhttp.send();
+	}
+	
+	// 영화 상세보기 버튼
 	$(document).on("click", ".goMovieInfoBtn", function(){
 		//alert($(this).val());
 		location.href = "/user/movieDetailView?movieCode=" + $(this).val();
 	});
 	
+	// 스크롤 부드럽게
+	$(document).on('click', 'a[href^="#"]', function (event) {
+	    event.preventDefault();	// 기능 차단
+	    $('html, body').animate({
+	        scrollTop: $($.attr(this, 'href')).offset().top
+	    }, 300);
+	});
 </script>
 </body>
 </html>

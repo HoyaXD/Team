@@ -7,6 +7,7 @@
 	list-style-type: none;
 	text-decoration: none;
 	color: black;
+	font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
 }
 .container{
 	width: 1300px;

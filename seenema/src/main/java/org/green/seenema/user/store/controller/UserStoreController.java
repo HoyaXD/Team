@@ -33,7 +33,10 @@ public class UserStoreController {
 	
 	// 스토어 페이지 이동
 	@GetMapping("/storeView")
-	public void storeView() {}
+	public void storeView(Model model) {
+		List<ProductVO> list = mapper.getProductList();
+		model.addAttribute("list", list);
+	}
 	
 	// 제품 상세보기 이동
 	@GetMapping("/productDetailView")
@@ -46,7 +49,7 @@ public class UserStoreController {
 	// 내 장바구니로 이동
 	@GetMapping("/myCart")
 	public void myCart(String id, Model model) {
-		ArrayList<CartVO> list = mapper.getCartList(id);
+		List<CartVO> list = mapper.getCartList(id);
 		model.addAttribute("list", list);
 	}
 	

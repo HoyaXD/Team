@@ -5,12 +5,20 @@
 <mapper namespace="org.green.seenema.user.main.mapper.UserMainMapper">
 	<select id="getMainMovieList" resultType="MovieVO">
 		SELECT 
-			mt.movieCode, mt.movieTitle, mt.viewAge, mt.postFileName, mt.hit, mt.rate 
-		FROM 
-			movie_tbl mt GROUP BY hit ASC;
+			mt.movieCode, mt.movieTitle, mt.viewAge, mt.postFileName, mt.hit, ROUND(AVG(rt.rate),1) as avg
+		FROM seenema.reply_tbl rt RIGHT JOIN seenema.movie_tbl mt  
+		ON rt.movieCode  = mt.movieCode GROUP BY hit DESC;
 	</select>
 	
 	<select id="getMovieDetail" resultType="MovieVO">
 		SELECT * FROM movie_tbl WHERE movieCode = #{movieCode};
+	</select>
+	
+	<select id="getStoreList" resultType="ProductVO">
+		SELECT * FROM ( 
+		   SELECT *, RANK() OVER (PARTITION BY pt.category ORDER BY pt.category DESC, pt.productName DESC) AS RN  
+		   FROM product_tbl AS pt
+		) AS ranking
+		WHERE ranking.rn <![CDATA[<=]]> 3;
 	</select>
 </mapper>

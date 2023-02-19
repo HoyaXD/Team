@@ -8,7 +8,7 @@ import org.green.seenema.vo.ReplyVO;
 @Mapper
 public interface ReplyMapper {
 	public int regReply(ReplyVO reply);
-	public ArrayList<ReplyVO> getReplyList();
+	public ArrayList<ReplyVO> getReplyList(int movieCode);
 	public ReplyVO getReplyInfo(int replyCode);
 	public int updateReply(ReplyVO reply);
 	public int deleteReply(int replyCode);

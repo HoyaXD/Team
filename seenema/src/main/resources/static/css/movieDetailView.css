@@ -7,6 +7,7 @@
 	list-style-type: none;
 	text-decoration: none;
 	color: black;
+	font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
 }
 .container{
 	width: 1300px;
@@ -113,6 +114,8 @@ footer{
 }
 #replySectionTitle{
 	line-height: 30px;
+	font-size: 20px;
+	font-weight: bold;
 }
 #regReplyBtn{
 	margin-left: auto;
@@ -202,17 +205,15 @@ footer{
 .replyList{
 	width: 100%;
 	margin-top: 10px;
-	border-top: 1px solid gainsboro;
-	border-right: 1px solid gainsboro;
-	border-left: 1px solid gainsboro;
+	min-height: 386px;
+	border: 0.1px solid gainsboro;
 }
 
 /* 댓글 한개 박스 */
 .replyBox{
 	padding: 10px;
-	border-bottom: 1px solid gainsboro;	
+	border-bottom: 0.1px solid gainsboro;
 }
-
 /* 별 이모티콘, 갯수 감싸는 박스 */
 .replyBoxTop{
 	display: flex;
@@ -291,6 +292,7 @@ footer{
 .btnWrap{
 	display: flex;
 	margin-left: auto;
+	user-select: none;
 }
 #updateBtn{
 	margin-right: 5px;
@@ -438,4 +440,14 @@ footer{
 	font-size: 12px;
 	line-height: 20px;
 	cursor: pointer;
+}
+
+.noListBox{
+	width: 780px;
+	min-height: 386px;
+	line-height: 386px;
+	text-align: center;
+	color: gray;
+	font-weight: bold;
+	border-bottom: 1px solid gainsboro;
 }

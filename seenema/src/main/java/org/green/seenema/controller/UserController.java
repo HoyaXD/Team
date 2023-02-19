@@ -1,7 +1,6 @@
 package org.green.seenema.controller;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.green.seenema.mapper.ReplyMapper;
 import org.green.seenema.user.main.mapper.UserMainMapper;
@@ -13,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
@@ -37,10 +37,10 @@ public class UserController {
 		model.addAttribute("movie", movie);
 	}
 	
-	@PostMapping("/getReplyList.do")
+	@GetMapping("/getReplyList.do")
 	@ResponseBody
-	public ArrayList<ReplyVO> getReplyList(){
-		ArrayList<ReplyVO> list = mapper.getReplyList();
+	public ArrayList<ReplyVO> getReplyList(int movieCode){
+		ArrayList<ReplyVO> list = mapper.getReplyList(movieCode);
 		return list;
 	}
 	

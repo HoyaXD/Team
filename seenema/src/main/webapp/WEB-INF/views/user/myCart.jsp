@@ -13,9 +13,9 @@
 </head>
 <body>
 	<div class="container">
-		<header>헤더<br>
+		<%-- <%@include file="header.jsp" %> --%>
+		<header></header>
 		<input type="hidden" id="id" value="kim">
-		</header>
 		<a href="/user/myOrderList" style="width:100px; height: 50px; border: 1px solid black;">결제내역보기</a>
 		<ul id="itemList">
 		</ul>

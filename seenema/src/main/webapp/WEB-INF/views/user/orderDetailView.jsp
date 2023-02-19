@@ -11,6 +11,7 @@
 <body>
 <input type="hidden" id="hiddenOrderNum" value="${orderNum }">
 	<div class="container">
+		<%-- <%@include file="header.jsp" %> --%>
 		<header></header>
 		<main>
 			<ul class="items">

@@ -13,7 +13,8 @@
 </head>
 <body>
 	<div class="container">
-		<header>헤더</header>
+		<%-- <%@include file="header.jsp" %> --%>
+		<header></header>
 		<main>
 			<div class="movieInfoWrap">
 				<!-- 영화 포스터 이미지 -->
@@ -65,7 +66,7 @@
 			        	<div class="textTotal">&nbsp;/&nbsp;50자</div>
 					</div>
 					<input type="hidden" name="id" id="id" value="${sessionScope.id }">
-					<input type="hidden" name="movieCode" id="movieCode" value="22"><!-- 영화코드(나중에 삭제해야함) -->
+					<input type="hidden" id="movieCode" value="${movie.movieCode }">
 				</form>
 				<div class="replyList">
 					<!-- 댓글 목록  -->
@@ -100,7 +101,6 @@
 							</div>
 							<input type="hidden" id="updateBoxReplyCode" value="">
 							<input type="hidden" name="id" id="uId">
-							<input type="hidden" name="movieCode" id="movieCode" value="22">	<!-- 나중에 삭제 -->
 						</form>
 						<div id="updateReplyDoBtn">수정</div>
 					</div>
@@ -110,6 +110,8 @@
 		<footer>푸터</footer>
 	</div>
 <script>
+	const movieCode = $("#movieCode").val();	//영화코드
+	
 	getReplyList();
 	// 댓글 목록
 	function getReplyList(){
@@ -119,59 +121,64 @@
 			let data = this.responseText;
 			let obj = JSON.parse(data);
 			document.querySelector(".replyList").replaceChildren();
-			$(obj).each(function(index){
-				//console.log(obj[index].comment);
-				let star;
-				let unstar;
-				let rate;
-				if(obj[index].rate == "1"){
-					star = "★";
-					unstar = "★★★★";
-					rate = "1";
-				}else if(obj[index].rate == "2"){
-					star = "★★";
-					unstar = "★★★";
-					rate = "2";
-				}else if(obj[index].rate == "3"){
-					star = "★★★";
-					unstar = "★★";
-					rate = "3";
-				}else if(obj[index].rate == "4"){
-					star = "★★★★";
-					unstar = "★";
-					rate = "4";
-				}else{
-					star = "★★★★★";
-					rate = "5";
-				}
+			if(obj.length == 0){
 				$(".replyList").append(
-						"<div class='replyBox'>"
-							+ "<input type='hidden' id='replyCode' value=" + this.replyCode + ">"
-							+ "<div class='replyBoxTop'>"
-							+ (rate != 5? 
-									"<div id='replyStar'>" 
-										+ "<span class='star'>" + star + "</span>" 
-										+ "<span class='unstar'>" + unstar + "</span>" 
-									+ "</div>" 
-									+ "<div id='replyRate'>" + rate + "</div>"
-									: 
-									"<div id='replyStar'>" 
-										+ "<span class='star'>" + star + "</span>" 
-									+ "</div>" 
-									+ "<div id='replyRate'>" + rate + "</div>")
-								+ (id == this.id? "<div class='btnWrap'><div id='updateBtn'>수정</div><div id='deleteBtn'>삭제</div></div>" : "")
-							+ "</div>"
-							+ "<div id='replyComment'>" + this.comment + "</div>" 
-							+ "<div class='replyBoxBottom'>"
-								+ "<div id='replyId'>" + this.id + "</div>"
-								+ "<div id='replyRegDate'>" + this.regDate + "</div>"
-							+ "</div>"
-						+ "</div>"
+						"<div class='noListBox'>댓글 목록이 존재하지 않습니다.</div>"
 				);
-			});
+			}else{
+				$(obj).each(function(index){
+					//console.log(obj[index].comment);
+					let star;
+					let unstar;
+					let rate;
+					if(obj[index].rate == "1"){
+						star = "★";
+						unstar = "★★★★";
+						rate = "1";
+					}else if(obj[index].rate == "2"){
+						star = "★★";
+						unstar = "★★★";
+						rate = "2";
+					}else if(obj[index].rate == "3"){
+						star = "★★★";
+						unstar = "★★";
+						rate = "3";
+					}else if(obj[index].rate == "4"){
+						star = "★★★★";
+						unstar = "★";
+						rate = "4";
+					}else{
+						star = "★★★★★";
+						rate = "5";
+					}
+					$(".replyList").append(
+							"<div class='replyBox'>"
+								+ "<input type='hidden' id='replyCode' value=" + this.replyCode + ">"
+								+ "<div class='replyBoxTop'>"
+								+ (rate != 5? 
+										"<div id='replyStar'>" 
+											+ "<span class='star'>" + star + "</span>" 
+											+ "<span class='unstar'>" + unstar + "</span>" 
+										+ "</div>" 
+										+ "<div id='replyRate'>" + rate + "</div>"
+										: 
+										"<div id='replyStar'>" 
+											+ "<span class='star'>" + star + "</span>" 
+										+ "</div>" 
+										+ "<div id='replyRate'>" + rate + "</div>")
+									+ (id == this.id? "<div class='btnWrap'><div id='updateBtn'>수정</div><div id='deleteBtn'>삭제</div></div>" : "")
+								+ "</div>"
+								+ "<div id='replyComment'>" + this.comment + "</div>" 
+								+ "<div class='replyBoxBottom'>"
+									+ "<div id='replyId'>" + this.id + "</div>"
+									+ "<div id='replyRegDate'>" + this.regDate + "</div>"
+								+ "</div>"
+							+ "</div>"
+					);
+				});
+			}
 		}
-		xhttp.open("post", "/user/getReplyList.do", true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.open("get", "/user/getReplyList.do?movieCode=" + movieCode, true);
 		xhttp.send();
 	}
 	
@@ -182,30 +189,26 @@
 		}else if($("#comment").val() == ""){
 			alert("한줄평을 입력해주세요!");
 		}else{
-			//alert("별점 : " + $("input[name='reviewStar']:checked").val() + "\n댓글 내용 : " + $("#comment").val());
-			// 등록 실행
-			const formData = $(replyForm).serialize();
-			$.ajax({
-				url: "/user/regReply.do",
-				type: "post",
-				data: formData,
-				dataType: "json",
-				success: function(data){
-					let result = parseInt(data, 10);
-					if(result == 1){	// 댓글 등록 성공
-						alert("댓글을 성공적으로 등록하였습니다!");
-						$("#comment").val("");	// 댓글 내용 초기화
-						$(".commentCount").text("0자");	// 댓글카운트 초기화
-						$("input[type=radio]").prop("checked", false);	// 별점 초기화
-						getReplyList();	// 댓글 목록 갱신
-					}else{	// 댓글 등록 실패
-						alert("댓글등록에 실패했습니다.");
-					}
-				},
-				error: function(){	// 에러
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function(){
+				let result = parseInt(this.responseText, 10);
+				if(result == 1){	// 댓글 등록 성공
+					alert("댓글을 성공적으로 등록하였습니다!");
+					$("#comment").val("");	// 댓글 내용 초기화
+					$(".commentCount").text("0자");	// 댓글카운트 초기화
+					$("input[type=radio]").prop("checked", false);	// 별점 초기화
+					getReplyList();	// 댓글 목록 갱신
+				}else{	// 댓글 등록 실패
 					alert("댓글등록에 실패했습니다.");
 				}
-			});
+			}
+			let id = $("#id").val();
+			let rate = $(".star:checked").val();
+			let comment = $("#comment").val();
+			
+			xhttp.open("post", "/user/regReply.do", true);
+			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			xhttp.send("id=" + id + "&movieCode=" + movieCode + "&comment=" + comment + "&rate=" + rate);
 		}
 	});
 	
@@ -239,7 +242,7 @@
 			let data = this.responseText;
 			let obj = JSON.parse(data);
 			$("#updateReplyFormComment").val(obj.comment);
-			$("#updateRate" + obj.rate).prop('checked', true);
+			$("#updateRate" + obj.rate).prop("checked", true);
 			$("#updateReplyBox").css("display", "block");
 			$("#updateBoxReplyCode").val(replyCode);
 			$("#uId").val(obj.id);
@@ -271,20 +274,20 @@
 				let data = this.responseText;
 				let result = parseInt(data, 10);
 				if(result == 1){
-					alert("수정 성공!");
+					alert("댓글 수정 성공!");
 					$("#updateReplyBox").css("display", "none");
 					$("#updateReplyFormComment").val("");
 					//$("#updateRate" + obj.rate).prop('checked', false);
 					$("#updateBoxReplyCode").val("");
 					getReplyList();	// 댓글 목록 갱신
 				}else{
-					alert("수정 실패!");
+					alert("댓글 수정 실패!");
 				}
 			}
-			let rate = $("input[name='updateRate']:checked").val();
+			let rate = $("#updateReplyForm .star:checked").val();
 			let comment = $("#updateReplyFormComment").val();
 			let replyCode = $("#updateBoxReplyCode").val();
-			console.log("평점 : " + rate + "\n코멘트 : " + comment + "\n댓글 코드 : " + replyCode);
+			//console.log("평점 : " + rate + "\n코멘트 : " + comment + "\n댓글 코드 : " + replyCode);
 			
 			xhttp.open("post", "updateReply.do", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
