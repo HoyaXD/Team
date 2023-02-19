@@ -262,24 +262,39 @@ textarea{
     margin-top: 3px;
 }
 #submitBox{
-    /* border: 1px solid red; */
-    width: 400px;
-    height: 30px;
-    margin-top: 25px;
-    text-align: center;
+     /* border: 1px solid red; */
+     display: flex;
+     
+     width: 400px;
+     height: 30px;
+     margin-top: 30px;
+     text-align: center;
 }
-#submitBox input{
+#submitBtn{
+     width: 120px;
+     height: 30px;
+     border-radius: 3px;
+     border: 1px solid black;
+     background-color: transparent;
+     cursor: pointer;
+     transition: 0.5s;
+}
+#submitBtn:hover{
+     background-color: RGB(56, 29, 27);
+     border: 1px solid black;
+     color:white;
+}
+#delBtn{
     width: 120px;
     height: 30px;
     border-radius: 3px;
     border: 1px solid black;
-    background-color: transparent;
+    background-color: rgb(255, 211, 211);
     cursor: pointer;
     transition: 0.5s;
 }
-#submitBox input:hover{
-    background-color: RGB(56, 29, 27);
-    color:white;
+#delBtn:hover{
+    background-color: lightcoral;
 }
 
 /**/

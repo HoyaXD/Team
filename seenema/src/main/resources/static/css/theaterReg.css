@@ -210,10 +210,12 @@ img{
 }
 #regied_photo, #regied_map_preview{
     text-align: center;
-    line-height: 270px;
     border-radius: 5px;
     border: 1px solid lightslategray;
     color: lightslategray;
+}
+#regied_text{
+	line-height: 270px;
 }
 #addressChange_btn{
     display:inline-block;
