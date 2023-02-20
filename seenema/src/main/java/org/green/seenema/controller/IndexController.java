@@ -13,4 +13,10 @@ public class IndexController {
 	public void adminPageGo() {
 		
 	}
+	@GetMapping("/adminSidebar")
+	public void adminPageGo2() {
+		
+	}
+	
+	
 }

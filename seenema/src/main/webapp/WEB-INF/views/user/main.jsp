@@ -10,9 +10,7 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<header id="header">
-    <div id="demo"></div>
-</header>
+<%@ include file="header.jsp" %>
 <div class="content">
     <div class="videoWrap">
         <video id="video" autoplay muted loop>
