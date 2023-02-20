@@ -13,136 +13,14 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>영화예매 - 시네마</title>
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
-  <style>
-    *{
-      margin: 0 auto;
-    }
-
-    #header{
-      width: 1300px;
-      height: 150px;
-      border: solid 1px red;
-    }
-
-    #reservationMain{
-        margin-top: 50px;
-      display: grid;
-      width: 1300px;
-      grid-template-columns: 350px 350px 150px 450px;
-        place-items: center;
-
-    }
-
-    .item{
-      border: solid 3px #d3cfcf;
-        width: 100%;
-      height: 600px;
-        background-color: #e8e5dd;
-        margin: 0 auto;
-    }
-
-    .listMenu{
-        width: 100%;
-        background-color: #333333;
-        text-align: center;
-        color: #f0f0f0;
-        height: 33px;
-        line-height: 33px;
-
-    }
-    .movieListView{
-        display: block;
-    }
-    .theaterListView{
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .theaterItems{
-        width: 100%;
-    }
-    .movie img{
-        width: 25px;
-        height: 25px;
-    }
-    .theaterItems{
-        height: 40px;
-        line-height: 40px;
-    }
-    .movieTitle {
-        width: 150px;
-        position: relative;
-        bottom: 5px;
-    }
-    .place{
-        background-color: #dcdbd7;
-    }
-    #timeList{
-        margin: 0 auto;
-
-    }
-    .time{
-        display: inline-block;
-        width: 130px;
-        height: 50px;
-        text-align: center;
-        line-height: 50px;
-        border: solid 1px #d5d4d2;
-        margin: 5px;
-    }
-    .reservationInfo{
-        display: flex;
-        width: 1300px;
-        justify-content: flex-start;
-    }
-    .calendar {
-        font-family: Arial, sans-serif;
-        font-size: 16px;
-        overflow: scroll;
-        overflow-x: hidden;
-        height: 567px;
-    }
-    .calendar::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-        background-color: black;
-    }
-    .calendar::-webkit-scrollbar-thumb {
-        background: #a4a4a2; /* 스크롤바의 색상 */
-        height: 3px;
-        border-radius: 10px;
-    }
-    .calendar::-webkit-scrollbar-track {
-        background-color: #e8e5dd;
-        border-radius: 10px;
-        box-shadow: inset 0px 0px 5px white;
-    }
-    .calendar ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    .calendar li {
-        display: block;
-        margin-bottom: 10px;
-    }
-    .time{
-        display: none;
-    }
-    #hidden{
-        width: 1300px;
-        text-align: right;
-    }
-
-
-  </style>
+    <link rel="stylesheet" href="/css/reservationMain.css">
 </head>
 <body>
-<header>
+<div class="box">
     <%@ include file="../user/header.jsp"%>
-</header>
+<div class="content">
   <div id="reservationMain">
       <div class="item" id="movieList">
             <div class="listMenu">
@@ -208,6 +86,7 @@
     <div class="info" id="seatsInfo">영화선택</div>
     <div class="info" id="pay">좌석선택</div>
   </div>
+</div>
 <div id="hidden">
     <form action="reservationSeats" method="post" name="frm">
         <input type="hidden" name="movieCode" id="movieCode">
@@ -220,6 +99,7 @@
         <input type="hidden" name="reservationTime" id="reservationTime" placeholder="시간">
         <input type="submit" value="좌석선택" onclick="return validateForm();">
     </form>
+</div>
 </div>
 <footer>
     <%@ include file="../user/footer.jsp"%>
@@ -334,12 +214,12 @@
         $('#theaterPlace').val($(e.target).text()); //영화지역에 값넣기
 
         $('.placeList').css({
-            "background-color":"#d5d4d2",
+            "background-color":"#dedad2",
             "color":"black"
         });
 
         $('.placeList').parent( 'div' ).css({
-            "background-color":"#d5d4d2",
+            "background-color":"#dedad2",
             "color":"black"
         })
         $(e.target).css({
@@ -362,7 +242,7 @@
                 for (i; i < parse.length; i++) {
                     $("#address")
                         .append(
-                            '<div class="theater" style="height: 30px; line-height: 30px;"> '
+                            '<div class="theater" style="height: 30px; line-height: 30px; cursor: pointer;"> '
                             + parse[i].theaterName
                             + '<div>')
                 }

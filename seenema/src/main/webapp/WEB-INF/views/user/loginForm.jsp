@@ -12,18 +12,25 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <title>로그인폼 - 시네마</title>
+    <link rel="stylesheet" href="/css/loginForm.css">
 </head>
 <body>
-    <header>
-        <%@ include file="header.jsp"%>
-    </header>
-    <h1>로그인</h1>
-    <hr>
-    <form action="login.do" method="post" name="frm">
-        <input type="text" name="id" placeholder="아이디">
-        <input type="password" name="pw">
-        <input type="submit" value="로그인" onclick="return check();">
-    </form>
+    <div class="logImg">
+        <img src="/images/logo3.png">
+    </div>
+    <div class="login-container">
+        <div class="content">
+            <form action="login.do" method="post" name="frm">
+                <input type="text" name="id" placeholder="아이디" class="form-control" id="form-id">
+                <input type="password" name="pw" placeholder="비밀번호" class="form-control">
+                <button type="submit" class="submit-btn">로그인</button>
+            </form>
+            <div id="submit_after"></div>
+            <a href="regMemberForm"><button class="submit-btn" id="regMem">회원가입</button></a>
+
+        </div>
+    </div>
 
 <script>
     function check(){

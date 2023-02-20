@@ -15,4 +15,12 @@
     <insert id="regMember">
         INSERT INTO member_tbl VALUES(#{id}, #{pw}, #{name}, #{tel}, #{gender}, #{birthday}, 'C')
     </insert>
+
+    <select id="selectMember" resultType="org.green.seenema.vo.MemberVO">
+        SELECT * FROM member_tbl WHERE id = #{id}
+    </select>
+
+    <update id="updateMember">
+        UPDATE member_tbl SET pw = #{pw}, tel = #{tel} WHERE id = #{id}
+    </update>
 </mapper>

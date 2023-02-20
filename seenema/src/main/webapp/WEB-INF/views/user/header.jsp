@@ -6,109 +6,124 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<%--  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>--%>
+<%--  <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>--%>
   <style>
     *{
       margin: 0 auto;
     }
-    ul, li{
+    header ul, li{
       list-style: none;
       text-align: center;
     }
-    #header_top{
+    header #header_top{
       width: 1300px;
-      height: 130px;
+      height: 140px;
       border-bottom: 1px solid #d2cece;
     }
-    #top_logo{
+    header #top_logo{
       display: inline-block;
       float: left;
     }
-    #top_logo img{
+    header #top_logo img{
       width: 300px;
       height: 120px;
     }
-    .top_menu{
+    header .top_menu{
       display: inline-block;
       float: right;
       margin-right: 60px;
     }
-    .top_menu li{
+    header .top_menu li{
       font-size: 12px;
       margin-top: 60px;
       float:right;
       margin-left:40px;
     }
-    .top_menu img{
+    header .top_menu img{
       width: 36px;
       height: 36px;
     }
-    a{
+    header a{
       text-decoration-line: none;
       color: black;
+      /*border: 1px solid red;*/
     }
-
-
-
-    .menu_wrap {
+    header .menu_wrap {
 
       width: 1300px;
       height: 40px;
-      text-align: left;
-      border-bottom: solid 2px red;
+      text-align: center;
       z-index: 3;
+      position: relative;
+      /*border: 1px solid blue;*/
     }
-    .menu_wrap li{
+    header .menu_wrap li{
+
       margin-top: 10px;
       float: left;
       margin-right: 80px;
       font-size: 18px;
+      /*border: 1px solid yellow;*/
     }
 
-    .nav_active{
+    header .nav_active{
       position: absolute;
       z-index: 2;
-      width: 1500px;
-      left: 280px;
+      /*width: 3000px;*/
+      width: 100%;
+      /*left: 280px;*/
       height: 230px;
       background-color: white;
       display: none;
     }
-    .nav_active li{
+    header .nav_active li{
       margin-top: 25px;
     }
-    .active_title{
+    header .active_title{
       font-size: 18px;
       font-weight: bold;
     }
-    .nav_flex{
+    header .nav_flex{
       position: absolute;
       z-index: 1;
       text-align: left;
     }
-    .under_menu{
+    header .under_menu{
       position: relative;
     }
-    .active_menu{
+    header .active_menu{
       display: inline-block;
       z-index: 3;
       border-right: solid 1px #d2cece;
-      width: 250px;
+      width: 300px;
     }
-    .active_menu li{
+    header #active_movie{
+
+    margin-left: 300px;
+    }
+
+    header .active_menu li{
       text-align: left;
     }
-    #active_board{
+    header #active_board{
       border: none;
+    }
+    header .active_a{
+      background-color: white;
+    }
+    header .wrap_after{
+      border: solid 1px red;
     }
 
 
   </style>
 </head>
 <body>
+
   <header>
     <div id="header_top">
-      <a href="main"><div id="top_logo"><img src="/images/logo2.png"></div></a>
+      <a href="main"><div id="top_logo"><img src="/images/logo3.png"></div></a>
       <div class="top_menu">
         <ul>
           <c:if test="${sessionScope.logid == null }">
@@ -118,7 +133,7 @@
             </c:if>
             <c:if test="${sessionScope.logid != null }">
             <li><a href="#"><img src="/images/service.png"><br>고객센터</a>
-            <li id="mypage"><a href="myPage"><img src="/images/my.png"><br>마이페이지</a>
+            <li id="mypage"><a href="myReservation"><img src="/images/my.png"><br>마이페이지</a>
             <li><a href="logout"><img src="/images/login.png"><br>로그아웃</a>
             </c:if>
         </ul>
@@ -133,43 +148,47 @@
           <li><a href="menu">게시판</a></li>
         </ul>
       </div>
-      <div class = "nav_active">
-        <div class="nav_flex">
-          <div id="active_movie" class="active_menu">
-            <ul>
-              <a href="#"><li class="active_title">영화</li></a>
-              <a href="#"><li>무비차트</li></a>
-              <a href="#"><li>아트하우스</li></a>
-              <a href="#"><li>icecon</li></a>
-            </ul>
-          </div>
-          <div id="active_reservation" class="active_menu">
-            <ul>
-              <a href="reservationMain"><li class="active_title">예매</li></a>
-              <a href="reservationMain"><li>빠른예매</li></a>
-              <a href="reservationHistory"><li>내 예매내역</li></a>
-              <a href="#"><li>icecon</li></a>
-            </ul>
-          </div>
-          <div id="active_store" class="active_menu">
-            <ul>
-              <a href="storeView"><li class="active_title">스토어</li></a>
-              <a href="#"><li>무비차트</li></a>
-              <a href="#"><li>아트하우스</li></a>
-              <a href="#"><li>icecon</li></a>
-            </ul>
-          </div>
-          <div id="active_board" class="active_menu">
-            <ul>
-              <a href="#"><li class="active_title">게시판</li></a>
-              <a href="#"><li>무비차트</li></a>
-              <a href="#"><li>아트하우스</li></a>
-              <a href="#"><li>icecon</li></a>
-            </ul>
+      <div class="wrap_after"></div>
+      <div class="active_a">
+        <div class = "nav_active">
+          <div class="nav_flex">
+            <div id="active_movie" class="active_menu">
+              <ul>
+                <a href="#"><li class="active_title">영화</li></a>
+                <a href="#"><li>무비차트</li></a>
+                <a href="#"><li>아트하우스</li></a>
+                <a href="#"><li>icecon</li></a>
+              </ul>
+            </div>
+            <div id="active_reservation" class="active_menu">
+              <ul>
+                <a href="reservationMain"><li class="active_title">예매</li></a>
+                <a href="reservationMain"><li>빠른예매</li></a>
+                <a href="reservationHistory"><li>내 예매내역</li></a>
+                <a href="#"><li>icecon</li></a>
+              </ul>
+            </div>
+            <div id="active_store" class="active_menu">
+              <ul>
+                <a href="storeView"><li class="active_title">스토어</li></a>
+                <a href="#"><li>무비차트</li></a>
+                <a href="#"><li>아트하우스</li></a>
+                <a href="#"><li>icecon</li></a>
+              </ul>
+            </div>
+            <div id="active_board" class="active_menu">
+              <ul>
+                <a href="#"><li class="active_title">게시판</li></a>
+                <a href="#"><li>무비차트</li></a>
+                <a href="#"><li>아트하우스</li></a>
+                <a href="#"><li>icecon</li></a>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   </header>
 <script>
 
@@ -180,11 +199,6 @@
   $('.under_menu').mouseleave(function (){
     $(".nav_active").slideUp(300);
   })
-
-
-
-
-
 </script>
 </body>
 </html>

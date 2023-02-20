@@ -12,4 +12,6 @@ public interface ReservationMapper {
     public List<ReservationVO> searchReservation(String id);
 
     public int regReservation(ReservationVO reservation);
+
+    public List<ReservationVO> loadSeats(ReservationVO reservation);
 }

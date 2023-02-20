@@ -11,4 +11,7 @@
     <insert id="regReservation">
         INSERT INTO reservation_tbl (id, movieCode, movieTitle, theaterPlace, theater, ticketPrice,  reservationDate, movieDate, reservationTime, seats, visitors) VALUES (#{id}, #{movieCode}, #{movieTitle}, #{theaterPlace}, #{theater}, #{ticketPrice}, NOW(), #{movieDate}, #{reservationTime}, #{seats}, #{visitors})
     </insert>
+    <select id="loadSeats" resultType="org.green.seenema.vo.ReservationVO">
+
+    </select>
 </mapper>

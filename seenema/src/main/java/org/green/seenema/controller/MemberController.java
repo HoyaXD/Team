@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -27,27 +28,40 @@ public class MemberController {
     ReservationMapper reservationMapper;
 
     @GetMapping("/loginForm")  //로그인폼으로 가기
-    public void loginFomr(){}
-    @PostMapping("/login.do")  //로그인 확인
-    public String login(MemberVO stu, HttpSession session, Model model) {
-        int n = mapper.loginCheck(stu);
-        if(n == 1) {
-            session.setAttribute("logid", stu.getId());
-            model.addAttribute("msg", stu.getId()+"님 로그인완료");
-            model.addAttribute("url", "header");
+    public void loginForm(){}
 
-        }else {
-            model.addAttribute("msg", "아이디와 비밀번호를 다시 확인해주세요");
-            model.addAttribute("url", "loginForm");
-        }
+@PostMapping("/login.do")  //로그인 확인
+public String login(MemberVO stu, HttpSession session, Model model, HttpServletRequest request) {
+    int n = mapper.loginCheck(stu);
+    if(n == 1) {
+        session.setAttribute("logid", stu.getId());
+        model.addAttribute("msg", stu.getId()+"님 환영합니다!");
+        model.addAttribute("url", "main");
+
+
+//        // 세션에 이전 페이지 URL 저장
+//        String referer = request.getHeader("Referer");
+//        String prevPage = (String) session.getAttribute("prevPage");
+//        session.setAttribute("prevPage", referer);
+//
+//        // 2번째 전의 페이지로 이동
+//        return "redirect:" + prevPage;
+        return "user/alert";
+    } else {
+        model.addAttribute("msg", "아이디와 비밀번호를 다시 확인해주세요");
+        model.addAttribute("url", "loginForm");
         return "user/alert";
     }
+}
 
     @GetMapping("/logout") //로그아웃
-    public String logout(HttpSession session) {
-        session.invalidate();
+    public String logout(HttpSession session, HttpServletRequest request) {
+        String referer = request.getHeader("Referer");
+        session.setAttribute("prevPage", referer);
 
-        return "user/header";
+        session.removeAttribute("logid"); // 로그인 아이디 세션 삭제
+
+        return "redirect:" + referer;
     }
 
     @GetMapping("/idcheck.do") //아이디 중복확인
@@ -69,11 +83,13 @@ public class MemberController {
     public String regdo(MemberVO member){
         mapper.regMember(member);
 
-        return "index";
+        return "user/regMemberComplete";
     }
 
     @GetMapping("/myPage")
-    public void mypage(){}
+    public void mypage(Model model, HttpSession session){
+        model.addAttribute("member", mapper.selectMember((String) session.getAttribute("logid")));
+    }
 
 
     @GetMapping("/reservationHistory")
@@ -81,5 +97,25 @@ public class MemberController {
         List<ReservationVO> list =  reservationMapper.searchReservation((String) session.getAttribute("logid"));
         model.addAttribute("list", list);
     }
+    @GetMapping("/myReservation")
+    public void myReservation(Model model, HttpSession session){
+        model.addAttribute("member", mapper.selectMember((String) session.getAttribute("logid")));
+    }
+    @GetMapping("/myUpdate")
+    public void myUpdate(Model model, HttpSession session){
+        model.addAttribute("member", mapper.selectMember((String) session.getAttribute("logid")));
+    }
+
+    @PostMapping("update.do")
+    public String updatedo(Model model, MemberVO member){
+        mapper.updateMember(member);
+        model.addAttribute("msg", "회원정보 수정이 완료되었습니다!");
+        model.addAttribute("url", "myUpdate");
+        return "user/alert";
+    }
+
+    @GetMapping("regMemberComplete")
+    public void regMemberComplete(){}
+
 
 }

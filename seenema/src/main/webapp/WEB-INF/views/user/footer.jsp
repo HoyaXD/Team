@@ -37,7 +37,6 @@
 
       </style>
   </head>
-  <body>
   <footer>
       <div class="footer-row">
           <p>회사소개</p>
@@ -45,9 +44,9 @@
           <p>편성기준</p>
           <p>법적고지</p>
           <p>개인정보 처리방침</p>
+          <p>대표이사 정승호</p>
       </div>
   </footer>
 
 
-  </body>
 </html>
