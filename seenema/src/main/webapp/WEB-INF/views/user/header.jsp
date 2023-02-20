@@ -125,7 +125,7 @@
 </head>
 <body>
 
-  <header>
+  <header id="header">
     <div id="header_top">
       <a href="main"><div id="top_logo"><img src="/images/logo3.png"></div></a>
       <div class="top_menu">
