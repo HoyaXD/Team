@@ -11,4 +11,8 @@ public interface MemberMapper {
     public int idCheck(String id);
 
     public void regMember(MemberVO member);
+
+    public MemberVO selectMember(String id);
+
+    public void updateMember(MemberVO member);
 }

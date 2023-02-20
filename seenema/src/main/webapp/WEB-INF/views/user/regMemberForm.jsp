@@ -12,6 +12,66 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <title>회원가입 - 시네마</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: auto;
+            width: 50%;
+            font-family: Arial, sans-serif;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            width: 250px;
+        }
+
+        input[type="text"], input[type="password"], input[type="date"] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            background-color: #373837;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 150px;
+            height: 50px;
+            float: right;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #474847;
+        }
+
+        #idcheck {
+            position: relative;
+        }
+
+        h1{
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 <div class="mainContainer">
@@ -26,31 +86,30 @@
 
             <tr>
                 <th>아이디</th>
-                <td id ="idcheck"><input type="text" name="id"></td>
-            </tr>
-            <tr>
-                <th></th>
-                <td><span id="idCheckComment"></span></td>
+                <td id ="idcheck">
+                    <input type="text" name="id" placeholder="6글자 이상, 영문과 숫자로 이루어진 아이디를 입력해주세요.">
+                    <span id="idCheckComment"></span>
+                </td>
             </tr>
             <tr>
                 <th>비밀번호</th>
-                <td><input type="password" name="pw"></td>
+                <td><input type="password" name="pw" placeholder="영문과 숫자를 포함한 8자 이상, 20자 이하의 비밀번호를 입력해주세요. "></td>
             </tr>
             <tr>
                 <th>비밀번호확인</th>
-                <td><input type="password" name="pw2" id="pwCheck"></td>
+                <td>
+                    <input type="password" name="pw2" id="pwCheck">
+                    <span id="pwCheckComment"></span>
+                </td>
             </tr>
-            <tr>
-                <th></th>
-                <td><span id="pwCheckComment"></span></td>
-            </tr>
+
             <tr>
                 <th>이름</th>
                 <td><input type="text" name="name"></td>
             </tr>
             <tr>
                 <th>전화번호</th>
-                <td><input type="text" name="tel"></td>
+                <td><input type="text" name="tel" placeholder="- 을 제외하고 숫자만 입력해주세요"></td>
             </tr>
             <tr>
                 <th>성별</th>
@@ -64,30 +123,40 @@
                 <td><input type="date" name="birthday"></td>
             </tr>
             <tr>
-                <th>보안문자<span id="code"><%=(int) (Math.random() * 100000) + 12 %></span></th>
-                <td><input type="text" name="secure"></td>
-            </tr>
-            <tr>
-                <th></th>
-                <td > <input type="submit" value="등록" onclick="return check()"></td>
+                <td colspan="2"> <input type="submit" value="회원등록" onclick="return check()"></td>
             </tr>
         </form>
     </table>
 </div>
+<%@ include file="footer.jsp"%>
+
 <script>
 
     $('#pwCheck').focusout(function() {  //비밀번호 확인
+        let pwRegExp = /^(?=.[a-zA-Z])(?=.\d)[a-zA-Z\d]{8,20}$/;
+        let pw = document.frm.pw.value;
         if(document.frm.pw2.value != ""){
             if(document.frm.pw.value == document.frm.pw2.value){
-                document.getElementById("pwCheckComment").innerText = "비밀번호 일치";
-            }else {
-                document.getElementById("pwCheckComment").innerText = "비밀번호가 일치하지 않습니다";
+                document.getElementById("pwCheckComment").innerHTML = "<span style='color:green'>비밀번호 일치</span>";
+            } else {
+                document.getElementById("pwCheckComment").innerHTML = "<span style='color:red'>비밀번호가 일치하지 않습니다</span>";
             }
         }
     });
 
     $('#idcheck').focusout(function (){ // 아이디입력 후 중복확인 메서드 실행
-        idcheck();
+        const id = document.frm.id.value;
+        if (document.frm.id.value == "") {
+            $('#idCheckComment').text("");
+        }else if (id.length < 6) {
+            $('#idCheckComment').text("아이디는 6글자 이상이어야 합니다.");
+        }else if (id.length > 12) {
+            $('#idCheckComment').text("아이디는 12글자를 초과할 수 없습니다.");
+        }else if (!/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/.test(id)) {
+            $('#idCheckComment').text("아이디는 특수문자를 포함할 수 없고 영문과 숫자를 모두 포함해야 합니다.");
+        }else {
+            idcheck();
+        }
     })
 
     function idcheck() {  // 아이디 중복체크
@@ -133,11 +202,7 @@
             alert("비밀번호가 일치하지 않습니다");
             document.frm.pw.focus();
             return false;
-        } else if (document.frm.secure.value != document.getElementById("code").innerText) {
-            alert("보안문자를 확인해주세요");
-            return false;
-        } else {
-            alert("회원가입이 완료되었습니다.");
+        }else {
             return true;
         }
     }

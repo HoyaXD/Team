@@ -12,88 +12,9 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <style>
-        #screen{
-            width: 800px;
-            height: 50px;
-            background-color: black;
-            color: white;
-            text-align: center;
-            line-height: 50px;
-            font-size: 36px;
-            margin-bottom: 40px;
-        }
-        #seats-top{
-            width: 800px;
-            margin-top: 20px;
-            height: 200px;
-        }
-        #seats-container {
-            width: 800px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .seat {
-            margin-bottom: 10px;
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
-            border: 2px solid #ccc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .seat.selected {
-            background-color: #f13f3f;
-            color: #fff;
-        }
-
-        #seats-label {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        #seats-label span {
-            margin: 0 5px;
-        }
-
-        input[type=number] {
-            width: 50px;
-            height: 30px;
-            border-radius: 5px;
-            border: 2px solid #ccc;
-            padding: 5px;
-            text-align: center;
-        }
-
-        label {
-            font-weight: bold;
-        }
-        #select_people{
-            display: inline-block;
-        }
-        #reservation_info{
-            display: inline-block;
-            float: right;
-        }
-        .buyNowBtn{
-            width: 80px;
-            height: 30px;
-            background-color: #4b4f56;
-            color: white;
-        }
-        #regBtn{
-            display: none;
-        }
-    </style>
+    <title>좌석예매 - 시네마</title>
     <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/reservationSeats.css">
     <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
@@ -144,7 +65,7 @@
             <input type="hidden" name="reservationTime" id="reservationTime" value="${reservation.reservationTime}">
             <input type="hidden" name="visitors" id="visitors">
             <input type="hidden" name="seats" id="seats">
-            <input type="submit" value="결제하기" id="regBtn" onclick="return f();">
+            <input type="submit" value="예매등록 테스트" id="regBtn" onclick="return f();">
             <div class="buyNowBtn" >결제하기</div>
         </form>
 
