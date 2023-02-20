@@ -34,15 +34,34 @@
 						<div id="genre">장르 : ${movie.genre } / 관람연령 : ${movie.viewAge } / 러닝타임 : ${movie.runningTime }분</div>
 						<div id="openDate">개봉일 : ${movie.releaseDate }</div>
 					</div>
+					<div class="reservBtn">예매하기</div>
 				</div>
 			</div>
 			<div class="movieContent">
 				<ul class="tabMenu">
 					<li class="item"><a href="#">주요정보</a></li>
-					<li class="item"><a href="#">트레일러</a></li>
+					<li class="item"><a href="#trailer">예고편</a></li>
 					<li class="item"><a href="#">스틸컷</a></li>
-					<li class="item"><a href="#">평점/리뷰</a></li>
+					<li class="item"><a href="#replySectionTitle">평점/리뷰</a></li>
 				</ul>
+			</div>
+			<div class="summuryWrap">
+				<p>${movie.plot }</p>
+			</div>
+			<div class="graphWrap">
+				<div class="genderWrap">
+					<div>성별 예매 분포</div>
+					<div></div>
+				</div>
+				<div class="ageWrap">
+					<div>연령별 예매 분포</div>
+					<div></div>
+				</div>
+			</div>
+			<div class="trailerWrap">
+				<div id="trailer">&nbsp;</div>
+				<iframe width="780" height="400" src="${movie.previewURL.replace('https://youtu.be/', 'https://www.youtube.com/embed/') }?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+				</iframe>
 			</div>
 			<!-- 댓글 컨텐츠 박스 -->
 			<div class="replySection">
@@ -315,7 +334,13 @@
 			xhttp.send("replyCode=" + replyCode);
 		}
 	});
-	
+	// 스크롤 부드럽게
+	$(document).on('click', 'a[href^="#"]', function (event) {
+	    event.preventDefault();	// 기능 차단
+	    $('html, body').animate({
+	        scrollTop: $($.attr(this, 'href')).offset().top
+	    }, 300);
+	});
 </script>
 </body>
 </html>

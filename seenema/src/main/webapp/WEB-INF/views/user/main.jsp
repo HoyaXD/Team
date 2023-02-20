@@ -10,15 +10,14 @@
 <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-	<%-- <%@include file="header.jsp" %> --%>
-	<header id="header">헤더</header>
+	<header id="header">
+		<div id="demo"></div>
+	</header>
     <div class="content">
         <div class="videoWrap">
-            <video autoplay muted loop>
-                <source src="https://adimg.cgv.co.kr/images/202301/antman/0215_antman_pc_1080x608.mp4" type="video/mp4">
-                <!-- <source src="https://adimg.cgv.co.kr/images/202302/MySweetMonster/pc_1080x608.mp4" type="video/mp4"> -->
+            <video id="video" autoplay muted loop>
+            	<!-- 로드시 랜덤 비디오 -->
             </video>
-            <div>상세보기</div>
         </div>
     </div>
         <main>
@@ -39,42 +38,82 @@
                     </ul>
                 </div>
             </div>
+            <div class="storeSectionTitle"><a href="/user/storeView">스토어</a></div>
             <div class="storeSection">
                 <div class="package">
-                	<h2>패키지</h2>
+                	<h2><a href="/user/storeView">패키지</a></h2>
                 	<div class="packageWrap">
-                		<a href="#" class="storeItem storeItem1">
-                			<img src="/images/kkeullimPackage.jpeg">
-                			<div class="infoWrap">
-    		            		<div>끌림 패키지</div>
-    		            		<div>아이스 커피 + 콜라</div>
-                			</div>
-							<span>12,000원</span>
-                		</a>
                 	</div>
                 </div>
                 <div class="ticket">
-                	<h2>영화 관람권</h2>
+                	<h2><a href="/user/storeView">영화 관람권</a></h2>
                 	<div class="ticketWrap">
                 	</div>
                 </div>
                 <div class="drink">
-                	<h2>음료</h2>
-                	<div class="drinkWrap">
+                	<h2><a href="/user/storeView">스낵</a></h2>
+                	<div class="snackWrap">
                 	</div>
                 </div>
             </div>
-            <div class="noticeSection">
-            	공지사항
+            <div class="bottomSectionWrap">
+            	<div class="wrap">
+		            <div class="eventWrapTitle">
+		            	<a href="#">EVENT</a>
+		            </div>
+		            <div class="eventWrap">
+		            	<!--  -->
+	    	        </div>
+            	</div>
+            	<div class="wrap">
+		            <div class="noticeWrapTitle">
+		            	<a href="#">공지사항</a>
+		            </div>
+		            <div class="noticeWrap">
+		            	<div>공지사항</div>
+	    	        </div>
+	    	    </div>
             </div>
         <div class="absoluteBtnWrap">
-        	<a href="#" class="nowReservBtn">예매하기</a>	<!-- 범수행님 매핑 -->
+        	<a href="/user/reservationMain" class="nowReservBtn">예매하기</a>	<!-- 범수행님 매핑 -->
         	<a href="#header" class="scrollTopBtn">↑</a>
         </div>
         </main>
     <footer>푸터</footer>
 <script>
-	$(document).ready(getStoreList(), getMainMovieList());
+	/* let time = 30;	// 30초
+	let x = setInterval(function(){
+		$("#demo").text(time + "초");
+		time--;
+		if(time < 0){
+			document.querySelector("#video").replaceChildren();
+			$("#video").html("<source src='https://adimg.cgv.co.kr/images/202302/MySweetMonster/pc_1080x608.mp4' type='video/mp4'>");
+			time = 30;
+		}
+	}, 1000); */
+
+	$(document).ready(getMainMovieList(), getStoreList(), randomVideo());
+	
+	function randomVideo(){
+		const randomNum = Math.floor(Math.random() * 4 + 1);
+		if(randomNum == 1){
+			// 앤트맨
+			//$("#demo").text(randomNum);
+			$("#video").html("<source src='https://adimg.cgv.co.kr/images/202301/antman/0215_antman_pc_1080x608.mp4' type='video/mp4'>");
+		}else if(randomNum == 2){
+			// 미녀와 야수...? 
+			//$("#demo").text(randomNum);
+			$("#video").html("<source src='https://adimg.cgv.co.kr/images/202302/MySweetMonster/pc_1080x608.mp4' type='video/mp4'>");
+		}else if(randomNum == 3){
+			// 대외비
+			//$("#demo").text(randomNum);
+			$("#video").html("<source src='https://adimg.cgv.co.kr/images/202302/TheDevilsDeal/main_1080x608.mp4' type='video/mp4'>");
+		}else{
+			// 카운트
+			//$("#demo").text(randomNum);
+			$("#video").html("<source src='https://adimg.cgv.co.kr/images/202301/count/0214_count_1080x608.mp4' type='video/mp4'>");
+		}
+	}
 	
 	//무비차트 목록 불러오기
 	function getMainMovieList(){
@@ -166,13 +205,48 @@
 		xhttp.send();
 	}
 	
-	// 
+	// 메인 스토어 섹션 리스트 
 	function getStoreList(){
 		const xhttp = new XMLHttpRequest();
 		xhttp.onload = function(){
 			let data = this.responseText;
 			let list = JSON.parse(data);
-			
+			for(let i = 0; i < 9; i++){
+				if(list[i].category == "package"){
+					$(".packageWrap").append(
+						"<a href='/user/productDetailView?productCode=" + list[i].productCode + "' class='storeItem storeItem1'>"
+                			+ "<img src=" + list[i].productImage + ">"
+                			+ "<div class='infoWrap'>"
+    		            		+ "<div>" + list[i].productName + "</div>"
+    		            		+ "<div>" + list[i].productInfo + "</div>"
+                			+ "</div>"
+							+ "<span>" + list[i].price.toLocaleString('ko-KR') + "원</span>"
+                		+ "</a>"
+					);
+				}else if(list[i].category == "ticket"){
+					$(".ticketWrap").append(
+						"<a href='/user/productDetailView?productCode=" + list[i].productCode + "' class='storeItem storeItem1'>"
+                			+ "<img src=" + list[i].productImage + ">"
+                			+ "<div class='infoWrap'>"
+    		            		+ "<div>" + list[i].productName + "</div>"
+    		            		+ "<div>" + list[i].productInfo + "</div>"
+                			+ "</div>"
+							+ "<span>" + list[i].price.toLocaleString('ko-KR') + "원</span>"
+                		+ "</a>"
+					);
+				}else{
+					$(".snackWrap").append(
+						"<a href='/user/productDetailView?productCode=" + list[i].productCode + "' class='storeItem storeItem1'>"
+                			+ "<img src=" + list[i].productImage + ">"
+                			+ "<div class='infoWrap'>"
+    		            		+ "<div>" + list[i].productName + "</div>"
+    		            		+ "<div>" + list[i].productInfo + "</div>"
+                			+ "</div>"
+							+ "<span>" + list[i].price.toLocaleString('ko-KR') + "원</span>"
+                		+ "</a>"
+					);
+				}
+			}
 		}
 		xhttp.open("get", "/user/main/getStoreList.do", true);
 		xhttp.send();

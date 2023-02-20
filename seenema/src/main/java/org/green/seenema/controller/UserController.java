@@ -34,6 +34,7 @@ public class UserController {
 	@GetMapping("/movieDetailView")
 	public void movieDetailView(String movieCode, Model model) {
 		MovieVO movie = mainMapper.getMovieDetail(movieCode);
+		movie.setPlot(movie.getPlot().replaceAll("\n", "<br>"));
 		model.addAttribute("movie", movie);
 	}
 	

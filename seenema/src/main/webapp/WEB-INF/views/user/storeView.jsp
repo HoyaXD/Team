@@ -105,7 +105,7 @@
 			</div>
 		</div>
 		<div class="absoluteBtnWrap">
-        	<div class="nowReservBtn">예매하기</div>
+        	<a href="/user/reservationMain" class="nowReservBtn">예매하기</a>
         	<a href="#header" class="scrollTopBtn">↑</a>
         </div>
 	</div>
