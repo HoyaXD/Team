@@ -11,16 +11,19 @@
   <style>
     *{
       /* margin: 0 auto; */
+      box-sizing: border-box;	
     }
     header ul, li{
       list-style: none;
       text-align: center;
+      borer: 1px solid red;	/*  */
     }
     header #header_top{
       width: 1300px;
       height: 140px;
       margin: 0 auto;
       border-bottom: 1px solid #d2cece;
+      border: 1px solid blue;	/*  */
     }
     header #top_logo{
       display: inline-block;
@@ -34,6 +37,7 @@
       display: inline-block;
       float: right;
       margin-right: 60px;
+      border: 1px solid green;	/*  */
     }
     header .top_menu li{
       font-size: 12px;
@@ -59,6 +63,7 @@
       z-index: 3;
       position: relative;
       /*border: 1px solid blue;*/
+      border: 1px solid purple;	/*  */
     }
     header .menu_wrap li{
 
