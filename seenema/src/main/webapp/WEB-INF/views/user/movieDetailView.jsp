@@ -14,7 +14,7 @@
 <body>
 	<div class="container">
 		<%-- <%@include file="header.jsp" %> --%>
-		<header></header>
+		<header id="header"></header>
 		<main>
 			<div class="movieInfoWrap">
 				<!-- 영화 포스터 이미지 -->
@@ -60,7 +60,7 @@
 			</div>
 			<div class="trailerWrap">
 				<div id="trailer">&nbsp;</div>
-				<iframe width="780" height="400" src="${movie.previewURL.replace('https://youtu.be/', 'https://www.youtube.com/embed/') }?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+				<iframe width="780" height="400" src="${movie.previewURL.replace('https://youtu.be/', 'https://www.youtube.com/embed/') }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
 				</iframe>
 			</div>
 			<!-- 댓글 컨텐츠 박스 -->
@@ -125,6 +125,10 @@
 					</div>
 				</div>
 			</div>
+			<div class="absoluteBtnWrap">
+        		<a href="/user/reservationMain" class="nowReservBtn">예매하기</a>	<!-- 범수행님 매핑 -->
+        		<a href="#header" class="scrollTopBtn">↑</a>
+       		</div>
 		</main>
 		<footer>푸터</footer>
 	</div>

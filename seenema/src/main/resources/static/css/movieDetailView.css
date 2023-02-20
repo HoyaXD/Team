@@ -537,6 +537,43 @@ footer{
 	margin-top: 50px;
 }
 
-.trailerWrap > iframe{
-	border-radius: 10px;
+/* 버튼 wrap */
+.absoluteBtnWrap{
+	position: fixed;
+	right: 20%;
+	bottom: 10%;
+}
+
+/* 맨위로 버튼옆에 예매하기 버튼 */
+.nowReservBtn{
+	display: inline-block;
+	width: 130px;
+	line-height: 20px;
+	padding: 14px 15px;
+	text-align: center;
+	border-radius: 30px;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	transition: right 0.4s;
+	background-image: linear-gradient(to left, rgb(255, 115, 86), rgb(251, 67, 87));
+	box-shadow: 3px 3px 3px gray;
+	z-index: 99;
+	user-select: none;
+}
+
+/* 맨위로 버튼 */
+.scrollTopBtn{
+	display: inline-block;
+	border: 2px solid gainsboro;
+	border-radius: 50%;
+	font-size: 30px;
+	line-height: 35px;
+	padding: 7px 15px;
+	cursor: pointer;
+	color: gray;
+	background: white;
+	box-shadow: 3px 3px 3px gray;
+	z-index: 99;
+	user-select: none;
 }
