@@ -16,9 +16,8 @@
 </head>
 <body>
 	<div class="container">
-		<header>
-			<input type="hidden" id="id" value="${sessionScope.logid }">
-		</header>
+		<%-- <%@include file="header.jsp" %> --%>
+		<header></header>
 		<main>
 			<div class="buyListWrap">
 				<div class="myOrderListTitle">나의️ 결제내역</div>

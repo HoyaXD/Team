@@ -19,14 +19,14 @@
             <ul class="mainmenu">
                <li>영화 관리
                   <ul class="submenu">
-                     <li><a href="admin/movieReg">영화등록</a></li>
-                     <li><a href="admin/movieList">영화 목록 및 괸리</a></li>
+                     <li><a href="movieReg">영화등록</a></li>
+                     <li><a href="movieList">영화 목록 및 괸리</a></li>
                   </ul>
                </li>
                <li>영화관 관리
                   <ul class="submenu">
-                     <li><a href="admin/theaterReg">영화관 등록</a></li>
-                     <li><a href="admin/theaterList">영화관 목록 및 관리</a></li>
+                     <li><a href="theaterReg">영화관 등록</a></li>
+                     <li><a href="theaterList">영화관 목록 및 관리</a></li>
                   </ul>
                </li>
                <li>매출 관리
@@ -186,7 +186,8 @@
                     </span>
                 </div>
                 <div id="submitBox">
-                    <div><input type="submit" value="등록하기"></div>
+                	<div><input type="button" id="delBtn" value="삭제하기"></div>
+                    <div><input type="submit" id="submitBtn" value="등록하기"></div>
                 </div>
             </form>
             <div id="regied_content">
@@ -221,6 +222,28 @@
          });
       </script>
       <script>
+      	$("#delBtn").on("click", function(){
+	        if (!confirm("영화 정보를 삭제하시겠습니까?")) {
+	     
+	        }else{
+	        	const xhttp = new XMLHttpRequest();
+				xhttp.onload = function() {
+				let result = this.responseText; 
+					
+					if(result == 1){
+						alert("삭제완료!");
+						location.href="movieList";
+					}else{
+						alert("삭제실패..");
+						location.href="movieList";
+					}
+				}
+				
+				xhttp.open("GET", "delMoviesByCodes.do?movieCodes=" + $("#movieCode").val(), true); 
+					
+				xhttp.send();
+	        }
+		});
         function setThumbnail(event) {
             let reader = new FileReader();
   

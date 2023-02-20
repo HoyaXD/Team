@@ -39,4 +39,9 @@
 	<delete id="deleteProduct">
 		DELETE FROM cart_tbl WHERE productCode = #{productCode} AND id = #{id};
 	</delete>
+	
+	<!-- 상품목록 가져오기 -->
+	<select id="getProductList" resultType="ProductVO">
+		SELECT * FROM product_tbl ORDER BY price DESC;
+	</select>
 </mapper>

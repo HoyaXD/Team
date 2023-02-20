@@ -168,31 +168,35 @@
 		
 		//선택삭제
 		$("#btn_delMovies").on("click", movies_delete);
+		
 		function movies_delete(){
-			
-			let chked = new Array();
-			
-			for(let i = 0; i < chks.length; i++){
-				if(chks[i].checked){
-					chked.push(chks[i].value);
-				}
-			}
-			
-			const xhttp = new XMLHttpRequest();
-			xhttp.onload = function() {
-			let result = this.responseText; 
-				if(result == 1){
-					alert("삭제완료!");
-					location.href="movieList";
-				}else{
-					alert("삭제실패..");
-					location.href="movieList";
-				}
-			}
-			
-			xhttp.open("GET", "movies_delete.do?movieCodes="+chked, true); 
+			 if (!confirm("선택된 영화 정보를 삭제하시겠습니까?")) {
+			     
+		    }else{
+				let chked = new Array();
 				
-			xhttp.send();
+				for(let i = 0; i < chks.length; i++){
+					if(chks[i].checked){
+						chked.push(chks[i].value);
+					}
+				}
+				
+				const xhttp = new XMLHttpRequest();
+				xhttp.onload = function() {
+				let result = this.responseText; 
+					if(result == 1){
+						alert("삭제완료!");
+						location.href="movieList";
+					}else{
+						alert("삭제실패..");
+						location.href="movieList";
+					}
+				}
+				
+				xhttp.open("GET", "movies_delete.do?movieCodes="+chked, true); 
+					
+				xhttp.send();
+				}
 			}
 	</script>
 	<script>
@@ -259,7 +263,7 @@
 											"<th></th>"+
 											"<th></th>"+
 											"<th>"+
-												"<button onclick='goProductRegPage();'>영화등록</button>"+
+												"<button onclick='goMovieReg();'>영화등록</button>"+
 											"</th>"+
 										"</tr>");	
 				}else if(obj.length === 0){
@@ -283,7 +287,7 @@
 											"<th></th>"+
 											"<th></th>"+
 											"<th>"+
-												"<button onclick='goProductRegPage();'>영화등록</button>"+
+												"<button onclick='goMovieReg();'>영화등록</button>"+
 											"</th>"+
 									"</tr>");	
 				}
@@ -328,7 +332,7 @@
 											"<th></th>"+
 											"<th></th>"+
 											"<th>"+
-												"<button onclick='goProductRegPage();'>영화등록</button>"+
+												"<button onclick='goMovieReg();'>영화등록</button>"+
 											"</th>"+
 										"</tr>");	
 				}else if(obj.length === 0){
@@ -352,7 +356,7 @@
 											"<th></th>"+
 											"<th></th>"+
 											"<th>"+
-												"<button onclick='goProductRegPage();'>영화등록</button>"+
+												"<button onclick='goMovieReg();'>영화등록</button>"+
 											"</th>"+
 									"</tr>");	
 				}
@@ -397,7 +401,7 @@
 											"<th></th>"+
 											"<th></th>"+
 											"<th>"+
-												"<button onclick='goProductRegPage();'>영화등록</button>"+
+												"<button onclick='goMovieReg();'>영화등록</button>"+
 											"</th>"+
 										"</tr>");	
 				}else if(obj.length === 0){
@@ -421,7 +425,7 @@
 											"<th></th>"+
 											"<th></th>"+
 											"<th>"+
-												"<button onclick='goProductRegPage();'>영화등록</button>"+
+												"<button onclick='goMovieReg();'>영화등록</button>"+
 											"</th>"+
 									"</tr>");	
 				}
@@ -447,35 +451,46 @@
 	});
 	
 	//조회 선택 삭제
+	
 	$("#tfoot").on("click", $("#js_del"), serchDelete);
 	function serchDelete(e){
-		
-		let checked_val = new Array();
-		
-		$('input:checkbox[name="js_chk"]').each(function() {
-	     	if(this.checked){ //체크박스 체크되면
-	     		checked_val.push(this.value); //체크박스 value를 배열에 담음
-	     	};
-		 });
-		
 		if(e.target.id == "js_del"){
-			const xhttp = new XMLHttpRequest();
-			xhttp.onload = function() {
-			let result = this.responseText; 
+	        if (!confirm("선택된 영화 정보를 삭제하시겠습니까?")) {
+	            
+	        } else {
+	            
+				let checked_val = new Array();
 				
-				if(result == 1){
-					alert("삭제완료!");
-					location.href="movieList";
-				}else{
-					alert("삭제실패..");
-					location.href="movieList";
+				$('input:checkbox[name="js_chk"]').each(function() {
+			     	if(this.checked){ //체크박스 체크되면
+			     		checked_val.push(this.value); //체크박스 value를 배열에 담음
+			     	};
+				 });
+				
+				if(e.target.id == "js_del"){
+					const xhttp = new XMLHttpRequest();
+					xhttp.onload = function() {
+					let result = this.responseText; 
+						
+						if(result == 1){
+							alert("삭제완료!");
+							location.href="movieList";
+						}else{
+							alert("삭제실패..");
+							location.href="movieList";
+						}
+					}
+					
+					xhttp.open("GET", "delMoviesByCodes.do?movieCodes=" + checked_val, true); 
+						
+					xhttp.send();
 				}
-			}
-			
-			xhttp.open("GET", "delMoviesByCodes.do?movieCodes=" + checked_val, true); 
-				
-			xhttp.send();
+	        }
 		}
+	}
+	//영화등록페이지로 이동
+	function goMovieReg(){
+		location.href="movieReg";
 	}
 </script>
 

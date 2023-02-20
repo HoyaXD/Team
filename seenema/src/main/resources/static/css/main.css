@@ -6,29 +6,38 @@
     padding: 0;
     box-sizing: border-box;
     text-align: center;
-    font-family: 'Noto Sans KR', 'CJONLYONENEW', '맑은 고딕', '돋움', Dotum, sans-serif;
+    text-decoration: none;
+    color: black;
+    font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
 }
-/* header{
+header{
     width: 1300px;
     height: 150px;
     border: 1px solid blue;
     margin: 0 auto;
-} */
+}
+
 footer{
     width: 1300px;
     height: 150px;
     border: 1px solid blue;
     margin: 0 auto;
 }
+
+/* 검토후 삭제하기 */
 #videoOuter{
     width: 100%;
     background-color: black;
 }
+
+/* 메인 	*/
 main{
     width: 1200px;
     margin: 0 auto;
     /* border: 1px solid red; */
 }
+
+/* 제목 wrap */
 .titleWrap{
     height: 70px;
     line-height: 70px;
@@ -37,26 +46,36 @@ main{
     font-weight: bold;
     padding-left: 40px;
 }
+
+/* 무비차트 */
 #movieChartTitle{
     color: black;
     cursor: pointer;
     margin-right: 10px;
     /* padding-right: 20px; */
 }
+
+/* 상영예정작 제목 */
 #upcomingTitle{
     color: gray;
     cursor: pointer;
     /* padding-left: 20px; */
 }
+
+/* 제목사이 파티션 (무비차트 | 상영예정작)*/
 #movieChartTitle:after{
     position: relative;
     content: "";
     margin-left: 10px;
     border: 1px solid gainsboro;
 }
+
+/* 슬라이더 위 제목 */
 .sectionTitle .on{
     color: black;
 }
+
+/* 영상 콘텐츠 영역 */
 .content{
 	clear: both;
     width: 100%;
@@ -64,6 +83,8 @@ main{
     /* border: 1px solid blue; */
     background-color: black;
 }
+
+/* 동영상 wrap */
 .videoWrap{
     width: 1000px;
     height: 100%;
@@ -71,6 +92,7 @@ main{
     /* border: 1px solid red; */
     display: flex;
 }
+/* 동영상 */
 video{
     width: 1000px;
     height: 550px;
@@ -94,10 +116,13 @@ video{
             #000 100%
         );
 }
+
+/* id값이 slide를 포함하고있는 checkbox모두 */
 .section input[id*="slide"]{
     display: none;
 }
 
+/* 슬라이드 wrap */
 .section .slidewrap{
     max-width: 1300px;
     margin: 0 auto;
@@ -105,6 +130,7 @@ video{
     overflow: hidden;
 }
 
+/* 슬라이드 리스트 */
 .section .slidelist{
     white-space: nowrap;
 }
@@ -120,6 +146,7 @@ video{
     position: relative;
 }
 
+/* 버튼 라벨 */
 .section .slidelist label{
     position: absolute;
     z-index: 10;
@@ -129,6 +156,7 @@ video{
     cursor: pointer;
 }
 
+/* 슬라이드 < 버튼 */
 .section .slidelist .left{
     left: 20px;
     background-color: white;
@@ -138,6 +166,8 @@ video{
     box-shadow: 0 2px 2px 0 gray;
     background: rgba(255, 255, 255, 0.8) url("/images/arrowL.png") center/9px 13px scroll no-repeat;
 }
+
+/* 슬라이드 > 버튼 */
 .section .slidelist .right{
     right: 20px;
     background-color: white;
@@ -150,6 +180,7 @@ video{
     background: rgba(255, 255, 255, 0.8) url("/images/arrowR.png") center/9px 13px scroll no-repeat;
 }
 
+/* 체크박스 체크값기준 x축 좌표 변경 */
 .section [id="slide01"]:checked ~ .slidewrap .slidelist > li{
     transform: translateX(0%);
 }
@@ -166,6 +197,8 @@ video{
 .items{
     width: 1200px;
 }
+
+
 .item{
     width: 1200px;
     height: 400px;
@@ -173,36 +206,52 @@ video{
     justify-content: center;
 }
 
+
+/* 영화 개별 한박스 */
 .movie{
     width: 200px;
     height: 360px;
     margin: 10px 15px 15px 15px;
     /* border: 1px solid black; */
 }
-img{
+
+/* 영화 포스터 */
+.movieInfoTopWrap > img{
     width: 100%;
     height: 292px;
     border-radius: 10px;
 }
+
+/* 하단 영화제목 */
 .movieInfoTitle{
     text-align: center;
-    font-weight: bold;
-    font-size: 17px;
-    margin: 10px 0;
+    font-weight: 600;
+    font-size: 25px;
+    margin-top: 10px;
 }
+
+/* 상단 정보 wrap */
 .movieInfoTopWrap{
 	height: 285px;
 }
+
+/* 영화 하단 정보 wrap */
 .movieInfoBottomWrap{
     text-align: center;
 }
+
+/* 영화 평점 */
 .star{
     color: rgb(255, 210, 48);
     padding-right: 5px;
 }
+
+/* 하단 영화별 예매율 */
 .reservationRate{
     padding-left: 10px;
 }
+
+/* 버튼 wrap */
 .buttons{
     position: absolute;
     top: 120px;
@@ -212,6 +261,7 @@ img{
     z-index: 5;
 }
 
+/* 사진위에 상세보기 버튼 */
 .goMovieInfoBtn{
     width: 100px;
     text-align: center;
@@ -225,6 +275,8 @@ img{
     display: block;
     border: none;
 }
+
+/* 랭킹박스 사진위 예매하기 버튼 */
 .goMovieResrvBtn{
     width: 100px;
     text-align: center;
@@ -239,9 +291,13 @@ img{
     display: block;
     border: none;
 }
+
+/* 상단영역 hover 버튼 투명도 */
 .movieInfoTopWrap:hover .buttons{
     opacity: 1;
 }
+
+/* 오버레이 */
 .overlay {
     position: absolute;
     top: 10px;
@@ -254,22 +310,29 @@ img{
     transition: 0.3s ease;
 }
 
+/* 영화 랭킹 개별박스 hover했을때 오버레이 */
 .movieInfoTopWrap:hover .overlay {
     display: block;
     background: rgba(0, 0, 0, .2);
 }
 
+/* 상세보기 버튼 hover */
 .goMovieInfoBtn:hover{
     opacity: 0.8;
 }
+
+/* 예약버튼 hover */
 .goMovieResrvBtn:hover{
     opacity: 0.8;
 }
 
+/* 사진, 버튼 오버레이, 랭킹 wrap */
 .movieInfoTopWrap{
     width: 200px;
     height: 292px;
 }
+
+/* 사진 위 연령대 */
 .age{
     position: absolute;
     margin-top: 10px;
@@ -284,6 +347,7 @@ img{
     font-weight: bolder;
 }
 
+/* 랭킹 숫자 */
 .ranking{
     position: absolute;
     width: 40px;
@@ -297,6 +361,7 @@ img{
     font-style: italic;
 }
 
+/* 메인 슬라이더 그라데이션 박스 */
 .gradient{
 	position: absolute;
 	width: 200px;
@@ -309,3 +374,100 @@ img{
 	opacity: 0.5;
 	/* border: 1px solid red; */
 }
+
+/* 메인 스토어 영역 */
+.storeSection{
+	/* border: 1px solid black; */
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 30px;
+}
+
+/* package, ticket, drink 박스 */
+.storeSection > div{
+	border: 2px solid gainsboro;
+	height: 400px;
+	border-radius: 10px;
+	padding: 20px 30px;
+}
+
+/* 스토어 제목(패키지, 관람권, 음료) */
+.storeSection > div > h2{
+	border-bottom: 0.1px solid gainsboro;
+	padding-bottom: 10px;
+}
+
+/* 버튼 wrap */
+.absoluteBtnWrap{
+	position: fixed;
+	right: 15%;
+	bottom: 10%;
+}
+
+/* 맨위로 버튼옆에 예매하기 버튼 */
+.nowReservBtn{
+	display: inline-block;
+	width: 130px;
+	line-height: 20px;
+	padding: 14px 15px;
+	text-align: center;
+	border-radius: 30px;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	transition: right 0.4s;
+	background-image: linear-gradient(to left, rgb(255, 115, 86), rgb(251, 67, 87));
+	box-shadow: 3px 3px 3px gray;
+}
+
+/* 맨위로 버튼 */
+.scrollTopBtn{
+	display: inline-block;
+	border: 2px solid gainsboro;
+	border-radius: 50%;
+	font-size: 30px;
+	line-height: 35px;
+	padding: 7px 15px;
+	cursor: pointer;
+	color: gray;
+	background: white;
+	box-shadow: 3px 3px 3px gray;
+}
+
+.storeItem{
+	height: 100px;
+	display: flex;
+	cursor: pointer;
+	margin-bottom: 10px;
+	border: 1px solid black;
+}
+
+.storeItem > img{
+	width: 80px;
+	height: 80px;
+	/* border: 1px solid red; */
+	margin: 10px;
+}
+
+.infoWrap{
+	padding: 30px 0 0 10px;
+}
+.infoWrap > div:first-child{
+	font-size: 16px;
+	font-weight: 800;
+	margin-bottom: 5px;
+}
+.infoWrap > div:last-child{
+	font-weight: 500;
+	color: gray;
+	font-size: 14px;
+}
+
+.storeItem > span{
+	line-height: 100px;
+	padding-left: 20px;
+}
+
+
+
+
