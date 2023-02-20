@@ -1,0 +1,57 @@
+@charset "UTF-8";
+.main_view {
+	float: right;
+	width: 1094px;
+	height: 1000px;
+}
+
+.main_view #doToday_menu {
+	margin-left : 56px;
+	display: flex;
+	margin: 20px 0 0 56xp;
+	/*상 오른쪽 아래 왼쪽*/
+	width: 980px;
+	height: auto;
+}
+#doToday_detail div{
+	
+	width: 150px;
+	height: 30px;
+}
+
+#doToday_title {
+	float:left;
+	width: 230px;
+	height: auto;
+}
+
+#chart_div {
+	display: flex;
+	width: 750px;
+	height: 320px;
+}
+
+#simpleView {
+	display: flex; margin-top : 30px;
+	width: 980px;
+	height: 580px;
+	margin-top: 30px;
+}
+#simpleView div {
+	width: 440px;
+	height: 260px;
+	border: 1px blue solid;
+}
+h4{
+   margin-left: 20px;
+   font-size: 23px;
+
+}
+#qnaView_box{
+   width: 300px;
+   height: 170px;
+   margin-top: 10px;
+   margin-left: 20px;
+   font-size: 17px;
+   
+} 

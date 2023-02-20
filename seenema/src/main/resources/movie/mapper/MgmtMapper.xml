@@ -38,6 +38,24 @@
 	<select id="gradeSearch" resultType="org.green.seenema.vo.MemberVO">
 		SELECT * FROM member_tbl WHERE grade LIKE CONCAT('%', #{searchGrade}, '%')
 	</select>
+	
+		<!-- 전체 회원 갯수 -->
+	<select id="memberCount" resultType="int">
+		SELECT COUNT(*) FROM member_tbl
+	</select>
+	<!-- 전체 회원 아이디 갯수 -->
+	<select id="memberIdCount" resultType="int">
+		SELECT COUNT(*) FROM member_tbl WHERE ID LIKE CONCAT('%', #{searchId}, '%')
+	</select>
+	<!-- 전체 회원 이름 갯수 -->
+	<select id="memberNameCount" resultType="int">
+		SELECT COUNT(*) FROM member_tbl WHERE name LIKE CONCAT('%', #{searchName}, '%')
+	</select>
+	<!-- 전체 회원 등급 갯수 -->
+	<select id="memberGradeCount" resultType="int">
+		SELECT COUNT(*) FROM member_tbl WHERE grade LIKE CONCAT('%', #{searchGrade}, '%')
+	</select>
+	
 
 	
 </mapper>
