@@ -10,7 +10,7 @@
 <%--  <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>--%>
   <style>
     *{
-      margin: 0 auto;
+      /* margin: 0 auto; */
     }
     header ul, li{
       list-style: none;
@@ -19,6 +19,7 @@
     header #header_top{
       width: 1300px;
       height: 140px;
+      margin: 0 auto;
       border-bottom: 1px solid #d2cece;
     }
     header #top_logo{
@@ -53,6 +54,7 @@
 
       width: 1300px;
       height: 40px;
+      margin: 0 auto;
       text-align: center;
       z-index: 3;
       position: relative;
@@ -72,7 +74,7 @@
       z-index: 2;
       /*width: 3000px;*/
       width: 100%;
-      /*left: 280px;*/
+      /* left: 100px; */
       height: 230px;
       background-color: white;
       display: none;
@@ -85,7 +87,9 @@
       font-weight: bold;
     }
     header .nav_flex{
-      position: absolute;
+      /* position: absolute; */
+      width: 1300px;
+      margin: 0 auto;
       z-index: 1;
       text-align: left;
     }
@@ -100,7 +104,7 @@
     }
     header #active_movie{
 
-    margin-left: 300px;
+      /*margin-left: 20px;*/
     }
 
     header .active_menu li{
@@ -121,7 +125,7 @@
 </head>
 <body>
 
-  <header>
+  <header id="header">
     <div id="header_top">
       <a href="main"><div id="top_logo"><img src="/images/logo3.png"></div></a>
       <div class="top_menu">

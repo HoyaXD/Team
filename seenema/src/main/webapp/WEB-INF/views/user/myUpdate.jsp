@@ -18,6 +18,9 @@
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
+    *{
+      margin: 0 auto;
+    }
     #member_top{
       margin-top: 20px;
       width: 1000px;
@@ -151,6 +154,7 @@
     input[type="radio"] {
       margin-right: 10px;
     }
+
   </style>
 </head>
 <body>
