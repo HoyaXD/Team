@@ -117,7 +117,7 @@
                         <td>${p.productCode}</td>
                         <td><img src="/resources/imgs/${p.productImage }" width="65px"></td>
                         <td><a href="productUpdate?productCode=${p.productCode}">${p.productName}</a></td>
-                        <td>${p.category}</td>
+                        <td>${p.category }</td>
                         <td>${p.price}</td>
                         <td style="color:blue">${p.productSales}</td>
                       </tr>
@@ -145,8 +145,14 @@
           </div>
        </div>
     </div>
-
 	<script>
+		const totalCount = 53
+		const limit = 5
+
+		let totalPage = Math.ceil(totalCount / limit) // 11
+	</script>
+	<script>
+		
 		//상품조회
 		$("#serchType").on('change', function(e){
 			if($("#serchType").val() == "price"){
@@ -160,6 +166,8 @@
 		});
 		
 		function serchProduct(){
+			
+			
 			let serchType = $("#serchType").val();
 			let serchWord = $("#serchWord").val();
 			
@@ -180,6 +188,7 @@
 					                                "<option value='best'>베스트</option>"+
 					                                "<option value='snack'>스낵</option>"+
 					                                "<option value='ticket'>영화관람권</option>"+
+					                      
 					                                "<option value='lowPrice'>낮은 가격 순</option>"+
 					                                "<option value='highPrice'>높은 가격 순</option>"+
 					                                "<option value='lowCnt'>판매량 낮은 순</option>"+
@@ -279,6 +288,7 @@
 		                                "<option value='best'>베스트</option>"+
 		                                "<option value='snack'>스낵</option>"+
 		                                "<option value='ticket'>영화관람권</option>"+
+		                         
 		                                "<option value='lowPrice'>낮은 가격 순</option>"+
 		                                "<option value='highPrice'>높은 가격 순</option>"+
 		                                "<option value='lowCnt'>판매량 낮은 순</option>"+
@@ -373,6 +383,7 @@
 		                                "<option value='best'>베스트</option>"+
 		                                "<option value='snack'>스낵</option>"+
 		                                "<option value='ticket'>영화관람권</option>"+
+		                                
 		                                "<option value='lowPrice'>낮은 가격 순</option>"+
 		                                "<option value='highPrice'>높은 가격 순</option>"+
 		                                "<option value='lowCnt'>판매량 낮은 순</option>"+
@@ -566,7 +577,6 @@
 					
 				const xhttp = new XMLHttpRequest();
 				xhttp.onload = function() {
-
 					let sort_vlue = $("#sort").val();
 					let _sort_vlue = "";
 					
@@ -576,6 +586,8 @@
 						_sort_vlue = "스낵"
 					}else if(sort_vlue == "ticket"){
 						_sort_vlue = "영화관람권"
+					}else if(sort_vlue == "ect"){
+						_sort_vlue = "기타"	
 					}else if(sort_vlue == "lowPrice"){
 						_sort_vlue = "낮은 가격 순"
 					}else if(sort_vlue == "highPrice"){
@@ -602,6 +614,7 @@
 					                                "<option value='best'>베스트</option>"+
 					                                "<option value='snack'>스낵</option>"+
 					                                "<option value='ticket'>영화관람권</option>"+
+					                             
 					                                "<option value='lowPrice'>낮은 가격 순</option>"+
 					                                "<option value='highPrice'>높은 가격 순</option>"+
 					                                "<option value='lowCnt'>판매량 낮은 순</option>"+
@@ -689,6 +702,11 @@
 					xhttp.open("GET", "getListByCategory.do?category=ticket", true); 
 						
 					xhttp.send();
+				}else if($("#sort").val() == "ticket"){
+					//카테고리 - 기타
+					xhttp.open("GET", "getListByCategory.do?category=ect", true); 
+						
+					xhttp.send();
 				}else if($("#sort").val() == "lowPrice"){
 					//낮은 가격 순으로 정렬
 					xhttp.open("GET", "getListByLowPrice", true); 
@@ -713,6 +731,8 @@
 					
 				}
 			}//e.target if
+			
+			
 		}//sort function
 	</script>
 	<script>
@@ -727,7 +747,6 @@
 				let sort_vlue = $("#src_sort").val();
 				const xhttp = new XMLHttpRequest();
 				xhttp.onload = function() {
-
 					let _sort_vlue = "";
 					
 					if(sort_vlue == "best"){
@@ -736,6 +755,8 @@
 						_sort_vlue = "스낵"
 					}else if(sort_vlue == "ticket"){
 						_sort_vlue = "영화관람권"
+					}else if(sort_vlue == "ect"){
+						_sort_vlue = "기타"
 					}else if(sort_vlue == "lowPrice"){
 						_sort_vlue = "낮은 가격 순"
 					}else if(sort_vlue == "highPrice"){
@@ -762,6 +783,7 @@
 					                                "<option value='best'>베스트</option>"+
 					                                "<option value='snack'>스낵</option>"+
 					                                "<option value='ticket'>영화관람권</option>"+
+					  
 					                                "<option value='lowPrice'>낮은 가격 순</option>"+
 					                                "<option value='highPrice'>높은 가격 순</option>"+
 					                                "<option value='lowCnt'>판매량 낮은 순</option>"+
@@ -815,6 +837,7 @@
 		                                "<option value='best'>베스트</option>"+
 		                                "<option value='snack'>스낵</option>"+
 		                                "<option value='ticket'>영화관람권</option>"+
+		                       
 		                                "<option value='lowPrice'>낮은 가격 순</option>"+
 		                                "<option value='highPrice'>높은 가격 순</option>"+
 		                                "<option value='lowCnt'>판매량 낮은 순</option>"+
@@ -898,6 +921,22 @@
 						
 						xhttp.send();
 					}
+				}else if($("#src_sort").val() == "ect"){
+					//카테고리 - 기타
+					if($("#serchType").val() == "productName"){
+						
+						xhttp.open("GET", "getListNameCategory?productName="+ serchWord + "&category=ect", true); 
+							
+						xhttp.send();
+					}else if($("#serchType").val() == "price"){
+						xhttp.open("GET", "getListPriceCategory?start="+ $("#start").val() + "&end=" + $("#end").val() + "&category=ect", true); 
+						
+						xhttp.send();
+					}else if($("#serchType").val() == "category"){
+						xhttp.open("GET", "getListCategoryCategory?category1=" + serchWord + "&category2=" + e.target.value, true); 
+						
+						xhttp.send();
+					}
 				}else if($("#src_sort").val() == "lowPrice"){
 					//낮은 가격 순으로 정렬
 					if($("#serchType").val() == "productName"){
@@ -938,7 +977,7 @@
 					
 						xhttp.send();
 					}else if($("#serchType").val() == "price"){
-						xhttp.open("GET", "getListPriceLowSales?start="+ $("#start").val() + "&end=" + $("#end").val() + "sales=low", true); 
+						xhttp.open("GET", "getListPriceSales?start="+ $("#start").val() + "&end=" + $("#end").val() + "&sales=low", true); 
 						
 						xhttp.send();
 					}else if($("#serchType").val() == "category"){
@@ -954,7 +993,7 @@
 					
 						xhttp.send();
 					}else if($("#serchType").val() == "price"){
-						xhttp.open("GET", "getListPriceLowSales?start="+ $("#start").val() + "&end=" + $("#end").val() + "sales=high", true); 
+						xhttp.open("GET", "getListPriceSales?start="+ $("#start").val() + "&end=" + $("#end").val() + "&sales=high", true); 
 						
 						xhttp.send();
 					}else if($("#serchType").val() == "category"){
@@ -967,7 +1006,6 @@
 				}
 			}//e.target if
 		}//src_sort function
-
 	</script>
 	
 <c:if test="${param.update_result == 1 }">

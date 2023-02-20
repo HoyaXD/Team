@@ -58,13 +58,13 @@
 
          <div id="doToday_menu">
             <div id="main_header">
-               <div id="menu_title">상품 등록</div>
+               <div id="menu_title">제품 등록</div>
             </div>
          </div>
          <div class="easy_menu">
             <form action="productReg.do" id="productReg_Form" method="post" enctype="multipart/form-data">
                 <div id="input_menu">
-                    <div id="input_title">상품명</div>
+                    <div id="input_title">제품명</div>
                     <div id="textbox"><input type="text" name="productName"></div>
                 </div>
                 <div id="input_menu_1">
@@ -74,7 +74,7 @@
                             <select class="selectMenu" name="category" size="1">
                                 <option value="">-선택-</option>
                                 <option value="snack">스낵</option>
-                                <option value="ticket">관람권</option>
+                                <option value="ticket">영화 관람권</option>
                                 <option value="best">베스트</option>
                                 <option value="ect">기타</option>
                             </select>
@@ -86,11 +86,11 @@
                     </span>
                 </div>
                 <div id="input_menu">
-                    <div id="input_title">상품정보</div>
+                    <div id="input_title">제품정보</div>
                     <div id="textbox"><textarea name="productInfo"></textarea></div>
                 </div>
                 <div id="input_menu_1">
-                        <div id="input_title">상품 이미지 업로드</div>
+                        <div id="input_title">제품 이미지 업로드</div>
                         <div id="textbox">
                             <input type="file" name="photoFileName" id="photoFileName" style="display:none;" accept="image/*" onchange="setThumbnail(event)"required style="cursor: pointer;">
                             <label id=upload_btn for="photoFileName">
@@ -142,26 +142,6 @@
             reader.readAsDataURL(event.target.files[0]);
         }
       </script>
-<!-- 	<h1>상품등록페이지</h1>
-	<hr>
-	<form action="productReg.do" method="post" enctype="multipart/form-data">
-		<table border="1">
-			<tr>
-				<th>상품명</th><td><input type="text" name="productName" required></td>
-			</tr>
-			<tr>
-				<th>가격</th><td><input type="text" name="price" required>원</td>
-			</tr>
-			<tr>
-				<th>상품정보</th><td><textarea name="productInfo" required></textarea></td>
-			</tr>
-			<tr>
-				<th>상품이미지</th><td><input type="file" name="photoFileName" required></td>
-			</tr>
-			<tr>
-				<th colspan="2"><input type="submit" value="등록하기"></th>
-			</tr>
-		</table>
-	</form> -->
+
 </body>
 </html>

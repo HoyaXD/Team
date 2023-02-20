@@ -1,5 +1,6 @@
 package org.green.seenema.controller;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +9,6 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
 import org.green.seenema.mapper.MgmtMapper;
 import org.green.seenema.mapper.MovieCRUDMapper;
 import org.green.seenema.mapper.TheaterCRUDMapper;
@@ -27,172 +27,135 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
-
-	@Autowired
-	MgmtMapper mgmt;
-
-	@GetMapping("/MemberMGMT")
-	public void memberMGMTViewGo() {
-
-	}
-
-	// 테스트
-	@GetMapping("/adminPage")
-	public void adminPageGo() {
-
-	}
-
-	// 영화관 회원 목록 출력
-	@GetMapping("/MemberListView")
-	public @ResponseBody List<MemberVO> memberView() {
-		return mgmt.memberView();
-	}
-
-	// 영화관 회원 목록 삭제
-	@GetMapping("/MemberDel")
-	public void memberDel(String id) {
-		mgmt.memberDel(id);
-	}
-
-	// 영화관 회원 수정창
-	@GetMapping("/memEditPop")
-	public List<MemberVO> memEditViewGo(String id, Model model) {
-		log.info("수정창으로 ㄱㄱ");
-		// id를 받음
-		log.info("id를 받은 값 : " + id);
-		log.info("투스트링 : " + mgmt.oneMemList(id).toString());
-		List<MemberVO> list = mgmt.oneMemList(id);
-		model.addAttribute("list", list);
-		return list;
-	}
-
-	// 수정창
-	@ResponseBody
-	@PostMapping("/editInfo")
-	public int memberEdit(MemberVO m) {
-		log.info("수정버튼누름 : " + m.toString());
-		mgmt.editInfo(m);
-		return 0;
-	}
-
-	// 갯수 검색
-	@GetMapping("/memberCount")
-	public @ResponseBody int memberCount() {
-		return mgmt.memberCount();
-	}
-
-	// 갯수 검색
-	@GetMapping("/memberIdCount")
-	public @ResponseBody int memberIdCount(@Param("searchId") String id) {
-		return mgmt.memberIdCount(id);
-	}
-
-	// 갯수 검색
-	@GetMapping("/memberNameCount")
-	public @ResponseBody int memberNameCount(@Param("searchName") String name) {
-		return mgmt.memberNameCount(name);
-	}
-
-	// 갯수 검색
-	@GetMapping("/memberGradeCount")
-	public @ResponseBody int memberGradeCount(@Param("searchGrade") String grade) {
-		return mgmt.memberGradeCount(grade);
-	}
-
+   
+   @Autowired
+   MgmtMapper mgmt;
+   
+   @GetMapping("/MemberMGMT")
+   public void memberMGMTViewGo() {
+      
+   }
+   
+   //영화관 회원 목록 출력
+   @GetMapping("/MemberListView")
+   public @ResponseBody List<MemberVO> memberView() {
+      return mgmt.memberView();
+   }
+   
+   //영화관 회원 목록 삭제
+   @GetMapping("/MemberDel")
+   public void memberDel(String id) {
+      mgmt.memberDel(id);
+   }
+   
+   //영화관 회원 수정창
+   @GetMapping("/memEditPop")
+   public List<MemberVO> memEditViewGo(String id,Model model){
+      log.info("수정창으로 ㄱㄱ");
+      //id를 받음
+      log.info("id를 받은 값 : " + id);
+      log.info("투스트링 : "+mgmt.oneMemList(id).toString());
+      List<MemberVO> list = mgmt.oneMemList(id);
+      model.addAttribute("list", list);
+      return list;
+   }
+   //수정창
+   @ResponseBody
+   @PostMapping("/editInfo")
+   public int memberEdit(MemberVO m) {
+      log.info("수정버튼누름 : " + m.toString());
+      mgmt.editInfo(m);
+   return 0;
+   }
+   
+   
 	@Autowired
 	MovieCRUDMapper mapper;
-
-	// --------------------영화 등록/수정/삭제
-
 	@Autowired
 	TheaterCRUDMapper tmapper; 
 	
 	//--------------------영화 등록/수정/삭제
-
 	@GetMapping("/movieReg")
 	public void regMovie(Model model) {
 		//영화 등록 페이지
 		ArrayList<TheaterVO> theaterlist = tmapper.getList();
 		model.addAttribute("theater", theaterlist);
 	}
-
+	
 	@PostMapping("/movieUplode.do")
-	public String uploadMovieDo(MovieVO movieVO, @RequestParam("photoFileName") MultipartFile file,
-			HttpServletRequest request, RedirectAttributes rs) {
-		// 영화등록실행
+	public String uploadMovieDo(MovieVO movieVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {
+		//영화등록실행
 		String fileName = file.getOriginalFilename();
-
+		
 		movieVO.setPostFileName(fileName);
-
+		
 		ServletContext ctx = request.getServletContext();
 		String uploadPath = "resources/imgs";
 		String path = ctx.getRealPath(uploadPath);
-
+		
 		File saveFile = new File(path, file.getOriginalFilename());
-
+		
 		try {
 			file.transferTo(saveFile);
 		} catch (IllegalStateException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		int result = mapper.insertMovie(movieVO);
-
+		
 		rs.addAttribute("insert_result", result);
-
+		
 		return "redirect:movieList";
 	}
-
+	
 	@GetMapping("/movieList")
 	public void movieList(Model model) {
-		// 등록된 영화 목록 페이지
-
+		//등록된 영화 목록 페이지
+		
 		ArrayList<MovieVO> mList = mapper.getList();
-		model.addAttribute("mList", mList);
+		model.addAttribute("mList", mList);	
 	}
-
+	
 	@GetMapping("/movieUpdate")
 	public void movieUpdate(int movieCode, Model model) {
-		// 영화 정보 수정 페이지
-
+		//영화 정보 수정 페이지
+		
 		MovieVO movie = mapper.selectOne(movieCode);
 		model.addAttribute("movie", movie);
 		
 		ArrayList<TheaterVO> theaterlist = tmapper.getList();
 		model.addAttribute("theater", theaterlist);
 	}
-
+	
 	@PostMapping("/movieUpdate.do")
-	public String movieUpdateDo(MovieVO movieVO, @RequestParam("photoFileName") MultipartFile file,
-			HttpServletRequest request, RedirectAttributes rs) {
-		// 영화정보 수정 실행
-
+	public String movieUpdateDo(MovieVO movieVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {
+		//영화정보 수정 실행
+		
 		String fileName = file.getOriginalFilename();
-
+		
 		int update_result = -1;
-
-		if (fileName.equals("")) {
-
+		
+		if(fileName.equals("")) {
+			
 			update_result = mapper.update(movieVO);
 			rs.addAttribute("update_result", update_result);
-
+			
 			return "redirect:movieList";
-
-		} else {
-
+			
+		}else {
+			
 			movieVO.setPostFileName(fileName);
 			ServletContext ctx = request.getServletContext();
 			String uploadPath = "resources/imgs";
 			String path = ctx.getRealPath(uploadPath);
-
+			
 			File saveFile = new File(path, file.getOriginalFilename());
-
+			
 			try {
 				file.transferTo(saveFile);
 			} catch (IllegalStateException | IOException e) {
@@ -201,36 +164,37 @@ public class AdminController {
 			}
 			update_result = mapper.update(movieVO);
 			rs.addAttribute("update_result", update_result);
-
+			
 			return "redirect:movieList";
 		}
 	}
-
 	@GetMapping("/movieDelete.do")
 	public String moviedeleteDo(int movieCode, RedirectAttributes rs) {
-		// 영화 삭제 실행
+		//영화 삭제 실행
 		int del_result = mapper.delete(movieCode);
 		rs.addAttribute("del_result", del_result);
-
+		
 		return "redirect:movieList";
 	}
-
+	
 	@GetMapping("/movies_delete.do")
 	public @ResponseBody int movies_deleteDo(int[] movieCodes) {
-		// 영화 선택 삭제 실행
+		//영화 선택 삭제 실행
 		int del_result = 0;
-		for (int i = 0; i < movieCodes.length; i++) {
+		for(int i = 0; i < movieCodes.length; i++) {
 			del_result = mapper.delete(movieCodes[i]);
 		}
 		return del_result;
 	}
-	// --------------------영화관 등록/수정/삭제/조회
+	
+	//--------------------영화관 등록/수정/삭제/조회
+
 	
 	@GetMapping("/theaterReg")
 	public void theaterReg() {
-		// 영화관 등록페이지
+		//영화관 등록페이지
 	}
-
+	
 	@PostMapping("/theaterReg.do")
 	public String theaterRegDo(TheaterVO theaterVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {
 		//영화관 등록실행
@@ -253,36 +217,27 @@ public class AdminController {
 		
 		int insert_result = tmapper.insertTheater(theaterVO);
 		rs.addAttribute("insert_result", insert_result);
-
-		return "redirect:theaterList";
-	}
-
-	@GetMapping("/theaterList")
-	public void theaterList(Model model) {
-		// 영화관 조회페이지
-
-		ArrayList<TheaterVO> tList = tmapper.getList();
-		model.addAttribute("tList", tList);
-	}
-
-	@GetMapping("/theaterUpdate")
-	public void theaterUpdate(int theaterCode, Model model) {
-		// 영화관 정보 수정 페이지
-
-		TheaterVO theater = tmapper.selectOne(theaterCode);
-		model.addAttribute("theater", theater);
-
-	}
-
-	@PostMapping("/theaterUpdate.do")
-	public String theaterUpdateDo(TheaterVO theaterVO, RedirectAttributes rs) {
-		// 영화관 정보 수정 실행
-		int update_result = tmapper.update(theaterVO);
-		rs.addAttribute("update_result", update_result);
-
+		
 		return "redirect:theaterList";
 	}
 	
+	@GetMapping("/theaterList")
+	public void theaterList(Model model) {
+		//영화관 조회페이지
+
+		ArrayList<TheaterVO> tList = tmapper.getList();
+		model.addAttribute("tList", tList);	
+	}
+	
+	@GetMapping("/theaterUpdate")
+	public void theaterUpdate(int theaterCode, Model model) {
+		//영화관 정보 수정 페이지
+		
+		TheaterVO theater = tmapper.selectOne(theaterCode);
+		model.addAttribute("theater", theater);
+		
+	}
+	@PostMapping("/theaterUpdate.do")
 	public String theaterUpdateDo(TheaterVO theaterVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {
 		//영화관 정보 수정 실행
 		String fileName = file.getOriginalFilename();
@@ -315,18 +270,14 @@ public class AdminController {
 			return "redirect:theaterList";
 		}
 	}
-
 	@GetMapping("/theaterDelete.do")
 	public String theaterDeleteDo(int theaterCode, RedirectAttributes rs) {
-		// 영화관 삭제 실행
+		//영화관 삭제 실행
 		int del_result = tmapper.delete(theaterCode);
 		rs.addAttribute("del_result", del_result);
-
+		
 		return "redirect:theaterList";
 	}
-
-	@GetMapping("/test")
-	public void test() {
-
-	}
+	
+	
 }

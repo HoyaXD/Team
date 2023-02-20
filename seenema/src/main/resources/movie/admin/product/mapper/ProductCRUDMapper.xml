@@ -12,7 +12,7 @@
 	
 	<!-- 상품조회 -->
 	<select id="getList" resultType="org.green.seenema.vo.ProductVO">
-		SELECT * FROM seenema.product_tbl LIMIT 10;
+		SELECT * FROM seenema.product_tbl ORDER BY productCode DESC LIMIT 10 ;
 	</select>
 	
 	<!-- 코드로 상품조회하기 -->
@@ -35,17 +35,17 @@
 	
 	<!-- 상품명으로 상품조회하기 -->
 	<select id="getListByName" resultType="org.green.seenema.vo.ProductVO">
-		SELECT * FROM seenema.product_tbl WHERE productName LIKE #{param1}
+		SELECT * FROM seenema.product_tbl WHERE productName LIKE #{param1} ORDER BY productSales DESC
 	</select>
 	
 	<!-- 가격대로 상품조회하기 -->
 	<select id="getListByPrice" resultType="org.green.seenema.vo.ProductVO">
-		<![CDATA[ SELECT * FROM seenema.product_tbl WHERE price >= #{param1} and price <= #{param2} ]]>
+		<![CDATA[ SELECT * FROM seenema.product_tbl WHERE price >= #{param1} and price <= #{param2} ORDER BY price ASC]]>
 	</select>
 	
 	<!-- 카테고리 조회하기 -->
 	<select id="getListByCategory" resultType="org.green.seenema.vo.ProductVO">
-		SELECT * FROM seenema.product_tbl WHERE category LIKE #{param1}
+		SELECT * FROM seenema.product_tbl WHERE category LIKE #{param1} ORDER BY productSales DESC
 	</select>
 	
 	<!-- 낮은 가격 순으로 조회하기 -->
@@ -70,7 +70,7 @@
 	
 	<!-- 상품명 > 카테고리 별 정렬 -->
 	<select id="getListNameCategory" resultType="ProductVO">
-		SELECT * FROM seenema.product_tbl WHERE productName LIKE #{param1} and category = #{param2}
+		SELECT * FROM seenema.product_tbl WHERE productName LIKE #{param1} and category = #{param2} ORDER BY productSales DESC
 	</select>
 	
 	<!-- 상품명 > 낮은 가격순 정렬 -->

@@ -28,4 +28,12 @@ public class AdminSalesController {
 		
 	}
 	
+	@GetMapping("/test")
+	public void test(Model model) {
+		ArrayList<MovieVO> mList = mapper.getMovieTopfive();
+		ArrayList<ProductVO> pList = mapper.getProductTopfive();
+		
+		model.addAttribute("mList", mList);
+		model.addAttribute("pList", pList);
+	}
 }

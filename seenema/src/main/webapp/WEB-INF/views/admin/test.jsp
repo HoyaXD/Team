@@ -1,64 +1,87 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body>
-   
-    <div id="address">경상남도 창원시 성산구 원이대로 774</div>
-    <div id="map" style="width:100%;height:350px;"></div>
-    <div id="clickLatlng"></div>
-    
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3e2cb63af5ce21e3e335968b15d8713a&libraries=services"></script>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
-
-// 지도를 생성합니다    
-var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
- var address = document.getElementById('address').innerText;
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('부산광역시 부산진구 동천로 92', function(result, status) {
-    
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
-
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-		var message = result[0].y + ", ";
-		message += result[0].x;
+<table border="1" id="bar_chart_div">
+	<tr>
+		<th>제목</th>
+		<th>예매율</th>
+	</tr>
+	<c:forEach var="m" items="${mList }">
+	<tr>
+		<td id=title> ${m.movieTitle }</td>
+		<td id=mCnt> ${m.cnt }</td>
 		
-		var resultDiv = document.getElementById('clickLatlng'); 
-       
-		resultDiv.innerHTML = message;
-		
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
-		
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-        	
-            content: "<div>hi</div>"
-        });
-        infowindow.open(map, marker);
+	</tr>
+	</c:forEach>
+</table>
 
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-        map.setCenter(coords);
-    } 
-});    
-</script>
+<div id=chart_div style="width:400px; height:400px"></div>
+
+  
+	<script>
+		let mTitle = document.querySelectorAll("#title");
+		let mHit = document.querySelectorAll("#mCnt");
+		
+		google.charts.load('current', {'packages':['corechart']});
+		google.charts.setOnLoadCallback(drawVisualization);
+		
+		function drawVisualization() {
+			  // Some raw data (not necessarily accurate)
+			
+			
+		  var data = new google.visualization.DataTable();
+		  data.addColumn('string', '영화');
+		  data.addColumn('number', '예매량');
+		 
+		
+		  let arr = new Array();
+			
+		  for(let i = 0; i < mHit.length; i++){
+			  movieTitles = mTitle[i].innerText;
+			  movieHits = parseInt(mHit[i].innerText);
+			  arr[i] = [movieTitles, movieHits];
+			  
+		  }
+			  data.addRows(arr);
+
+		  var options = {
+			    title : '영화 예매율',
+			    //vAxis: {title: '예매율'},
+			    hAxis: {title: '영화'},
+			    seriesType: 'bars',
+			    animation: { //차트가 뿌려질때 실행될 애니메이션 효과
+                    startup: true,
+                    duration: 1000,
+                    easing: 'linear' },
+			    series: {1: {type: 'line'}},
+			    colors:['skyblue', 'red'],
+			    annotations: {
+                    textStyle: {
+                      fontSize: 15,
+                      bold: true,
+                      italic: true,
+                      color: '#871b47',
+                      auraColor: '#d799ae',
+                      opacity: 0.8
+                    }
+               }
+			
+			   
+		  };
+		
+		  var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+		  chart.draw(data, options);
+		}
+	</script>
 </body>
 </html>
