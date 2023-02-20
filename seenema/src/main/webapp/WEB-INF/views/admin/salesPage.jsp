@@ -81,7 +81,7 @@
             
             // The type of chart we want to create
             type: 'bar',
-        
+         
             data: {
             	// 배열 값 넣기
                 labels: productName,

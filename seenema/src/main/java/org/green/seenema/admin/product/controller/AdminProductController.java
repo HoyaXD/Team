@@ -261,7 +261,9 @@ public class AdminProductController {
 	
 	@GetMapping("/getListPriceSales")
 	public @ResponseBody ArrayList<ProductVO> getListPriceLowSales(int start, int end, String sales){
+		
 		//가격대 > 판매량 별 정렬
+		
 		if(sales.equals("low")) {
 			ArrayList<ProductVO> getListPriceLowSales = mapper.getListPriceLowSales(start, end);
 			
