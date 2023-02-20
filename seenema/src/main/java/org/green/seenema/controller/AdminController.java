@@ -2,7 +2,6 @@ package org.green.seenema.controller;
 
 import java.io.File;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -109,9 +108,17 @@ public class AdminController {
 	MovieCRUDMapper mapper;
 
 	// --------------------영화 등록/수정/삭제
+
+	@Autowired
+	TheaterCRUDMapper tmapper; 
+	
+	//--------------------영화 등록/수정/삭제
+
 	@GetMapping("/movieReg")
-	public void regMovie() {
-		// 영화 등록 페이지
+	public void regMovie(Model model) {
+		//영화 등록 페이지
+		ArrayList<TheaterVO> theaterlist = tmapper.getList();
+		model.addAttribute("theater", theaterlist);
 	}
 
 	@PostMapping("/movieUplode.do")
@@ -156,6 +163,9 @@ public class AdminController {
 
 		MovieVO movie = mapper.selectOne(movieCode);
 		model.addAttribute("movie", movie);
+		
+		ArrayList<TheaterVO> theaterlist = tmapper.getList();
+		model.addAttribute("theater", theaterlist);
 	}
 
 	@PostMapping("/movieUpdate.do")
@@ -214,19 +224,33 @@ public class AdminController {
 		}
 		return del_result;
 	}
-
 	// --------------------영화관 등록/수정/삭제/조회
-	@Autowired
-	TheaterCRUDMapper tmapper;
-
+	
 	@GetMapping("/theaterReg")
 	public void theaterReg() {
 		// 영화관 등록페이지
 	}
 
 	@PostMapping("/theaterReg.do")
-	public String theaterRegDo(TheaterVO theaterVO, RedirectAttributes rs) {
-		// 영화관 등록실행
+	public String theaterRegDo(TheaterVO theaterVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {
+		//영화관 등록실행
+		
+		String fileName = file.getOriginalFilename();
+		theaterVO.setTheaterImage(fileName);
+		
+		ServletContext ctx = request.getServletContext();
+		String uploadPath = "resources/imgs";
+		String path = ctx.getRealPath(uploadPath);
+		File saveFile = new File(path, file.getOriginalFilename());
+		
+		try {
+			file.transferTo(saveFile);
+		} catch (IllegalStateException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 		int insert_result = tmapper.insertTheater(theaterVO);
 		rs.addAttribute("insert_result", insert_result);
 
@@ -258,6 +282,39 @@ public class AdminController {
 
 		return "redirect:theaterList";
 	}
+	
+	public String theaterUpdateDo(TheaterVO theaterVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {
+		//영화관 정보 수정 실행
+		String fileName = file.getOriginalFilename();
+		int update_result = -1;
+		
+		if(fileName.equals("")) {
+			update_result = tmapper.update(theaterVO);
+			rs.addAttribute("update_result", update_result);
+			
+			return "redirect:theaterList";
+		}else {
+			theaterVO.setTheaterImage(fileName);
+			
+			ServletContext ctx = request.getServletContext();
+			String uploadPath = "resources/imgs";
+			String path = ctx.getRealPath(uploadPath);
+			
+			File saveFile = new File(path, file.getOriginalFilename());
+			
+			try {
+				file.transferTo(saveFile);
+			} catch (IllegalStateException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			update_result = tmapper.update(theaterVO);
+			rs.addAttribute("update_result", update_result);
+			
+			return "redirect:theaterList";
+		}
+	}
 
 	@GetMapping("/theaterDelete.do")
 	public String theaterDeleteDo(int theaterCode, RedirectAttributes rs) {
@@ -268,7 +325,7 @@ public class AdminController {
 		return "redirect:theaterList";
 	}
 
-	@GetMapping("/test2")
+	@GetMapping("/test")
 	public void test() {
 
 	}

@@ -12,7 +12,7 @@
 	
 	<!-- 댓글 목록 가져오기 -->
 	<select id="getReplyList" resultType="org.green.seenema.vo.ReplyVO">
-		SELECT * FROM reply_tbl ORDER BY regDate DESC LIMIT 0, 10;
+		SELECT * FROM reply_tbl WHERE movieCode = #{movieCode} ORDER BY regDate DESC LIMIT 0, 10;
 	</select>
 	
 	<!-- 댓글 수정 상세보기 -->

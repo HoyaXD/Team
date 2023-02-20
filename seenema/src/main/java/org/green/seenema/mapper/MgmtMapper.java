@@ -29,6 +29,18 @@ public interface MgmtMapper {
 	
 	//관리자가 등급으로 회원검색
 	public List<MemberVO> gradeSearch(@Param("searchGrade") String grade);
+
+	// 관리자가 회원목록보기
+	public int memberCount();
 	
+	// 관리자가 아이디로 회원검색
+	public int memberIdCount(@Param("searchId") String id);
+
+	// 관리자가 이름으로 회원검색
+	public int memberNameCount(@Param("searchName") String name);
+
+	// 관리자가 등급으로 회원검색
+	public int memberGradeCount(@Param("searchGrade") String grade);
+
 
 }

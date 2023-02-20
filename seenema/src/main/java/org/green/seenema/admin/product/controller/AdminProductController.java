@@ -63,8 +63,9 @@ public class AdminProductController {
 	@GetMapping("/productList")
 	public void productList(Model model) {
 		//상품조회페이지
-		ArrayList<ProductVO> plist = mapper.getList();
-		model.addAttribute("plist", plist);
+		ArrayList<ProductVO> pList = mapper.getList();
+		
+		model.addAttribute("pList", pList);
 	}
 	
 	@GetMapping("/productUpdate")
@@ -128,12 +129,191 @@ public class AdminProductController {
 		}
 		return del_result;
 	}
-	
+	@GetMapping("/productList.do")
+	public @ResponseBody ArrayList<ProductVO> productListDo() {
+		//상품조회
+		ArrayList<ProductVO> pList = mapper.getList();
+		return pList;
+	}
 	@GetMapping("/getListByName.do")
 	public @ResponseBody ArrayList<ProductVO> getListByName(String productName){
+		//이름으로 상품 조회
 		String _productName = "%" + productName + "%";
 		ArrayList<ProductVO> listByName = mapper.getListByName(_productName);
 		
 		return listByName;
+	}
+	
+	@GetMapping("/getListByPrice.do")
+	public @ResponseBody ArrayList<ProductVO> getListByPrice(int start, int end){
+		//가격대로 상품 조회
+		
+		ArrayList<ProductVO> listByPrice = mapper.getListByPrice(start, end);
+		
+		return listByPrice;
+	}
+	
+	@GetMapping("/getListByCategory.do")
+	public @ResponseBody ArrayList<ProductVO> getListByCategory(String category){
+		//카테고리 검색
+		String _category = "%" + category + "%";
+		ArrayList<ProductVO> listByCategory = mapper.getListByCategory(_category);
+		
+		return listByCategory;
+	}
+	
+	//--정렬
+	
+	@GetMapping("/getListByLowPrice")
+	public @ResponseBody ArrayList<ProductVO> getListByLowPrice(){
+		//낮은 가격 순으로 정렬
+		ArrayList<ProductVO> getListByLowPrice = mapper.getListByLowPrice();
+		
+		return getListByLowPrice;
+	}
+	
+	@GetMapping("/getListByHighPrice")
+	public @ResponseBody ArrayList<ProductVO> getListByHighPrice(){
+		//높은 가격 순으로 정렬
+		ArrayList<ProductVO> getListByHighPrice = mapper.getListByHighPrice();
+		
+		return getListByHighPrice;
+	}
+	
+	@GetMapping("/getListByLowSales")
+	public @ResponseBody ArrayList<ProductVO> getListByLowSales(){
+		//판매량 적은 순으로 정렬
+		ArrayList<ProductVO> getListByLowSales = mapper.getListByLowSales();
+		
+		return getListByLowSales;
+	}
+	
+	@GetMapping("/getListByHighSales")
+	public @ResponseBody ArrayList<ProductVO> getListByHighSales(){
+		//판매량 높은 순으로 정렬
+		ArrayList<ProductVO> getListByHighSales = mapper.getListByHighSales();
+		
+		return getListByHighSales;
+	}
+	
+	@GetMapping("/getListNameCategory")
+	public @ResponseBody ArrayList<ProductVO> getListNameBest(String productName, String category){
+		//상품명 > 카테고리 별 정렬
+		String _productName = "%" + productName + "%";
+		
+		ArrayList<ProductVO> getListNameCategory = mapper.getListNameCategory(_productName, category);
+		
+		return getListNameCategory;
+	}
+	
+	@GetMapping("/getListNamePrice")
+	public @ResponseBody ArrayList<ProductVO> getListNamePrice(String productName, String price){
+		//상품명 > 가격 순으로 정렬
+		String _productName = "%" + productName + "%";
+		if(price.equals("low")) {
+			ArrayList<ProductVO> getListNameLowPrice = mapper.getListNameLowPrice(_productName);
+			
+			return getListNameLowPrice;
+			
+		}else {
+			ArrayList<ProductVO> getListNameHighPrice = mapper.getListNameHighPrice(_productName);
+			
+			return getListNameHighPrice;
+		}	
+	}
+	
+	@GetMapping("/getListNameSales")
+	public @ResponseBody ArrayList<ProductVO> getListNameSales(String productName, String sales){
+		//상품명 > 판매량으로 정렬
+		String _productName = "%" + productName + "%";
+		if(sales.equals("low")) {
+			ArrayList<ProductVO> getListNameLowSales = mapper.getListNameLowSales(_productName);
+			
+			return getListNameLowSales;
+		}else {
+			ArrayList<ProductVO> getListNameHighSales = mapper.getListNameHighSales(_productName);
+			
+			return getListNameHighSales;
+		}
+	}
+	
+	@GetMapping("/getListPriceCategory")
+	public @ResponseBody ArrayList<ProductVO> getListPriceCategory(int start, int end, String category){
+		//가격대 > 카테고리별 정렬
+		ArrayList<ProductVO> getListPriceCategory = mapper.geListPriceCategory(start, end, category);
+		
+		return getListPriceCategory;
+	}
+	
+	@GetMapping("/getListPricePrice")
+	public @ResponseBody ArrayList<ProductVO> getListPricePrice(int start, int end, String price){
+		//가격대 > 가격대 별 정렬
+		if(price.equals("low")) {
+			ArrayList<ProductVO> getListPriceLowPrice = mapper.getListPriceLowPrice(start, end);
+			
+			return getListPriceLowPrice;
+		}else {
+			ArrayList<ProductVO> getListPriceHighPrice = mapper.getListPriceHighPrice(start, end);
+			
+			return getListPriceHighPrice;
+		}
+	}
+	
+	@GetMapping("/getListPriceSales")
+	public @ResponseBody ArrayList<ProductVO> getListPriceLowSales(int start, int end, String sales){
+		//가격대 > 판매량 별 정렬
+		if(sales.equals("low")) {
+			ArrayList<ProductVO> getListPriceLowSales = mapper.getListPriceLowSales(start, end);
+			
+			return getListPriceLowSales;
+		}else {
+			ArrayList<ProductVO> getListPriceHighSales = mapper.getListPriceHighSales(start, end);
+			
+			return getListPriceHighSales;
+		}
+	}
+	@GetMapping("/getListCategoryCategory")
+	public @ResponseBody ArrayList<ProductVO> getListCategoryCategory(String category1, String category2){
+		//다른카테고리로 정렬시 없는 카테고리로 화면출력
+		if(category2.contains(category1)) {
+			ArrayList<ProductVO> getListCategoryCategory = mapper.getListByCategory(category2);
+			return getListCategoryCategory;
+		}else {
+			ArrayList<ProductVO> zero = mapper.getListPriceHighPrice(1, 0);
+			return zero;			
+		}
+	}
+	
+	@GetMapping("/getListCategoryPrice")
+	public @ResponseBody ArrayList<ProductVO> getListCategoryPrice(String category, String price){
+		//카테고리 > 가격 순으로 정렬
+		
+		String _category = "%" + category + "%";
+		
+		if(price.equals("low")) {
+			ArrayList<ProductVO> getListCategoryLowPrice = mapper.getListCategoryLowPrice(_category);
+			
+			return getListCategoryLowPrice;
+		}else {
+			ArrayList<ProductVO> getListCategoryHighPrice = mapper.getListCategoryHighPrice(_category);
+			
+			return getListCategoryHighPrice;
+		}
+	}
+	
+	@GetMapping("/getListCategorySales")
+	public @ResponseBody ArrayList<ProductVO> getListCategorySales(String category, String sales){
+		//카테고리 > 판매량 순으로 정렬
+		String _category = "%" + category + "%";
+		
+		if(sales.equals("low")) {
+			ArrayList<ProductVO> getListCategoryLowSales = mapper.getListCategoryLowSales(_category);
+			
+			return getListCategoryLowSales;
+		}else {
+			ArrayList<ProductVO> getListCategoryHighSales = mapper.getListCategoryHighSales(_category);
+			
+			return getListCategoryHighSales;
+		}
 	}
 }

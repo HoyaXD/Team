@@ -116,3 +116,33 @@ footer{
 	margin: 5px 0;
 	font-weight: bold;
 }
+
+.absoluteBtnWrap{
+	position: fixed;
+	right: 10%;
+	bottom: 10%;
+}
+.nowReservBtn{
+	display: inline-block;
+	width: 130px;
+	line-height: 20px;
+	padding: 14px 15px;
+	text-align: center;
+	border-radius: 30px;
+	color: white;
+	font-weight: bold;
+	font-size: 20px;
+	transition: right 0.4s;
+	background-image: linear-gradient(to left, rgb(255, 115, 86), rgb(251, 67, 87));
+}
+.scrollTopBtn{
+	display: inline-block;
+	border: 2px solid gainsboro;
+	border-radius: 50%;
+	font-size: 30px;
+	line-height: 35px;
+	padding: 7px 15px;
+	cursor: pointer;
+	color: gray;
+	background: white;
+}

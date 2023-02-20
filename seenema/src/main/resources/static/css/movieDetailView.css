@@ -7,6 +7,7 @@
 	list-style-type: none;
 	text-decoration: none;
 	color: black;
+	font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
 }
 .container{
 	width: 1300px;
@@ -30,12 +31,18 @@ footer{
 }
 .movieInfoWrap{
 	display: flex;
+	padding-bottom: 20px;
+	border-bottom: 1px solid gainsboro;
 	/* padding: 10px; */
 }
 .movieImage{
 	width: 20%;
 	height: 200px;
-	border: 1px solid black;
+	/* border: 1px solid black; */
+}
+.movieImage > img{
+	width: 155px;
+	height: 200px;
 }
 .movieInfo{
 	width: 80%;
@@ -80,23 +87,47 @@ footer{
 }
 
 .director_ActorInfoWrap{
-	padding-top: 20px;
-	font-size: 11px;
+	padding-top: 10px;
+	font-size: 13px;
+	
 }
-
+.director_ActorInfoWrap > div{
+	margin: 5px 0;
+}
 .movieContent{
 	margin-top: 10px;
 	padding: 10px;
-	border: solid 1px green;
+	/* border: solid 1px green; */
 }
 
 .tabMenu{
 	display: flex;
 	justify-content: center;
+	background-image: linear-gradient(to left, rgb(255, 105, 86), rgb(251, 87, 87));
+	border: 1px solid red;
+	width: 500px;
+	padding: 5px 10px;
+	margin: 0 auto;
+	
 }
 
 .item{
+	width: 100px;
+	text-align: center;
 	padding: 5px;
+	margin: 0 10px;
+	/* border: 1px solid black; */
+	/* border: 1px solid red; */
+}
+.item:nth-child(-n + 3){
+	border-right: 2px solid gainsboro;
+	padding-right: 20px;
+}
+.item > a{
+	padding: 5px;
+	color: white;
+	/* border: 1px solid black; */
+	
 }
 
 .replySection{
@@ -105,9 +136,12 @@ footer{
 #replyTopWrap{
 	display: flex;
 	height: 30px;
+	margin-bottom: 10px;
 }
 #replySectionTitle{
 	line-height: 30px;
+	font-size: 20px;
+	font-weight: bold;
 }
 #regReplyBtn{
 	margin-left: auto;
@@ -115,7 +149,8 @@ footer{
 	line-height: 30px;
 	background-color: #ff4d4d;
 	color: white;
-	font-size: 10px;
+	font-size: 13px;
+	font-weight: bold;
 	border-radius: 5px;
 	border: none;
 	text-align: center;
@@ -145,17 +180,18 @@ footer{
     font-size: 2em;
     color: transparent;
     text-shadow: 0 0 0 #f0f0f0;
+    cursor: pointer;
 }
 #replyForm label:hover{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
 }
 #replyForm label:hover ~ label{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
 }
 
 
 #replyForm input[type=radio]:checked ~ label{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
     /* text-shadow: 0 0 0 rgba(250, 208, 0, 0.99); */
 }
 
@@ -180,7 +216,8 @@ footer{
 }
 #noticeComment{
 	margin-left: 10px;
-	color: blue;
+	font-weight: bold;
+	color: #e63737;
 	font-size: 10px;
 }
 .commentCount{
@@ -194,17 +231,15 @@ footer{
 .replyList{
 	width: 100%;
 	margin-top: 10px;
-	border-top: 1px solid gainsboro;
-	border-right: 1px solid gainsboro;
-	border-left: 1px solid gainsboro;
+	min-height: 386px;
+	border: 0.1px solid gainsboro;
 }
 
 /* 댓글 한개 박스 */
 .replyBox{
 	padding: 10px;
-	border-bottom: 1px solid gainsboro;	
+	border-bottom: 0.1px solid gainsboro;
 }
-
 /* 별 이모티콘, 갯수 감싸는 박스 */
 .replyBoxTop{
 	display: flex;
@@ -213,8 +248,15 @@ footer{
 
 /* 별 이모티콘 */
 #replyStar{
-	color: rgba(244, 42, 6, 1);
+	width: 57px;
 	margin-right: 5px;
+}
+
+.star{
+	color: #ffcc00;
+}
+.unstar{
+	color: gainsboro;
 }
 
 /* 별 갯수 */
@@ -234,7 +276,7 @@ footer{
 }
 
 #replyId{
-	color: #1f53ff;
+	color: #4a6cc2;
 	font-weight: bold;
 	margin-right: 5px;
 }
@@ -276,6 +318,7 @@ footer{
 .btnWrap{
 	display: flex;
 	margin-left: auto;
+	user-select: none;
 }
 #updateBtn{
 	margin-right: 5px;
@@ -364,17 +407,17 @@ footer{
     font-size: 2em;
     color: transparent;
     text-shadow: 0 0 0 #f0f0f0;
+    cursor: pointer;
 }
 #updateReplyForm label:hover{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
 }
 #updateReplyForm label:hover ~ label{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
 }
 
-
 #updateReplyForm input[type=radio]:checked ~ label{
-    color: rgba(244, 42, 6, 1);
+    color: #ffcc00;
     /* text-shadow: 0 0 0 rgba(250, 208, 0, 0.99); */
 }
 
@@ -390,7 +433,7 @@ footer{
 	border-top: 1px solid gainsboro;
 }
 #updateReplyFormComment::placeholder {
-  font-size: 13px;
+  	font-size: 13px;
 }
 /* 댓글 갯수 */
 #updateReplyFormTextWrap{
@@ -423,4 +466,77 @@ footer{
 	font-size: 12px;
 	line-height: 20px;
 	cursor: pointer;
+}
+
+.noListBox{
+	width: 780px;
+	min-height: 386px;
+	line-height: 386px;
+	text-align: center;
+	color: gray;
+	font-weight: bold;
+	border-bottom: 1px solid gainsboro;
+}
+
+.reservBtn{
+	width: 80px;
+	height: 30px;
+	font-size: 15px;
+	/* font-weight: bold; */
+	line-height: 30px;
+	text-align: center;
+	/* border: 1px solid black; */
+	margin-top: 10px;
+	color: white;
+	background-image: linear-gradient(to left, rgb(255, 115, 86), rgb(251, 67, 87));
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.summuryWrap{
+	/* border: 1px solid green; */
+	margin-top: 50px;
+	color: gray;
+}
+.summuryWrap > p{
+	font-size: 14px;
+	color: gray;
+}
+
+.graphWrap{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	border-top: 1px solid gainsboro;
+	border-bottom: 1px solid gainsboro;
+	height: 300px;
+	margin-top: 50px;
+}
+.genderWrap > div:first-child{
+	text-align: center;
+	border-right: 1px solid gainsboro;
+	border-bottom: 1px solid gainsboro;
+	height: 20%;
+	line-height: 60px;
+}
+.genderWrap > div:last-child{
+	border-right: 1px solid gainsboro;
+	height: 80%;
+}
+.ageWrap > div:first-child{
+	height: 20%;
+	line-height: 60px;
+	text-align: center;
+	border-bottom: 1px solid gainsboro;
+}
+.ageWrap > div:last-child{
+	height: 80%;
+}
+
+.trailerWrap{
+	/* border: 1px solid red; */
+	margin-top: 50px;
+}
+
+.trailerWrap > iframe{
+	border-radius: 10px;
 }

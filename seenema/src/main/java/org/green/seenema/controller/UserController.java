@@ -2,16 +2,17 @@ package org.green.seenema.controller;
 
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.green.seenema.mapper.ReplyMapper;
+import org.green.seenema.user.main.mapper.UserMainMapper;
+import org.green.seenema.vo.MovieVO;
 import org.green.seenema.vo.ReplyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
@@ -24,15 +25,23 @@ public class UserController {
 	@Autowired
 	private ReplyMapper mapper;
 	
-	@GetMapping("/movieDetailView")
-	public void movieDetailView() {}
+	@Autowired
+	private UserMainMapper mainMapper;
 	
-	@PostMapping("/getReplyList.do")
+	@GetMapping("/main")
+	public void main() {}
+	
+	@GetMapping("/movieDetailView")
+	public void movieDetailView(String movieCode, Model model) {
+		MovieVO movie = mainMapper.getMovieDetail(movieCode);
+		movie.setPlot(movie.getPlot().replaceAll("\n", "<br>"));
+		model.addAttribute("movie", movie);
+	}
+	
+	@GetMapping("/getReplyList.do")
 	@ResponseBody
-	public ArrayList<ReplyVO> getReplyList(HttpServletRequest request){
-		HttpSession session = request.getSession();
-		session.setAttribute("id", "lee");
-		ArrayList<ReplyVO> list = mapper.getReplyList();
+	public ArrayList<ReplyVO> getReplyList(int movieCode){
+		ArrayList<ReplyVO> list = mapper.getReplyList(movieCode);
 		return list;
 	}
 	
@@ -63,5 +72,14 @@ public class UserController {
 	public int deleteReply(int replyCode) {
 		int result = mapper.deleteReply(replyCode);
 		return result;
+	}
+
+	@GetMapping("/header")
+	public void header(){
+		log.info("헤더");
+	}
+
+	@GetMapping("/footer")
+	public void footer(){
 	}
 }

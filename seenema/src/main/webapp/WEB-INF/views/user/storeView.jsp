@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +11,8 @@
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<header>헤더</header>
+	<%-- <%@include file="header.jsp" %> --%>
+	<header id="header"></header>
 	<div class="topImageWrap">
 		<img id="topImage" src="/images/storeTop.png">
 	</div>
@@ -27,71 +30,30 @@
 				</li>
 			</ul>
 		</nav><!-- 상단 메뉴바 -->
+		
+		<!-- 베스트 -->
 		<div class="bestWrap">
 			<div id="bestScroll">&nbsp;</div>
-			<!-- 베스트 -->
 			<div class="sectionTitle">베스트 상품</div>
 			<div class="itemWrap">
-				<a href="#" class="item item1">
-					<img src="/images/kkeullimPackage.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>끌림 패키지</h4>
-							<p>일반관람권 2매 + 스위트 콤보</p>
-							<div class="price">28,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="#" class="item item2">
-					<img src="/images/theKkeullimPackage.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>THE 끌림 패키지</h4>
-							<p>관람권 2매 + 스위트 콤보</p>
-							<div class="price">65,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="#" class="item item3">
-					<img src="/images/datePackage.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>데이트의 완성 2인 패키지</h4>
-							<p>2D 일반관람권 2매 + 스위트 콤보</p>
-							<div class="price">32,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="#" class="item item4">
-					<img src="/images/ticket1.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>일반 관람권</h4>
-							<p>일반 관람권 1매</p>
-							<div class="price">13,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="#" class="item item5">
-					<img src="/images/ticket2.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>샤롯데 관람권</h4>
-							<p>샤롯데 관람권 1매</p>
-							<div class="price">35,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="#" class="item item6">
-					<img src="/images/colaM.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>콜라 M</h4>
-							<p>콜라 M</p>
-							<div class="price">2,800원</div>
-						</div>
-					</div>
-				</a>
+				<c:forEach var="item" items="${list }">
+					<c:choose>
+						<c:when test="${item.category eq 'package' or item.category eq 'ticket' or item.productName eq '콜라 M'}">
+							<a href="/user/productDetailView?productCode=${item.productCode }" class="item item1">
+								<img src="${item.productImage }">
+								<div class="itemInfo">
+									<div class="itm_tit">
+										<h4>${item.productName }</h4>
+										<p>${item.productInfo }</p>
+										<div class="price">
+											<fmt:formatNumber value="${item.price }" pattern="#,###" />원
+										</div>
+									</div>
+								</div>
+							</a>
+						</c:when>
+					</c:choose>
+				</c:forEach>
 			</div>
 		</div>
 		
@@ -100,26 +62,22 @@
 			<div id="ticketScroll">&nbsp;</div>
 			<div class="sectionTitle">관람권</div>
 			<div class="itemWrap">
-				<a href="#" class="item item1">
-					<img src="/images/ticket1.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>일반 관람권</h4>
-							<p>일반 관람권 1매</p>
-							<div class="price">13,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="#" class="item item2">
-					<img src="/images/ticket2.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>샤롯데 관람권</h4>
-							<p>샤롯데 관람권 1매</p>
-							<div class="price">35,000원</div>
-						</div>
-					</div>
-				</a>
+				<c:forEach var="item" items="${list }">
+					<c:if test="${item.category eq 'ticket' }">
+						<a href="/user/productDetailView?productCode=${item.productCode }" class="item item1">
+							<img src="${item.productImage }">
+							<div class="itemInfo">
+								<div class="itm_tit">
+									<h4>${item.productName }</h4>
+									<p>${item.productInfo }</p>
+									<div class="price">
+										<fmt:formatNumber value="${item.price }" pattern="#,###" />원
+									</div>
+								</div>
+							</div>
+						</a>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 		
@@ -128,118 +86,28 @@
 			<div id="snackScroll">&nbsp;</div>
 			<div class="sectionTitle">스낵/음료</div>
 			<div class="itemWrap">
-				<a href="/user/productDetailView?productCode=2" class="item item1">
-					<img src="/images/sweetCombo.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>스위트 콤보</h4>
-							<p>오리지널 팝콘 L + 탄산음료 M2</p>
-							<div class="price">10,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=3" class="item item2">
-					<img src="/images/doubleCombo.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>더블 콤보</h4>
-							<p>오리지널 팝콘 M2 + 탄산음료 M2</p>
-							<div class="price">14,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=4" class="item item3">
-					<img src="/images/colaM.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>콜라 M</h4>
-							<p>콜라 M</p>
-							<div class="price">2,800원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=5" class="item item4">
-					<img src="/images/colaL.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>콜라 L</h4>
-							<p>콜라 L</p>
-							<div class="price">3,300원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=6" class="item item5">
-					<img src="/images/cM.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>사이다 M</h4>
-							<p>사이다 M</p>
-							<div class="price">2,800원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=7" class="item item6">
-					<img src="/images/cL.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>사이다 L</h4>
-							<p>사이다 L</p>
-							<div class="price">3,300원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=8" class="item item7">
-					<img src="/images/originalPopcornM.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>오리지널 팝콘 M</h4>
-							<p>오리지널 팝콘 M</p>
-							<div class="price">5,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=9" class="item item8">
-					<img src="/images/originalPopcornL.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>오리지널 팝콘 L</h4>
-							<p>오리지널 팝콘 L</p>
-							<div class="price">5,500원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=10" class="item item9">
-					<img src="/images/caramelPopcornM.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>카라멜 팝콘 M</h4>
-							<p>카라멜 팝콘 M</p>
-							<div class="price">6,000원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=11" class="item item10">
-					<img src="/images/caramelPopcornL.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>카라멜 팝콘 L</h4>
-							<p>카라멜 팝콘 L</p>
-							<div class="price">6,500원</div>
-						</div>
-					</div>
-				</a>
-				<a href="/user/productDetailView?productCode=12" class="item item11">
-					<img src="/images/halfPopcornL.jpeg">
-					<div class="itemInfo">
-						<div class="itm_tit">
-							<h4>반반 팝콘(오리지널/카라멜) L</h4>
-							<p>반반 팝콘(오리지널/카라멜) L</p>
-							<div class="price">6,500원</div>
-						</div>
-					</div>
-				</a>
+				<c:forEach var="item" items="${list }">
+					<c:if test="${item.category eq 'snack'}">
+						<a href="/user/productDetailView?productCode=${item.productCode }" class="item item1">
+							<img src="${item.productImage }">
+							<div class="itemInfo">
+								<div class="itm_tit">
+									<h4>${item.productName }</h4>
+									<p>${item.productInfo }</p>
+									<div class="price">
+										<fmt:formatNumber value="${item.price }" pattern="#,###" />원
+									</div>
+								</div>
+							</div>
+						</a>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
+		<div class="absoluteBtnWrap">
+        	<a href="/user/reservationMain" class="nowReservBtn">예매하기</a>
+        	<a href="#header" class="scrollTopBtn">↑</a>
+        </div>
 	</div>
 	<footer>푸터</footer>
 <script>

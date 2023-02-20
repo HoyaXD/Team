@@ -8,10 +8,12 @@
 <title>스토어 상세 - 시네마</title>
 <link rel="stylesheet" href="/css/productDetailView.css">
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
 	<input type="hidden" id="id" value="kim">
 	<div class="container">
+		<%-- <%@include file="header.jsp" %> --%>
 		<header>
 			<button type="button" id="goMyCartBtn" style="float: right; height: 50px; cursor: pointer;">내 장바구니 가기</button>
 		</header>
@@ -22,7 +24,12 @@
 					<table>
 						<tbody id="tbody">
 							<tr>
-								<th class="pCode">${product.productCode }</th>
+								<%-- <th class="pCode">${product.productCode }</th> --%>
+								<td style="display:none;">
+									<input type="hidden" id="hiddenProductCode" name="productCode" value="${product.productCode }">
+									<input type="hidden" id="hiddenProductName" name="productName" value="${product.productName }">
+									<input type="hidden" id="hiddenProductprice" name="price" value="${product.price }">
+								</td>
 								<td colspan="2" class="productName">${product.productName }</td>
 							</tr>
 							<tr>
@@ -65,6 +72,51 @@
 	</div>
 <script>
 	const price = parseInt($("#productPrice").text(), 10);	// 이 페이지 상품의 가격(정수타입으로 파싱)
+	
+	const IMP = window.IMP;
+	IMP.init("imp58206540");
+	
+	// 바로구매
+	$(document).on("click", ".buyBtn", function(){
+		let orderNum = parseInt(new Date().getTime(), 10);	// 주문번호
+		let productCode = $("#hiddenProductCode").val();	// 제품코드
+		let productName = $("#hiddenProductName").val();	// 제품명
+		let price = parseInt($("#hiddenProductprice").val(), 10);	// 제품 단가
+		let count = parseInt($(".count").text(), 10);	// 제품수량
+		let totalPrice = price * count;	// 결제 금액
+		let	id = $("#id").val();	// 유저 아이디
+		let userName = "김흥국";	//유저 이름
+		//alert(totalPrice);
+		IMP.request_pay({
+			pg: "html5_inicis",
+			pay_method: "card",
+			merchant_uid: orderNum,   // 주문번호
+			name: productName,
+			amount: 100,
+			buyer_name: userName,
+		},  function (rsp) { // callback
+				if (rsp.success) {
+			  		// 결제 성공
+					//console.log(rsp);
+			  		const xhttp = new XMLHttpRequest();
+			  		xhttp.onload = function(){
+			  			let result = parseInt(this.responseText, 10);
+			  			if(result == 1){
+				  			alert("결제가 완료되었습니다.\n결제내역은 마이페이지의 결제내역을 확인해주세요.");
+			  			}else{
+			  				alert("결제 실패하였습니다.");
+			  			}
+			  		}
+			  		xhttp.open("post", "/user/order/buy.do", true);
+			  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			  		xhttp.send("orderNum=" + orderNum + "&productCode=" + productCode + "&price=" + price + "&count=" + count + "&id=" + id);
+				} else {
+			  		// 결제 실패
+			  		alert("결제를 취소하였습니다.");
+					console.log(rsp);
+				}
+			});
+	});
 	
 	// 문서 로드되면 쉼표찍어서 보여주기
 	$(document).ready(function(){
@@ -111,7 +163,7 @@
 		//let price = priceStr.split(",").join("");	// 제품 판매가
 		//let pInfo = $(".productInfo").text();		// 제품 구성
 		
-		let pCode = $(".pCode").text();				// 제품 코드
+		let pCode = $("#hiddenProductCode").val();				// 제품 코드
 		let pCount = $(".count").text();			// 제품 개수
 		let id = $("#id").val();					// 회원 아이디
 		//console.log(totalPrice);
@@ -126,7 +178,7 @@
 				alert("이미 장바구니에 존재하는 상품입니다.");
 			}
 		}
-		xhttp.open("post", "/user/addCart.do", true);
+		xhttp.open("post", "/user/cart/addCart.do", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send("productCode=" + pCode + "&productCount=" + pCount + "&id=" + id);
 	});

@@ -6,27 +6,58 @@
  <mapper namespace="org.green.seenema.mapper.TheaterCRUDMapper">
  	<!-- 등록 -->
  	<insert id="insertTheater">
- 		INSERT INTO seenema.theater_tbl(theaterPlace, theaterName, theaterAddress, theaterTel, theaterSeats, latitude, longitude)
-		VALUES(#{theaterPlace}, #{theaterName}, #{theaterAddress}, #{theaterTel}, #{theaterSeats}, #{latitude}, #{longitude});
+ 		INSERT INTO seenema.theater_tbl(theaterPlace, theaterName, theaterAddress, theaterTel, theaterSeats, latitude, longitude, theaterImage)
+		VALUES(#{theaterPlace}, #{theaterName}, #{theaterAddress}, #{theaterTel}, #{theaterSeats}, #{latitude}, #{longitude}, #{theaterImage});
  	</insert>
  	
+ 	<!-- 조회 -->
  	<select id="getList" resultType="org.green.seenema.vo.TheaterVO">
 		SELECT * FROM seenema.theater_tbl;
 	</select>
 	
+	<!-- 영화관 코드로 조회 -->
 	<select id="selectOne" resultType="org.green.seenema.vo.TheaterVO">
 		SELECT * FROM seenema.theater_tbl where theaterCode = #{param1};
 	</select>
 	
+	<!-- 이름으로 조회 -->
+	<select id="getListByName" resultType="TheaterVO">
+		SELECT * FROM seenema.theater_tbl where theaterName LIKE #{param1};
+	</select>
+	
+	<!-- 지역으로 조회 -->
+	<select id="getListByPlace" resultType="TheaterVO">
+		SELECT * FROM seenema.theater_tbl where theaterPlace LIKE #{param1};
+	</select>
+	
+	<!-- 연락처로 조회 -->
+	<select id="getListByTel" resultType="TheaterVO">
+		SELECT * FROM seenema.theater_tbl where theaterTel LIKE #{param1};
+	</select>
+	
+	<!-- 수정 -->
 	<update id="update">
 		UPDATE seenema.theater_tbl 
 		SET theaterPlace=#{theaterPlace}, theaterName=#{theaterName}, theaterAddress=#{theaterAddress}, 
 			theaterTel=#{theaterTel}, theaterSeats=#{theaterSeats}, 
-			latitude=#{latitude}, longitude=#{longitude} 
+			latitude=#{latitude}, longitude=#{longitude}, theaterImage=#{theaterImage}
 		WHERE theaterCode=#{theaterCode};
 	</update>
 	
+	<!-- 삭제 -->
 	<delete id="delete">
 		DELETE FROM seenema.theater_tbl WHERE theaterCode=#{param1};
 	</delete>
+
+	<select id="getListGroupByPlace" resultType="org.green.seenema.vo.TheaterVO">
+		SELECT theaterPlace, COUNT(theaterPlace) AS cnt FROM seenema.theater_tbl GROUP BY theaterPlace
+	</select>
+
+	<select id="getListWherePlace" resultType="org.green.seenema.vo.TheaterVO">
+		SELECT * FROM seenema.theater_tbl WHERE theaterPlace = #{place};
+	</select>
+
+
+
+
  </mapper>
