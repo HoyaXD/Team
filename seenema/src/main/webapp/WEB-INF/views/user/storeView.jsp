@@ -11,8 +11,7 @@
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-	<%-- <%@include file="header.jsp" %> --%>
-	<header id="header"></header>
+	<%@include file="header.jsp" %>
 	<div class="topImageWrap">
 		<img id="topImage" src="/images/storeTop.png">
 	</div>

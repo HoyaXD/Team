@@ -13,8 +13,7 @@
 </head>
 <body>
 	<div class="container">
-		<%-- <%@include file="header.jsp" %> --%>
-		<header id="header"></header>
+		<%@ include file="header.jsp" %>
 		<main>
 			<div class="movieInfoWrap">
 				<!-- 영화 포스터 이미지 -->
@@ -60,7 +59,7 @@
 			</div>
 			<div class="trailerWrap">
 				<div id="trailer">&nbsp;</div>
-				<iframe width="780" height="400" src="${movie.previewURL.replace('https://youtu.be/', 'https://www.youtube.com/embed/') }" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
+				<iframe width="780" height="400" src="${movie.previewURL.replace('https://youtu.be/', 'https://www.youtube.com/embed/') }?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
 				</iframe>
 			</div>
 			<!-- 댓글 컨텐츠 박스 -->
