@@ -41,7 +41,7 @@ public String login(MemberVO stu, HttpSession session, Model model, HttpServletR
 
     } else if(member.getGrade().equals("admin")){
         session.setAttribute("logid", stu.getId());
-        msg ="admin/adminPage";
+        msg ="redirect:/admin/adminPage";
     }else {
         session.setAttribute("logid", stu.getId());
         model.addAttribute("msg", stu.getId()+"님 환영합니다!");
