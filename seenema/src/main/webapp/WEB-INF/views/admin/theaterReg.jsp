@@ -87,16 +87,7 @@
                   <div id="input_title">주소</div>
                   <div id="textbox"><input type="text" name="theaterAddress" id="theaterAddress"></div>
               </div>
-              <div id="input_menu_1">
-                  <span id="menu_inMenu">
-                      <div id="input_title">경도</div>
-                      <div id="textbox"><input type="text" name="longitude" id="longitude"></div>
-                  </span>
-                  <span id="menu_inMenu">
-                      <div id="input_title">위도</div>
-                      <div id="textbox"><input type="text" name="latitude" id="latitude"></div>
-                  </span>
-              </div>
+            
               <div id="input_menu">
                   <div id="input_title"></div>
                   <div id="textbox"><input type="button" id="map_preview" value="지도 미리 보기"></div>
@@ -108,11 +99,11 @@
              <div id="input_menu_1">
                   <span id="menu_inMenu">
                       <div id="input_title">좌석 행</div>
-                      <div id="textbox"><input type="text" name="seats" id="seats"></div>
+                      <div id="textbox"><input type="text" name="seat_column" id="seats"></div>
                   </span>
                   <span id="menu_inMenu">
                       <div id="input_title">좌석 열</div>
-                      <div id="textbox"><input type="text" name="seats" id="seats"></div>
+                      <div id="textbox"><input type="text" name="seats_row" id="seats"></div>
                   </span>
               </div>
               <!-- <div id="input_menu">
@@ -182,15 +173,15 @@
 	<script>
 	$("#map_preview").on("click", map_preview);
 	function map_preview(){
-		let list_latitude = $("#latitude").val();
-		let list_longitude = $("#longitude").val();
+		/* let list_latitude = $("#latitude").val();
+		let list_longitude = $("#longitude").val(); */
 		let theaterName = $("#theaterName").val();
 		let theaterTel = $("#theaterTel").val();
 		let theaterAddress = $("#theaterAddress").val();
 		
 		var mapContainer = document.getElementById('regied_map_preview'), // 지도를 표시할 div 
 	    mapOption = {
-	        center: new kakao.maps.LatLng(list_latitude, list_longitude), // 지도의 중심좌표
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
 	        level: 3 // 지도의 확대 레벨
 	    };  
 		
@@ -208,12 +199,13 @@
 	
 	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 	        
-	        $("#latitude").val(result[0].y);
-	        let latitude = $("#latitude").val();
-	        
-	        $("#longitude").val(result[0].x);
-			let longitude = $("#longitude").val();
-			
+	       /*  $("#latitude").val(result[0].y);
+	        let latitude = $("#latitude").val(); */
+	        let latitude = result[0].y;
+	        /* $("#longitude").val(result[0].x);
+			let longitude = $("#longitude").val(); */
+			let longitude = result[0].x;
+			alert(result[0].y, result[0].x)
 	        // 결과값으로 받은 위치를 마커로 표시합니다
 	        var marker = new kakao.maps.Marker({
 	            map: map,

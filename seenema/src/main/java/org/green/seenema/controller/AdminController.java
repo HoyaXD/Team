@@ -94,7 +94,7 @@ public class AdminController {
 		movieVO.setPostFileName(fileName);
 		
 		ServletContext ctx = request.getServletContext();
-		String uploadPath = "resources/imgs";
+		String uploadPath = "resources/images";
 		String path = ctx.getRealPath(uploadPath);
 		
 		File saveFile = new File(path, file.getOriginalFilename());
@@ -151,7 +151,7 @@ public class AdminController {
 			
 			movieVO.setPostFileName(fileName);
 			ServletContext ctx = request.getServletContext();
-			String uploadPath = "resources/imgs";
+			String uploadPath = "resources/images";
 			String path = ctx.getRealPath(uploadPath);
 			
 			File saveFile = new File(path, file.getOriginalFilename());
@@ -203,7 +203,7 @@ public class AdminController {
 		theaterVO.setTheaterImage(fileName);
 		
 		ServletContext ctx = request.getServletContext();
-		String uploadPath = "resources/imgs";
+		String uploadPath = "resources/images";
 		String path = ctx.getRealPath(uploadPath);
 		File saveFile = new File(path, file.getOriginalFilename());
 		
@@ -252,7 +252,7 @@ public class AdminController {
 			theaterVO.setTheaterImage(fileName);
 			
 			ServletContext ctx = request.getServletContext();
-			String uploadPath = "resources/imgs";
+			String uploadPath = "resources/images";
 			String path = ctx.getRealPath(uploadPath);
 			
 			File saveFile = new File(path, file.getOriginalFilename());

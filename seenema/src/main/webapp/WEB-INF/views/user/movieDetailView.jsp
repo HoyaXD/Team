@@ -10,6 +10,7 @@
 <title>영화 상세보기 페이지</title>
 <link rel="stylesheet" href="/css/movieDetailView.css">
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
 	<div class="container">
@@ -50,11 +51,15 @@
 			<div class="graphWrap">
 				<div class="genderWrap">
 					<div>성별 예매 분포</div>
-					<div></div>
+					<div id="donutChartWrap">
+						<div id="donutChart"></div>
+					</div>
 				</div>
 				<div class="ageWrap">
 					<div>연령별 예매 분포</div>
-					<div></div>
+					<div id="barChartWrap">
+						<div id="barChart"></div>
+					</div>
 				</div>
 			</div>
 			<div class="trailerWrap">
@@ -133,6 +138,24 @@
 	</div>
 <script>
 	const movieCode = $("#movieCode").val();	//영화코드
+	
+	// 구글 차트
+	google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['남성', 5],
+        ['여성', 4],
+      ]);
+
+      var options = {
+        pieHole: 0.4,
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('donutChart'));
+      chart.draw(data, options);
+    }
 	
 	getReplyList();
 	// 댓글 목록
