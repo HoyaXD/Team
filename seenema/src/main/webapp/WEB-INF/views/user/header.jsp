@@ -135,19 +135,19 @@
 
   <header id="header">
     <div id="header_top">
-      <a href="main"><div id="top_logo"><img src="/images/logo3.png"></div></a>
+      <a href="/user/main"><div id="top_logo"><img src="/images/logo3.png"></div></a>
       <div class="top_menu">
         <ul>
           <c:if test="${sessionScope.logid == null }">
           <li><a href="#"><img src="/images/service.png"><br>고객센터</a>
-          <li><a href="regMemberForm"><img src="/images/join.png"><br>회원가입</a>
-          <li><a href="loginForm"><img src="/images/login.png"><br>로그인</a>
+          <li><a href="/user/regMemberForm"><img src="/images/join.png"><br>회원가입</a>
+          <li><a href="/user/loginForm"><img src="/images/login.png"><br>로그인</a>
             </c:if>
             <c:if test="${sessionScope.logid != null }">
             <li><a href="#"><img src="/images/service.png"><br>고객센터</a>
-            <li><a href="myCart"><img src="/images/cart.png"><br>장바구니</a>
-            <li id="mypage"><a href="myReservation"><img src="/images/my.png"><br>마이페이지</a>
-            <li><a href="logout"><img src="/images/login.png"><br>로그아웃</a>
+            <li><a href="/ser/myCart"><img src="/images/cart.png"><br>장바구니</a>
+            <li id="mypage"><a href="/user/myReservation"><img src="/images/my.png"><br>마이페이지</a>
+            <li><a href="/user/logout"><img src="/images/login.png"><br>로그아웃</a>
             </c:if>
         </ul>
       </div>
