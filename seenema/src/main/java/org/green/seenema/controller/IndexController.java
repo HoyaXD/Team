@@ -19,4 +19,6 @@ public class IndexController {
 	public void adminPageGo2() {
 		
 	}
+	
+	
 }

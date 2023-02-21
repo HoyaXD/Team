@@ -52,7 +52,6 @@ public class ReservationController {
     @PostMapping("/reservation.do") // 예매하기
     public String reservationdo(ReservationVO reservation, Model model){
         log.info("예약정보 : " + reservation.toString());
-        reservationMapper.cntPlus(reservation.getMovieCode());
         int result = reservationMapper.regReservation(reservation);
         model.addAttribute("reservation", reservation);
         return "user/reservationComplete";
