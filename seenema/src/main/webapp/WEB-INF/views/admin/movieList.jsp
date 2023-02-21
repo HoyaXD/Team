@@ -102,7 +102,7 @@
                         <tr>
                            <td><input type="checkbox" class="chk" value="${movie.movieCode }"></td>
                            <td>${movie.movieCode }</td>
-                           <td><a href="movieUpdate?movieCode=${movie.movieCode }"><img src="/resources/imgs/${movie.postFileName }" width="50px"></a>
+                           <td><a href="movieUpdate?movieCode=${movie.movieCode }"><img src="/resources/images/${movie.postFileName }" width="50px"></a>
                            <td><a href="movieUpdate?movieCode=${movie.movieCode }">${movie.movieTitle }</a></td>
                            <td>${movie.releaseDate }</td>
                            <td style='color:blue;'>${movie.start_date }</td>
@@ -247,7 +247,7 @@
 						$("#tbody").append("<tr>"+
 												"<td><input type='checkbox' id='js_chk' name='js_chk' value='"+obj[i].movieCode+"'></td>"+
 												"<td>"+obj[i].movieCode+"</td>"+
-												"<td><img src='/resources/imgs/"+obj[i].postFileName+"' width='50px'></td>"+
+												"<td><img src='/resources/images/"+obj[i].postFileName+"' width='50px'></td>"+
 												"<td><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>"+obj[i].movieTitle+"</a></td>"+
 												"<td>"+obj[i].releaseDate+"</td>"+
 	                                 			"<td style='color:blue'>"+obj[i].start_date+"</td>"+
@@ -316,7 +316,7 @@
 						$("#tbody").append("<tr>"+
 												"<td><input type='checkbox' id='js_chk' name='js_chk' value='"+obj[i].movieCode+"'></td>"+
 												"<td>"+obj[i].movieCode+"</td>"+
-												"<td><img src='/resources/imgs/"+obj[i].postFileName+"' width='50px'></td>"+
+												"<td><img src='/resources/images/"+obj[i].postFileName+"' width='50px'></td>"+
 												"<td><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>"+obj[i].movieTitle+"</a></td>"+
 												"<td>"+obj[i].releaseDate+"</td>"+
 	                                 			"<td style='color:blue'>"+obj[i].start_date+"</td>"+
@@ -385,7 +385,7 @@
 						$("#tbody").append("<tr>"+
 												"<td><input type='checkbox' id='js_chk' name='js_chk' value='"+obj[i].movieCode+"'></td>"+
 												"<td>"+obj[i].movieCode+"</td>"+
-												"<td><img src='/resources/imgs/"+obj[i].postFileName+"' width='50px'></td>"+
+												"<td><img src='/resources/images/"+obj[i].postFileName+"' width='50px'></td>"+
 												"<td><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>"+obj[i].movieTitle+"</a></td>"+
 												"<td>"+obj[i].releaseDate+"</td>"+
 	                                 			"<td style='color:blue'>"+obj[i].start_date+"</td>"+

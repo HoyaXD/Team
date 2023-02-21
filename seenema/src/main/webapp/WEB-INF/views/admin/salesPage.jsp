@@ -27,7 +27,7 @@
 		<td>${status.count}</td>
 		<td>${m.movieCode }</td>
 		<td>${m.hit }</td>
-		<td><img src="/resources/imgs/${m.postFileName }" width="100px"></td>
+		<td><img src="/resources/${m.postFileName }" width="100px"></td>
 		<td>${m.movieTitle }</td>
 		<td>${m.releaseDate }</td>
 	</tr>
@@ -49,7 +49,7 @@
 		<td>${status.count}</td>
 		<td>${p.productCode }</td>
 		<td id="productSales">${p.productSales }</td>
-		<td><img src="/resources/imgs/${p.productImage }" width="100px"></td>
+		<td><img src="/resources/${p.productImage }" width="100px"></td>
 		<td id="productName">${p.productName }</td>
 		<td>${p.price }</td>
 	</tr>

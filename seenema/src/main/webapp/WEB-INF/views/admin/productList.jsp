@@ -115,7 +115,7 @@
                       <tr>
                         <td><input type="checkbox" class="chk" value="${p.productCode }"></td>
                         <td>${p.productCode}</td>
-                        <td><img src="/resources/imgs/${p.productImage }" width="65px"></td>
+                        <td><img src="/resources/${p.productImage }" width="65px"></td>
                         <td><a href="productUpdate?productCode=${p.productCode}">${p.productName}</a></td>
                         <td>${p.category }</td>
                         <td>${p.price}</td>
@@ -132,7 +132,7 @@
                          <th></th>
                          <th></th>
                          <th></th>
-                         <th> <button id="movieReg" onclick="location.href='productReg'">제품등록</button></th>
+                         <th> <button id="productReg" onclick="location.href='productReg'">제품등록</button></th>
                       </tr>
                       
                       <tr>
@@ -203,7 +203,7 @@
 											"<th id='list_name'>제품이름</th>"+
 											"<th id='list_category'>카테고리</th>"+
 											"<th id='list_price'>가격</th>"+
-											"<th id='list_cnt'>판매량</th>"+
+											"<th>판매량</th>"+
 										"</tr>");
 						
 						for(let i = 0; i < obj.length; i++){
@@ -211,11 +211,11 @@
 							$("#tbody").append("<tr>"+
 													"<td><input type='checkbox' name='js_chk' class='js_chk' value="+obj[i].productCode+">"+
 													"<td>"+obj[i].productCode+"</td>"+
-													"<td><img src='/resources/imgs/"+obj[i].productImage+"' width='65px'></td>"+
+													"<td><img src='/resources/"+obj[i].productImage+"' width='65px'></td>"+
 													"<td><a href = 'productUpdate?productCode="+obj[i].productCode+"'>"+obj[i].productName+"</td>"+
 													"<td>"+obj[i].category+"</td>"+
 													"<td>"+obj[i].price+"</td>"+
-													"<td>"+obj[i].productSales+"</td>"+
+													"<td style='color:blue;'>"+obj[i].productSales+"</td>"+
 												"</tr>"
 												);//tbody
 						}//for
@@ -311,11 +311,11 @@
 							$("#tbody").append("<tr>"+
 													"<td><input type='checkbox' name='js_chk' class='js_chk' value="+obj[i].productCode+">"+
 													"<td>"+obj[i].productCode+"</td>"+
-													"<td><img src='/resources/imgs/"+obj[i].productImage+"' width='65px'></td>"+
+													"<td><img src='/resources/"+obj[i].productImage+"' width='65px'></td>"+
 													"<td><a href = 'productUpdate?productCode="+obj[i].productCode+"'>"+obj[i].productName+"</td>"+
 													"<td>"+obj[i].category+"</td>"+
 													"<td>"+obj[i].price+"</td>"+
-													"<td>"+obj[i].productSales+"</td>"+
+													"<td style='color:blue'>"+obj[i].productSales+"</td>"+
 												"</tr>"
 												);
 						}
@@ -406,11 +406,11 @@
 							$("#tbody").append("<tr>"+
 													"<td><input type='checkbox' name='js_chk' class='js_chk' value="+obj[i].productCode+">"+
 													"<td>"+obj[i].productCode+"</td>"+
-													"<td><img src='/resources/imgs/"+obj[i].productImage+"' width='65px'></td>"+
+													"<td><img src='/resources/"+obj[i].productImage+"' width='65px'></td>"+
 													"<td><a href = 'productUpdate?productCode="+obj[i].productCode+"'>"+obj[i].productName+"</td>"+
 													"<td>"+obj[i].category+"</td>"+
 													"<td>"+obj[i].price+"</td>"+
-													"<td>"+obj[i].productSales+"</td>"+
+													"<td style='color:blue'>"+obj[i].productSales+"</td>"+
 												"</tr>"
 												);
 						}
@@ -637,7 +637,7 @@
 							$("#tbody").append("<tr>"+
 													"<td><input type='checkbox' name='js_chk' class='js_chk' value="+obj[i].productCode+">"+
 													"<td>"+obj[i].productCode+"</td>"+
-													"<td><img src='/resources/imgs/"+obj[i].productImage+"' width='65px'></td>"+
+													"<td><img src='/resources/"+obj[i].productImage+"' width='65px'></td>"+
 													"<td><a href = 'productUpdate?productCode="+obj[i].productCode+"'>"+obj[i].productName+"</td>"+
 													"<td>"+obj[i].category+"</td>"+
 													"<td>"+obj[i].price+"</td>"+
@@ -806,7 +806,7 @@
 							$("#tbody").append("<tr>"+
 													"<td><input type='checkbox' name='js_chk' class='js_chk' value="+obj[i].productCode+">"+
 													"<td>"+obj[i].productCode+"</td>"+
-													"<td><img src='/resources/imgs/"+obj[i].productImage+"' width='65px'></td>"+
+													"<td><img src='/resources/"+obj[i].productImage+"' width='65px'></td>"+
 													"<td><a href = 'productUpdate?productCode="+obj[i].productCode+"'>"+obj[i].productName+"</td>"+
 													"<td>"+obj[i].category+"</td>"+
 													"<td>"+obj[i].price+"</td>"+
