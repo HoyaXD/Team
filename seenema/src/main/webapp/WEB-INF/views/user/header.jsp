@@ -135,7 +135,7 @@
 
   <header id="header">
     <div id="header_top">
-      <a href="/user/main"><div id="top_logo"><img src="/images/logo3.png"></div></a>
+      <a href="/"><div id="top_logo"><img src="/images/logo3.png"></div></a>
       <div class="top_menu">
         <ul>
           <c:if test="${sessionScope.logid == null }">
