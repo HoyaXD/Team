@@ -32,13 +32,20 @@ public class MemberController {
 
 @PostMapping("/login.do")  //로그인 확인
 public String login(MemberVO stu, HttpSession session, Model model, HttpServletRequest request) {
-    int n = mapper.loginCheck(stu);
-    if(n == 1) {
+    MemberVO member = mapper.loginCheck(stu);
+    String msg;
+    if(member == null) {
+        model.addAttribute("msg", "아이디와 비밀번호를 다시 확인해주세요");
+        model.addAttribute("url", "loginForm");
+        return "user/alert";
+
+    } else if(member.getGrade().equals("admin")){
+        session.setAttribute("logid", stu.getId());
+        msg ="admin/adminPage";
+    }else {
         session.setAttribute("logid", stu.getId());
         model.addAttribute("msg", stu.getId()+"님 환영합니다!");
         model.addAttribute("url", "main");
-
-
 //        // 세션에 이전 페이지 URL 저장
 //        String referer = request.getHeader("Referer");
 //        String prevPage = (String) session.getAttribute("prevPage");
@@ -47,11 +54,8 @@ public String login(MemberVO stu, HttpSession session, Model model, HttpServletR
 //        // 2번째 전의 페이지로 이동
 //        return "redirect:" + prevPage;
         return "user/alert";
-    } else {
-        model.addAttribute("msg", "아이디와 비밀번호를 다시 확인해주세요");
-        model.addAttribute("url", "loginForm");
-        return "user/alert";
     }
+    return msg;
 }
 
     @GetMapping("/logout") //로그아웃

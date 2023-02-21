@@ -6,7 +6,7 @@ import org.green.seenema.vo.MemberVO;
 @Mapper
 public interface MemberMapper {
 
-    public int loginCheck(MemberVO member);
+    public MemberVO loginCheck(MemberVO member);
 
     public int idCheck(String id);
 
