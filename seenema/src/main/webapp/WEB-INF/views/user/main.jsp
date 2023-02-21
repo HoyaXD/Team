@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<%@ include file="header.jsp" %>
 <div class="content">
     <div class="videoWrap">
         <video id="video" autoplay muted loop>
@@ -77,7 +76,6 @@
         <a href="#header" class="scrollTopBtn">↑</a>
     </div>
 </main>
-<footer>푸터</footer>
 <script>
     /* let time = 30;	// 30초
     let x = setInterval(function(){
