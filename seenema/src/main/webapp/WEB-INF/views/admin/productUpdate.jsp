@@ -113,7 +113,7 @@
             </form>
             <div id="regied_content">
                 <div id="regied_photo">
-                    <img src="/resources/imgs/${p.productImage}" id="photo">
+                    <img src="/resources/${p.productImage}" id="photo">
                 </div>
             </div>
             

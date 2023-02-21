@@ -6,8 +6,8 @@
  <mapper namespace="org.green.seenema.mapper.TheaterCRUDMapper">
  	<!-- 등록 -->
  	<insert id="insertTheater">
- 		INSERT INTO seenema.theater_tbl(theaterPlace, theaterName, theaterAddress, theaterTel, theaterSeats, latitude, longitude, theaterImage)
-		VALUES(#{theaterPlace}, #{theaterName}, #{theaterAddress}, #{theaterTel}, #{theaterSeats}, #{latitude}, #{longitude}, #{theaterImage});
+ 		INSERT INTO seenema.theater_tbl(theaterPlace, theaterName, theaterAddress, theaterTel, seat_row, seat_column, <!-- latitude, longitude, --> theaterImage)
+		VALUES(#{theaterPlace}, #{theaterName}, #{theaterAddress}, #{theaterTel}, #{seat_row}, #{seat_column},<!--  #{latitude}, #{longitude}, --> #{theaterImage});
  	</insert>
  	
  	<!-- 조회 -->
@@ -39,8 +39,8 @@
 	<update id="update">
 		UPDATE seenema.theater_tbl 
 		SET theaterPlace=#{theaterPlace}, theaterName=#{theaterName}, theaterAddress=#{theaterAddress}, 
-			theaterTel=#{theaterTel}, theaterSeats=#{theaterSeats}, 
-			latitude=#{latitude}, longitude=#{longitude}, theaterImage=#{theaterImage}
+			theaterTel=#{theaterTel}, seat_row=#{seat_row}, seat_column=#{seat_column},
+			<!-- latitude=#{latitude}, longitude=#{longitude}, --> theaterImage=#{theaterImage}
 		WHERE theaterCode=#{theaterCode};
 	</update>
 	

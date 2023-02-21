@@ -36,10 +36,10 @@ public class AdminProductController {
 		//상품등록실행
 		String fileName = file.getOriginalFilename();
 		
-		product.setProductImage(fileName);
+		product.setProductImage("images/" + fileName);
 		
 		ServletContext ctx = request.getServletContext();
-		String uploadPath = "resources/imgs";
+		String uploadPath = "rosources/images";
 		String path = ctx.getRealPath(uploadPath);
 		
 		File saveFile = new File(path, file.getOriginalFilename());
@@ -94,7 +94,7 @@ public class AdminProductController {
 			product.setProductImage(fileName);
 			
 			ServletContext ctx = request.getServletContext();
-			String uploadPath = "resources/imgs";
+			String uploadPath = "resources/images";
 			String path = ctx.getRealPath(uploadPath);
 			
 			File saveFile = new File(path, file.getOriginalFilename());

@@ -111,7 +111,7 @@
                            </th>
                            <th></th>
                            <th></th>
-                           <th> <button id="movieReg" onclick="location.href='movieReg'">영화관등록</button></th>
+                           <th> <button id=theaterReg onclick="location.href='theaterReg'">영화관등록</button></th>
                            
                         </tr>
                         <th colspan="7">
