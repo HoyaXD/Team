@@ -508,28 +508,27 @@ footer{
 	grid-template-columns: repeat(2, 1fr);
 	border-top: 1px solid gainsboro;
 	border-bottom: 1px solid gainsboro;
-	height: 300px;
 	margin-top: 50px;
 }
 .genderWrap > div:first-child{
 	text-align: center;
 	border-right: 1px solid gainsboro;
 	border-bottom: 1px solid gainsboro;
-	height: 20%;
+	height: 60px;
 	line-height: 60px;
 }
-.genderWrap > div:last-child{
+.genderWrap > div:last-child > div{
+	height: 250px;
 	border-right: 1px solid gainsboro;
-	height: 80%;
 }
 .ageWrap > div:first-child{
-	height: 20%;
+	height: 60px;
 	line-height: 60px;
 	text-align: center;
 	border-bottom: 1px solid gainsboro;
 }
 .ageWrap > div:last-child{
-	height: 80%;
+	height: 250px;
 }
 
 .trailerWrap{
@@ -576,4 +575,43 @@ footer{
 	box-shadow: 3px 3px 3px gray;
 	z-index: 99;
 	user-select: none;
+}
+
+.graphWrap{
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	border-top: 1px solid gainsboro;
+	border-bottom: 1px solid gainsboro;
+	margin-top: 50px;
+}
+.genderWrap > div:first-child{
+	text-align: center;
+	border-right: 1px solid gainsboro;
+	border-bottom: 1px solid gainsboro;
+	height: 60px;
+	line-height: 60px;
+}
+.genderWrap > div:last-child > div{
+	height: 250px;
+	border-right: 1px solid gainsboro;
+}
+.ageWrap > div:first-child{
+	height: 60px;
+	line-height: 60px;
+	text-align: center;
+	border-bottom: 1px solid gainsboro;
+}
+.ageWrap > div:last-child{
+	height: 250px;
+}
+#donutChart > div{
+	left: 40px;
+}
+
+svg > rect{
+	width: 200px;
+}
+
+svg > g:first-child > path:last-child{
+	background-color: aqua;
 }
