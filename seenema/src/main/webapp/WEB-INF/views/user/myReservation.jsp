@@ -14,20 +14,67 @@
     <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
-        footer {
-            background-color: #333;
-            color: #fff;
-            height: 150px;
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-        }
-        .box{
-            /*width: 1300px;*/
 
-        }
         *{
             margin: 0 auto;
+        }
+        #member_top{
+            margin-top: 20px;
+            width: 1000px;
+            display: flex;
+            height: 180px;
+            background-color: #e8e5dd;
+        }
+        #sel_menu{
+            width: 1000px;
+            height: 50px;
+            border-top: solid 1px gray;
+            border-right: solid 1px gray;
+            border-left: solid 1px gray;
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 250px 250px 250px 250px;
+            margin-bottom: 20px;
+        }
+        .menu_option{
+            line-height: 50px;
+            width: 250px;
+            text-align: center;
+            border-bottom: solid 1px gray;
+        }
+        #option_center{
+            border-right: solid 1px #e3dcdc;
+            border-left: solid 1px #e3dcdc;
+        }
+        #option_right{
+            border-right: solid 1px gray;
+        }
+        #member_img{
+            width: 150px;
+            float: left;
+        }
+        #member_img img{
+            float: left;
+            margin-top: 25px;
+            width: 130px;
+            height: 130px;
+        }
+
+        .member_info{
+            width: 400px;
+            margin-top: 50px;
+            font-size: 24px;
+        }
+        #memberName{
+            font-size: 36px;
+            margin-right: 15px;
+        }
+        #memberId{
+            color: #808080;
+        }
+        #option_left{
+            background-color: #5c5c5c;
+            color: white;
         }
     </style>
 </head>
@@ -50,6 +97,7 @@
     <a href="myReservation"><div class="menu_option" id="option_left">내 예매내역</div></a>
     <a href="myOrderList"> <div class="menu_option" id="option_center">내 결제내역</div></a>
     <a href="myUpdate"><div class="menu_option" id="option_right">내 정보수정</div></a>
+    <a href="#"><div class="menu_option" id="option_basket">내 장바구니</div></a>
 </div>
 <div class="container">
         <input type="hidden" id="id" value="${sessionScope.logid }">

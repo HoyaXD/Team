@@ -14,4 +14,8 @@
     <select id="loadSeats" resultType="org.green.seenema.vo.ReservationVO">
 
     </select>
+
+    <update id="cntPlus">
+
+    </update>
 </mapper>

@@ -16,6 +16,46 @@
     <title>영화예매 - 시네마</title>
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/reservationMain.css">
+    <style>
+        .reservationInfo{
+            display: flex;
+            width: 1300px;
+            height: 100px;
+            color: white;
+            /*justify-content: flex-start;*/
+        }
+        .ri_wrap{
+            background-color: #343433;
+
+        }
+        sel_postFileName img{
+            width: 30px;
+            height: 80px;
+        }
+        input[type=submit]{
+            margin-top: 10px;
+            width: 100px;
+            height: 100px;
+            background-color: #ee1919;
+            border: solid 1px red;
+            border-radius: 8px;
+            color: white;
+            font-size: 24px;
+        }
+        #sel_title{
+            margin-bottom: 10px;
+        }
+
+        .info{
+            /*padding-top: 40px;*/
+        }
+        #theaterInfoDiv{
+            padding-top: 40px;
+        }
+        #timeInfoDiv{
+            padding-top: 40px;
+        }
+    </style>
 </head>
 <body>
 <div class="box">
@@ -78,28 +118,39 @@
           <div class="time">23:20</div>
       </div>
   </div>
-  <div class="reservationInfo">
-    <div class="info" id="movieInfo">
+    <div id="hidden">
+        <form action="reservationSeats" method="post" name="frm">
+            <input type="hidden" name="movieCode" id="movieCode">
+            <input type="hidden" name="movieTitle" id="movieTitle">
+            <%--        <input type="text" name="postFileName" id="postFileName">--%>
+            <input type="hidden" name="id" value="${sessionScope.logid}">
+            <input type="hidden" name="theaterPlace" id="theaterPlace" placeholder="지역">
+            <input type="hidden" name="theater" id="theater" placeholder="영화관">
+            <input type="hidden" name="movieDate" id="movieDate" placeholder="날짜">
+            <input type="hidden" name="reservationTime" id="reservationTime" placeholder="시간">
+
 
     </div>
-    <div class="info" id="theaterInfo">극장선택</div>
-    <div class="info" id="seatsInfo">영화선택</div>
-    <div class="info" id="pay">좌석선택</div>
+    <div class="ri_wrap">
+  <div class="reservationInfo">
+    <div class="info" id="movieInfo">
+        <span id="sel_postFileName"></span>
+    </div>
+    <div class="info" id="theaterInfoDiv">
+        <p id="sel_title"></p>
+        <span id="theaterInfo"></span>
+        <span id="theaterInfo2"></span>
+    </div>
+    <div class="info" id="timeInfoDiv">
+        <span id="timeInfo"></span>
+        <span id="timeInfo2"></span>
+    </div>
+    <div class="info" id="pay"><input type="submit" value="좌석선택" onclick="return validateForm();"></div>
+      </form>
   </div>
+    </div>
 </div>
-<div id="hidden">
-    <form action="reservationSeats" method="post" name="frm">
-        <input type="hidden" name="movieCode" id="movieCode">
-        <input type="hidden" name="movieTitle" id="movieTitle">
-<%--        <input type="text" name="postFileName" id="postFileName">--%>
-        <input type="hidden" name="id" value="${sessionScope.logid}">
-        <input type="hidden" name="theaterPlace" id="theaterPlace" placeholder="지역">
-        <input type="hidden" name="theater" id="theater" placeholder="영화관">
-        <input type="hidden" name="movieDate" id="movieDate" placeholder="날짜">
-        <input type="hidden" name="reservationTime" id="reservationTime" placeholder="시간">
-        <input type="submit" value="좌석선택" onclick="return validateForm();">
-    </form>
-</div>
+
 </div>
 <footer>
     <%@ include file="../user/footer.jsp"%>
@@ -138,6 +189,7 @@
 
     $('.cal_list').click(function (e){  //날짜 선택시 css, hidden에 값 넣기
         $('#movieDate').val($(e.target).text());
+        $('#timeInfo').text($(e.target).text());
         $('.cal_list').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -155,6 +207,7 @@
 
     $('.time').click(function (e){  //시간 선택시 css, hidden에 값 넣기
         $('#reservationTime').val($(e.target).text());
+        $('#timeInfo2').text($(e.target).text());
         $('.time').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -169,27 +222,24 @@
 
     $('.movieTitle').click(function (e){ //영화 제목 선택
 
-
         $('#movieCode').val($(e.target).next().children().val()); //영화코드에 값넣기
         $('#postFileName').val($(e.target).nextAll('#postFileName2').children().val()); //파일네임에 값넣기
+        $('#sel_postFileName').html('<img src ="/images/'+$(e.target).nextAll('#postFileName2').children().val()+'" width="90px" height="130px">');
         $('#movieTitle').val($(e.target).text()); //영화제목에 값넣기
-
+        $('#sel_title').text($(e.target).text()); //영화제목에 값넣기
 
         $('.movieTitle').css({
             "background-color":"#e8e5dd",
             "color":"black"
         })
-
         $('.movieTitle').parent( 'div' ).css({
             "background-color":"#e8e5dd",
             "color":"black"
         })
-
         $(e.target).css({
             "background-color":"#5c5c5c",
             "color":"white"
         });
-
         $(e.target).parent( 'div' ).css({
             "background-color":"#5c5c5c",
             "color":"white"
@@ -198,6 +248,7 @@
 
     $(document).on("click", ".theater",function (e){  //영화관 클릭
         $('#theater').val($(e.target).text()); //영화관에 값넣기
+        $('#theaterInfo2').text($(e.target).text()); //영화관에 값넣기
 
         $('.theater').css({
             "background-color":"#dcdbd7",
@@ -212,6 +263,7 @@
 
     $(document).on("click", ".placeList",function (e){ // 선택된 영화지역에 있는 상영관 보여주기
         $('#theaterPlace').val($(e.target).text()); //영화지역에 값넣기
+        $('#theaterInfo').text($(e.target).text()); //영화지역에 값넣기
 
         $('.placeList').css({
             "background-color":"#dedad2",

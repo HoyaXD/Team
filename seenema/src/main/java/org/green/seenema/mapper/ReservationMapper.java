@@ -14,4 +14,6 @@ public interface ReservationMapper {
     public int regReservation(ReservationVO reservation);
 
     public List<ReservationVO> loadSeats(ReservationVO reservation);
+
+    public void cntPlus(int movieCode);
 }
