@@ -31,21 +31,22 @@ public class MemberController {
     public void loginForm(){}
 
 @PostMapping("/login.do")  //로그인 확인
-public String login(MemberVO stu, HttpSession session, Model model, HttpServletRequest request) {
-    MemberVO member = mapper.loginCheck(stu);
+public String login(MemberVO memberVO, HttpSession session, Model model, HttpServletRequest request) {
+    MemberVO member = mapper.loginCheck(memberVO);
     String msg;
     if(member == null) {
         model.addAttribute("msg", "아이디와 비밀번호를 다시 확인해주세요");
-        model.addAttribute("url", "loginForm");
+        model.addAttribute("url", "/user/loginForm");
         return "user/alert";
 
     } else if(member.getGrade().equals("admin")){
-        session.setAttribute("logid", stu.getId());
+        session.setAttribute("logid", memberVO.getId());
         msg ="redirect:/admin/adminPage";
     }else {
-        session.setAttribute("logid", stu.getId());
-        model.addAttribute("msg", stu.getId()+"님 환영합니다!");
-        model.addAttribute("url", "main");
+        session.setAttribute("logid", memberVO.getId());
+        session.setAttribute("name", member.getName());
+        model.addAttribute("msg", memberVO.getId()+"님 환영합니다!");
+        model.addAttribute("url", "/");
 //        // 세션에 이전 페이지 URL 저장
 //        String referer = request.getHeader("Referer");
 //        String prevPage = (String) session.getAttribute("prevPage");
@@ -118,7 +119,7 @@ public String login(MemberVO stu, HttpSession session, Model model, HttpServletR
         return "user/alert";
     }
 
-    @GetMapping("regMemberComplete")
+    @GetMapping({"regMemberComplete", "/regAgree"})
     public void regMemberComplete(){}
 
 

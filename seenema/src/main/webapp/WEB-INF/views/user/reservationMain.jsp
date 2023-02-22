@@ -251,7 +251,7 @@
         $('#theaterInfo2').text($(e.target).text()); //영화관에 값넣기
 
         $('.theater').css({
-            "background-color":"#dcdbd7",
+            "background-color":"#e8e5dd",
             "color":"black"
         })
         $(e.target).css({
