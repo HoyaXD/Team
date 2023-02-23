@@ -264,7 +264,7 @@
     $(document).on("click", ".placeList",function (e){ // 선택된 영화지역에 있는 상영관 보여주기
         $('#theaterPlace').val($(e.target).text()); //영화지역에 값넣기
         $('#theaterInfo').text($(e.target).text()); //영화지역에 값넣기
-
+        $('#theaterInfo2').text("");
         $('.placeList').css({
             "background-color":"#dedad2",
             "color":"black"

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 
 public class ReservationVO {
 	private String id;
-	private int ticketCode;
+	private Long ticketCode;
 	private int movieCode;
 	private String movieTitle;
 	private String theaterPlace;
@@ -24,4 +24,6 @@ public class ReservationVO {
 	private String reservationTime;
 	private String seats;
 	private int visitors;
+	private int status;
+	private String searchDate;
 }

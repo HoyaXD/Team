@@ -1,19 +1,33 @@
 package org.green.seenema.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.green.seenema.vo.MovieVO;
+import org.green.seenema.vo.OrderVO;
 import org.green.seenema.vo.ReservationVO;
+import org.green.seenema.vo.TheaterVO;
 
 import java.util.List;
 
 @Mapper
 public interface ReservationMapper {
-    public List<ReservationVO> searchReservation(String id);
+    public List<ReservationVO> searchReservationList(String id);
+    public ReservationVO searchReservation(Long ticketCode);
 
     public int regReservation(ReservationVO reservation);
 
     public List<ReservationVO> loadSeats(ReservationVO reservation);
 
     public void cntPlus(int movieCode);
+
+    public TheaterVO loadTheater (String theaterPlace, String theaterName);
+
+    public List<ReservationVO> getReservationList(String id);
+
+    public List<ReservationVO> getSearchReservationList(
+            @Param("id") String id,
+            @Param("startDate") String startDate,
+            @Param("endDate") String endDate,
+            @Param("status") int status);
 }

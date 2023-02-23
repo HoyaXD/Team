@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/css/loginForm.css">
 </head>
 <body>
-    <div class="logImg">
+    <div class="logImg" onclick="location.href='/'">
         <img src="/images/logo3.png">
     </div>
     <div class="login-container">

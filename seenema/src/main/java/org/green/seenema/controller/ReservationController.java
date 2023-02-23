@@ -1,6 +1,7 @@
 package org.green.seenema.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.green.seenema.mapper.MovieCRUDMapper;
 import org.green.seenema.mapper.MovieMapper;
 import org.green.seenema.mapper.ReservationMapper;
 import org.green.seenema.mapper.TheaterCRUDMapper;
@@ -27,7 +28,11 @@ public class ReservationController {
 
     @Autowired
     TheaterCRUDMapper tcMapper;
-    @GetMapping("/reservationMain")
+
+    @Autowired
+    MovieCRUDMapper movieCRUDMapper;
+
+    @GetMapping("/reservationMain") //예약 메인으로 가기
     public void reservation(Model model){
         List<TheaterVO> tlist = tcMapper.getListGroupByPlace();
         List<MovieVO> mlist = movieMapper.getMovieList();
@@ -48,6 +53,9 @@ public class ReservationController {
     @PostMapping("/reservationSeats") //영화관 좌석선택으로 이동하기
     public void reservationSeats(Model model, ReservationVO reservation){
         model.addAttribute("reservation", reservation);
+        model.addAttribute("seats", "");
+        model.addAttribute("theater", "");
+
     }
 
 //    @PostMapping("/reservation.do") // 예매하기
@@ -59,18 +67,21 @@ public class ReservationController {
 //        return "user/reservationComplete";
 //    }
 
-    @PostMapping("/reservation.do")
+    @PostMapping("/reservation.do") //예매실행
     @Transactional
     public String reservationdo(ReservationVO reservation, Model model) {
         log.info("예약정보 : " + reservation.toString());
         reservationMapper.cntPlus(reservation.getMovieCode());
         int result = reservationMapper.regReservation(reservation);
+        MovieVO movie = movieCRUDMapper.selectOne(reservation.getMovieCode());
         model.addAttribute("reservation", reservation);
+        model.addAttribute("movie", movie);
         return "user/reservationComplete";
     }
 
-    @GetMapping("/reservationComplete")
+    @GetMapping("/reservationComplete") //예매 성공페이지로 이동
     public void reservationComplete(){}
+
 
 
 }

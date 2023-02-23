@@ -145,7 +145,6 @@
             </c:if>
             <c:if test="${sessionScope.logid != null }">
             <li><a href="#"><img src="/images/service.png"><br>고객센터</a>
-
             <li><a href="/user/myCart"><img src="/images/cart.png"><br>장바구니</a>
             <li id="mypage"><a href="/user/myReservation"><img src="/images/my.png"><br>마이페이지</a>
             <li><a href="/user/logout"><img src="/images/login.png"><br>로그아웃</a>

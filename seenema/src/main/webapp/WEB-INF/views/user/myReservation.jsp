@@ -33,12 +33,12 @@
             border-left: solid 1px gray;
             margin-top: 15px;
             display: grid;
-            grid-template-columns: 250px 250px 250px 250px;
+            grid-template-columns: 333px 333px 333px ;
             margin-bottom: 20px;
         }
         .menu_option{
             line-height: 50px;
-            width: 250px;
+            width: 333px;
             text-align: center;
             border-bottom: solid 1px gray;
         }
@@ -76,6 +76,13 @@
             background-color: #5c5c5c;
             color: white;
         }
+        #itemList div{
+            white-space: nowrap; /* 한 줄로 표시 */
+            overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+            text-overflow: ellipsis;
+
+        }
+    </style>
     </style>
 </head>
 <body>
@@ -97,7 +104,6 @@
     <a href="myReservation"><div class="menu_option" id="option_left">내 예매내역</div></a>
     <a href="myOrderList"> <div class="menu_option" id="option_center">내 결제내역</div></a>
     <a href="myUpdate"><div class="menu_option" id="option_right">내 정보수정</div></a>
-    <a href="#"><div class="menu_option" id="option_basket">내 장바구니</div></a>
 </div>
 <div class="container">
         <input type="hidden" id="id" value="${sessionScope.logid }">
@@ -147,38 +153,40 @@
                 let data = this.responseText;
                 let obj = JSON.parse(data);
                 if(obj.length == 0){
-                    $("#itemList").empty();
                     $("#itemList").append(
                         "<li class='listHead'>"
-                        + "<div>구매일</div>"
-                        + "<div>주문번호</div>"
-                        + "<div>상품명</div>"
+                        + "<div>예매등록일</div>"
+                        + "<div>영화명</div>"
+                        + "<div>상영일자</div>"
+                        + "<div>좌석</div>"
                         + "<div>결제금액</div>"
-                        + "<div>상태</div>"
                         + "</li>"
                         + "<li>"
                         + "<div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div>"
                         + "</li>"
                     );
                 }else{
-                    $("#itemList").empty();
                     $("#itemList").html(
                         "<li class='listHead'>"
-                        + "<div>구매일</div>"
-                        + "<div>주문번호</div>"
-                        + "<div>상품명</div>"
+                        + "<div>예매일</div>"
+                        + "<div>영화명</div>"
+                        + "<div>상영일자</div>"
+                        + "<div>좌석</div>"
                         + "<div>결제금액</div>"
-                        + "<div>상태</div>"
                         + "</li>"
                     );
                     $(obj).each(function(index){
                         $("#itemList").append(
                             "<li class='item'>"
-                            + "<div class='orderDate'>" + this.orderDate + "</div>"
-                            + "<div><a href='/user/orderDetailView?orderNum=" + this.orderNum + "'>" + this.orderNum + "</a></div>"
-                            + "<div><a href='/user/orderDetailView?orderNum=" + this.orderNum + "' class='productName'>" + this.productName + "</a></div>"
-                            + "<div>" + this.totalPrice + "<span>원</span></div>"
-                            + (this.status == 1? "<div class='useable'>사용가능</div>" : "<div class='unUseable'>환불완료</div>")
+                            + "<div class='orderDate'>" + this.searchDate + '<input type="hidden" name="ticketCode" value="'+this.ticketCode+'"> </div>'
+                            + "<div>"
+                            + "<a href='/user/reservationDetailView?ticketCode=" + this.ticketCode + "'>" + this.movieTitle + "</a>"
+                            + "</div>"
+                            + "<div>"
+                            + "<a href='/user/reservationDetailView?ticketCode=" + this.ticketCode + "' class='productName'>" + this.movieDate +" "+ this.reservationTime + "</a>"
+                            + "</div>"
+                            + "<div>" + this.seats + "</div>"
+                            + "<div>" + this.ticketPrice + "<span>원</span></div>"
                             + "</li>"
 
                         );
@@ -256,11 +264,11 @@
                 if(obj.length == 0){
                     $("#itemList").append(
                         "<li class='listHead'>"
-                        + "<div>구매일</div>"
-                        + "<div>주문번호</div>"
-                        + "<div>상품명</div>"
+                        + "<div>예매등록일</div>"
+                        + "<div>영화명</div>"
+                        + "<div>상영일자</div>"
+                        + "<div>좌석</div>"
                         + "<div>결제금액</div>"
-                        + "<div>상태</div>"
                         + "</li>"
                         + "<li>"
                         + "<div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div>"
@@ -269,25 +277,25 @@
                 }else{
                     $("#itemList").html(
                         "<li class='listHead'>"
-                        + "<div>구매일</div>"
-                        + "<div>주문번호</div>"
-                        + "<div>상품명</div>"
+                        + "<div>예매일</div>"
+                        + "<div>영화명</div>"
+                        + "<div>상영일자</div>"
+                        + "<div>좌석</div>"
                         + "<div>결제금액</div>"
-                        + "<div>상태</div>"
                         + "</li>"
                     );
                     $(obj).each(function(index){
                         $("#itemList").append(
                             "<li class='item'>"
-                            + "<div class='orderDate'>" + this.orderDate + "</div>"
+                            + "<div class='orderDate'>" + this.searchDate + '<input type="hidden" name="ticketCode" value="'+this.ticketCode+'"> </div>'
                             + "<div>"
-                            + "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "'>" + this.orderNum + "</a>"
+                            + "<a href='/user/reservationDetailView?ticketCode=" + this.ticketCode + "'>" + this.movieTitle + "</a>"
                             + "</div>"
                             + "<div>"
-                            + "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "' class='productName'>" + this.productName + "</a>"
+                            + "<a href='/user/reservationDetailView?ticketCode=" + this.ticketCode + "' class='productName'>" + this.movieDate +" "+ this.reservationTime + "</a>"
                             + "</div>"
-                            + "<div>" + this.totalPrice.toLocaleString('ko-KR') + "<span>원</span></div>"
-                            + (this.status == 1? "<div class='useable'>사용가능</div>" : "<div class='unUseable'>환불완료</div>")
+                            + "<div>" + this.seats + "</div>"
+                            + "<div>" + this.ticketPrice + "<span>원</span></div>"
                             + "</li>"
 
                         );
@@ -296,7 +304,7 @@
                 }
             }
             let id = $("#id").val();
-            xhttp.open("get", "/user/order/getOrderList.do?id=" + id, true);
+            xhttp.open("get", "/user/getReservationList.do?id=" + id, true);
             xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
             xhttp.send();
         });

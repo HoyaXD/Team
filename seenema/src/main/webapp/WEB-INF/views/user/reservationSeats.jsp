@@ -55,7 +55,7 @@
 
         <form action="reservation.do" method="post" name="frm">
             <input type="hidden" name="movieCode" id="movieCode" value="${reservation.movieCode}">
-            <input type="hidden" name="ticketCode" id="ticketCode" value="123">
+            <input type="hidden" name="ticketCode" id="ticketCode" >
             <input type="hidden" name="movieTitle" id="movieTitle" value="${reservation.movieTitle}">
             <input type="hidden" name="id" value="${sessionScope.logid}">
             <input type="hidden" name="theaterPlace" id="theaterPlace" value="${reservation.theaterPlace}">
@@ -83,7 +83,7 @@
 
 
 <script>
-
+    document.getElementById('ticketCode').value =new Date().getTime();
     //성인 청소년 선택
     let adultsInput = document.getElementById('adults');
     let youthInput = document.getElementById('youth');
@@ -118,6 +118,7 @@
         }
         //selected value
         document.getElementById('totalPrice').innerText = parseInt(adultsInput.value)*15000 + parseInt(youthInput.value)*11000;  //가격 계산
+        document.getElementById('ticketPrice').value = parseInt(adultsInput.value)*15000 + parseInt(youthInput.value)*11000;  //가격 계산
         document.getElementById('visitors').value = parseInt(adultsInput.value) + parseInt(youthInput.value); //인원수에 값넣기
     });
     //좌석 행, 열 정해주기
