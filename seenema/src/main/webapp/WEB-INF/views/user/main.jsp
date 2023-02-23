@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="ticket">
-            <h2><a href="/user/storeView">영화 관람권</a></h2>
+            <h2><a href="/user/storeView">영화 관람권 / 기프트 카드</a></h2>
             <div class="ticketWrap">
             </div>
         </div>
@@ -57,9 +57,23 @@
     <div class="bottomSectionWrap">
         <div class="wrap">
             <div class="eventWrapTitle">
-                <a href="#">EVENT</a>
+                <a href="#">나의 스탬프</a>
             </div>
             <div class="eventWrap">
+	            <div class="firstLine">
+	                <img src="/images/stamp.png">
+	                <img src="/images/stamp.png">
+	                <img src="/images/stamp.png">
+	                <img src="/images/stamp.png">
+	                <img src="/images/colaClear.png">
+	            </div>
+	            <div class="secondLine">
+	                <img src="/images/noStamp.png">
+	                <img src="/images/noStamp.png">
+	                <img src="/images/noStamp.png">
+	                <img src="/images/noStamp.png">
+	                <img src="/images/popcornClear.png">
+	            </div>
                 <!--  -->
             </div>
         </div>
@@ -68,7 +82,6 @@
                 <a href="#">공지사항</a>
             </div>
             <div class="noticeWrap">
-                <div>공지사항</div>
             </div>
         </div>
     </div>

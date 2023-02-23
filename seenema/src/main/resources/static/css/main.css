@@ -481,11 +481,26 @@ video{
 
 }
 .eventWrap{
-    height: 300px;
+    height: 260px;
     border: 1px solid gainsboro;
     border-radius: 10px;
     box-shadow: 3px 3px 3px gray;
-    padding: 20px;
+    padding: 0px;
+}
+.eventWrap > div:first-child{
+	height: 50%;
+	border-bottom: 1px solid gainsboro;
+}
+.eventWrap img:nth-child(-n + 4){
+	border-right: 1px solid gainsboro;
+}
+.eventWrap > div:first-child{
+	height: 50%;
+	border: 1px solid gainsboro;
+}
+.eventWrap > div:last-child{
+	height: 50%;
+	border: 1px solid gainsboro;
 }
 
 .noticeWrapTitle{
@@ -496,7 +511,7 @@ video{
 }
 
 .noticeWrap{
-    height: 300px;
+    height: 260px;
     border: 1px solid gainsboro;
     border-radius: 10px;
     box-shadow: 3px 3px 3px gray;
@@ -515,4 +530,8 @@ video{
     font-weight: 500;
     text-align: left;
     border-bottom: 1px solid gainsboro;
+}
+
+footer p{
+	color: white;
 }
