@@ -61,11 +61,15 @@ public class AdminProductController {
 	}
 	
 	@GetMapping("/productList")
-	public void productList(Model model) {
+	public void productList(Model model, int pageNum) {
 		//상품조회페이지
-		ArrayList<ProductVO> pList = mapper.getList();
-		
+		ArrayList<ProductVO> pList = mapper.getList(0);
 		model.addAttribute("pList", pList);
+		
+		if(pageNum != 0) {
+			ArrayList<ProductVO> pList_1 = mapper.getList(10 * pageNum -1);
+			model.addAttribute("pList", pList_1);
+		}
 	}
 	
 	@GetMapping("/productUpdate")
@@ -132,7 +136,7 @@ public class AdminProductController {
 	@GetMapping("/productList.do")
 	public @ResponseBody ArrayList<ProductVO> productListDo() {
 		//상품조회
-		ArrayList<ProductVO> pList = mapper.getList();
+		ArrayList<ProductVO> pList = mapper.getList(0);
 		return pList;
 	}
 	@GetMapping("/getListByName.do")
@@ -318,4 +322,18 @@ public class AdminProductController {
 			return getListCategoryHighSales;
 		}
 	}
+	
+	@GetMapping("/getCnt")
+	public @ResponseBody int getCnt() {
+		//게시글 카운트
+		int total = mapper.getCnt();
+		
+		return total;
+	}
+	@GetMapping("/goPage")
+	public @ResponseBody ArrayList<ProductVO> goPage(int pageNum){
+		ArrayList<ProductVO> list = mapper.getList(10 * pageNum -1);
+		return list;
+	}
+	
 }

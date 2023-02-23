@@ -136,20 +136,261 @@
                       </tr>
                       
                       <tr>
-                         <th colspan="7">1 2 3 4 5 6 7 8 9</th>
+                         <th id="pageNum" colspan="7"></th>
                       </tr>
                       <tr>
                       </tr>
                    </tfoot>
              </table>
+             <input type="text" id="cnt">
+             <input type="text" id="currentPage" value="1">
+           
           </div>
        </div>
     </div>
+    
 	<script>
-		const totalCount = 53
-		const limit = 5
-
-		let totalPage = Math.ceil(totalCount / limit) // 11
+		
+		cntProduct();
+		function cntProduct(){
+			
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function() {
+				
+				let result = this.responseText; 
+				$("#cnt").val(result); 
+				//showPageButton();
+				page();
+			}
+			
+			xhttp.open("GET", "getCnt", true); 
+				
+			xhttp.send();
+			
+		}
+		
+		/* function page(){
+			let currentPage = $("#currentPage").val(); //현재 페이지
+			let totalCount = $("#cnt").val(); //총 데이터의 갯수
+			let pageCount = 10; //화면에 나타날 페이지 갯수
+			let limit = 10; //한 페이지 당 나타낼 데이터의 갯수
+			let totalPage = Math.ceil(totalCount / limit); // 총페이지 개수
+			let pageGroup = Math.ceil(currentPage / pageCount); //페이지그룹(1~10, 11~20 ...)
+			
+			let lastNum = pageGroup * pageCount;
+			if(lastNum > totalPage){
+				lastNum = totalPage
+			};
+			
+			let firstNum = lastNum - (pageCount - 1);
+			
+			let next = lastNum + 1;
+			let prev = firstNum - 1;
+			
+			if(totalCount < 101){ 
+				for(let i = firstNum; i <= lastNum; i++){
+					$("#pageNum").append("<button id='page_num_btn' value='"+i+"' style='width:30px;'>"+i+"</button>");
+				}
+			}else if(totalCount > 100){
+				for(let i = firstNum; i <= lastNum; i++){
+					$("#pageNum").append("<button id='page_num_btn' value='"+i+"' style='width:30px;'>"+i+"</button>");
+				}
+				$("#pageNum").append("<button id='next' style='width:30px;'>다음</button>");
+			}else if(totalCount > 100 && lastNum >= 20){
+				$("#pageNum").append("<button id='prev' style='width:30px;'>이전</button>")
+				for(let i = firstNum; i <= lastNum; i++){
+					$("#pageNum").append("<button id='page_num_btn' value='"+i+"' style='width:30px;'>"+i+"</button>");
+				}
+				$("#pageNum").append("<button id='next' style='width:30px;'>다음</button>");
+			}
+			
+			$("#tfoot").on("click", prevNext);
+			function prevNext(e){
+				
+				if(e.target.id == "next"){ //다음페이지 누르면
+					//$("#pageNum").children().first().trigger("click");
+					let firstNum = document.querySelector("#next").previousElementSibling.innerText;
+					$("#pageNum").empty();
+					let _firstNum = parseInt(firstNum)+1;
+					let lastNum = totalCount / 10 + 1;
+					let pages = lastNum / 10;
+					pageGroup = pageGroup+1;
+					
+					if(pageGroup == Math.ceil(pages)){ //마지막페이지
+						$("#pageNum").append("<button id='prev' style='width:30px;'>이전</button>")
+						for(let i = _firstNum; i <= totalPage; i++){
+							$("#pageNum").append("<button id='page_num_btn' style='width:30px;'>"+i+"</button>");
+						}
+						
+					}else{ //이외페이지
+						$("#pageNum").append("<button id='prev' style='width:30px;'>이전</button>")
+						for(let i = _firstNum; i <= _firstNum+9; i++){
+							$("#pageNum").append("<button id='page_num_btn' value='"+i+"' style='width:30px;'>"+i+"</button>");
+						}
+						$("#pageNum").append("<button id='next' style='width:30px;'>다음</button>")
+					}
+				}else if(e.target.id == "prev"){ //이전페이지 누르면
+					let prevNum = parseInt($("#prev").next().text());
+					let prevStart = prevNum - 10;
+					$("#pageNum").empty();
+					if(pageGroup > 1){
+						pageGroup = pageGroup-1
+					}else{
+						pageGroup = 1; 
+					}
+					if(pageGroup == 1){
+						for(let i = prevStart; i < prevNum; i++){
+							$("#pageNum").append("<button id='page_num_btn' value='"+i+"' style='width:30px;'>"+i+"</button>");
+						}
+						$("#pageNum").append("<button id='next' style='width:30px;'>다음</button>")
+					}else if(pageGroup > 1){
+						$("#pageNum").append("<button id='prev' style='width:30px;'>이전</button>")
+						for(let i = prevStart; i < prevNum; i++){
+							$("#pageNum").append("<button id='page_num_btn' value='"+i+"' style='width:30px;'>"+i+"</button>");
+						}
+						$("#pageNum").append("<button id='next' style='width:30px;'>다음</button>")
+					}
+					
+				} 
+			};
+			
+			$("#tfoot").on("click", goPage);
+			function goPage(e){
+				if(e.target.id == "page_num_btn"){
+					
+					location.href="productList?pageNum="+e.target.innerText;
+				}else if(e.target.id == "next"){
+					
+					let last = e.target.previousElementSibling.innerText;
+					let _last = parseInt(last)-1
+					location.href="productList?pageNum=" + _last;
+					 
+				}else if(e.target.id == "prev"){
+					let next = e.target.nextElementSibling.innerText;
+					let _next = parseInt(next)-1
+					location.href="productList?pageNum="+ _next;
+				}
+			}   
+		} */
+		 
+/* 		function showPageButton(){
+			let totalProduct = $("#cnt").val();
+			let currentPage = $("#currentPage").val();
+			let pageNum = Math.ceil(totalProduct / 10);
+			let pageGroup = Math.ceil(parseInt(currentPage) / 10);
+			
+			let lastNumber = pageGroup * 10;
+			if(lastNumber > pageNum){
+				lastNumber = pageNum
+			}
+			let firstNumber = lastNumber - ( 10 - 1 );
+			
+			let nextPage = lastNumber + 1;
+			let prev = firstNumber -1;
+			
+			if(pageNum > 10){ //페이지가 10 초과 이면 다음버튼 생성
+				//$("#pageNum").append("<button id='prev'>이전</button>");
+				for(let i = 1; i < 11; i ++){
+					$("#pageNum").append("<button id='page_num_btn' style='width:30px'>" + i + "</button>");
+				}
+				$("#pageNum").append("<button id='next' style='width:30px'>다음</button>");
+				
+				$("#next").on("click", function(){
+					$("#pageNum").empty();
+					$("#pageNum").append("<button id='prev' style='width:30px'>이전</button>");
+					for(let i = 11; i <= pageNum; i++){
+						$("#pageNum").append("<button id='page_num_btn' style='width:30px'>" + i + "</button>");
+					
+					}
+					$("#pageNum").append("<button id='next' style='width:30px'>다음</button>");
+				})
+				
+			}else if(pageNum < 10){ //페이지가 10 이하이면 다음페이지 생성하지 않음
+				for(let i = 1; i <= pageNum; i++){
+					$("#pageNum").append("<button id='page_num_btn' style='width:30px'>" + i + "</button>");
+				}
+			}
+		} */
+		
+		/*$("#tfoot").on('click', $("#page_num_btn"), function(e){
+			if(e.target.id == "page_num_btn"){
+				let page_num = e.target.innerText;
+				$("#currentPage").val(page_num);
+				
+				const xhttp = new XMLHttpRequest();
+				xhttp.onload = function() {
+					
+					$("#tbody").empty();
+					$("#tfoot").empty();
+					let result = this.responseText; 
+					let obj = JSON.parse(result);
+					$("#thead").html("<tr>"+
+	    					"<th></th><th></th><th></th><th></th><th></th><th></th>"+
+	                        "<th>"+
+	                        	"<select id='sort' size='1'>"+
+	                                "<option value='null'>-정렬-</option>"+
+	                                "<option value='best'>베스트</option>"+
+	                                "<option value='snack'>스낵</option>"+
+	                                "<option value='ticket'>영화관람권</option>"+
+	                      
+	                                "<option value='lowPrice'>낮은 가격 순</option>"+
+	                                "<option value='highPrice'>높은 가격 순</option>"+
+	                                "<option value='lowCnt'>판매량 낮은 순</option>"+
+	                                "<option value='highCnt'>판매량 높은 순</option>"+
+	                            "</select>"+
+	                        "</th>"+
+	                    "</tr>"+
+						"<tr>"+
+							"<th id='list_chkbox'><input type='checkbox' id='js_allChk' name='js_allChk'></th>"+
+							"<th id='list_code'>제품코드</th>"+
+							"<th id='list_img'>이미지</th>"+
+							"<th id='list_name'>제품이름</th>"+
+							"<th id='list_category'>카테고리</th>"+
+							"<th id='list_price'>가격</th>"+
+							"<th id='list_cnt'>판매량</th>"+
+						"</tr>");
+					for(let i = 0; i < obj.length; i++){
+						$("#tbody").append(
+								"<tr>"+
+		                        	"<td><input type='checkbox' class='js_chk' name='js_chk' value='"+obj[i].productCode+"'></td>"+
+		                        	"<td>"+obj[i].productCode+"</td>"+
+		                        	"<td><img src='/resources/"+obj[i].productImage+"' width='65px'></td>"+
+		                        	"<td><a href='productUpdate?productCode="+obj[i].productCode+"'>"+obj[i].productName+"</a></td>"+
+		                        	"<td>"+obj[i].category+"</td>"+
+		                        	"<td>"+obj[i].price+"</td>"+
+		                        	"<td style='color:blue'>"+obj[i].productSales+"</td>"+
+		                     	"</tr>");
+					}
+					$("#tfoot").append("<tr>"+
+							"<th>"+
+								"<button id='js_del'>선택삭제</button>"+
+							"</th>"+
+							"<th></th>"+
+							"<th></th>"+
+							"<th></th>"+
+							"<th></th>"+
+							"<th></th>"+
+							"<th>"+
+								"<button onclick='goProductRegPage();'>상품등록</button>"+
+							"</th>"+
+						"</tr>"+
+						"<tr>"+
+	                		"<th id='pageNum' colspan='7'></th>"+
+	             		"</tr>");//tfoot
+					cntProduct();
+				}//onload
+				
+				xhttp.open("GET", "goPage?pageNum=" + page_num, true); 
+					
+				xhttp.send();
+				
+				
+			}
+			
+			//if
+		});*/
+		
+	
 	</script>
 	<script>
 		

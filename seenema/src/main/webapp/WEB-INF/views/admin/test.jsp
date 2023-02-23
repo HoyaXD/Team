@@ -24,9 +24,22 @@
 	</tr>
 	</c:forEach>
 </table>
+<input type="button" onclick="loadDoc()" value="조회">
+<table border="1">
+	<tr>
+		<th>제품코드</th>
+		<th>제품이름</th>
+	</tr>
+	
+	<tbody id="ptbody">
+	
+	</tbody>
+	
+</table>
 
 <div id=chart_div style="width:400px; height:400px"></div>
 
+<span id="pagenum"></span>
   
 	<script>
 		let mTitle = document.querySelectorAll("#title");
@@ -82,6 +95,10 @@
 		  var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
 		  chart.draw(data, options);
 		}
+	</script>
+	<script>
+	
+
 	</script>
 </body>
 </html>
