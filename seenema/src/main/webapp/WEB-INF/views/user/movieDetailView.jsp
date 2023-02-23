@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	session.setAttribute("id", "kim");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +10,8 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 <body>
-	<div class="container">
 		<%@ include file="header.jsp" %>
+	<div class="container">
 		<main>
 			<div class="movieInfoWrap">
 				<!-- 영화 포스터 이미지 -->
@@ -34,34 +31,46 @@
 						<div id="genre">장르 : ${movie.genre } / 관람연령 : ${movie.viewAge } / 러닝타임 : ${movie.runningTime }분</div>
 						<div id="openDate">개봉일 : ${movie.releaseDate }</div>
 					</div>
-					<div class="reservBtn">예매하기</div>
+					<a class="reservBtn" href="/user/reservationMain?movieCode=${movie.movieCode }">예매하기</a>
 				</div>
 			</div>
+			
+			<!-- 상단 스크롤 메뉴바 -->
 			<div class="movieContent">
 				<ul class="tabMenu">
-					<li class="item"><a href="#">주요정보</a></li>
-					<li class="item"><a href="#trailer">예고편</a></li>
-					<li class="item"><a href="#">스틸컷</a></li>
-					<li class="item"><a href="#replySectionTitle">평점/리뷰</a></li>
+					<li class="item">
+						<a href="#">주요정보</a>
+					</li>
+					<li class="item">
+						<a href="#trailer">예고편</a>
+					</li>
+					<li class="item">
+						<a href="#">스틸컷</a>
+					</li>
+					<li class="item">
+						<a href="#replySectionTitle">평점/리뷰</a>
+					</li>
 				</ul>
 			</div>
 			<div class="summuryWrap">
 				<p>${movie.plot }</p>
 			</div>
+			<!-- 구글 차트 -->
 			<div class="graphWrap">
 				<div class="genderWrap">
-					<div>성별 예매 분포</div>
+					<div class="chartTitle">성별 예매 분포</div>
 					<div id="donutChartWrap">
 						<div id="donutChart"></div>
 					</div>
 				</div>
 				<div class="ageWrap">
-					<div>연령별 예매 분포</div>
+					<div class="chartTitle">연령별 예매 분포</div>
 					<div id="barChartWrap">
 						<div id="barChart"></div>
 					</div>
 				</div>
 			</div>
+			<!-- 메인 예고편 -->
 			<div class="trailerWrap">
 				<div id="trailer">&nbsp;</div>
 				<iframe width="780" height="400" src="${movie.previewURL.replace('https://youtu.be/', 'https://www.youtube.com/embed/') }?rel=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
@@ -95,8 +104,7 @@
 					<!-- 댓글 목록  -->
 				</div>
 				<div class="beforeAfterWrap">
-					<div id="beforeBtn">이전</div>
-					<div id="afterBtn">다음</div>
+					<!-- 페이지네이션 -->
 				</div>
 				<!-- 댓글 수정 박스 -->
 				<div id="updateReplyBox">
@@ -130,36 +138,156 @@
 				</div>
 			</div>
 			<div class="absoluteBtnWrap">
-        		<a href="/user/reservationMain" class="nowReservBtn">예매하기</a>	<!-- 범수행님 매핑 -->
+        		<a href="/user/reservationMain?movieCode=${movie.movieCode }" class="nowReservBtn">예매하기</a>	<!-- 범수행님 매핑 -->
         		<a href="#header" class="scrollTopBtn">↑</a>
        		</div>
 		</main>
-		<footer>푸터</footer>
 	</div>
+	<%@ include file="footer.jsp" %>
 <script>
 	const movieCode = $("#movieCode").val();	//영화코드
+	//let last = 0;
+	let totalPage = 0;
+	let num = 1;
+	//let length = 0;
+	$(document).ready(getReplyList(num), getTotalPage());
+	//getReplyList(num);	// 초기 리스트
+	//getTotalPage();
 	
-	// 구글 차트
+	// 댓글 총 갯수
+	function getTotalPage(){
+		console.log("시작전 : " + totalPage);
+		const xhttp = new XMLHttpRequest();
+		xhttp.onload = function(){
+			let result = parseInt(this.responseText, 10);
+			totalPage = Math.ceil(result / 10);
+			console.log("시작후 : " + totalPage);
+			if(totalPage == 0){
+				$(".beforeAfterWrap").empty();
+			}else if(totalPage < 10){
+				// 10페이지 이하일 경우 초기 세팅
+				$(".beforeAfterWrap").empty();
+				$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+				for(let i = 0; i < totalPage; i++){
+					$(".beforeAfterWrap").append("<div class='pageCount'>" + (i + 1) + "</div>");
+				}
+				$(".pageCount").filter(":first").css("color", "red"); // 첫페이지 색깔 on
+				$(".prevBtn").addClass("noBtn");
+				$(".noBtn").removeClass("prevBtn");
+			}else{
+				// 만약 10페이지 이상일경우 다음버튼이랑 같이 출력(초기 페이지라 이전버튼 필요 X) css 박스 움직이는거 생각하기
+				$(".beforeAfterWrap").empty();
+				$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+				for(let i = 0; i < 10; i++){
+					$(".beforeAfterWrap").append("<div class='pageCount'>" + (i + 1) + "</div>");
+				}
+				$(".beforeAfterWrap").append("<div class='nextBtn'>다음</div>");	// 다음버튼
+				$(".pageCount").filter(":first").css("color", "red"); // 첫페이지 색깔 on
+				$(".prevBtn").addClass("noBtn");
+				$(".noBtn").removeClass("prevBtn");
+			}
+		}
+		xhttp.open("get", "getReplyCount.do?movieCode=" + movieCode, true);
+		xhttp.send();
+	}
+	
+	// 페이지 번호별 리스트
+	$(document).on("click", ".pageCount", function(){
+		//alert($(this).text());
+		$(this).css("color", "red");	// 자기 자신한테만 색깔
+		$(".pageCount").not(this).css("color", "black");	// 자기자신 빼고 색깔 X
+		let pageNum = $(this).text(); // 클릭된 번호 파라미터
+		getReplyList(pageNum);
+	});
+	
+	// 이전 버튼
+	$(document).on("click", ".prevBtn", function(){
+		let prevPage = parseInt($(".pageCount").filter(":first").text(), 10) - 1;
+		getReplyList(prevPage);
+		$(".beforeAfterWrap").empty();
+		$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+		for(let i = 0; i < 10; i++){
+			$(".beforeAfterWrap").append("<div class='pageCount'>" + (prevPage + i - 9) + "</div>");
+		}
+		$(".beforeAfterWrap").append("<div class='nextBtn'>다음</div>");
+		$(".pageCount").filter(":last").css("color", "red");
+		if($(".pageCount").filter(":first").text() == "1"){
+			$(".prevBtn").addClass("noBtn");
+			$(".noBtn").removeClass("prevBtn");
+		}
+	});
+	
+	// 다음버튼
+	$(document).on("click", ".nextBtn", function(){
+		let nextPage = parseInt($(".pageCount").filter(":last").text(), 10) + 1;
+		getReplyList(nextPage);
+		$(".beforeAfterWrap").empty();
+		
+		if(totalPage - nextPage < 10){
+			let leng = totalPage - nextPage + 1;
+			$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+			for(let i = 0; i < leng; i++){
+				$(".beforeAfterWrap").append("<div class='pageCount'>" + (nextPage + i) + "</div>");
+			}
+			$(".pageCount").filter(":first").css("color", "red");
+		}else{
+			$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+			for(let j = 0; j < 10; j++){
+				$(".beforeAfterWrap").append("<div class='pageCount'>" + (nextPage + j) + "</div>");
+			}
+			$(".beforeAfterWrap").append("<div class='nextBtn'>다음</div>");
+			$(".pageCount").filter(":first").css("color", "red");
+		}
+	});
+	
+	// 구글 차트 (도넛)
 	google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
+    
     function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Task', 'Hours per Day'],
-        ['남성', 5],
-        ['여성', 4],
-      ]);
+      	var data = google.visualization.arrayToDataTable([
+        	['Task', 'Hours per Day'],
+        	['남성', 129],	// 예매 인원중 성별만 다 가지고 오면됨
+        	['여성', 111],	// 예매 인원중 성별만 다 가지고 오면됨
+      	]);
 
-      var options = {
-        pieHole: 0.4,
-      };
-
-      var chart = new google.visualization.PieChart(document.getElementById('donutChart'));
-      chart.draw(data, options);
+      	var options = {
+        	pieHole: 0.2,
+      	};
+      	var chart = new google.visualization.PieChart(document.getElementById('donutChart'));
+    	chart.draw(data, options);
     }
 	
-	getReplyList();
+    google.charts.load('current', {packages: ['corechart', 'bar']});
+    google.charts.setOnLoadCallback(drawBasic);
+	
+    // 구글차트 막대
+    function drawBasic() {
+    	var data = new google.visualization.DataTable();
+   			data.addColumn('string', '요일');
+    		data.addColumn('number', '방문자수(명)');
+    		data.addRows([
+	    		['10대', 121],		// 데이터 넣기
+		    	['20', 222],
+			    ['30대', 31],
+			    ['40대', 44],
+			    ['50대', 51]
+    		]);
+	    var options = {
+		    hAxis: {
+		    viewWindow: {
+		    	min: [7, 30, 0],
+		    	max: [17, 30, 0]
+	    	}
+	    	},
+    	};
+    	var chart = new google.visualization.ColumnChart(document.getElementById('barChart'));
+    	chart.draw(data, options);
+
+    }
+    
 	// 댓글 목록
-	function getReplyList(){
+	function getReplyList(num){
 		const id = $("#id").val();
 		const xhttp = new XMLHttpRequest();
 		xhttp.onload = function(){
@@ -223,12 +351,22 @@
 				});
 			}
 		}
-		xhttp.open("get", "/user/getReplyList.do?movieCode=" + movieCode, true);
+		xhttp.open("get", "/user/getReplyList.do?movieCode=" + movieCode + "&pageNum=" + num, true);
 		xhttp.send();
 	}
 	
 	// 댓글 등록
 	$("#regReplyBtn").on("click", function(){
+		if($("#id").val() == ""){
+			if(confirm("로그인이 필요한 서비스입니다.\n로그인 페이지로 이동하시겠습니까?") == true){
+				location.href = "/user/loginForm";
+				$("#comment").val("");	// 댓글 내용 초기화
+				$(".commentCount").text("0자");	// 댓글카운트 초기화
+				$("input[type=radio]").prop("checked", false);	// 별점 초기화
+			}else{
+				return;
+			}
+		}
 		if($("input[name='rate']:checked").val() == null){
 			alert("평점을 선택해주세요!");
 		}else if($("#comment").val() == ""){
@@ -242,7 +380,8 @@
 					$("#comment").val("");	// 댓글 내용 초기화
 					$(".commentCount").text("0자");	// 댓글카운트 초기화
 					$("input[type=radio]").prop("checked", false);	// 별점 초기화
-					getReplyList();	// 댓글 목록 갱신
+					getReplyList(1);	// 댓글 목록 갱신
+					getTotalPage();
 				}else{	// 댓글 등록 실패
 					alert("댓글등록에 실패했습니다.");
 				}
@@ -324,7 +463,8 @@
 					$("#updateReplyFormComment").val("");
 					//$("#updateRate" + obj.rate).prop('checked', false);
 					$("#updateBoxReplyCode").val("");
-					getReplyList();	// 댓글 목록 갱신
+					getReplyList(1);	// 댓글 목록 갱신
+					getTotalPage();		// 페이지네이션 초기화
 				}else{
 					alert("댓글 수정 실패!");
 				}
@@ -350,7 +490,8 @@
 				let result = this.responseText;
 				if(result == "1"){
 					alert("댓글을 삭제 완료하였습니다");
-					getReplyList();
+					getReplyList(1);
+					getTotalPage();	// 페이지네이션 초기화
 				}else{
 					alert("댓글 삭제 실패");
 				}

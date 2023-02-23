@@ -11,7 +11,10 @@ public interface ProductCRUDMapper {
 	public int insert(ProductVO product);
 	
 	//상품조회
-	public ArrayList<ProductVO> getList();
+	public ArrayList<ProductVO> getList(int pageNum);
+	
+	//상품 cnt
+	public int getCnt();
 	
 	//상품코드로 상품조회하기
 	public ProductVO selectOne(int productCode);

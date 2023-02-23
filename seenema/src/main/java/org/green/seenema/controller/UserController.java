@@ -40,9 +40,18 @@ public class UserController {
 	
 	@GetMapping("/getReplyList.do")
 	@ResponseBody
-	public ArrayList<ReplyVO> getReplyList(int movieCode){
-		ArrayList<ReplyVO> list = mapper.getReplyList(movieCode);
+	public ArrayList<ReplyVO> getReplyList(int movieCode, int pageNum){
+		int count = (pageNum - 1) * 10;
+		ArrayList<ReplyVO> list = mapper.getReplyList(movieCode, count);
 		return list;
+	}
+	
+	// 댓글 총 갯수
+	@GetMapping("/getReplyCount.do")
+	@ResponseBody
+	public int getReplyCount(int movieCode) {
+		int result = mapper.getReplyCount(movieCode);
+		return result;
 	}
 	
 	@PostMapping("/regReply.do")

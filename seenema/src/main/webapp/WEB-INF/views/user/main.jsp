@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<header id="header"></header>
 <div class="content">
     <div class="videoWrap">
         <video id="video" autoplay muted loop>
@@ -77,7 +77,6 @@
         <a href="#header" class="scrollTopBtn">↑</a>
     </div>
 </main>
-<footer>푸터</footer>
 <script>
     /* let time = 30;	// 30초
     let x = setInterval(function(){
@@ -112,6 +111,7 @@
             $("#video").html("<source src='https://adimg.cgv.co.kr/images/202301/count/0214_count_1080x608.mp4' type='video/mp4'>");
         }
     }
+    
 
     //무비차트 목록 불러오기
     function getMainMovieList(){
@@ -178,8 +178,8 @@
                         + "<img src='/images/" + list[index].postFileName + "'>"
                         + "<div class='overlay'></div>"
                         + "<div class='buttons'>"
-                        + "<button class='goMovieInfoBtn' value=" + list[index].movieCode + ">상세보기</button>"
                         + "<button class='goMovieResrvBtn' value=" + list[index].movieCode + ">예매하기</button>"
+                        + "<button class='goMovieInfoBtn' value=" + list[index].movieCode + ">상세보기</button>"
                         + "</div>"
                         + "<div class='ranking'>" + (index + 1) + "</div>"
                         + "<div class='gradient'></div>"	// 그라데이션
@@ -250,12 +250,6 @@
         xhttp.send();
     }
 
-    // 영화 상세보기 버튼
-    $(document).on("click", ".goMovieInfoBtn", function(){
-        //alert($(this).val());
-        location.href = "/user/movieDetailView?movieCode=" + $(this).val();
-    });
-
     // 스크롤 부드럽게
     $(document).on('click', 'a[href^="#"]', function (event) {
         event.preventDefault();	// 기능 차단
@@ -263,6 +257,20 @@
             scrollTop: $($.attr(this, 'href')).offset().top
         }, 300);
     });
+    
+    // 영화 상세보기 버튼
+    $(document).on("click", ".goMovieInfoBtn", function(){
+        //alert($(this).val());
+        location.href = "/user/movieDetailView?movieCode=" + $(this).val();
+    });
+    
+    // 예매하기 버튼
+    $(document).on("click", ".goMovieResrvBtn", function(){
+    	let movieCode = $(this).val();
+    	location.href = "/user/reservationMain?movieCode=" + movieCode;
+    });
+    
+    
 </script>
 </body>
 </html>

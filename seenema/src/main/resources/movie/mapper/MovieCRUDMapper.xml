@@ -19,6 +19,11 @@
 		FROM seenema.movie_tbl order by movieCode DESC LIMIT 8;
 	</select>
 	
+	<select id="getListNum" resultType="MovieVO">
+		SELECT *
+		FROM seenema.movie_tbl order by movieCode DESC LIMIT #{param1}, 8;
+	</select>
+	
 	<!-- 영화 코드로 조회 -->
 	<select id="selectOne" resultType="MovieVO">
 		SELECT * FROM seenema.movie_tbl WHERE movieCode = #{param1};

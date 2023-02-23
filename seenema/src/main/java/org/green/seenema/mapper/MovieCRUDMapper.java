@@ -15,6 +15,9 @@ public interface MovieCRUDMapper {
 	//영화목록조회
 	public ArrayList<MovieVO> getList();
 	
+	//영화페이지넘버 조회
+	public ArrayList<MovieVO> getListNum(int pageNum);
+	
 	//영화코드로 영화 조회하기
 	public MovieVO selectOne(int movieCode);
 	
