@@ -21,13 +21,12 @@
 main{
 	width: 1000px;
 	margin: 30px auto;
-	border: 1px solid blue;
+	/* border: 1px solid blue; */
 	padding: 10px;
 }
-footer{
-	width: 1300px;
-	height: 150px;
-	border-top: 1px solid gainsboro;
+
+footer p{
+	color: white;
 }
 
 .item{
@@ -174,7 +173,9 @@ footer{
 .paymentInfo{
 	padding: 10px 0;
 }
-
+.paymentInfoPrice{
+	line-height: 30px;
+}
 .noticeBox{
 	height: 500px;
 	border: 2px solid gainsboro;
@@ -199,6 +200,7 @@ footer{
 .noticeTitle > div:nth-child(2){
 	padding-left: 15px;
 	height: 20%;
+	line-height: 50px;
 }
 .noticeTitle > div:nth-child(3){
 	padding-left: 15px;

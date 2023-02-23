@@ -13,17 +13,6 @@
 	width: 1300px;
 	margin: 0 auto;
 }
-/* header{
-	width: 1300px;
-	height: 150px;
-	border: solid 1px black;
-} */
-
-footer{
-	width: 1300px;
-	height: 150px;
-	border: solid 1px blue;
-}
 
 /* 체크박스 라벨 */
 label{
@@ -51,6 +40,9 @@ input[type="checkbox"]:checked ~ label{
 	margin-top: 10px;
 	border-top: 3px solid black;
 	text-align: center;
+	min-height: 700px;
+	border-right: 1px solid gainsboro;
+	border-left: 1px solid gainsboro;
 }
 
 
@@ -247,21 +239,27 @@ input[type="checkbox"]:checked ~ label{
 }
 .bottomWrap{
 	display: flex;
+	border: 1px solid gainsboro;
+	padding: 10px;
 }
 .priceInfoWrap{
 	width: 200px;
-	padding: 10px;
+	padding: 10px 10px 10px 40px;
 	margin-left: auto;
 }
 .selectDeleteBtn{
-	width: 100px;
-	height: 50px;
-	line-height: 50px;
+	height: 40px;
+	line-height: 40px;
 	text-align: center;
 	cursor: pointer;
 	border: 1px solid gray;
 	border-radius: 5px;
-	margin-top: 20px;
+	font-size: 15px;
+	margin-top: 25px;
+	margin-left: 10px;
+	padding: 0 10px;
+	display: flex;
+	
 }
 .chong{
 	font-size: 30px;
@@ -285,6 +283,7 @@ input[type="checkbox"]:checked ~ label{
 	text-align: center;
 	font-size: 25px;
 	cursor: pointer;
+	margin: 10px 0;
 }
 
 #emptyListWrap{
@@ -296,4 +295,13 @@ input[type="checkbox"]:checked ~ label{
 }
 .emptyListCheckBox{
 	pointer-events: none;
+}
+
+.topTitle{
+	padding: 20px 0;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: center;
+	background-color: gainsboro;
+	margin-top: 10px;
 }

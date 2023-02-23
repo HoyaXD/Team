@@ -13,22 +13,12 @@
 	width: 1300px;
 	margin: 0 auto;
 }
-/* header{
-	width: 1300px;
-	height: 150px;
-	border: solid 1px black;
-} */
-
-footer{
-	width: 1300px;
-	height: 150px;
-	border: solid 1px blue;
-}
 
 #itemList{
 	margin: 20px 0;
 	border-top: 3px solid black;
 	text-align: center;
+	min-height: 500px;
 }
 
 /* 리스트 컬럼 */
@@ -62,6 +52,7 @@ footer{
 	color: gray;
 	border-bottom: 1px solid gray;
 	margin-bottom: 10px;
+	min-height: 500px;
 }
 
 .item{
@@ -253,4 +244,77 @@ footer{
 	background-color: #3d3d3b;
 	font-weight: bold;
 	cursor: pointer;
+}
+
+#member_top{
+    margin: 0 auto;
+    margin-top: 20px;
+    width: 1000px;
+    display: flex;
+    height: 180px;
+    background-color: #e8e5dd;
+}
+#sel_menu{
+    margin: 0 auto;
+    width: 1000px;
+    height: 50px;
+    border-top: solid 1px gray;
+    border-right: solid 1px gray;
+    border-left: solid 1px gray;
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 333px 333px 333px;
+    margin-bottom: 20px;
+}
+.menu_option{
+    margin: 0 auto;
+    line-height: 50px;
+    width: 333px;
+    text-align: center;
+    border-bottom: solid 1px gray;
+}
+#option_center{
+    margin: 0 auto;
+    border-right: solid 1px #e3dcdc;
+    border-left: solid 1px #e3dcdc;
+}
+#option_right{
+    margin: 0 auto;
+    border-right: solid 1px gray;
+}
+#member_img{
+    margin: 0 auto;
+    width: 150px;
+    float: left;
+}
+#member_img img{
+    float: left;
+    margin-top: 25px;
+    width: 130px;
+    height: 130px;
+}
+
+.member_info{
+    margin: 0 auto;
+    width: 400px;
+    margin-top: 50px;
+    font-size: 24px;
+}
+#memberName{
+    margin: 0 auto;
+    font-size: 36px;
+    margin-right: 15px;
+}
+#memberId{
+    margin: 0 auto;
+    color: #808080;
+}
+#option_center{
+    margin: 0 auto;
+    background-color: #5c5c5c;
+    color: white;
+}
+
+footer p{
+	color: white;
 }

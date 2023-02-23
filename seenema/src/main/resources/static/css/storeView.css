@@ -18,11 +18,13 @@
 	margin: 0 auto;
 } */
 
-footer{
-	width: 1300px;
-	height: 150px;
-	border: solid 1px blue;
-	margin: 0 auto;
+footer p{
+	color: white;
+}
+
+.blackColor{
+	width: 100%;
+	background-color: black;
 }
 
 .topImageWrap{
@@ -119,7 +121,7 @@ footer{
 
 .absoluteBtnWrap{
 	position: fixed;
-	right: 10%;
+	right: 15%;
 	bottom: 10%;
 }
 .nowReservBtn{
