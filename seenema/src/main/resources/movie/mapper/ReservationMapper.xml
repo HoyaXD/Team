@@ -16,6 +16,6 @@
     </select>
 
     <update id="cntPlus">
-
+        UPDATE movie_tbl SET cnt = cnt + 1 WHERE movieCode = #{movieCode}
     </update>
 </mapper>

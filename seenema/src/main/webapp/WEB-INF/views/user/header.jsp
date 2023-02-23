@@ -135,18 +135,20 @@
 
   <header id="header">
     <div id="header_top">
-      <a href="main"><div id="top_logo"><img src="/images/logo3.png"></div></a>
+      <a href="/"><div id="top_logo"><img src="/images/logo3.png"></div></a>
       <div class="top_menu">
         <ul>
           <c:if test="${sessionScope.logid == null }">
           <li><a href="#"><img src="/images/service.png"><br>고객센터</a>
-          <li><a href="regMemberForm"><img src="/images/join.png"><br>회원가입</a>
-          <li><a href="loginForm"><img src="/images/login.png"><br>로그인</a>
+          <li><a href="/user/regAgree"><img src="/images/join.png"><br>회원가입</a>
+          <li><a href="/user/loginForm"><img src="/images/login.png"><br>로그인</a>
             </c:if>
             <c:if test="${sessionScope.logid != null }">
             <li><a href="#"><img src="/images/service.png"><br>고객센터</a>
-            <li id="mypage"><a href="myReservation"><img src="/images/my.png"><br>마이페이지</a>
-            <li><a href="logout"><img src="/images/login.png"><br>로그아웃</a>
+
+            <li><a href="/user/myCart"><img src="/images/cart.png"><br>장바구니</a>
+            <li id="mypage"><a href="/user/myReservation"><img src="/images/my.png"><br>마이페이지</a>
+            <li><a href="/user/logout"><img src="/images/login.png"><br>로그아웃</a>
             </c:if>
         </ul>
       </div>
@@ -156,9 +158,9 @@
       <div class = "menu_wrap">
         <ul class="dep1">
           <li><a href="#">영화</a></li>
-          <li><a href="reservationMain">예매</a></li>
-          <li><a href="storeView">스토어</a></li>
-          <li><a href="menu">게시판</a></li>
+          <li><a href="/user/reservationMain">예매</a></li>
+          <li><a href="/user/storeView">스토어</a></li>
+          <li><a href="#">게시판</a></li>
         </ul>
       </div>
       <div class="wrap_after"></div>
@@ -175,15 +177,15 @@
             </div>
             <div id="active_reservation" class="active_menu">
               <ul>
-                <a href="reservationMain"><li class="active_title">예매</li></a>
-                <a href="reservationMain"><li>빠른예매</li></a>
-                <a href="reservationHistory"><li>내 예매내역</li></a>
+                <a href="/user/reservationMain"><li class="active_title">예매</li></a>
+                <a href="/user/reservationMain"><li>빠른예매</li></a>
+                <a href="/user/reservationHistory"><li>내 예매내역</li></a>
                 <a href="#"><li>icecon</li></a>
               </ul>
             </div>
             <div id="active_store" class="active_menu">
               <ul>
-                <a href="storeView"><li class="active_title">스토어</li></a>
+                <a href="/user/storeView"><li class="active_title">스토어</li></a>
                 <a href="#"><li>무비차트</li></a>
                 <a href="#"><li>아트하우스</li></a>
                 <a href="#"><li>icecon</li></a>
@@ -201,7 +203,8 @@
         </div>
       </div>
     </div>
-
+<input type="hidden" id="id" value="${sessionScope.logid }">
+<input type="hidden" id="name" value="${sessionScope.name }">
   </header>
 <script>
 

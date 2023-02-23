@@ -11,12 +11,8 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
-	<input type="hidden" id="id" value="kim">
+	<%@include file="header.jsp" %>
 	<div class="container">
-		<%-- <%@include file="header.jsp" %> --%>
-		<header>
-			<button type="button" id="goMyCartBtn" style="float: right; height: 50px; cursor: pointer;">내 장바구니 가기</button>
-		</header>
 		<main>
 			<section class="section sectionTop">
 				<img src="${product.productImage }">
@@ -97,8 +93,8 @@
 				</div>
 			</section>
 		</main>
-		<footer>푸터</footer>
 	</div>
+	<%@include file="footer.jsp" %>
 <script>
 	const price = parseInt($("#productPrice").text(), 10);	// 이 페이지 상품의 가격(정수타입으로 파싱)
 	

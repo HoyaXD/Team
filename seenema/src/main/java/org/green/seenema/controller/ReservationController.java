@@ -9,6 +9,7 @@ import org.green.seenema.vo.ReservationVO;
 import org.green.seenema.vo.TheaterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,9 +50,20 @@ public class ReservationController {
         model.addAttribute("reservation", reservation);
     }
 
-    @PostMapping("/reservation.do") // 예매하기
-    public String reservationdo(ReservationVO reservation, Model model){
+//    @PostMapping("/reservation.do") // 예매하기
+//    public String reservationdo(ReservationVO reservation, Model model){
+//        log.info("예약정보 : " + reservation.toString());
+//        reservationMapper.cntPlus(reservation.getMovieCode());
+//        int result = reservationMapper.regReservation(reservation);
+//        model.addAttribute("reservation", reservation);
+//        return "user/reservationComplete";
+//    }
+
+    @PostMapping("/reservation.do")
+    @Transactional
+    public String reservationdo(ReservationVO reservation, Model model) {
         log.info("예약정보 : " + reservation.toString());
+        reservationMapper.cntPlus(reservation.getMovieCode());
         int result = reservationMapper.regReservation(reservation);
         model.addAttribute("reservation", reservation);
         return "user/reservationComplete";

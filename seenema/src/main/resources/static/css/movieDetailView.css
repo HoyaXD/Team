@@ -13,21 +13,12 @@
 	width: 1300px;
 	margin: 0 auto;
 }
-/* header{
-	width: 1300px;
-	height: 150px;
-	border-bottom: 1px solid red;
-} */
+
 main{
 	width: 800px;
 	margin: 30px auto;
 	/* border: 1px solid blue; */
 	padding: 10px;
-}
-footer{
-	width: 1300px;
-	height: 150px;
-	border-top: 1px solid gainsboro;
 }
 .movieInfoWrap{
 	display: flex;
@@ -89,6 +80,7 @@ footer{
 .director_ActorInfoWrap{
 	padding-top: 10px;
 	font-size: 13px;
+	margin-bottom: 30px;
 	
 }
 .director_ActorInfoWrap > div{
@@ -287,11 +279,6 @@ footer{
 	line-height: 14.5px;
 }
 
-.beforeAfterWrap{
-	margin-top: 10px;
-	display: flex;
-	font-size: 12px;
-}
 
 #beforeBtn{
 	width: 50px;
@@ -479,14 +466,12 @@ footer{
 }
 
 .reservBtn{
-	width: 80px;
-	height: 30px;
+	
+	padding: 10px 20px;
 	font-size: 15px;
-	/* font-weight: bold; */
 	line-height: 30px;
 	text-align: center;
-	/* border: 1px solid black; */
-	margin-top: 10px;
+	margin-top: 20px;
 	color: white;
 	background-image: linear-gradient(to left, rgb(255, 115, 86), rgb(251, 67, 87));
 	border-radius: 5px;
@@ -503,33 +488,6 @@ footer{
 	color: gray;
 }
 
-.graphWrap{
-	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	border-top: 1px solid gainsboro;
-	border-bottom: 1px solid gainsboro;
-	margin-top: 50px;
-}
-.genderWrap > div:first-child{
-	text-align: center;
-	border-right: 1px solid gainsboro;
-	border-bottom: 1px solid gainsboro;
-	height: 60px;
-	line-height: 60px;
-}
-.genderWrap > div:last-child > div{
-	height: 250px;
-	border-right: 1px solid gainsboro;
-}
-.ageWrap > div:first-child{
-	height: 60px;
-	line-height: 60px;
-	text-align: center;
-	border-bottom: 1px solid gainsboro;
-}
-.ageWrap > div:last-child{
-	height: 250px;
-}
 
 .trailerWrap{
 	/* border: 1px solid red; */
@@ -584,34 +542,67 @@ footer{
 	border-bottom: 1px solid gainsboro;
 	margin-top: 50px;
 }
-.genderWrap > div:first-child{
-	text-align: center;
-	border-right: 1px solid gainsboro;
+.chartTitle{
+	height: 50px;
 	border-bottom: 1px solid gainsboro;
-	height: 60px;
-	line-height: 60px;
-}
-.genderWrap > div:last-child > div{
-	height: 250px;
-	border-right: 1px solid gainsboro;
-}
-.ageWrap > div:first-child{
-	height: 60px;
-	line-height: 60px;
+	line-height: 50px;
 	text-align: center;
-	border-bottom: 1px solid gainsboro;
-}
-.ageWrap > div:last-child{
-	height: 250px;
-}
-#donutChart > div{
-	left: 40px;
+	font-weight: bold;
 }
 
-svg > rect{
-	width: 200px;
+.chartTitle:first-child{
+	border-right: 1px solid gainsboro;
+}
+#donutChartWrap{
+	border-right: 1px solid gainsboro;
+	padding-left: 60px;
 }
 
-svg > g:first-child > path:last-child{
-	background-color: aqua;
+footer p{
+	color: white;
+}
+.beforeAfterWrap{
+	width: 550px; 
+	/* border: 1px solid gainsboro; */
+	display: flex;
+	font-size: 12px;
+	margin: 10px auto;
+}
+.pageCount{
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 0.1px solid gainsboro;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 13px;
+}
+.noBtn{
+	width: 50px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 0.1px solid gainsboro;
+	font-weight: bold;
+	color: gainsboro;
+	user-select: none;
+}
+.prevBtn{
+	width: 50px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 0.1px solid gainsboro;
+	font-weight: bold;
+	cursor: pointer;
+}
+.nextBtn{
+	width: 50px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 0.1px solid gainsboro;
+	font-weight: bold;
+	cursor: pointer;
 }

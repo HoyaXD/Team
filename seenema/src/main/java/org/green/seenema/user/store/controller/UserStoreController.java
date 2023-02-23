@@ -1,25 +1,18 @@
 package org.green.seenema.user.store.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.green.seenema.user.store.mapper.OrderMapper;
+import org.green.seenema.mapper.MemberMapper;
 import org.green.seenema.user.store.mapper.StoreMapper;
 import org.green.seenema.vo.CartVO;
-import org.green.seenema.vo.OrderVO;
 import org.green.seenema.vo.ProductVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +23,9 @@ public class UserStoreController {
 	
 	@Autowired
 	private StoreMapper mapper;
+	
+	@Autowired
+	private MemberMapper memberMapper;
 	
 	// 스토어 페이지 이동
 	@GetMapping("/storeView")
@@ -48,14 +44,17 @@ public class UserStoreController {
 	
 	// 내 장바구니로 이동
 	@GetMapping("/myCart")
-	public void myCart(String id, Model model) {
-		List<CartVO> list = mapper.getCartList(id);
+	public void myCart(Model model, HttpSession session) {
+		List<CartVO> list = mapper.getCartList((String) session.getAttribute("logid"));
 		model.addAttribute("list", list);
+		model.addAttribute("member", memberMapper.selectMember((String) session.getAttribute("logid")));
 	}
 	
 	// 내 결제내역 이동
 	@GetMapping("/myOrderList")
-	public void myOrderList() {}
+	public void myOrderList(Model model, HttpSession session) {
+		model.addAttribute("member", memberMapper.selectMember((String) session.getAttribute("logid")));
+	}
 	
 	// 결제내역 상세페이지
 	@GetMapping("/orderDetailView")
