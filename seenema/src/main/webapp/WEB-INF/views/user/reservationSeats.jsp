@@ -281,8 +281,7 @@
             <input type="hidden" name="reservationTime" id="reservationTime" value="${reservation.reservationTime}">
             <input type="hidden" name="visitors" id="visitors">
             <input type="hidden" name="seats" id="seats">
-            <input type="submit" value="예매등록 테스트" id="regBtn" onclick="return f();" >
-<%--            style="display:none;"--%>
+            <input type="submit" value="예매등록 테스트" id="regBtn" onclick="return f();" style="display:none;">
             <div class="buyNowBtn" >결제하기</div>
         </form>
     </div>
