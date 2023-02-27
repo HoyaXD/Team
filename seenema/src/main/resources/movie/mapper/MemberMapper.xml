@@ -23,4 +23,8 @@
     <update id="updateMember">
         UPDATE member_tbl SET pw = #{pw}, tel = #{tel} WHERE id = #{id}
     </update>
+
+    <update id="stampPlus">
+        UPDATE member_tbl SET stamp = stamp + 1 WHERE id = #{id}
+    </update>
 </mapper>

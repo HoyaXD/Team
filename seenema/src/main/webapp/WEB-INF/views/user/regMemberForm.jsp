@@ -156,11 +156,11 @@
         if (document.frm.id.value == "") {
             $('#idCheckComment').text("");
         }else if (id.length < 6) {
-            $('#idCheckComment').text("아이디는 6글자 이상이어야 합니다.");
+            document.getElementById("idCheckComment").innerHTML ="<span style='color:red'>아이디는 6글자 이상이어야 합니다.</span>";
         }else if (id.length > 12) {
-            $('#idCheckComment').text("아이디는 12글자를 초과할 수 없습니다.");
+            document.getElementById("idCheckComment").innerHTML ="<span style='color:red'>아이디는 12글자를 초과할 수 없습니다.</span>";
         }else if (!/^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]+$/.test(id)) {
-            $('#idCheckComment').text("아이디는 특수문자를 포함할 수 없고 영문과 숫자를 모두 포함해야 합니다.");
+            document.getElementById("idCheckComment").innerHTML ="<span style='color:red'>아이디는 특수문자를 포함할 수 없고 영문과 숫자를 모두 포함해야 합니다.</span>";
         }else {
             idcheck();
         }

@@ -15,4 +15,6 @@ public interface MemberMapper {
     public MemberVO selectMember(String id);
 
     public void updateMember(MemberVO member);
+
+    public void stampPlus(String id);
 }
