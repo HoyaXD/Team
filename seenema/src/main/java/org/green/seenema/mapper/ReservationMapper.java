@@ -9,6 +9,7 @@ import org.green.seenema.vo.ReservationVO;
 import org.green.seenema.vo.TheaterVO;
 
 import java.util.List;
+import java.util.Stack;
 
 @Mapper
 public interface ReservationMapper {
@@ -17,7 +18,7 @@ public interface ReservationMapper {
 
     public int regReservation(ReservationVO reservation);
 
-    public List<ReservationVO> loadSeats(ReservationVO reservation);
+    public List<String> loadSeats(ReservationVO reservation);
 
     public void cntPlus(int movieCode);
 
@@ -30,4 +31,10 @@ public interface ReservationMapper {
             @Param("startDate") String startDate,
             @Param("endDate") String endDate,
             @Param("status") int status);
+
+    public TheaterVO selectTheater(String theaterName);
+
+    public int cancelReservation (Long ticketCode);
+
+    public MovieVO getMovie (int movieCode);
 }

@@ -137,7 +137,9 @@ public String login(MemberVO memberVO, HttpSession session, Model model, HttpSer
     @GetMapping("/getReservationList.do")
     public @ResponseBody List<ReservationVO> getReservationList(String id){
         List<ReservationVO> list = reservationMapper.searchReservationList(id);
-        log.info("리스트 1번 : "+list.get(0).toString());
+        for (int i = 0 ; i <list.size() ; i++){
+        log.info("예매내역 정보 : " + list.get(i).toString());
+        }
         return list;
     }
 
@@ -147,6 +149,23 @@ public String login(MemberVO memberVO, HttpSession session, Model model, HttpSer
         MovieVO movie = movieCRUDMapper.selectOne(reservation.getMovieCode());
         model.addAttribute("reservation", reservation);
         model.addAttribute("movie", movie);
+    }
+
+//    @GetMapping("/searchGetReservationList.do")
+//    public @ResponseBody List<ReservationVO> searchGetReservationList(String id, String startDate, String endDate, int status){
+//        List<ReservationVO> list = reservationMapper.getSearchReservationList(id, startDate, endDate, status);
+//        log.info("조회하기1번 : " + list.get(0).toString());
+//        return list;
+//    }
+
+    @GetMapping("/searchGetReservationList.do")
+    public @ResponseBody List<ReservationVO> searchGetReservationList(String id, String startDate, String endDate, int status){
+        List<ReservationVO> list = reservationMapper.getSearchReservationList(id, startDate, endDate, status);
+        for (int i = 0 ; i <list.size() ; i++){
+            log.info("조회하기"+i+"번 : " + list.get(0).toString());
+        }
+
+        return list;
     }
 
 }

@@ -25,5 +25,5 @@ public class ReservationVO {
 	private String seats;
 	private int visitors;
 	private int status;
-	private String searchDate;
+	private Date searchDate;
 }

@@ -27,7 +27,7 @@
                 <button type="submit" class="submit-btn">로그인</button>
             </form>
             <div id="submit_after"></div>
-            <a href="regMemberForm"><button class="submit-btn" id="regMem">회원가입</button></a>
+            <a href="regAgree"><button class="submit-btn" id="regMem">회원가입</button></a>
 
         </div>
     </div>

@@ -7,12 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>내 예매내역 - 시네마</title>
-    <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="/css/myOrderList2.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <style>
 
         *{
@@ -132,9 +127,9 @@
                 </div>
             </div>
             <div id="totalCountWrap">
-                <div id="productNotice">※ (주문번호 또는 상품명을 클릭하면 결제내역 상세조회가 가능합니다.)</div>
+                <div id="productNotice">※ (영화제목을 클릭하면 예매내역 상세조회가 가능합니다.)</div>
                 <div id="right">
-                    <span>총</span><span class="listSize"></span><span>개</span>
+                    <span>총</span><span class="listSize"></span><span>건</span>
                 </div>
             </div>
             <ul id="itemList">
@@ -146,62 +141,65 @@
 <%@include file="footer.jsp"%>
 
     <script>
-        // 조회하기 버튼
-        $("#searchBtn").on("click", function(){
-            const xhttp = new XMLHttpRequest();
-            xhttp.onload = function(){
-                let data = this.responseText;
-                let obj = JSON.parse(data);
-                if(obj.length == 0){
-                    $("#itemList").append(
-                        "<li class='listHead'>"
-                        + "<div>예매등록일</div>"
-                        + "<div>영화명</div>"
-                        + "<div>상영일자</div>"
-                        + "<div>좌석</div>"
-                        + "<div>결제금액</div>"
-                        + "</li>"
-                        + "<li>"
-                        + "<div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div>"
-                        + "</li>"
-                    );
-                }else{
-                    $("#itemList").html(
-                        "<li class='listHead'>"
-                        + "<div>예매일</div>"
-                        + "<div>영화명</div>"
-                        + "<div>상영일자</div>"
-                        + "<div>좌석</div>"
-                        + "<div>결제금액</div>"
-                        + "</li>"
-                    );
-                    $(obj).each(function(index){
-                        $("#itemList").append(
-                            "<li class='item'>"
-                            + "<div class='orderDate'>" + this.searchDate + '<input type="hidden" name="ticketCode" value="'+this.ticketCode+'"> </div>'
-                            + "<div>"
-                            + "<a href='/user/reservationDetailView?ticketCode=" + this.ticketCode + "'>" + this.movieTitle + "</a>"
-                            + "</div>"
-                            + "<div>"
-                            + "<a href='/user/reservationDetailView?ticketCode=" + this.ticketCode + "' class='productName'>" + this.movieDate +" "+ this.reservationTime + "</a>"
-                            + "</div>"
-                            + "<div>" + this.seats + "</div>"
-                            + "<div>" + this.ticketPrice + "<span>원</span></div>"
-                            + "</li>"
 
-                        );
-                    });
-                    $(".listSize").text(obj.length);	// 총 ??개
-                }
-            }
+        $("#searchBtn").on("click", function(){
             let id = $("#id").val();
             let startDate = $("#datepicker1").val();
             let endDate = $("#datepicker2").val();
             let status = $("#searchContentChoice > .grayBtn.on").val();
-            //alert(status + "," + id + "," + startDate + "," + endDate);
-            xhttp.open("post", "/user/order/searchGetOrderList.do", true);
-            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            xhttp.send("id=" + id + "&startDate=" + startDate + "&endDate=" + endDate + "&status=" + status);
+            $.ajax({
+                type: "GET",
+                url: "/user/searchGetReservationList.do",
+                data: {id: id, startDate: startDate, endDate: endDate, status: status},
+                success: function(data) {
+                    if (data.length === 0) {
+                        // 데이터가 없는 경우 처리
+                        $("#itemList").html(
+                            "<li class='listHead'>"
+                            + "<div>예매등록일</div>"
+                            + "<div>영화제목</div>"
+                            + "<div>상영일자</div>"
+                            + "<div>좌석</div>"
+                            + "<div>결제금액</div>"
+                            + "</li>"
+                            + "<li>"
+                            + "<div id='emptyListWrap'>예매 내역이 존재하지 않습니다.</div>"
+                            + "</li>"
+                        );
+                    } else {
+                        // 데이터가 있는 경우 처리
+                        $("#itemList").html(
+                            "<li class='listHead'>"
+                            + "<div>예매등록일</div>"
+                            + "<div>영화제목</div>"
+                            + "<div>상영일자</div>"
+                            + "<div>좌석</div>"
+                            + "<div>결제금액</div>"
+                            + "</li>"
+                        );
+                        for (var i = 0; i < data.length; i++) {
+                            var item = data[i];
+                            $("#itemList").append(
+                                "<li class='item'>"
+                                + "<div class='orderDate'>" + item.searchDate + '<input type="hidden" name="ticketCode" value="'+item.ticketCode+'"> </div>'
+                                + "<div>"
+                                + "<a href='/user/reservationDetailView?ticketCode=" + item.ticketCode + "'>" + item.movieTitle + "</a>"
+                                + "</div>"
+                                + "<div>"
+                                + "<a href='/user/reservationDetailView?ticketCode=" + item.ticketCode + "' class='productName'>" + item.movieDate +" "+ item.reservationTime + "</a>"
+                                + "</div>"
+                                + "<div>" + item.seats + "</div>"
+                                + "<div>" + item.ticketPrice + "<span>원</span></div>"
+                                + "</li>"
+                            );
+                        }
+                        $(".listSize").text(data.length); // 총 ??개
+                    }
+                },
+                error: function() {
+
+                }
+            });
         });
         // 데이트 피커 초기값 세팅
         $(document).ready(function () {
@@ -265,20 +263,20 @@
                     $("#itemList").append(
                         "<li class='listHead'>"
                         + "<div>예매등록일</div>"
-                        + "<div>영화명</div>"
+                        + "<div>영화제목</div>"
                         + "<div>상영일자</div>"
                         + "<div>좌석</div>"
                         + "<div>결제금액</div>"
                         + "</li>"
                         + "<li>"
-                        + "<div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div>"
+                        + "<div id='emptyListWrap'>예매 내역이 존재하지 않습니다.</div>"
                         + "</li>"
                     );
                 }else{
                     $("#itemList").html(
                         "<li class='listHead'>"
-                        + "<div>예매일</div>"
-                        + "<div>영화명</div>"
+                        + "<div>예매등록일</div>"
+                        + "<div>영화제목</div>"
                         + "<div>상영일자</div>"
                         + "<div>좌석</div>"
                         + "<div>결제금액</div>"

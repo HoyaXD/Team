@@ -11,38 +11,38 @@
     <insert id="regReservation">
         INSERT INTO reservation_tbl (id, ticketCode, movieCode, movieTitle, theaterPlace, theater, ticketPrice,  reservationDate, movieDate, reservationTime, seats, visitors) VALUES (#{id}, #{ticketCode}, #{movieCode}, #{movieTitle}, #{theaterPlace}, #{theater}, #{ticketPrice}, NOW(), #{movieDate}, #{reservationTime}, #{seats}, #{visitors})
     </insert>
-    <select id="loadSeats" resultType="org.green.seenema.vo.ReservationVO">
-
+    <select id="loadSeats" resultType="String">
+        SELECT seats
+        FROM reservation_tbl
+        WHERE movieCode = #{movieCode} AND theater = #{theater} AND movieDate = #{movieDate} AND reservationTime = #{reservationTime} AND status = 1;
     </select>
 
     <update id="cntPlus">
         UPDATE movie_tbl SET cnt = cnt + 1 WHERE movieCode = #{movieCode}
     </update>
 
-    <select id="loadTheater" resultType="org.green.seenema.vo.TheaterVO">
-
-    </select>
-
-    <select id="getReservationList" resultType="org.green.seenema.vo.ReservationVO">
-        SELECT
-        DATE_FORMAT(reservationDate, "%Y-%m-%d") as reservationDate, ot.orderNum, pt.productCode, pt.productName, pt.productInfo, pt.price,
-        ot.count, (ot.price * ot.count) AS totalPrice, ot.status
-        FROM seenema.reservation_tbl
-        WHERE id = #{id} ORDER BY reservationDate DESC LIMIT 0, 10;
-    </select>
-
     <select id="getSearchReservationList" resultType="org.green.seenema.vo.ReservationVO">
-        SELECT
-        DATE_FORMAT(reservationDate, "%Y-%m-%d") as reservationDate, ot.orderNum, pt.productCode, pt.productName, pt.productInfo, pt.price,
-        ot.count, (ot.price * ot.count) AS totalPrice, ot.status
-        FROM seenema.reservation_tbl
-        WHERE id = #{id} AND searchDate BETWEEN #{startDate} AND #{endDate} AND ot.status = #{status}
-        ORDER BY reservationDate DESC LIMIT 0, 10;
+        SELECT *
+        FROM reservation_tbl
+        WHERE id = #{id} AND searchDate BETWEEN #{startDate} AND #{endDate} AND status = #{status}
+        ORDER BY reservationDate DESC;
     </select>
 
     <select id="searchReservation" resultType="org.green.seenema.vo.ReservationVO">
         SELECT * FROM reservation_tbl WHERE ticketCode = #{ticketCode}
     </select>
 
+    <select id="selectTheater" resultType="org.green.seenema.vo.TheaterVO">
+        SELECT * FROM seenema.theater_tbl WHERE theaterName = #{theaterName};
+    </select>
 
+    <update id="cancelReservation">
+        UPDATE reservation_tbl
+        SET status = 0
+        WHERE ticketCode = #{ticketCode};
+    </update>
+
+    <select id="getMovie" resultType="org.green.seenema.vo.MovieVO">
+        SELECT * FROM movie_tbl WHERE movieCode = #{movieCode}
+    </select>
 </mapper>
