@@ -181,7 +181,7 @@
               <ul>
                 <a href="/user/reservationMain"><li class="active_title">예매</li></a>
                 <a href="/user/reservationMain"><li>빠른예매</li></a>
-                <a href="/user/reservationHistory"><li>내 예매내역</li></a>
+                <a href="/user/myReservation"><li>내 예매내역</li></a>
                 <a href="#"><li>icecon</li></a>
               </ul>
             </div>
@@ -207,6 +207,8 @@
     </div>
 <input type="hidden" id="id" value="${sessionScope.logid }">
 <input type="hidden" id="name" value="${sessionScope.name }">
+<input type="hidden" id="tel" value="${sessionScope.tel }">
+<input type="hidden" id="stamp" value="${sessionScope.stamp }">
   </header>
 <script>
 
