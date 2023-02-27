@@ -75,7 +75,7 @@ public class ReservationController {
     @Transactional
     public String reservationdo(ReservationVO reservation, Model model) {
         log.info("예약정보 : " + reservation.toString());
-        reservationMapper.cntPlus(reservation.getMovieCode());
+        reservationMapper.cntPlus(reservation.getMovieCode(), reservation.getVisitors());
         int result = reservationMapper.regReservation(reservation);
         MovieVO movie = movieCRUDMapper.selectOne(reservation.getMovieCode());
         model.addAttribute("reservation", reservation);

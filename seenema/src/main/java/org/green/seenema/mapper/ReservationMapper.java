@@ -20,7 +20,7 @@ public interface ReservationMapper {
 
     public List<String> loadSeats(ReservationVO reservation);
 
-    public void cntPlus(int movieCode);
+    public void cntPlus(int movieCode, int visitors);
 
     public TheaterVO loadTheater (String theaterPlace, String theaterName);
 

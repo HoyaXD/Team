@@ -246,7 +246,7 @@
                 <option value="5">5</option>
                 <option value="6">6</option>
             </select><br>
-            <c:if test="${movie.viewAge != 19}">
+
             <label for="youth" id="youth_label">청소년</label>
             <select id="youth">
                 <option value="0">0</option>
@@ -257,7 +257,7 @@
                 <option value="5">5</option>
                 <option value="6">6</option>
             </select>
-            </c:if>
+
         </div>
         <div class="movieImg">
             <img src="/images/${movie.postFileName }">
@@ -266,6 +266,7 @@
             ${reservation.movieTitle}<br><br>
             ${reservation.theaterPlace} ${reservation.theater}<br><br>
             ${reservation.movieDate} ${reservation.reservationTime}<br><br>
+                남은좌석 : <span id="remaining_seats"></span><br><br>
             가격 : <span id="totalPrice">0</span> 원<br>
         </div>
         <form action="reservation.do" method="post" name="frm">
@@ -280,12 +281,14 @@
             <input type="hidden" name="reservationTime" id="reservationTime" value="${reservation.reservationTime}">
             <input type="hidden" name="visitors" id="visitors">
             <input type="hidden" name="seats" id="seats">
-            <input type="submit" value="예매등록 테스트" id="regBtn" onclick="return f();" style="display:none;">
+            <input type="submit" value="예매등록 테스트" id="regBtn" onclick="return f();" >
+<%--            style="display:none;"--%>
             <div class="buyNowBtn" >결제하기</div>
         </form>
     </div>
         <input type="hidden" name="rows" value="${theater.seat_row }" id="rows">
         <input type="hidden" name="cols" value="${theater.seat_column }" id="cols">
+        <input type="hidden" name="viewAge" value="${movie.viewAge }" id="viewAge">
 
 
     <div class="seats_container">
@@ -367,6 +370,9 @@
                 //좌석 행, 열 정해주기
                 let rows = document.getElementById("rows").value;
                 let cols = document.getElementById("cols").value;
+
+                $('#remaining_seats').text((rows*cols - reservedSeats.length) + " / " + rows*cols);
+
 
                 //선택한 좌석을 저장할 배열
 
@@ -483,9 +489,12 @@
             adultsInput.value = 0;
         }
         //selected value
+
+
         document.getElementById('totalPrice').innerText = parseInt(adultsInput.value)*15000 + parseInt(youthInput.value)*11000;  //가격 계산
         document.getElementById('ticketPrice').value = parseInt(adultsInput.value)*15000 + parseInt(youthInput.value)*11000;  //가격 계산
         document.getElementById('visitors').value = parseInt(adultsInput.value) + parseInt(youthInput.value); //인원수에 값넣기
+
 
         let totalPriceElement = document.getElementById("totalPrice");
         let totalPrice = totalPriceElement.innerHTML;
@@ -494,6 +503,13 @@
     });
 
     $("#youth").on("change", function(){  //옵션값 변경 시 가격 자동 계산
+        let viewAge = document.getElementById("viewAge").value;
+
+        if(viewAge == 19){
+            alert("청소년은 관람하실 수 없습니다.");
+            youthInput.value = 0;
+            return false;
+        }
 
         if(parseInt(adultsInput.value) + parseInt(youthInput.value) >6){
             alert('성인과 청소년을 합쳐 최대 6명까지 선택 가능합니다');
