@@ -2,6 +2,7 @@ package org.green.seenema.user.store.controller;
 
 import java.util.List;
 
+
 import org.green.seenema.user.store.mapper.OrderMapper;
 import org.green.seenema.vo.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,17 +46,17 @@ public class OrderController {
     
     // coolSms
 	@PostMapping("/send-one")
-    public SingleMessageSentResponse sendOne(String orderNum) {
-        Message message = new Message();
-        // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
-        message.setFrom("01025955462");
-        message.setTo("01025955462");	// 고객 전화번호 필요
-        message.setText("[SEENEMA]\n고객님의 기프티콘 번호는\n" + orderNum + "\n입니다.");
+  public SingleMessageSentResponse sendOne(String orderNum) {
+      Message message = new Message();
+      // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
+      message.setFrom("01025955462");
+      message.setTo("01025955462");	// 고객 전화번호 필요
+      message.setText("[SEENEMA]\n고객님의 기프티콘 번호는\n" + orderNum + "\n입니다.");
 
-        SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
-        //System.out.println(response);
-        return response;
-    }
+      SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
+       //System.out.println(response);
+      return response;
+      }
 	
 	// 일괄구매
 	@PostMapping("/order/buyProducts.do")

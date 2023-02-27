@@ -1,0 +1,195 @@
+@charset "UTF-8";
+
+.gamut1 {
+   width: 1300px;
+   height: 1500px;
+   border: 1px red solid;
+   background-color: #f3f3f3;
+}
+/*메인메뉴*/
+.main_view1 {
+   background-color: #f3f3f3; float : right;
+   width: 1094px;
+   height: 1500px;
+   border: 1px solid green;
+   float: right;
+}
+
+.main_view1 #doToday_menu {
+   margin: 20px 0 0 45px;
+   /*상 오른쪽 아래 왼쪽*/
+   width: 1000px;
+   height: 150px;
+   border: 1px solid blue;
+   border-radius: 5px;
+}
+
+#main_header {
+   width: 1000px;
+   height: 80px;
+/*    border: 1px solid skyblue; */
+   text-align: center;
+   margin-top: 50px;
+   font-size: 30px;
+   font-weight: bolder;
+}
+/* #menu_title{
+   border: 1px solid black;
+} */
+#in_serch_box{
+	font-size: 15px;
+}
+#gender_tbl_notice{
+	text-align:center;
+	margin-top:5px;
+}
+/**/
+#list_title{
+   text-align: center;
+   font-size: 18px;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   padding-bottom: 8px;
+   border-bottom: 1px solid black;
+   font-weight: bold;
+}
+#list1_menu{
+   margin-top: 30px;
+   width: 400px;
+   height: 350px;
+   border: 1px solid black;
+}
+#list1_menu_2{
+   margin-top: 30px;
+   width: 400px;
+   height: 450px;
+   border: 1px solid black;
+}
+#list2_menu{
+   margin-top: 30px;
+   width: 550px;
+   height: 350px;
+   border: 1px solid black;
+}
+#list3_menu{
+   margin-top: 50px;
+   width: 400px;
+   height: 350px;
+   border: 1px solid black;
+}
+#list4_menu{
+   margin-top: 20px;
+   width: 550px;
+   height: 350px;
+   border: 1px solid black;
+}
+#list5_menu{
+	margin-top: 30px;
+   width: 550px;
+   height: 350px;
+   border: 1px solid black;
+}
+#movie_sales_tbl, #gender_sales_tbl{
+   width: 400px;
+}
+#movie_sales_tbl th, #gender_sales_tbl th{
+   height: 20px;
+}
+#movie_sales_tbl td, #gender_sales_tbl td{
+   height: 25px;
+}
+#tbl_male_cnt, #tbl_female_cnt{
+	cursor: pointer;
+}
+.tbody_title{
+	cursor: help;
+}
+.popup_movieInfo{
+	border: 1px solid black;
+	width:300px;
+	height:400px;
+	background-color: white;
+	text-align: center;
+	
+}
+.popup_theaterInfo{
+	border: 1px solid black;
+	width:300px;
+	height:500px;
+	background-color: white;
+	text-align: center;
+}
+#popup_tbl, #popup_theaterInfo_tbl{
+	width:300px;
+}
+#popup_tbl th, #popup_tbl td,
+#popup_theaterInfo_tbl th, #popup_theaterInfo_tbl td{
+	height:10px;
+}
+#listBox{
+  /*  border: 1px solid red; */
+   width: 900px;
+   display: flex;
+}
+
+#movie_sales_tbl tbody tr:nth-child(2n+1){
+   background-color: RGB(246, 246, 246);
+}
+#list_tbl tbody tr:last-child{
+   border-bottom: 2px solid black;
+}
+#list_tbl button{
+   margin-top: 10px;
+   width: 80px;
+   height: 30px;
+   cursor: pointer;
+   border: 1px solid black;
+   background-color: transparent;
+   border-radius: 3px;
+}
+#thead th{
+   height: 40px;
+   border-top: 2px solid black;
+   border-bottom:2px solid black;
+}
+
+input[type=checkbox]{
+   width: 14px;
+   height: 14px;
+   border: 1px solid black;
+}
+
+/**/
+.easy_menu1 {
+   background-color: white;
+   display: flex;
+   flex-wrap: wrap;
+   width: 1000px;
+   height: 1300px;
+   border: 1px solid darkgreen;
+   margin: 20px 0 0 45px;
+   
+}
+
+#doToday_title {
+   width: 1000px;
+   height: 20px;
+   font-size: 19px;
+   font-weight: bolder;
+}
+#doToday_menu {
+   background-color: white;
+}
+#em_title {
+   /*상 오른쪽 아래 왼쪽*/
+   margin: 10px 0 0 0;
+   font-size: 20px;
+   width: 483px;
+}
+
+#em_Box div {
+   margin: 5px auto;
+   width: 490px;
+   height: 380px;;
+   border: 1px solid orchid;
+}

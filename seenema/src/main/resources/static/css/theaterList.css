@@ -1,126 +1,45 @@
 @charset "UTF-8";
 
-* {
-   font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
-   padding: 0;
-   margin: 0 auto;
-}
-
-ul, li {
-   list-style: none;
-}
-
-a {
-   text-decoration: none;
-   color: inherit;
-   cursor: pointer;
-}
-
-.header {
-   float: left;
-   width: 200px;;
-   height: 100%;
-   background: rgb(62, 61, 61);
-   color: white;
-}
-
-.header .logo {
-   width: 200px;;
-   height: 100px;
-}
-
-.header nav {
-   width: 200px;;
-   height: 55px;
-}
-
-.header nav .mainmenu {
-   width: 200px;;
-   height: 50px;
-   margin: 0 auto;
-}
-
-.header nav .mainmenu li {
-   width: 200px;;
-   height: 50px;
-   text-align: center;
-   line-height: 50px;
-   background: cccccc;
-}
-
-.header nav .mainmenu li .submenu {
-   display: none;
-   position: relative;
-   width: 200px;;
-   height: 200px;
-   top: -50px;
-   left: 200px;;
-   z-index: 3
-}
-
-.header nav .mainmenu li .submenu li {
-   width: 200px;;
-   height: 50px;
-   text-align: center;
-   line-height: 50px;
-   background: rgba(62, 61, 61, 0.8);
-   color: white;
-}
-
-.header nav .mainmenu li:hover {
-   background: rgba(76, 76, 248);
-   color: white;
-}
-
-.header nav .mainmenu li .submenu li:hover {
-   background: rgba(76, 76, 248);
-   color: white;
-}
-
-.gamut {
+.gamut1 {
    width: 1300px;
-   height: 1050px;
+   height: 1000px;
    border: 1px red solid;
+   background-color: #f3f3f3;
 }
-/*
-        .top_bar{
-            
-            width: 1093px;
-            height: 100px;
-            border: 1px blue solid;
-            float: left;
-        }*/
 /*메인메뉴*/
-.main_view {
-   float: right;
+.main_view1 {
+   background-color: #f3f3f3; float : right;
    width: 1094px;
-   height: 1050px;
+   height: 1000px;
    border: 1px solid green;
+   float: right;
 }
 
-.main_view #doToday_menu {
+.main_view1 #doToday_menu {
    margin: 20px 0 0 45px;
    /*상 오른쪽 아래 왼쪽*/
    width: 1000px;
    height: 150px;
    border: 1px solid blue;
+   border-radius: 5px;
 }
 
 #main_header {
    width: 1000px;
    height: 80px;
-   border: 1px solid skyblue;
+/*    border: 1px solid skyblue; */
    text-align: center;
    margin-top: 50px;
    font-size: 30px;
    font-weight: bolder;
 }
-#menu_title{
+/* #menu_title{
    border: 1px solid black;
+} */
+#in_serch_box{
+	font-size: 15px;
 }
-#serch_tbl{
-   margin-top: 10px;
-}
+
 #serch_tbl select{
    text-align: center;
    height: 25px;
@@ -169,12 +88,12 @@ a {
    border: 1px solid black;
 }
 #listBox{
-   border: 1px solid red;
+  /*  border: 1px solid red; */
    width: 900px;
 }
 #list_tbl{
    margin-top: 30px;
-   width: 800px;
+   width: 900px;
    /* border: 1px solid black; */
    text-align: center;
    border-collapse: collapse;
@@ -201,45 +120,74 @@ a {
 }
 
 #tbody td{
-   height: 40px;
+   height: 50px;
 }
 #tbl_code{
-   width: 130px;
+   width: 80px;
 }
 #tbl_name{
    width: 300px;
 }
 #tbl_place{
-   width: 120px;
+   width: 100px;
+}
+#tbl_tel{
+	width: 140px;
 }
 /* #list_tbl th, #list_tbl td{
    border: 1px solid black;
 } */
 
-#allChk{
-   width: 30px;
-}
 input[type=checkbox]{
    width: 14px;
    height: 14px;
    border: 1px solid black;
 }
-
+#tfoot1 th{
+	/* border: 1px solid black; */
+	height: 50px;
+}
+.pageCnt{
+	display: inline-block;
+	width: 25px;
+	height: 30px;
+	font-size: 15px;
+	cursor: pointer;
+	text-align: center;
+	font-weight: normal;
+	margin-right: 5px;
+	margin-left: 5px;
+	line-height: 45px;
+}
+.next, .prev{
+	margin-left: 5px;
+	cursor: pointer;
+	font-weight: normal;
+}
 /**/
-.easy_menu {
-   margin: 20px 0 0 45px;
+.easy_menu1 {
+   background-color: white; 
    display: flex;
    flex-wrap: wrap;
    width: 1000px;
-   height: 820px;
+   height: 700px;
    border: 1px solid darkgreen;
+   margin: 20px 0 0 45px;
 }
 
 .easy_menu #em_Box {
    flex: 3 3 35%;
    border: 1px solid red;
 }
-
+#doToday_title {
+   width: 1000px;
+   height: 20px;
+   font-size: 19px;
+   font-weight: bolder;
+}
+#doToday_menu {
+   background-color: white;
+}
 #em_title {
    /*상 오른쪽 아래 왼쪽*/
    margin: 10px 0 0 0;

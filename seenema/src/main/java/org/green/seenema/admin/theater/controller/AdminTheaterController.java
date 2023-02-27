@@ -18,27 +18,58 @@ public class AdminTheaterController {
 	TheaterCRUDMapper tmapper;
 	
 	@GetMapping("/theaterShcByName.do")
-	public @ResponseBody ArrayList<TheaterVO> theaterSerchByNameDo(String name) {
+	public @ResponseBody ArrayList<TheaterVO> theaterSerchByNameDo(String name, int pageNum) {
+		//이름으로 영화관찾기
 		String _name = "%" + name + "%";
-		ArrayList<TheaterVO> list = tmapper.getListByName(_name);
+		int _pageNum = 10 * (pageNum - 1);
+		ArrayList<TheaterVO> list = tmapper.getListByName(_name, _pageNum);
 		
 		return list;
+	}
+	
+	@GetMapping("/teaterNameCnt")
+	public @ResponseBody int nameCnt(String name) {
+		//이름으로 영화관 조회 cnt
+		String _name = "%" + name + "%";
+		int cnt = tmapper.theaterNameCnt(_name);
+		
+		return cnt;
 	}
 	
 	@GetMapping("/theaterShcByPlace.do")
-	public @ResponseBody ArrayList<TheaterVO> theaterShcByPlaceDo(String place){
+	public @ResponseBody ArrayList<TheaterVO> theaterShcByPlaceDo(String place, int pageNum){
+		//지역으로 영화관찾기
 		String _place = "%" + place + "%";
-		ArrayList<TheaterVO> list = tmapper.getListByPlace(_place);
+		int _pageNum = 10 * (pageNum - 1);
+		ArrayList<TheaterVO> list = tmapper.getListByPlace(_place, _pageNum);
 		
 		return list;
 	}
 	
-	@GetMapping("/theaterShcByTel.do")
-	public @ResponseBody ArrayList<TheaterVO> theaterShcByTelDo(String tel){
+	@GetMapping("/theaterPlaceCnt")
+	public @ResponseBody int theaterPlaceCnt(String place) {
+		//지역으로 영화관 조회 cnt
+		String _place = "%" + place + "%";
+		int cnt = tmapper.theaterPlaceCnt(_place);
 		
+		return cnt;
+	}
+	@GetMapping("/theaterShcByTel.do")
+	public @ResponseBody ArrayList<TheaterVO> theaterShcByTelDo(String tel, int pageNum){
+		//연락처로 영화관찾기
 		String _tel = "%" + tel + "%";
-		ArrayList<TheaterVO> list = tmapper.getListByTel(_tel);
+		int _pageNum = 10 * (pageNum - 1);
+		ArrayList<TheaterVO> list = tmapper.getListByTel(_tel, _pageNum);
 		
 		return list;
+	}
+	
+	@GetMapping("/theaterTelCnt")
+	public @ResponseBody int theaterTelCnt(String tel) {
+		//연락처로 영화관 조회 cnt
+		String _tel = "%" + tel + "%";
+		int cnt = tmapper.theaterTelCnt(_tel);
+		
+		return cnt;
 	}
 }

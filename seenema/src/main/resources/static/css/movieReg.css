@@ -1,104 +1,20 @@
 @charset "UTF-8";
 
-* {
-   font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
-   padding: 0;
-   margin: 0 auto;
-}
-
-ul, li {
-   list-style: none;
-}
-
-a {
-   text-decoration: none;
-   color: inherit;
-   cursor: pointer;
-}
-
-.header {
-   float: left;
-   width: 200px;;
-   height: 100%;
-   background: rgb(62, 61, 61);
-   color: white;
-}
-
-.header .logo {
-   width: 200px;;
-   height: 100px;
-}
-
-.header nav {
-   width: 200px;;
-   height: 55px;
-}
-
-.header nav .mainmenu {
-   width: 200px;;
-   height: 50px;
-   margin: 0 auto;
-}
-
-.header nav .mainmenu li {
-   width: 200px;;
-   height: 50px;
-   text-align: center;
-   line-height: 50px;
-   background: cccccc;
-}
-
-.header nav .mainmenu li .submenu {
-   display: none;
-   position: relative;
-   width: 200px;;
-   height: 200px;
-   top: -50px;
-   left: 200px;;
-   z-index: 3
-}
-
-.header nav .mainmenu li .submenu li {
-   width: 200px;;
-   height: 50px;
-   text-align: center;
-   line-height: 50px;
-   background: rgba(62, 61, 61, 0.8);
-   color: white;
-}
-
-.header nav .mainmenu li:hover {
-   background: rgba(76, 76, 248);
-   color: white;
-}
-
-.header nav .mainmenu li .submenu li:hover {
-   background: rgba(76, 76, 248);
-   color: white;
-}
-
-.gamut {
+.gamut1 {
    width: 1300px;
-   height: 1100px;
+   height: 1150px;
    border: 1px red solid;
+   background-color: #f3f3f3;
 }
-/*
-        .top_bar{
-            
-            width: 1093px;
-            height: 100px;
-            border: 1px blue solid;
-            float: left;
-        }*/
 /*메인메뉴*/
-.main_view {
+.main_view1{
    float: right;
    width: 1094px;
-   height: 1100px;
+   height: 1150px;
    border: 1px solid green;
 }
 
-.main_view #doToday_menu {
+.main_view1 #doToday_menu {
    margin: 20px 0 0 45px;
    /*상 오른쪽 아래 왼쪽*/
    width: 1000px;
@@ -116,17 +32,26 @@ a {
    font-weight: bolder;
 }
 #movieReg_form{
-  /*border: 1px solid black; */
+  /*border: 1px solid black;*/
     width: 450px;
-    height: 800px;
+    height: 600px;
     margin-left: 30px;
+    
 }
-
+.easy_menu1{
+   background-color: white; 
+   display: flex;
+   flex-wrap: wrap;
+   width: 1000px;
+   height: 900px;
+   border: 1px solid darkgreen;
+   margin: 20px 0 0 45px;
+}
 #input_title{
     font-size: 15px;
 }
 #input_menu{
-   /* border: 1px solid red; */
+  /*  border: 1px solid red; */
    width: 400px;
    margin-top: 15px;
 }

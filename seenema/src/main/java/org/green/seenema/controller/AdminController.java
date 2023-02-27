@@ -14,6 +14,7 @@ import org.green.seenema.mapper.MovieCRUDMapper;
 import org.green.seenema.mapper.TheaterCRUDMapper;
 import org.green.seenema.vo.MemberVO;
 import org.green.seenema.vo.MovieVO;
+import org.green.seenema.vo.ProductVO;
 import org.green.seenema.vo.TheaterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,7 +83,7 @@ public class AdminController {
 	@GetMapping("/movieReg")
 	public void regMovie(Model model) {
 		//영화 등록 페이지
-		ArrayList<TheaterVO> theaterlist = tmapper.getList();
+		ArrayList<TheaterVO> theaterlist = tmapper.getList2();
 		model.addAttribute("theater", theaterlist);
 	}
 	
@@ -116,11 +117,31 @@ public class AdminController {
 	@GetMapping("/movieList")
 	public void movieList(Model model) {
 		//등록된 영화 목록 페이지
+		ArrayList<MovieVO> mList = mapper.getList(0);
 		
-		ArrayList<MovieVO> mList = mapper.getList();
-		model.addAttribute("mList", mList);	
+		model.addAttribute("mList", mList);
 	}
-	
+	@GetMapping("/movieListByCode")
+	public @ResponseBody MovieVO movieListByCode(int movieCode){
+		//코드로 영화 조회하기
+		MovieVO movie = mapper.selectOne(movieCode);
+		//System.out.println(movieCode);
+		return movie;
+	}
+	@GetMapping("/movieCnt")
+	public @ResponseBody int movieCnt() {
+		//영화개수
+		int cnt = mapper.movieCnt();
+		return cnt;
+	}
+	@GetMapping("/goMPage")
+	public @ResponseBody ArrayList<MovieVO> goPage(int pageNum){
+		//영화페이지이동
+		int _pageNum = 10 * (pageNum - 1);
+		ArrayList<MovieVO> list = mapper.getList(_pageNum);
+		
+		return list;
+	}
 	@GetMapping("/movieUpdate")
 	public void movieUpdate(int movieCode, Model model) {
 		//영화 정보 수정 페이지
@@ -128,10 +149,10 @@ public class AdminController {
 		MovieVO movie = mapper.selectOne(movieCode);
 		model.addAttribute("movie", movie);
 		
-		ArrayList<TheaterVO> theaterlist = tmapper.getList();
+		ArrayList<TheaterVO> theaterlist = tmapper.getList2();
 		model.addAttribute("theater", theaterlist);
 	}
-	
+
 	@PostMapping("/movieUpdate.do")
 	public String movieUpdateDo(MovieVO movieVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {
 		//영화정보 수정 실행
@@ -224,10 +245,28 @@ public class AdminController {
 	@GetMapping("/theaterList")
 	public void theaterList(Model model) {
 		//영화관 조회페이지
-
-		ArrayList<TheaterVO> tList = tmapper.getList();
+		ArrayList<TheaterVO> tList = tmapper.getList(0);
 		model.addAttribute("tList", tList);	
 	}
+	
+	@GetMapping("/theaterCnt")
+	public @ResponseBody int theaterCnt() {
+		//영화관 cnt
+		int cnt = tmapper.theaterCnt();
+		
+		return cnt;
+	}
+	
+	@GetMapping("/goTPage")
+	public @ResponseBody ArrayList<TheaterVO> goTPage(int pageNum){
+		//영화관 페이지
+		int _pageNum = 10 * (pageNum - 1);
+		ArrayList<TheaterVO> list = tmapper.getList(_pageNum);
+		
+		return list;
+		
+	}
+	
 	
 	@GetMapping("/theaterUpdate")
 	public void theaterUpdate(int theaterCode, Model model) {
@@ -236,6 +275,13 @@ public class AdminController {
 		TheaterVO theater = tmapper.selectOne(theaterCode);
 		model.addAttribute("theater", theater);
 		
+	}
+	@GetMapping("/theaterInfo")
+	public @ResponseBody TheaterVO theaterInfo(int theaterCode){
+		//영화관 코드로 영화관조회
+		TheaterVO theater = tmapper.selectOne(theaterCode);
+		
+		return theater;
 	}
 	@PostMapping("/theaterUpdate.do")
 	public String theaterUpdateDo(TheaterVO theaterVO, @RequestParam("photoFileName") MultipartFile file, HttpServletRequest request, RedirectAttributes rs) {

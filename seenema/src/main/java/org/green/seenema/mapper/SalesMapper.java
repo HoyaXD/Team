@@ -3,16 +3,24 @@ package org.green.seenema.mapper;
 import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.green.seenema.vo.MovieVO;
-import org.green.seenema.vo.ProductVO;
+import org.green.seenema.vo.MovieSalesVO;
+import org.green.seenema.vo.ReservationVO;
 
 @Mapper
 public interface SalesMapper {
-	public ArrayList<MovieVO> getMovieSales();
+	public ArrayList<ReservationVO> getMovieSales(String yearMonth);
+
+	public ArrayList<ReservationVO> getMovieTopfive(String yearMonth);
 	
-	public ArrayList<ProductVO> getProductSales();
+	//모든 영화 관객수
+	public int getAllMovieCnt(String yearMonth);
 	
-	public ArrayList<MovieVO> getMovieTopfive();
+	//영화관 별 관객수
+	public ArrayList<ReservationVO> getTheaterTopfive(String yearMonth);
+
+	//성별별 예매율
+	public ArrayList<ReservationVO> genderReservedCnt(String gender, String yearMonth);
 	
-	public ArrayList<ProductVO> getProductTopfive();
+	//예매된 장르조회
+	public ArrayList<MovieSalesVO> allGenre();
 }
