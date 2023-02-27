@@ -1,6 +1,7 @@
 package org.green.seenema.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.green.seenema.mapper.MovieCRUDMapper;
 import org.green.seenema.mapper.MovieMapper;
 import org.green.seenema.mapper.ReservationMapper;
 import org.green.seenema.mapper.TheaterCRUDMapper;
@@ -27,10 +28,15 @@ public class ReservationController {
 
     @Autowired
     TheaterCRUDMapper tcMapper;
-    @GetMapping("/reservationMain")
+
+    @Autowired
+    MovieCRUDMapper movieCRUDMapper;
+
+    @GetMapping("/reservationMain") //예약 메인으로 가기
     public void reservation(Model model){
         List<TheaterVO> tlist = tcMapper.getListGroupByPlace();
         List<MovieVO> mlist = movieMapper.getMovieList();
+
         model.addAttribute("tlist",tlist);
         model.addAttribute("mlist",mlist);
     }
@@ -47,30 +53,53 @@ public class ReservationController {
 
     @PostMapping("/reservationSeats") //영화관 좌석선택으로 이동하기
     public void reservationSeats(Model model, ReservationVO reservation){
-        model.addAttribute("reservation", reservation);
+        model.addAttribute("reservation", reservation); // 예매정보 불러오기
+        TheaterVO theater = reservationMapper.selectTheater(reservation.getTheater().trim()); //영화관 정보 불러오기
+        model.addAttribute("theater", theater);
+        MovieVO movie = reservationMapper.getMovie(reservation.getMovieCode());
+        model.addAttribute("movie", movie);
     }
 
-//    @PostMapping("/reservation.do") // 예매하기
-//    public String reservationdo(ReservationVO reservation, Model model){
-//        log.info("예약정보 : " + reservation.toString());
-//        reservationMapper.cntPlus(reservation.getMovieCode());
-//        int result = reservationMapper.regReservation(reservation);
-//        model.addAttribute("reservation", reservation);
-//        return "user/reservationComplete";
-//    }
+    @PostMapping("/loadSeats")
+    public @ResponseBody List<String> loadSeats(ReservationVO reservation){
+        log.info("좌석 불러오기 실행중 ...");
+        log.info("예약정보 : " + reservation.toString());
+        log.info("좌석정보 : " + reservationMapper.loadSeats(reservation).toString());
 
-    @PostMapping("/reservation.do")
+        return  reservationMapper.loadSeats(reservation);
+    }
+
+
+
+    @PostMapping("/reservation.do") //예매실행
     @Transactional
     public String reservationdo(ReservationVO reservation, Model model) {
         log.info("예약정보 : " + reservation.toString());
-        reservationMapper.cntPlus(reservation.getMovieCode());
+        reservationMapper.cntPlus(reservation.getMovieCode(), reservation.getVisitors());
         int result = reservationMapper.regReservation(reservation);
+        MovieVO movie = movieCRUDMapper.selectOne(reservation.getMovieCode());
         model.addAttribute("reservation", reservation);
+        model.addAttribute("movie", movie);
         return "user/reservationComplete";
     }
 
-    @GetMapping("/reservationComplete")
+    @GetMapping("/reservationComplete") //예매 성공페이지로 이동
     public void reservationComplete(){}
+
+    @GetMapping("/cancelReservation.do")
+    public String deleteReservationdo(Long ticketCode, Model model){
+        int result = reservationMapper.cancelReservation(ticketCode);
+
+        if (result ==1){
+            model.addAttribute("msg", "예매취소가 완료되었습니다.");
+            model.addAttribute("url", "/user/myReservation");
+        }else {
+            model.addAttribute("msg", "예매취소가 실패하였습니다.");
+            model.addAttribute("url", "/");
+        }
+
+        return "user/alert";
+    }
 
 
 }

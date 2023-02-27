@@ -6,8 +6,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Insert title here</title>
-<%--  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>--%>
-<%--  <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>--%>
+  <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
   <style>
     *{
       /* margin: 0 auto; */
@@ -145,7 +148,6 @@
             </c:if>
             <c:if test="${sessionScope.logid != null }">
             <li><a href="#"><img src="/images/service.png"><br>고객센터</a>
-
             <li><a href="/user/myCart"><img src="/images/cart.png"><br>장바구니</a>
             <li id="mypage"><a href="/user/myReservation"><img src="/images/my.png"><br>마이페이지</a>
             <li><a href="/user/logout"><img src="/images/login.png"><br>로그아웃</a>

@@ -13,7 +13,7 @@
     </select>
 
     <insert id="regMember">
-        INSERT INTO member_tbl VALUES(#{id}, #{pw}, #{name}, #{tel}, #{gender}, #{birthday}, 'C')
+        INSERT INTO member_tbl VALUES(#{id}, #{pw}, #{name}, #{tel}, #{gender}, #{birthday}, 'C', 0)
     </insert>
 
     <select id="selectMember" resultType="org.green.seenema.vo.MemberVO">

@@ -36,12 +36,12 @@
       border-left: solid 1px gray;
       margin-top: 15px;
       display: grid;
-      grid-template-columns: 250px 250px 250px 250px;
+      grid-template-columns: 333px 333px 333px;
       margin-bottom: 20px;
     }
     .menu_option{
       line-height: 50px;
-      width: 250px;
+      width: 333px;
       text-align: center;
       border-bottom: solid 1px gray;
     }
@@ -173,7 +173,6 @@
   <a href="myReservation"><div class="menu_option" id="option_left">내 예매내역</div></a>
   <a href="myOrderList"> <div class="menu_option" id="option_center">내 결제내역</div></a>
   <a href="myUpdate"><div class="menu_option" id="option_right">내 정보수정</div></a>
-  <a href="#"><div class="menu_option" id="option_basket">내 장바구니</div></a>
 
 </div>
 <div id="update_form">

@@ -132,22 +132,22 @@
 
     </div>
     <div class="ri_wrap">
-  <div class="reservationInfo">
-    <div class="info" id="movieInfo">
-        <span id="sel_postFileName"></span>
-    </div>
-    <div class="info" id="theaterInfoDiv">
-        <p id="sel_title"></p>
-        <span id="theaterInfo"></span>
-        <span id="theaterInfo2"></span>
-    </div>
-    <div class="info" id="timeInfoDiv">
-        <span id="timeInfo"></span>
-        <span id="timeInfo2"></span>
-    </div>
-    <div class="info" id="pay"><input type="submit" value="좌석선택" onclick="return validateForm();"></div>
-      </form>
-  </div>
+        <div class="reservationInfo">
+            <div class="info" id="movieInfo">
+                <span id="sel_postFileName"></span>
+            </div>
+            <div class="info" id="theaterInfoDiv">
+                <p id="sel_title"></p>
+                <span id="theaterInfo"></span>
+                <span id="theaterInfo2"></span>
+            </div>
+            <div class="info" id="timeInfoDiv">
+                <span id="timeInfo"></span>
+                <span id="timeInfo2"></span>
+            </div>
+            <div class="info" id="pay"><input type="submit" value="좌석선택" onclick="return validateForm();"></div>
+            </form>
+      </div>
     </div>
 </div>
 
@@ -221,12 +221,38 @@
     })
 
     $('.movieTitle').click(function (e){ //영화 제목 선택
-
         $('#movieCode').val($(e.target).next().children().val()); //영화코드에 값넣기
         $('#postFileName').val($(e.target).nextAll('#postFileName2').children().val()); //파일네임에 값넣기
         $('#sel_postFileName').html('<img src ="/images/'+$(e.target).nextAll('#postFileName2').children().val()+'" width="90px" height="130px">');
         $('#movieTitle').val($(e.target).text()); //영화제목에 값넣기
         $('#sel_title').text($(e.target).text()); //영화제목에 값넣기
+        $('#timeInfo').text("");//영화시간초기화
+        $('#timeInfo2').text("");
+        $('#theaterInfo').text("");
+        $('#theaterInfo2').text("");
+
+        $('.placeList').css({
+            "background-color":"#dedad2",
+            "color":"black"
+        });
+
+        $('.placeList').parent( 'div' ).css({
+            "background-color":"#dedad2",
+            "color":"black"
+        })
+        $('.theater').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
+        })
+        $('.time').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
+        })
+        $('.cal_list').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
+        })
+
 
         $('.movieTitle').css({
             "background-color":"#e8e5dd",
@@ -236,6 +262,8 @@
             "background-color":"#e8e5dd",
             "color":"black"
         })
+
+
         $(e.target).css({
             "background-color":"#5c5c5c",
             "color":"white"
@@ -247,8 +275,18 @@
     })
 
     $(document).on("click", ".theater",function (e){  //영화관 클릭
-        $('#theater').val($(e.target).text()); //영화관에 값넣기
+        $('#theater').val($(e.target).text().trim()); //영화관에 값넣기
         $('#theaterInfo2').text($(e.target).text()); //영화관에 값넣기
+        $('#timeInfo').text("");//영화시간초기화
+        $('#timeInfo2').text("");
+        $('.time').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
+        })
+        $('.cal_list').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
+        })
 
         $('.theater').css({
             "background-color":"#e8e5dd",
@@ -264,7 +302,21 @@
     $(document).on("click", ".placeList",function (e){ // 선택된 영화지역에 있는 상영관 보여주기
         $('#theaterPlace').val($(e.target).text()); //영화지역에 값넣기
         $('#theaterInfo').text($(e.target).text()); //영화지역에 값넣기
-
+        $('#theaterInfo2').text("");
+        $('#timeInfo').text("");//영화시간초기화
+        $('#timeInfo2').text("");
+        $('.theater').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
+        })
+        $('.time').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
+        })
+        $('.cal_list').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
+        })
         $('.placeList').css({
             "background-color":"#dedad2",
             "color":"black"

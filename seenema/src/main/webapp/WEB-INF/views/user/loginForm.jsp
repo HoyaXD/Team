@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/css/loginForm.css">
 </head>
 <body>
-    <div class="logImg">
+    <div class="logImg" onclick="location.href='/'">
         <img src="/images/logo3.png">
     </div>
     <div class="login-container">
@@ -27,7 +27,7 @@
                 <button type="submit" class="submit-btn">로그인</button>
             </form>
             <div id="submit_after"></div>
-            <a href="regMemberForm"><button class="submit-btn" id="regMem">회원가입</button></a>
+            <a href="regAgree"><button class="submit-btn" id="regMem">회원가입</button></a>
 
         </div>
     </div>
