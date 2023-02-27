@@ -26,16 +26,28 @@ public interface ProductCRUDMapper {
 	public int update(ProductVO product);
 	
 	//상품명으로 상품조회
-	public ArrayList<ProductVO> getListByName(String productName);
+	public ArrayList<ProductVO> getListByName(String productName, int pageNum);
+	
+	//상품명으로 상품조회 cnt
+	public int getListByNameCnt(String productName);
 	
 	//가격대로 상품조회
-	public ArrayList<ProductVO> getListByPrice(int start, int end);
+	public ArrayList<ProductVO> getListByPrice(int start, int end, int pageNum);
+	
+	//가격대로 상품조회 cnt
+	public int productByPriceCnt(int start, int end);
 	
 	//카테고리 조회
-	public ArrayList<ProductVO> getListByCategory(String category);
-
+	public ArrayList<ProductVO> getListByCategory(String category, int pageNum);
+	
+	//카테고리 조회 cnt
+	public int productByCategoryCnt(String category);
+	
 	//낮은 가격 순 정렬
-	public ArrayList<ProductVO> getListByLowPrice();
+	public ArrayList<ProductVO> getListByLowPrice(int pageNum);
+	
+	//낮은 가격 순 정렬 cnt
+	public int listByLowPriceCnt();
 	
 	//높은 가격 순 정렬
 	public ArrayList<ProductVO> getListByHighPrice();

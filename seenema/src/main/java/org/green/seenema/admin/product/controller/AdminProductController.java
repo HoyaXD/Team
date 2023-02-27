@@ -26,6 +26,9 @@ public class AdminProductController {
 	@Autowired
 	ProductCRUDMapper mapper;
 	
+	@Autowired
+	ProductVO pVo;
+	
 	@GetMapping("/productReg")
 	public void regProduct() {
 		//상품등록페이지
@@ -61,15 +64,12 @@ public class AdminProductController {
 	}
 	
 	@GetMapping("/productList")
-	public void productList(Model model, int pageNum) {
+	public void productList(Model model) {
 		//상품조회페이지
+		
 		ArrayList<ProductVO> pList = mapper.getList(0);
 		model.addAttribute("pList", pList);
 		
-		if(pageNum != 0) {
-			ArrayList<ProductVO> pList_1 = mapper.getList(10 * pageNum -1);
-			model.addAttribute("pList", pList_1);
-		}
 	}
 	
 	@GetMapping("/productUpdate")
@@ -139,39 +139,72 @@ public class AdminProductController {
 		ArrayList<ProductVO> pList = mapper.getList(0);
 		return pList;
 	}
-	@GetMapping("/getListByName.do")
-	public @ResponseBody ArrayList<ProductVO> getListByName(String productName){
-		//이름으로 상품 조회
+	@GetMapping("/productNameCnt")
+	public @ResponseBody int productNameCnt(String productName) {
+		//이름으로 상품 조회 cnt
 		String _productName = "%" + productName + "%";
-		ArrayList<ProductVO> listByName = mapper.getListByName(_productName);
+		
+		int cnt = mapper.getListByNameCnt(_productName);
+		
+		return cnt;
+	}
+	@GetMapping("/getListByName.do")
+	public @ResponseBody ArrayList<ProductVO> getListByName(String productName, int pageNum){
+		//이름으로 상품 조회
+		
+		String _productName = "%" + productName + "%";
+		int _pageNum = 10 * (pageNum - 1);
+		ArrayList<ProductVO> listByName = mapper.getListByName(_productName, _pageNum);
+		
+		System.out.println(listByName);
 		
 		return listByName;
 	}
-	
+	@GetMapping("/productByPriceCnt")
+	public @ResponseBody int productByPriceCnt(int start, int end) {
+		//가격대로 상품조회 cnt
+		int cnt = mapper.productByPriceCnt(start, end);
+		return cnt;
+	}
 	@GetMapping("/getListByPrice.do")
-	public @ResponseBody ArrayList<ProductVO> getListByPrice(int start, int end){
+	public @ResponseBody ArrayList<ProductVO> getListByPrice(int start, int end, int pageNum){
 		//가격대로 상품 조회
-		
-		ArrayList<ProductVO> listByPrice = mapper.getListByPrice(start, end);
+		int _pageNum = 10 * (pageNum - 1);
+		ArrayList<ProductVO> listByPrice = mapper.getListByPrice(start, end, _pageNum);
 		
 		return listByPrice;
 	}
-	
+	@GetMapping("/productByCategoryCnt")
+	public @ResponseBody int productByCategoryCnt(String category) {
+		//카테고리 검색 cnt
+		String _category = "%" + category + "%";
+		int cnt = mapper.productByCategoryCnt(_category);
+		
+		return cnt;
+	}
 	@GetMapping("/getListByCategory.do")
-	public @ResponseBody ArrayList<ProductVO> getListByCategory(String category){
+	public @ResponseBody ArrayList<ProductVO> getListByCategory(String category, int pageNum){
 		//카테고리 검색
 		String _category = "%" + category + "%";
-		ArrayList<ProductVO> listByCategory = mapper.getListByCategory(_category);
+		int _pageNum = 10 * (pageNum - 1);
+		ArrayList<ProductVO> listByCategory = mapper.getListByCategory(_category, _pageNum);
 		
 		return listByCategory;
 	}
 	
-	//--정렬
 	
+	//--정렬
+	@GetMapping("/listByLowPriceCnt")
+	public @ResponseBody int listByLowPriceCnt() {
+		int cnt = mapper.listByLowPriceCnt();
+		return cnt;
+	}
 	@GetMapping("/getListByLowPrice")
-	public @ResponseBody ArrayList<ProductVO> getListByLowPrice(){
+	public @ResponseBody ArrayList<ProductVO> getListByLowPrice(int pageNum){
 		//낮은 가격 순으로 정렬
-		ArrayList<ProductVO> getListByLowPrice = mapper.getListByLowPrice();
+		
+		int _pageNum = 10 * (pageNum - 1);
+		ArrayList<ProductVO> getListByLowPrice = mapper.getListByLowPrice(_pageNum);
 		
 		return getListByLowPrice;
 	}
@@ -282,7 +315,7 @@ public class AdminProductController {
 	public @ResponseBody ArrayList<ProductVO> getListCategoryCategory(String category1, String category2){
 		//다른카테고리로 정렬시 없는 카테고리로 화면출력
 		if(category2.contains(category1)) {
-			ArrayList<ProductVO> getListCategoryCategory = mapper.getListByCategory(category2);
+			ArrayList<ProductVO> getListCategoryCategory = mapper.getListByCategory(category2 ,1);
 			return getListCategoryCategory;
 		}else {
 			ArrayList<ProductVO> zero = mapper.getListPriceHighPrice(1, 0);
@@ -332,7 +365,7 @@ public class AdminProductController {
 	}
 	@GetMapping("/goPage")
 	public @ResponseBody ArrayList<ProductVO> goPage(int pageNum){
-		ArrayList<ProductVO> list = mapper.getList(10 * pageNum -1);
+		ArrayList<ProductVO> list = mapper.getList(10 * (pageNum -1));
 		return list;
 	}
 	
