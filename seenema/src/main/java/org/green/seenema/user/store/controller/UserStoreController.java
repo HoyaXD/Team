@@ -61,4 +61,8 @@ public class UserStoreController {
 	public void orderDetailView(Long orderNum, Model model) {
 		model.addAttribute("orderNum", orderNum);
 	}
+	
+	//test
+	@GetMapping("/test01")
+	public void test01() {}
 }

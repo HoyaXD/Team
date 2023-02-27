@@ -18,7 +18,8 @@
 	margin: 20px 0;
 	border-top: 3px solid black;
 	text-align: center;
-	min-height: 500px;
+	min-height: 552px;
+	max-height: 552px;
 }
 
 /* 리스트 컬럼 */
@@ -47,8 +48,7 @@
 	color: gray;
 }
 #emptyListWrap{
-	height: 300px;
-	line-height: 300px;
+	line-height: 500px;
 	color: gray;
 	border-bottom: 1px solid gray;
 	margin-bottom: 10px;
@@ -111,7 +111,8 @@
 
 .buyListWrap{
 	width: 900px;
-	margin: 0 auto;
+	margin: 20px auto;
+	max-height: 916px;
 }
 
 .searchBarWrap{
@@ -317,4 +318,49 @@
 
 footer p{
 	color: white;
+}
+.beforeAfterWrap{
+	width: 550px; 
+	/* border: 1px solid gainsboro; */
+	display: flex;
+	font-size: 12px;
+	margin: 10px auto;
+}
+.pageCount{
+	width: 40px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 0.1px solid gainsboro;
+	cursor: pointer;
+	font-weight: bold;
+	font-size: 13px;
+}
+.noBtn{
+	width: 50px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 0.1px solid gainsboro;
+	font-weight: bold;
+	color: gainsboro;
+	user-select: none;
+}
+.prevBtn{
+	width: 50px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 0.1px solid gainsboro;
+	font-weight: bold;
+	cursor: pointer;
+}
+.nextBtn{
+	width: 50px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 0.1px solid gainsboro;
+	font-weight: bold;
+	cursor: pointer;
 }

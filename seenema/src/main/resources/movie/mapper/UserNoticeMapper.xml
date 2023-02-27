@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.green.seenema.mapper.UserNoticeMapper">
+	<!-- 공지 목록 -->
+	<select id="getNoticeList" resultType="NoticeVO">
+		SELECT * FROM notice_tbl ORDER BY noticeCode DESC LIMIT #{count}, 20;
+	</select>
+	
+	<!-- 공지 갯수(페이지네이션) -->
+	<select id="getNoticeCount" resultType="int">
+		SELECT COUNT(*) FROM notice_tbl;
+	</select>
+	
+	<!-- 공지 상세보기 -->
+	<select id="getNoticeInfo" resultType="NoticeVO">
+		SELECT * FROM notice_tbl WHERE noticeCode = #{noticeCode};
+	</select>
+	
+	<!-- 공지 이전글 -->
+	<select id="getPrevContent" resultType="NoticeVO">
+		SELECT * FROM notice_tbl 
+		WHERE noticeCode = (SELECT MAX(noticeCode) FROM notice_tbl WHERE noticeCode &lt; #{noticeCode});  
+	</select>
+	
+	<!-- 공지 다음글 -->
+	<select id="getNextContent" resultType="NoticeVO">
+		SELECT * FROM notice_tbl 
+		WHERE noticeCode = (SELECT MIN(noticeCode)FROM notice_tbl WHERE noticeCode &gt; #{noticeCode});  
+	</select>
+	
+	<!-- 공지 조회수 + -->
+	<update id="plusView">
+		UPDATE notice_tbl nt SET hit = (nt.hit + 1) WHERE noticeCode = #{noticeCode};
+	</update>
+</mapper>

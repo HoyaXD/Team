@@ -54,10 +54,17 @@
 					<div class="showTotalPriceWrap">
 						<div class="chong">총 상품금액</div><div id="totalPrice">${product.price }</div><span id="won">원</span>
 					</div>
+					<c:if test="${product.category != 'ticket' }">
 					<div class="cartBuyBtnWrap">
 						<div class="addCartBtn">장바구니에 담기</div>
 						<div class="buyBtn">구매하기</div>
 					</div>
+					</c:if>
+					<c:if test="${product.category eq 'ticket' }">
+					<div class="buyTicketWrap">
+						<div class="buyTicketBtn">구매하기</div>
+					</div>
+					</c:if>
 				</div>
 			</section>
 			<section class="sectionBottom">
@@ -97,12 +104,29 @@
 	<%@include file="footer.jsp" %>
 <script>
 	const price = parseInt($("#productPrice").text(), 10);	// 이 페이지 상품의 가격(정수타입으로 파싱)
-	
+	const id = $("#id").val();
 	const IMP = window.IMP;
 	IMP.init("imp58206540");
 	
+	// 티켓일경우 바로구매
+	$(document).on("click", ".buyTicketBtn", function(){
+		pay();
+	});
+	
 	// 바로구매
 	$(document).on("click", ".buyBtn", function(){
+		pay();
+	});
+	
+	// 결제
+	function pay(){
+		if($("#id").val() == ""){
+			if(confirm("로그인 후 이용가능한 서비스입니다.\n로그인 하시겠습니까?") == true){
+				location.href = "/user/loginForm";
+			}else{
+				return;
+			}
+		}
 		let orderNum = parseInt(new Date().getTime(), 10);	// 주문번호
 		let productCode = $("#hiddenProductCode").val();	// 제품코드
 		let productName = $("#hiddenProductName").val();	// 제품명
@@ -110,7 +134,7 @@
 		let count = parseInt($(".count").text(), 10);	// 제품수량
 		let totalPrice = price * count;	// 결제 금액
 		let	id = $("#id").val();	// 유저 아이디
-		let userName = "김흥국";	//유저 이름
+		let userName = $("#name").val();	//유저 이름
 		//alert(totalPrice);
 		IMP.request_pay({
 			pg: "html5_inicis",
@@ -128,20 +152,33 @@
 			  			let result = parseInt(this.responseText, 10);
 			  			if(result == 1){
 				  			alert("결제가 완료되었습니다.\n결제내역은 마이페이지의 결제내역을 확인해주세요.");
+				  			sendSms(orderNum);
 			  			}else{
 			  				alert("결제 실패하였습니다.");
 			  			}
 			  		}
 			  		xhttp.open("post", "/user/order/buy.do", true);
 			  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			  		xhttp.send("orderNum=" + orderNum + "&productCode=" + productCode + "&price=" + price + "&count=" + count + "&id=" + id);
+			  		xhttp.send("orderNum=" + orderNum + "&productCode=" + productCode + "&price=" + price + "&count=" + count + "&id=" + id + "&userName=" + userName);
 				} else {
 			  		// 결제 실패
 			  		alert("결제를 취소하였습니다.");
 					console.log(rsp);
 				}
 			});
-	});
+	}
+	
+	//결제완료 문자보내기
+	function sendSms(orderNum){
+		const xhttp = new XMLHttpRequest();
+		xhttp.onload = function(){
+			let data = this.responseText;
+			// 굳이 결과를 안보여줘도 될듯...?
+		}
+		xhttp.open("post", "/user/send-one", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send("orderNum=" + orderNum);
+	}
 	
 	// 문서 로드되면 쉼표찍어서 보여주기
 	$(document).ready(function(){
@@ -179,8 +216,11 @@
 	// 장바구니 담기
 	$(".addCartBtn").on("click", function(){
 		if($("#id").val() == ""){
-			alert("로그인 후 이용가능합니다.");
-			return;
+			if(confirm("로그인 후 이용가능한 서비스입니다.\n로그인 하시겠습니까?") == true){
+				location.href = "/user/loginForm";
+			}else{
+				return;
+			}
 		}
 		//const totalPriceStr = $("#totalPrice").text();
 		//const priceStr = $("#productPrice").text();
@@ -190,7 +230,6 @@
 		
 		let pCode = $("#hiddenProductCode").val();				// 제품 코드
 		let pCount = $(".count").text();			// 제품 개수
-		let id = $("#id").val();					// 회원 아이디
 		//console.log(totalPrice);
 		//console.log("제품 코드 : " + pCode + "\n제품명 : " + pName + "\n제품 판매가 : " + price + "\n제품 구성 : " + pInfo + "\n장바구니에 담을 제품 갯수 : " + pCount + "\n총 가격 : " + totalPrice);
 		const xhttp = new XMLHttpRequest();
@@ -198,24 +237,18 @@
 			let data = this.responseText;
 			let result = parseInt(data, 10);
 			if(result == 1){
-				alert("장바구니에 등록되었습니다.");
+				if(confirm("장바구니에 등록되었습니다.\n확인하시겠습니까?") == true){
+					location.href = "/user/myCart?id=" + id;
+				}
 			}else if(result == -1){
-				alert("이미 장바구니에 존재하는 상품입니다.");
+				if(confirm("이미 장바구니에 존재하는 상품입니다.\n장바구니로 이동하시겠습니까?") == true){
+					location.href = "/user/myCart?id=" + id;
+				}
 			}
 		}
 		xhttp.open("post", "/user/cart/addCart.do", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send("productCode=" + pCode + "&productCount=" + pCount + "&id=" + id);
-	});
-	
-	// 내 장바구니로 이동
-	$("#goMyCartBtn").on("click", function(){
-		if($("#id").val() == ""){
-			alert("로그인 후 이용가능합니다.");
-			return;
-		}
-		const id = $("#id").val();
-		location.href = "/user/myCart?id=" + id;
 	});
 </script>
 </body>

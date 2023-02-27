@@ -60,9 +60,9 @@
 				</div>
 				<div id="totalCountWrap">
 					<div id="productNotice">※ (주문번호 또는 상품명을 클릭하면 결제내역 상세조회가 가능합니다.)</div>
-					<!-- <div id="right">
+					<div id="right">
 						<span>총</span><span class="listSize">0</span><span>개</span>
-					</div> -->
+					</div>
 				</div>
 				<ul id="itemList">
 				<!-- 데이터 -->
@@ -75,13 +75,149 @@
 	</div>
 	<%@include file="footer.jsp" %>
 <script>
-	const id = $("#id").val();
-	let totalPage = 0;	// 총 페이지 수
-	let pageNum = 1;	// 페이지 번호
-
-	$(document).ready(function(){
-		//데이트 피커 초기화
-		$.datepicker.setDefaults($.datepicker.regional['ko']); 
+	let totalPage = 0;
+	let num = 1;
+	$(document).ready(getOrderList(), getTotalPage());
+	// 조회하기 버튼
+	$("#searchBtn").on("click", function(){
+		getSearchList();
+	});
+	// 페이징 총 갯수
+	function getTotalPage(){
+		const xhttp = new XMLHttpRequest();
+		xhttp.onload = function(){
+			let result = parseInt(this.responseText, 10);	// 총 행 갯수
+			alert(result);
+			totalPage = Math.ceil(result / 10);	// 총 페이지수
+			if(totalPage == 0){
+				$(".beforeAfterWrap").empty();
+			}else if(totalPage < 10){
+				// 10페이지 이하일 경우 초기 세팅
+				$(".beforeAfterWrap").empty();
+				$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+				for(let i = 0; i < totalPage; i++){
+					$(".beforeAfterWrap").append("<div class='pageCount'>" + (i + 1) + "</div>");
+				}
+				$(".pageCount").filter(":first").css("color", "red"); // 첫페이지 색깔 on
+				$(".prevBtn").addClass("noBtn");
+				$(".noBtn").removeClass("prevBtn");
+			}else{
+				// 만약 10페이지 이상일경우 다음버튼이랑 같이 출력(초기 페이지라 이전버튼 필요 X) css 박스 움직이는거 생각하기
+				$(".beforeAfterWrap").empty();
+				$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+				for(let i = 0; i < 10; i++){
+					$(".beforeAfterWrap").append("<div class='pageCount'>" + (i + 1) + "</div>");
+				}
+				$(".beforeAfterWrap").append("<div class='nextBtn'>다음</div>");	// 다음버튼
+				$(".pageCount").filter(":first").css("color", "red"); // 첫페이지 색깔 on
+				$(".prevBtn").addClass("noBtn");
+				$(".noBtn").removeClass("prevBtn");
+			}
+		}
+		xhttp.open("get", "/user/order/getOrderCount.do?id=" + id + "&status=" + status, true);
+		xhttp.send();
+	}
+	
+	// 전체조회
+	function getOrderList(num){
+		const xhttp = new XMLHttpRequest();
+		xhttp.onload = function(){
+			let data = this.responseText;
+			let obj = JSON.parse(data);
+			$("#itemList").html(
+				"<li class='listHead'>"
+					+ "<div>구매일</div>"
+					+ "<div>주문번호</div>"
+					+ "<div>상품명</div>"
+					+ "<div>결제금액</div>"
+					+ "<div>상태</div>"
+				+ "</li>"
+			);
+			(obj.length == 0? $("#itemList").append("<li><div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div></li>")//구매내역 X
+			: $(obj).each(function(index){	// 구매내역이 존재할때 실행
+				$("#itemList").append(
+						 "<li class='item'>"
+							+ "<div class='orderDate'>" + this.orderDate + "</div>"
+							+ "<div>"
+								+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "'>" + this.orderNum + "</a>"
+							+ "</div>"
+							+ "<div>" 
+								+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "' class='productName'>" + this.productName + "</a>" 
+							+ "</div>"
+							+ "<div>" + this.totalPrice.toLocaleString('ko-KR') + "<span>원</span></div>"
+							+ (this.status == 1? "<div class='useable'>사용가능</div>" : "<div class='unUseable'>환불완료</div>")
+						+ "</li>"
+						
+				);
+			})
+			$(".listSize").text(obj.length);	// 총 ??개
+		}
+		let status = $("#searchContentChoice > .grayBtn.on").val();
+		alert(status);
+		let id = $("#id").val();
+		xhttp.open("get", "/user/order/getOrderList.do?id=" + id, true);
+		xhttp.send();
+	}
+	
+	// 목록 상태값에따라 조회
+	function getSearchList(){
+		const xhttp = new XMLHttpRequest();
+		xhttp.onload = function(){
+			let data = this.responseText;
+			let obj = JSON.parse(data);
+			$("#itemList").html(
+					"<li class='listHead'>"
+						+ "<div>구매일</div>"
+						+ "<div>주문번호</div>"
+						+ "<div>상품명</div>"
+						+ "<div>결제금액</div>"
+						+ "<div>상태</div>"
+					+ "</li>"
+				);
+				(obj.length == 0? $("#itemList").append("<li><div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div></li>")
+				: $(obj).each(function(index){
+					$("#itemList").append(
+							 "<li class='item'>"
+								+ "<div class='orderDate'>" + this.orderDate + "</div>"
+								+ "<div>"
+									+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "'>" + this.orderNum + "</a>"
+								+ "</div>"
+								+ "<div>" 
+									+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "' class='productName'>" + this.productName + "</a>" 
+								+ "</div>"
+								+ "<div>" + this.totalPrice.toLocaleString('ko-KR') + "<span>원</span></div>"
+								+ (this.status == 1? "<div class='useable'>사용가능</div>" : "<div class='unUseable'>환불완료</div>")
+							+ "</li>"
+							
+					);
+				});
+				$(".listSize").text(obj.length);	// 총 ??개
+		}
+		let id = $("#id").val();
+		let startDate = $("#datepicker1").val();
+		let endDate = $("#datepicker2").val();
+		let status = $("#searchContentChoice > .grayBtn.on").val();
+		//alert(status + "," + id + "," + startDate + "," + endDate);
+		xhttp.open("post", "/user/order/searchGetOrderList.do", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send("id=" + id + "&startDate=" + startDate + "&endDate=" + endDate + "&status=" + status);
+	}
+	
+	// 조회 내용 선택
+	$("#searchContentChoice > button").on("click", function(){
+		$("#searchContentChoice > button").not(this).removeClass("on");	// 선택된 태그 on 클래스 제
+		$(this).addClass("on");	// 자기자신만 on
+	});
+	
+	// 조회 기간 선택
+	$("#searchDateChoice > button").on("click", function(){
+		$("#searchDateChoice > button").not(this).removeClass("on");
+		$(this).addClass("on");
+	});
+	
+	// 데이트 피커 초기값 세팅
+	$(document).ready(function () {
+	    $.datepicker.setDefaults($.datepicker.regional['ko']); 
 	    $("#datepicker1").datepicker({
 	         nextText: '다음 달',
 	         prevText: '이전 달', 
@@ -113,169 +249,14 @@
 	             $("#datepicker1").datepicker("option", "maxDate", selectedDate);
 	         }  
 	    });
-	    // 값 대입
 	    let day = new Date();
 	    let today = day.toISOString().substring(0,10);
 	    let oneMonthAgo = new Date(day.setMonth(day.getMonth() - 1)).toISOString().substring(0,10);
+	    //console.log(oneMonthAgo);
+	    //console.log(today);
 	    $("#datepicker1").val(oneMonthAgo);
 	    $("#datepicker2").val(today);
-	    
-	    // 목록,페이지네이션 함수호출
-		getOrderList(pageNum);
-		getTotalPage();
 	});
-	
-	// 페이지 갯수
-	function getTotalPage(){
-		const xhttp = new XMLHttpRequest();
-		xhttp.onload = function(){
-			let result = parseInt(this.responseText, 10);
-			totalPage = Math.ceil(result / 10);
-			if(totalPage === 0){
-				$(".beforeAfterWrap").empty();
-			}else if(totalPage < 10){
-				// 10페이지 이하일 경우 초기 세팅
-				$(".beforeAfterWrap").empty();
-				$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
-				for(let i = 0; i < totalPage; i++){
-					$(".beforeAfterWrap").append("<div class='pageCount'>" + (i + 1) + "</div>");
-				}
-				$(".pageCount").filter(":first").css("color", "red"); // 첫페이지 색깔 on
-				$(".prevBtn").addClass("noBtn");
-				$(".noBtn").removeClass("prevBtn");
-			}else{
-				// 만약 10페이지 이상일경우 다음버튼이랑 같이 출력(초기 페이지라 이전버튼 필요 X) css 박스 움직이는거 생각하기
-				$(".beforeAfterWrap").empty();
-				$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
-				for(let i = 0; i < 10; i++){
-					$(".beforeAfterWrap").append("<div class='pageCount'>" + (i + 1) + "</div>");
-				}
-				$(".beforeAfterWrap").append("<div class='nextBtn'>다음</div>");	// 다음버튼
-				$(".pageCount").filter(":first").css("color", "red"); // 첫페이지 색깔 on
-				$(".prevBtn").addClass("noBtn");
-				$(".noBtn").removeClass("prevBtn");
-			}
-		}
-		let status = $("#searchContentChoice > .grayBtn.on").val();
-		xhttp.open("get", "/user/order/getOrderCount.do?id=" + id + "&status=" + status, true);
-		xhttp.send();
-	}
-	
-	// 페이지 번호별 리스트
-	$(document).on("click", ".pageCount", function(){
-		$(this).css("color", "red");	// 자기 자신한테만 색깔
-		$(".pageCount").not(this).css("color", "black");	// 자기자신 빼고 색깔 X
-		pageNum = $(this).text(); // 클릭된 번호 파라미터
-		let status = $("#searchContentChoice > .grayBtn.on").val();
-		if(status === 0){
-			getOrderList(pageNum);
-		}else{
-			getSearchList(pageNum);
-		}
-	});
-	
-	//전체목록
-	function getOrderList(pageNum){
-		//alert(pageNum);
-		const xhttp = new XMLHttpRequest();
-		xhttp.onload = function(){
-			let data = this.responseText;
-			//console.log(data);
-			let obj = JSON.parse(data);
-			//console.log(obj.length);
-			$("#itemList").empty();
-			$("#itemList").html(
-					"<li class='listHead'>"
-						+ "<div>구매일</div>"
-						+ "<div>주문번호</div>"
-						+ "<div>상품명</div>"
-						+ "<div>결제금액</div>"
-						+ "<div>상태</div>"
-					+ "</li>"
-			);
-			if(obj.length == 0){
-				$("#itemList").append("<li><div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div></li>")//구매내역 X
-				$(".beforeAfterWrap").empty();
-			}else{
-				$(obj).each(function(index){
-					$("#itemList").append(
-							 "<li class='item'>"
-								+ "<div class='orderDate'>" + this.orderDate + "</div>"
-								+ "<div>"
-									+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "'>" + this.orderNum + "</a>"
-								+ "</div>"
-								+ "<div>" 
-									+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "' class='productName'>" + this.productName + "</a>" 
-								+ "</div>"
-								+ "<div>" + this.totalPrice.toLocaleString('ko-KR') + "<span>원</span></div>"
-								+ (this.status == 1? "<div class='useable'>사용가능</div>" : "<div class='unUseable'>환불완료</div>")
-							+ "</li>"
-							
-					);
-				});
-			}
-		}
-		xhttp.open("get", "/user/order/getOrderList.do?id=" + id + "&pageNum=" + pageNum, true);
-		xhttp.send();
-	}
-	
-	$("#searchBtn").on("click", function() {
-		let status = $("#searchContentChoice > .grayBtn.on").val();
-		if(status === 0){
-			getOrderList(pageNum);
-			getTotalPage();
-		}else{
-		    getSearchList(pageNum); // pageNum 값 전달
-		    getTotalPage();
-		}
-	});
-	
-	// 목록 상태값에따라 조회
-	function getSearchList(pageNum){
-		//alert(pageNum);
-		const xhttp = new XMLHttpRequest();
-		xhttp.onload = function(){
-			let data = this.responseText;
-			let obj = JSON.parse(data);
-			$("#itemList").empty();
-			$("#itemList").html(
-					"<li class='listHead'>"
-						+ "<div>구매일</div>"
-						+ "<div>주문번호</div>"
-						+ "<div>상품명</div>"
-						+ "<div>결제금액</div>"
-						+ "<div>상태</div>"
-					+ "</li>"
-			);
-			if(obj.length == 0){
-				$("#itemList").append("<li><div id='emptyListWrap'>구매 내역이 존재하지 않습니다.</div></li>")//구매내역 X
-				$(".beforeAfterWrap").empty();
-			}else{
-				$(obj).each(function(index){
-					$("#itemList").append(
-							 "<li class='item'>"
-								+ "<div class='orderDate'>" + this.orderDate + "</div>"
-								+ "<div>"
-									+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "'>" + this.orderNum + "</a>"
-								+ "</div>"
-								+ "<div>" 
-									+ "<a href='/user/orderDetailView?orderNum=" + this.orderNum + "' class='productName'>" + this.productName + "</a>" 
-								+ "</div>"
-								+ "<div>" + this.totalPrice.toLocaleString('ko-KR') + "<span>원</span></div>"
-								+ (this.status == 1? "<div class='useable'>사용가능</div>" : "<div class='unUseable'>환불완료</div>")
-							+ "</li>"
-					);
-				});
-			}
-		}
-		let startDate = $("#datepicker1").val();
-		let endDate = $("#datepicker2").val();
-		let status = $("#searchContentChoice > .grayBtn.on").val();
-		//alert(pageNum);
-		xhttp.open("post", "/user/order/searchGetOrderList.do", true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.send("id=" + id + "&startDate=" + startDate + "&endDate=" + endDate + "&status=" + status + "&pageNum=" + pageNum);
-	}
 	
 	// 1개월 3개월 6개월 버튼
 	$(document).on("click", "#searchDateChoice > button", function(){
@@ -284,18 +265,6 @@
 		afterDate.setMonth(afterDate.getMonth() - month);
 		let beforeDate = afterDate.toISOString().substring(0,10)
 		$("#datepicker1").val(beforeDate);
-	});
-	
-	// 조회 내용 선택
-	$("#searchContentChoice > button").on("click", function(){
-		$("#searchContentChoice > button").not(this).removeClass("on");	// 선택된 태그 on 클래스 제
-		$(this).addClass("on");	// 자기자신만 on
-	});
-	
-	// 조회 기간 선택
-	$("#searchDateChoice > button").on("click", function(){
-		$("#searchDateChoice > button").not(this).removeClass("on");
-		$(this).addClass("on");
 	});
 </script>
 </body>

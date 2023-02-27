@@ -170,3 +170,12 @@
 footer p{
 	color: white;
 }
+
+.buyTicketBtn{
+	line-height: 50px;
+	background-color: #FF243E;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+	text-align: center;
+}

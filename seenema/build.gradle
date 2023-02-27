@@ -36,7 +36,8 @@ dependencies {
 	implementation 'org.webjars:jquery:3.5.1'
 	// https://mvnrepository.com/artifact/org.json/json
 	implementation 'org.json:json:20160810'
-	
+	// coolSms 의존성 주입
+	implementation 'net.nurigo:sdk:4.2.7'
 }
 
 tasks.named('test') {

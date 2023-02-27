@@ -18,7 +18,7 @@
 			DATE_FORMAT(ot.orderDate, "%Y-%m-%d") as orderDate, ot.orderNum, pt.productCode, pt.productName, pt.productInfo, pt.price, 
 			ot.count, (ot.price * ot.count) AS totalPrice, ot.status
 		FROM seenema.product_tbl pt RIGHT JOIN seenema.order_tbl ot 
-		ON pt.productCode  = ot.productCode WHERE id = #{id} ORDER BY orderdate DESC LIMIT 0, 10;
+		ON pt.productCode  = ot.productCode WHERE id = #{id} ORDER BY orderdate DESC LIMIT #{count}, 10;
 	</select>
 	
 	<!-- 주문내역 날짜별 조회 -->	
@@ -29,7 +29,7 @@
 		FROM seenema.product_tbl pt RIGHT JOIN seenema.order_tbl ot 
 		ON pt.productCode  = ot.productCode 
 		WHERE id = #{id} AND searchDate BETWEEN #{startDate} AND #{endDate} AND ot.status = #{status} 
-		ORDER BY orderdate DESC LIMIT 0, 10;
+		ORDER BY orderdate DESC LIMIT #{count}, 10;
 	</select>
 	
 	<!-- 제품상세정보 -->
@@ -43,5 +43,20 @@
 	<!-- 환불 -->
 	<update id="refund">
 		UPDATE order_tbl SET status = 0 WHERE orderNum = #{orderNum};
+	</update>
+	
+	<!-- 페이지네이션 카운트(전체) -->
+	<select id="getOrderCount" resultType="int">
+		SELECT COUNT(*) FROM order_tbl WHERE id = #{id};
+	</select>
+	
+	<!-- 페이지네이션 카운트(조회) -->
+	<select id="getSearchOrderCount" resultType="int">
+		SELECT COUNT(*) FROM order_tbl WHERE id = #{id} AND status = #{status}; 
+	</select>
+	
+	<!-- 제품 완료시 매출 반영 -->
+	<update id="updateProductSales">
+		UPDATE product_tbl pt SET productSales = (pt.productSales + 1) WHERE productCode = #{productCode};
 	</update>
 </mapper>

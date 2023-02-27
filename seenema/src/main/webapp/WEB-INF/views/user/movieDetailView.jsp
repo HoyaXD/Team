@@ -146,13 +146,12 @@
 	<%@ include file="footer.jsp" %>
 <script>
 	const movieCode = $("#movieCode").val();	//영화코드
-	//let last = 0;
 	let totalPage = 0;
 	let num = 1;
-	//let length = 0;
-	$(document).ready(getReplyList(num), getTotalPage());
-	//getReplyList(num);	// 초기 리스트
-	//getTotalPage();
+	$(document).ready(function(){
+		getReplyList(num);
+		getTotalPage();
+	});
 	
 	// 댓글 총 갯수
 	function getTotalPage(){
@@ -167,7 +166,7 @@
 			}else if(totalPage < 10){
 				// 10페이지 이하일 경우 초기 세팅
 				$(".beforeAfterWrap").empty();
-				$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+				$(".beforeAfterWrap").append("<div class='prevBtn'><<</div>");
 				for(let i = 0; i < totalPage; i++){
 					$(".beforeAfterWrap").append("<div class='pageCount'>" + (i + 1) + "</div>");
 				}
@@ -177,11 +176,11 @@
 			}else{
 				// 만약 10페이지 이상일경우 다음버튼이랑 같이 출력(초기 페이지라 이전버튼 필요 X) css 박스 움직이는거 생각하기
 				$(".beforeAfterWrap").empty();
-				$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+				$(".beforeAfterWrap").append("<div class='prevBtn'><<</div>");
 				for(let i = 0; i < 10; i++){
 					$(".beforeAfterWrap").append("<div class='pageCount'>" + (i + 1) + "</div>");
 				}
-				$(".beforeAfterWrap").append("<div class='nextBtn'>다음</div>");	// 다음버튼
+				$(".beforeAfterWrap").append("<div class='nextBtn'>>></div>");	// 다음버튼
 				$(".pageCount").filter(":first").css("color", "red"); // 첫페이지 색깔 on
 				$(".prevBtn").addClass("noBtn");
 				$(".noBtn").removeClass("prevBtn");
@@ -205,11 +204,11 @@
 		let prevPage = parseInt($(".pageCount").filter(":first").text(), 10) - 1;
 		getReplyList(prevPage);
 		$(".beforeAfterWrap").empty();
-		$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+		$(".beforeAfterWrap").append("<div class='prevBtn'><<</div>");
 		for(let i = 0; i < 10; i++){
 			$(".beforeAfterWrap").append("<div class='pageCount'>" + (prevPage + i - 9) + "</div>");
 		}
-		$(".beforeAfterWrap").append("<div class='nextBtn'>다음</div>");
+		$(".beforeAfterWrap").append("<div class='nextBtn'>>></div>");
 		$(".pageCount").filter(":last").css("color", "red");
 		if($(".pageCount").filter(":first").text() == "1"){
 			$(".prevBtn").addClass("noBtn");
@@ -225,17 +224,17 @@
 		
 		if(totalPage - nextPage < 10){
 			let leng = totalPage - nextPage + 1;
-			$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+			$(".beforeAfterWrap").append("<div class='prevBtn'><<</div>");
 			for(let i = 0; i < leng; i++){
 				$(".beforeAfterWrap").append("<div class='pageCount'>" + (nextPage + i) + "</div>");
 			}
 			$(".pageCount").filter(":first").css("color", "red");
 		}else{
-			$(".beforeAfterWrap").append("<div class='prevBtn'>이전</div>");
+			$(".beforeAfterWrap").append("<div class='prevBtn'><<</div>");
 			for(let j = 0; j < 10; j++){
 				$(".beforeAfterWrap").append("<div class='pageCount'>" + (nextPage + j) + "</div>");
 			}
-			$(".beforeAfterWrap").append("<div class='nextBtn'>다음</div>");
+			$(".beforeAfterWrap").append("<div class='nextBtn'>>></div>");
 			$(".pageCount").filter(":first").css("color", "red");
 		}
 	});

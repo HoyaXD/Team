@@ -136,6 +136,7 @@ footer p{
 	font-size: 20px;
 	transition: right 0.4s;
 	background-image: linear-gradient(to left, rgb(255, 115, 86), rgb(251, 67, 87));
+	box-shadow: 3px 3px 3px gray;
 }
 .scrollTopBtn{
 	display: inline-block;
@@ -147,4 +148,5 @@ footer p{
 	cursor: pointer;
 	color: gray;
 	background: white;
+	box-shadow: 3px 3px 3px gray;
 }
