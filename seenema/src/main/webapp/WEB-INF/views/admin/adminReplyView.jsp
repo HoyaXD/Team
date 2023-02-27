@@ -21,7 +21,7 @@
 
 			<div id="doToday_menu">
 				<div id="doToday_title" style="width: 970px; height: 30px;">
-					<p style="margin: 30px 0 0 40px;">한줄평 페이지</p>
+					<p style="margin: 30px 0 0 40px;">한줄평 페이지 test</p>
 				</div>
 				<div id="each_num">
 					<select id="choiceMenu">
