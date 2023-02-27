@@ -223,7 +223,7 @@ main{
 .replyList{
 	width: 100%;
 	margin-top: 10px;
-	min-height: 386px;
+	min-height: 770px;
 	border: 0.1px solid gainsboro;
 }
 
@@ -457,8 +457,8 @@ main{
 
 .noListBox{
 	width: 780px;
-	min-height: 386px;
-	line-height: 386px;
+	min-height: 773px;
+	line-height: 773px;
 	text-align: center;
 	color: gray;
 	font-weight: bold;
@@ -565,6 +565,7 @@ footer p{
 	width: 550px; 
 	/* border: 1px solid gainsboro; */
 	display: flex;
+	min-height: 40px;
 	font-size: 12px;
 	margin: 10px auto;
 }
@@ -573,17 +574,19 @@ footer p{
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	border: 0.1px solid gainsboro;
+	/* border: 0.1px solid gainsboro; */
 	cursor: pointer;
 	font-weight: bold;
 	font-size: 13px;
+	margin-right: 5px;
 }
+
 .noBtn{
 	width: 50px;
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	border: 0.1px solid gainsboro;
+	/* border: 0.1px solid gainsboro; */
 	font-weight: bold;
 	color: gainsboro;
 	user-select: none;
@@ -593,7 +596,7 @@ footer p{
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	border: 0.1px solid gainsboro;
+	/* border: 0.1px solid gainsboro; */
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -602,7 +605,7 @@ footer p{
 	height: 40px;
 	line-height: 40px;
 	text-align: center;
-	border: 0.1px solid gainsboro;
+	/* border: 0.1px solid gainsboro; */
 	font-weight: bold;
 	cursor: pointer;
 }

@@ -40,7 +40,7 @@ input[type="checkbox"]:checked ~ label{
 	margin-top: 10px;
 	border-top: 3px solid black;
 	text-align: center;
-	min-height: 700px;
+	min-height: 803px;
 	border-right: 1px solid gainsboro;
 	border-left: 1px solid gainsboro;
 }
@@ -241,6 +241,7 @@ input[type="checkbox"]:checked ~ label{
 	display: flex;
 	border: 1px solid gainsboro;
 	padding: 10px;
+	min-height: 115px;
 }
 .priceInfoWrap{
 	width: 200px;
@@ -273,6 +274,12 @@ input[type="checkbox"]:checked ~ label{
 .calcPriceWrap > div{
 	color: #FF243E;
 }
+
+.btnWrap{
+	min-height: 50px;
+	height: 50px;
+	margin: 10px 0;
+}
 .buyBtn{
 	width: 200px;
 	height: 50px;
@@ -283,15 +290,14 @@ input[type="checkbox"]:checked ~ label{
 	text-align: center;
 	font-size: 25px;
 	cursor: pointer;
-	margin: 10px 0;
 }
 
 #emptyListWrap{
 	border-bottom: 1px solid #c7c7c7;
-	height: 300px;
-	line-height: 300px;
 	color: gray;
 	margin-bottom: 10px;
+	min-height: 803px;
+	line-height: 803px;
 }
 .emptyListCheckBox{
 	pointer-events: none;
@@ -304,4 +310,7 @@ input[type="checkbox"]:checked ~ label{
 	text-align: center;
 	background-color: gainsboro;
 	margin-top: 10px;
+}
+footer p{
+	color: white;
 }

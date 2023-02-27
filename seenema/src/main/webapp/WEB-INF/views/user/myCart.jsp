@@ -27,7 +27,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="buyBtn">구매하기</div>
+		<div class="btnWrap">
+			<div class="buyBtn">구매하기</div>
+		</div>
 	</div>
 	<%@include file="footer.jsp" %>
 <script>
@@ -39,7 +41,7 @@
 		xhttp.onload = function(){
 			let data = this.responseText;
 			let list = JSON.parse(data);
-			document.querySelector("#itemList").replaceChildren();
+			$("#itemList").empty();
 			if(list.length == 0){
 				$("#itemList").append(
 					"<li class='listHead'>"

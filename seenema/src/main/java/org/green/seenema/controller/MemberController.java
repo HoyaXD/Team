@@ -2,8 +2,11 @@ package org.green.seenema.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.green.seenema.mapper.MemberMapper;
+import org.green.seenema.mapper.MovieCRUDMapper;
 import org.green.seenema.mapper.ReservationMapper;
 import org.green.seenema.vo.MemberVO;
+import org.green.seenema.vo.MovieVO;
+import org.green.seenema.vo.OrderVO;
 import org.green.seenema.vo.ReservationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,9 @@ public class MemberController {
 
     @Autowired
     ReservationMapper reservationMapper;
+
+    @Autowired
+    MovieCRUDMapper movieCRUDMapper;
 
     @GetMapping("/loginForm")  //로그인폼으로 가기
     public void loginForm(){}
@@ -81,37 +87,37 @@ public String login(MemberVO memberVO, HttpSession session, Model model, HttpSer
         return msg;
     }
 
-    @GetMapping("/regMemberForm")
+    @GetMapping("/regMemberForm") //회원등록 폼으로 가기
     public void regMemberForm(){}
 
-    @PostMapping("/reg.do")
+    @PostMapping("/reg.do") //회원등록
     public String regdo(MemberVO member){
         mapper.regMember(member);
 
         return "user/regMemberComplete";
     }
 
-    @GetMapping("/myPage")
+    @GetMapping("/myPage") // 마이페이지로가기
     public void mypage(Model model, HttpSession session){
         model.addAttribute("member", mapper.selectMember((String) session.getAttribute("logid")));
     }
 
 
-    @GetMapping("/reservationHistory")
+    @GetMapping("/reservationHistory") //예매내역으로 가기
     public void reservationHistory(Model model, HttpSession session){
-        List<ReservationVO> list =  reservationMapper.searchReservation((String) session.getAttribute("logid"));
+        List<ReservationVO> list =  reservationMapper.searchReservationList((String) session.getAttribute("logid"));
         model.addAttribute("list", list);
     }
-    @GetMapping("/myReservation")
+    @GetMapping("/myReservation") //예매내역으로 가기
     public void myReservation(Model model, HttpSession session){
         model.addAttribute("member", mapper.selectMember((String) session.getAttribute("logid")));
     }
-    @GetMapping("/myUpdate")
+    @GetMapping("/myUpdate") //내 정보 수정으로 가기
     public void myUpdate(Model model, HttpSession session){
         model.addAttribute("member", mapper.selectMember((String) session.getAttribute("logid")));
     }
 
-    @PostMapping("update.do")
+    @PostMapping("update.do") //내 정보 수정
     public String updatedo(Model model, MemberVO member){
         mapper.updateMember(member);
         model.addAttribute("msg", "회원정보 수정이 완료되었습니다!");
@@ -122,5 +128,44 @@ public String login(MemberVO memberVO, HttpSession session, Model model, HttpSer
     @GetMapping({"regMemberComplete", "/regAgree"})
     public void regMemberComplete(){}
 
+//    @PostMapping("/order/searchGetReservationList.do")
+//    public List<OrderVO> getSearchOrderList(String id, String startDate, String endDate, int status){
+////        List<OrderVO> list = mapper.getSearchOrderList(id, startDate, endDate, status);
+////        return list;
+//    }
+
+    @GetMapping("/getReservationList.do")
+    public @ResponseBody List<ReservationVO> getReservationList(String id){
+        List<ReservationVO> list = reservationMapper.searchReservationList(id);
+        for (int i = 0 ; i <list.size() ; i++){
+        log.info("예매내역 정보 : " + list.get(i).toString());
+        }
+        return list;
+    }
+
+    @GetMapping("/reservationDetailView") //예매 상세 페이지로 이동하기
+    public void reservationDetailView(Long ticketCode, Model model){
+        ReservationVO reservation = reservationMapper.searchReservation(ticketCode);
+        MovieVO movie = movieCRUDMapper.selectOne(reservation.getMovieCode());
+        model.addAttribute("reservation", reservation);
+        model.addAttribute("movie", movie);
+    }
+
+//    @GetMapping("/searchGetReservationList.do")
+//    public @ResponseBody List<ReservationVO> searchGetReservationList(String id, String startDate, String endDate, int status){
+//        List<ReservationVO> list = reservationMapper.getSearchReservationList(id, startDate, endDate, status);
+//        log.info("조회하기1번 : " + list.get(0).toString());
+//        return list;
+//    }
+
+    @GetMapping("/searchGetReservationList.do")
+    public @ResponseBody List<ReservationVO> searchGetReservationList(String id, String startDate, String endDate, int status){
+        List<ReservationVO> list = reservationMapper.getSearchReservationList(id, startDate, endDate, status);
+        for (int i = 0 ; i <list.size() ; i++){
+            log.info("조회하기"+i+"번 : " + list.get(0).toString());
+        }
+
+        return list;
+    }
 
 }

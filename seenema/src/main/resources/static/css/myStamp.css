@@ -1,0 +1,50 @@
+@charset "UTF-8";
+
+*{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center;
+    text-decoration: none;
+    color: black;
+    font-family: "Noto Sans KR", "Roboto", "dotum", "sans-serif";
+}
+.container{
+	width: 1300px;
+	margin: 20px auto;
+	min-height: 600px;
+}
+
+.myStampTitle{
+	font-size: 20px;
+	padding: 10px 0;
+	font-weight: bold;
+}
+.stampSection{
+	width: 1300px;
+	margin: 0 auto;
+}
+.stampWrap{
+	border: 1px solid gainsboro;
+	margin: 20px auto;
+	padding: 20px;
+}
+.firstLine{
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.secondLine{
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.item{
+	border: 0.1px solid gainsboro;
+	border-style: dashed;
+}
+
+footer p{
+	color: white;
+}

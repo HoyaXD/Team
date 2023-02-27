@@ -55,33 +55,46 @@
         </div>
     </div>
     <div class="bottomSectionWrap">
+    	<!-- 나의 스탬프 -->
         <div class="wrap">
             <div class="eventWrapTitle">
-                <a href="#">나의 스탬프</a>
+                <a class="myStampAnchor">나의 스탬프</a>
             </div>
-            <div class="eventWrap">
-	            <div class="firstLine">
-	                <img src="/images/stamp.png">
-	                <img src="/images/stamp.png">
-	                <img src="/images/stamp.png">
-	                <img src="/images/stamp.png">
-	                <img src="/images/colaClear.png">
+            <c:if test="${sessionScope.logid != null }">
+	            <div class="eventWrap">
+		            <div class="lineWrap">
+			            <div class="firstLine">
+			            	<!--  -->
+			            </div>
+			            <div class="secondLine">
+			            	<!--  -->
+			            </div>
+		            </div>
 	            </div>
-	            <div class="secondLine">
-	                <img src="/images/noStamp.png">
-	                <img src="/images/noStamp.png">
-	                <img src="/images/noStamp.png">
-	                <img src="/images/noStamp.png">
-	                <img src="/images/popcornClear.png">
+	        </c:if>
+            <c:if test="${sessionScope.logid == null }">
+            <div class="box">
+	            <div class="noLoginEventWrap">
+		            <div class="lineWrap">
+			            <div class="firstLine">
+			            	<!--  -->
+			            </div>
+			            <div class="secondLine">
+			            	<!--  -->
+			            </div>
+		            </div>
 	            </div>
-                <!--  -->
+	            <div class="loginNoticeText">로그인 후 이용가능합니다!</div>
             </div>
+	        </c:if>
         </div>
+    	<!-- 공지사항 -->
         <div class="wrap">
             <div class="noticeWrapTitle">
-                <a href="#">공지사항</a>
+                <a href="/user/userNoticeBoard">공지사항</a>
             </div>
             <div class="noticeWrap">
+            	<!--  -->
             </div>
         </div>
     </div>
@@ -91,19 +104,123 @@
     </div>
 </main>
 <script>
-    /* let time = 30;	// 30초
-    let x = setInterval(function(){
-        $("#demo").text(time + "초");
-        time--;
-        if(time < 0){
-            document.querySelector("#video").replaceChildren();
-            $("#video").html("<source src='https://adimg.cgv.co.kr/images/202302/MySweetMonster/pc_1080x608.mp4' type='video/mp4'>");
-            time = 30;
-        }
-    }, 1000); */
+	$(document).ready(function() {
+	    getMainMovieList();
+	    getStoreList();
+	    randomVideo();
+	    getNoticeList();
+	});
+    const id = $("#id").val();
+    $(".myStampAnchor").on("click", function(){
+    	if($("#id").val() == ""){
+    		if(confirm("로그인 후 이용가능한 서비스 입니다.\n로그인 하시겠습니까?") == true){
+    			location.href = "/user/loginForm";
+    		}
+    	}else{
+    		location.href = "/user/myStamp?id=" + id;
+    	}
+    });
+    
+    // 공지목록
+    function getNoticeList(){
+    	const xhttp = new XMLHttpRequest();
+    	xhttp.onload = function(){
+    		let data = this.responseText;
+    		let list = JSON.parse(data);
+    		for(let i = 0; i < list.length; i++){
+    			if(list[i].title.length > 45){
+		    		$(".noticeWrap").append(
+		    			"<div class='notice notice" + (i + 1) + "'><a href='/user/noticeDetailView?noticeCode=" + list[i].noticeCode + "'>" + list[i].title.substring(0, 45) + "..." + "</a></div>"
+		    		);
+    			}else{
+		    		$(".noticeWrap").append(
+		    			"<div class='notice notice" + (i + 1) + "'><a href='/user/noticeDetailView?noticeCode=" + list[i].noticeCode + "'>" + list[i].title + "</a></div>"
+		    		);
+    			}
+	    		
+    		}
+    	}
+    	xhttp.open("get", "/user/main/getMainNoticeList.do", true);
+    	xhttp.send();
+    }
+    
+   	if($("#id").val() == ""){
+   		getNoLoginStampList();
+   		// 초기 판 세팅(비로그인)
+   		function getNoLoginStampList(){
+   			for(let i = 0; i < 4; i++){
+   				$(".firstLine").append(
+   						"<div class='stamp stamp" + (i + 1) + "'>"
+   							+ "<img src='/images/noStamp.png'>"  
+   						+ "</div>"
+   				);
+   				$(".secondLine").append(
+   						"<div class='stamp stamp" + (i + 5) + "'>"
+   							+ "<img src='/images/noStamp.png'>"  
+   						+ "</div>"
+   				);
+   			}
+   			$(".firstLine").append(
+   					"<div class='stamp image1'>"
+   						+ "<img src='/images/stampCola2.png'>"  
+   					+ "</div>"
+   			);
+   			$(".secondLine").append(
+   					"<div class='stamp image2'>"
+   						+ "<img src='/images/stampPopcorn2.png'>"  
+   					+ "</div>"
+   			);
+   			let count = 8;
+   			for(let i = 1; i < count + 1; i++){
+   				$(".stamp" + i + " > img").attr("src", "/images/stamp.png");
+   			}
+   			if(count >= 4){
+   				$(".image1 > img").attr("src", "/images/stampCola2.png");
+   			}
+   			if(count == 8){
+   				$(".image2 > img").attr("src", "/images/stampPopcorn2.png");
+   			}
+   		}
+   	}else{
+   		getStampList();
+   		// 초기 판 세팅
+   		function getStampList(){
+   			for(let i = 0; i < 4; i++){
+   				$(".firstLine").append(
+   						"<div class='stamp stamp" + (i + 1) + "'>"
+   							+ "<img src='/images/noStamp.png'>"  
+   						+ "</div>"
+   				);
+   				$(".secondLine").append(
+   						"<div class='stamp stamp" + (i + 5) + "'>"
+   							+ "<img src='/images/noStamp.png'>"  
+   						+ "</div>"
+   				);
+   			}
+   			$(".firstLine").append(
+   					"<div class='stamp image1'>"
+   						+ "<img src='/images/stampCola2.png'>"  
+   					+ "</div>"
+   			);
+   			$(".secondLine").append(
+   					"<div class='stamp image2'>"
+   						+ "<img src='/images/stampPopcorn2.png'>"  
+   					+ "</div>"
+   			);
+   			let count = parseInt($("#stamp").val(), 10);	// 멤버 스탬프 카운트
+   			for(let i = 1; i < count + 1; i++){
+   				$(".stamp" + i + " > img").attr("src", "/images/stamp.png");
+   			}
+   			if(count >= 4){
+   				$(".image1 > img").attr("src", "/images/colaClear.png");
+   			}
+   			if(count == 8){
+   				$(".image2 > img").attr("src", "/images/popcornClear.png");
+   			}
+   		}
+   	}
 
-    $(document).ready(getMainMovieList(), getStoreList(), randomVideo());
-
+	//랜덤 영상
     function randomVideo(){
         const randomNum = Math.floor(Math.random() * 4 + 1);
         if(randomNum == 1){
@@ -143,30 +260,30 @@
                 if(i == 0){
                     $(".slidelist").append(	// 첫페이지 일때
                         "<li>"
-                        + "<div class='items'>"
-                        + "<div class='item item" + i + "'></div>"
-                        + "<label for='slide0" + (i + 2) + "' class='right'></label>"
-                        + "</div>"
+                        	+ "<div class='items'>"
+                        		+ "<div class='item item" + i + "'></div>"
+                       			+ "<label for='slide0" + (i + 2) + "' class='right'></label>"
+                        	+ "</div>"
                         + "</li>"
                     );
                 }else if(i == page - 1){	// 마지막 페이지일때
                     $(".slidelist").append(
                         "<li>"
-                        + "<div class='items'>"
-                        + "<label for='slide0" + i + "' class='left'></label>"
-                        + "<div class='item item" + i + "'>"
-                        + "</div>"
-                        + "</div>"
+	                        + "<div class='items'>"
+		                        + "<label for='slide0" + i + "' class='left'></label>"
+		                        + "<div class='item item" + i + "'>"
+		                        + "</div>"
+	                        + "</div>"
                         + "</li>"
                     );
                 }else{	// 그외 나머지
                     $(".slidelist").append(
                         "<li>"
-                        + "<div class='items'>"
-                        + "<label for='slide0" + i + "' class='left'></label>"
-                        + "<div class='item item" + i + "'></div>"
-                        + "<label for='slide0" + (i + 2) + "' class='right'></label>"
-                        + "</div>"
+	                        + "<div class='items'>"
+		                        + "<label for='slide0" + i + "' class='left'></label>"
+		                        + "<div class='item item" + i + "'></div>"
+		                        + "<label for='slide0" + (i + 2) + "' class='right'></label>"
+	                        + "</div>"
                         + "</li>"
                     );
                 }
@@ -186,25 +303,24 @@
                     }
                     $(".item" +	i).append(
                         "<div class='movie'>"
-                        + "<div class='movieInfoTopWrap'>"
-                        + ageTag
-                        + "<img src='/images/" + list[index].postFileName + "'>"
-                        + "<div class='overlay'></div>"
-                        + "<div class='buttons'>"
-                        + "<button class='goMovieResrvBtn' value=" + list[index].movieCode + ">예매하기</button>"
-                        + "<button class='goMovieInfoBtn' value=" + list[index].movieCode + ">상세보기</button>"
-                        + "</div>"
-                        + "<div class='ranking'>" + (index + 1) + "</div>"
-                        + "<div class='gradient'></div>"	// 그라데이션
-                        + "</div>"
-                        + "<div class='movieInfo'>"
-                        + (list[index].movieTitle.length < 10 ?
-                            "<div class='movieInfoTitle'>" + list[index].movieTitle + "</div>"
-                            : "<div class='movieInfoTitle'>" + list[index].movieTitle.substring(0, 10) + "···" + "</div>")
-                        + "<div class='movieInfoBottomWrap'>"
-                        + "<span class='rate'><span class='star'>★</span>" + list[index].avg + "</span><span class='reservationRate'>예매율 " + list[index].hit + "%</span>"
-                        + "</div>"
-                        + "</div>"
+	                        + "<div class='movieInfoTopWrap'>"
+	                        	+ ageTag
+	                        	+ "<img src='/images/" + list[index].postFileName + "'>"
+	                        	+ "<div class='overlay'></div>"
+	                        	+ "<div class='buttons'>"
+	                        	+ "<button class='goMovieResrvBtn' value=" + list[index].movieCode + ">예매하기</button>"
+	                        	+ "<button class='goMovieInfoBtn' value=" + list[index].movieCode + ">상세보기</button>"
+	                        	+ "</div>"
+	                        	+ "<div class='ranking'>" + (index + 1) + "</div>"
+	                        	+ "<div class='gradient'></div>"	// 그라데이션
+	                        	+ "</div>"
+	                        	+ "<div class='movieInfo'>"
+	                        	+ (list[index].movieTitle.length < 10 ? "<div class='movieInfoTitle'>" + list[index].movieTitle + "</div>"
+	                            : "<div class='movieInfoTitle'>" + list[index].movieTitle.substring(0, 10) + "···" + "</div>")
+	                        + "<div class='movieInfoBottomWrap'>"
+	                        + "<span class='rate'><span class='star'>★</span>" + list[index].avg + "</span><span class='reservationRate'>예매율 " + list[index].hit + "%</span>"
+	                        + "</div>"
+	                        + "</div>"
                         + "</div>"
                     );
                     index++;
@@ -226,34 +342,34 @@
                 if(list[i].category == "package"){
                     $(".packageWrap").append(
                         "<a href='/user/productDetailView?productCode=" + list[i].productCode + "' class='storeItem storeItem1'>"
-                        + "<img src=" + list[i].productImage + ">"
-                        + "<div class='infoWrap'>"
-                        + "<div>" + list[i].productName + "</div>"
-                        + "<div>" + list[i].productInfo + "</div>"
-                        + "</div>"
-                        + "<span>" + list[i].price.toLocaleString('ko-KR') + "원</span>"
+	                        + "<img src=" + list[i].productImage + ">"
+	                        + "<div class='infoWrap'>"
+		                        + "<div>" + list[i].productName + "</div>"
+		                        + "<div>" + list[i].productInfo + "</div>"
+	                        + "</div>"
+	                        + "<span>" + list[i].price.toLocaleString('ko-KR') + "원</span>"
                         + "</a>"
                     );
                 }else if(list[i].category == "ticket"){
                     $(".ticketWrap").append(
                         "<a href='/user/productDetailView?productCode=" + list[i].productCode + "' class='storeItem storeItem1'>"
-                        + "<img src=" + list[i].productImage + ">"
-                        + "<div class='infoWrap'>"
-                        + "<div>" + list[i].productName + "</div>"
-                        + "<div>" + list[i].productInfo + "</div>"
-                        + "</div>"
-                        + "<span>" + list[i].price.toLocaleString('ko-KR') + "원</span>"
+	                        + "<img src=" + list[i].productImage + ">"
+	                        + "<div class='infoWrap'>"
+		                        + "<div>" + list[i].productName + "</div>"
+		                        + "<div>" + list[i].productInfo + "</div>"
+	                        + "</div>"
+	                        + "<span>" + list[i].price.toLocaleString('ko-KR') + "원</span>"
                         + "</a>"
                     );
                 }else{
                     $(".snackWrap").append(
                         "<a href='/user/productDetailView?productCode=" + list[i].productCode + "' class='storeItem storeItem1'>"
-                        + "<img src=" + list[i].productImage + ">"
-                        + "<div class='infoWrap'>"
-                        + "<div>" + list[i].productName + "</div>"
-                        + "<div>" + list[i].productInfo + "</div>"
-                        + "</div>"
-                        + "<span>" + list[i].price.toLocaleString('ko-KR') + "원</span>"
+	                        + "<img src=" + list[i].productImage + ">"
+	                        + "<div class='infoWrap'>"
+		                        + "<div>" + list[i].productName + "</div>"
+		                        + "<div>" + list[i].productInfo + "</div>"
+	                        + "</div>"
+	                        + "<span>" + list[i].price.toLocaleString('ko-KR') + "원</span>"
                         + "</a>"
                     );
                 }

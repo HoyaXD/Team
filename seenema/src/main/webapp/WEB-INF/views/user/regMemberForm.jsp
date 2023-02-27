@@ -133,10 +133,17 @@
 <script>
 
     $('#pwCheck').focusout(function() {  //비밀번호 확인
-        let pwRegExp = /^(?=.[a-zA-Z])(?=.\d)[a-zA-Z\d]{8,20}$/;
+        let passRule = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
         let pw = document.frm.pw.value;
         if(document.frm.pw2.value != ""){
-            if(document.frm.pw.value == document.frm.pw2.value){
+            if (pw.length < 8) {
+                document.getElementById("pwCheckComment").innerHTML ="<span style='color:red'>비밀번호는 8글자 이상이어야 합니다.</span>";
+            }else if (pw.length > 20) {
+                document.getElementById("pwCheckComment").innerHTML ="<span style='color:red'>비밀번호는 20글자를 초과할 수 없습니다.</span>";
+            }else if (!passRule.test(pw)) {
+                document.getElementById("pwCheckComment").innerHTML ="<span style='color:red'>비밀번호는 특수문자,영문,숫자 모두 포함해야 합니다.</span>";
+            }
+            else if(document.frm.pw.value == document.frm.pw2.value){
                 document.getElementById("pwCheckComment").innerHTML = "<span style='color:green'>비밀번호 일치</span>";
             } else {
                 document.getElementById("pwCheckComment").innerHTML = "<span style='color:red'>비밀번호가 일치하지 않습니다</span>";
@@ -194,7 +201,11 @@
             alert("전화번호가 입력되지 않았습니다.");
             document.frm.tel.focus();
             return false;
-        } else if (document.getElementById("idCheckComment").innerText != "사용가능") {
+        } else if (document.frm.tel.value.length != 11) {
+            alert("'-'를 제외한 전화번호를 입력해주세요");
+            document.frm.tel.focus();
+            return false;
+        }else if (document.getElementById("idCheckComment").innerText != "사용가능") {
             alert("아이디 중복체크를 하세요.");
             document.frm.id.focus();
             return false;

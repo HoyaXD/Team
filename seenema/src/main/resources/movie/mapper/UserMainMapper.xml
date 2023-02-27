@@ -25,4 +25,8 @@
 		) AS ranking
 		WHERE ranking.rn <![CDATA[<=]]> 3;
 	</select>
+	
+	<select id="getMainNoticeList" resultType="NoticeVO">
+		SELECT * FROM notice_tbl ORDER BY noticeCode DESC LIMIT 0, 5;
+	</select>
 </mapper>
