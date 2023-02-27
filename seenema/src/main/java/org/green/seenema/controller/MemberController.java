@@ -51,6 +51,8 @@ public String login(MemberVO memberVO, HttpSession session, Model model, HttpSer
     }else {
         session.setAttribute("logid", memberVO.getId());
         session.setAttribute("name", member.getName());
+        session.setAttribute("tel", member.getTel());
+        session.setAttribute("stamp", member.getStamp());
         model.addAttribute("msg", memberVO.getId()+"님 환영합니다!");
         model.addAttribute("url", "/");
 
