@@ -41,6 +41,7 @@
 							<tr>
 								<th>번호</th>
 								<th>영화코드</th>
+								<th>영화제목</th>
 								<th>한줄평</th>
 								<th>아이디</th>
 								<th>별점</th>
@@ -85,7 +86,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#before_btn").hide();
-
+												
 												for (i; i < 8; i++) {
 
 													$("#replyTbody")
@@ -94,6 +95,9 @@
 																			+ obj[i].replyCode
 																			+ '</td><td>'
 																			+ obj[i].movieCode
+																			+ '</td><td>'
+																			
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:200px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -176,6 +180,8 @@
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
 																			+ obj[i].id
@@ -242,6 +248,8 @@
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
 																			+ obj[i].id
@@ -307,6 +315,8 @@
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -394,6 +404,8 @@
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
 																			+ obj[i].id
@@ -437,6 +449,8 @@
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -482,6 +496,8 @@
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
 																			+ obj[i].id
@@ -525,6 +541,8 @@
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'

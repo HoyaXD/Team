@@ -18,13 +18,29 @@
 	display: none;
 	background-color: rgba(0, 0, 0, 0.4);
 }
+#text_box{
+	text-align: left;
+}
+#text_box text{
+	padding-top: 5px;
+}
+textarea{
+	border-top: 1px black solid;
+
+}
+#notice_box input{
+	border-top: 1px black solid;
+	width: 564px;
+	height: 25px;
+	margin-top:5px;
+}
 
 #notice_box {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 400px;
-	height: 600px;
+	width: 600px;
+	height: 500px;
 	padding: 40px;
 	text-align: center;
 	background-color: rgb(255, 255, 255);
@@ -86,7 +102,7 @@ textarea {
 		<div class="reginotice_modal">
 			<div id="reginotice_box" style="margin-left: 40px;">
 				공지사항 등록
-				<button id="close_modal">✖️</button>
+				<button id="close_modal">❌</button>
 				<div id="regitext_box" style="margin-top: 30px;">
 					<!-- 인풋박스 -->
 					<form id="regi_frm" method="post">
@@ -104,9 +120,10 @@ textarea {
 		</div>
 
 		<div class="notice_modal">
+		
 			<div id="notice_box">
-				모달창 확인
-				<button id="close_modal">X</button>
+				공지사항 수정
+				<button id="close_modal">❌</button>
 				<div id="text_box"></div>
 			</div>
 		</div>
@@ -625,22 +642,19 @@ textarea {
 												$("#text_box").empty();
 												$("#text_box")
 														.append(
-																'<form id="edit_frm" method="post">'
+																'<form id="edit_frm" method="post">' + '<br>'
 																		+ '공지글 번호'
-																		+ '<input type="text" name="noticeCode" id="noticeCode" value="' + obj[0].noticeCode + '"><br>'
-																		+ '등록일자'
-																		+ '<input type="text" name="regiDate" id="regiDate" value="' + obj[0].regiDate + '"><br>'
-																		+ '조회수'
-																		+ '<input type="text" name="hit" id="hit" value="' + obj[0].hit + '"><br>'
-																		+ '제목'
+																	    + "&nbsp;&nbsp;&nbsp;" + obj[0].noticeCode 
+																		+ "&nbsp;&nbsp;&nbsp;" + '등록일자'
+																		+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '' + obj[0].regiDate + '<br>'										
+																		+ '제목' 
 																		+ '<input type="text" name="title" id="title" value="' + obj[0].title + '"><br>'
-																		+ '내용'
-																		+ '<textarea name="contents" id="contents" value="' + '" style="width:400px; height:200px; resize: none;">'
+																		+ '내용' + '<br>'
+																		+ '<textarea name="contents" id="contents" value="' + '" style="width:600px; height:350px; resize: none;">'
 																		+ obj[0].contents
 																		+ '</textarea><br>'
-																		+ '<input type="button" value="수정" id="noEdit_btn">'
-																		+ '</form>'
-																		+ '<button id="close_modal">닫기</button>')
+																		+ '<input type="button" value="수정" id="noEdit_btn" style="margin-left:20px;">'
+																		+ '</form>')
 
 											},
 											error : function() {

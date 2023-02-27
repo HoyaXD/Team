@@ -2,6 +2,7 @@ package org.green.seenema.user.store.controller;
 
 import java.util.List;
 
+import net.nurigo.sdk.message.model.Message;
 import org.green.seenema.user.store.mapper.OrderMapper;
 import org.green.seenema.vo.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
-import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;

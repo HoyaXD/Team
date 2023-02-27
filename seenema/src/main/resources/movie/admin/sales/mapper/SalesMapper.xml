@@ -27,4 +27,7 @@
 		SELECT * FROM seenema.product_tbl 
 		ORDER BY productSales DESC limit 5;
 	</select>
+
+	
+	
 </mapper>

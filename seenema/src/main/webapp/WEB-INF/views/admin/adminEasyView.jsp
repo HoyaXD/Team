@@ -42,17 +42,20 @@
 					<div id="sm3">
 						<h4>한줄평</h4>
 						<hr>
+						<div id="replyView_box"></div>
 					</div>
 					<div id="sm4" style="margin-top:15px;">
-						<h4>한줄평2</h4>
+						<h4>최근 예매 내역</h4>
 						<hr>
+						<div id="reservationView_box"></div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<script>
+		
          $(document).ready(function(){
-            alert("메인페이지 실행!");
+        	//qna출력
             $.ajax({
                url : "qnaMainView",
                type : "get",
@@ -73,7 +76,50 @@
                   }
                }
             });
+          //reply출력
+            $.ajax({
+                url : "replyMainView",
+                type : "get",
+                dataType : "text",
+                
+                success : function(data){
+                   var bar = '|';  
+                   let obj = JSON.parse(data);
+                   let i = 0;
+                   for(i; i < 3; i ++){
+                  
+                      $("#replyView_box").append("<br>" + obj[i].comment + "<br>"
+                                  + obj[i].id 
+                                  + "&nbsp;&nbsp;&nbsp;" + bar + "&nbsp;&nbsp;&nbsp;" 
+                                  + obj[i].movieTitle + "&nbsp;&nbsp;" + obj[i].rate
+                                  + "<br>");
+                   }
+                }
+             });
+          //최근예매내역출력
+            $.ajax({
+                url : "reservationMainView",
+                type : "get",
+                dataType : "text",
+                
+                success : function(data){
+                   var bar = '|';  
+                   let obj = JSON.parse(data);
+                   let i = 0;
+                   for(i; i < 3; i ++){
+                	   
+                      $("#reservationView_box").append("<br>" + obj[i].movieTitle +  "&nbsp;&nbsp;&nbsp;" + bar + "&nbsp;&nbsp;&nbsp;" 
+                                  + obj[i].theater + "<br>");
+              
+                   }
+                   $("#reservationView_box").css("width", "200px;")
+                },error : function(){
+                	
+                }
+             });
          });
+
+         
       
       </script>
 </body>
