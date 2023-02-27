@@ -130,11 +130,11 @@
     		for(let i = 0; i < list.length; i++){
     			if(list[i].title.length > 45){
 		    		$(".noticeWrap").append(
-		    			"<div class='notice notice" + (i + 1) + "'><a href='#'>" + list[i].title.substring(0, 45) + "..." + "</a></div>"
+		    			"<div class='notice notice" + (i + 1) + "'><a href='/user/noticeDetailView?noticeCode=" + list[i].noticeCode + "'>" + list[i].title.substring(0, 45) + "..." + "</a></div>"
 		    		);
     			}else{
 		    		$(".noticeWrap").append(
-		    			"<div class='notice notice" + (i + 1) + "'><a href='#'>" + list[i].title + "</a></div>"
+		    			"<div class='notice notice" + (i + 1) + "'><a href='/user/noticeDetailView?noticeCode=" + list[i].noticeCode + "'>" + list[i].title + "</a></div>"
 		    		);
     			}
 	    		

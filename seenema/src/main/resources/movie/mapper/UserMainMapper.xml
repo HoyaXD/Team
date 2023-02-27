@@ -27,6 +27,6 @@
 	</select>
 	
 	<select id="getMainNoticeList" resultType="NoticeVO">
-		SELECT title FROM notice_tbl ORDER BY noticeCode DESC LIMIT 0, 5;
+		SELECT * FROM notice_tbl ORDER BY noticeCode DESC LIMIT 0, 5;
 	</select>
 </mapper>
