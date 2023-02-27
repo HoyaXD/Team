@@ -17,4 +17,5 @@ public class OrderVO {
 	private int status;
 	private String searchDate;
 	private String productImage;
+	private String userName;	// 구매내역 필요 추가
 }

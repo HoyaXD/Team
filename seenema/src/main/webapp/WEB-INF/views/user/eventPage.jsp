@@ -4,13 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>이벤트 - 씨네마</title>
+<style>
+/* display: grid;
+	grid-template-columns: repeat(2, 1fr); */
+</style>
 </head>
 <body>
-
-<%@ include file="user/header.jsp" %>
-<%@ include file="user/main.jsp" %>
-<%@ include file="user/footer.jsp" %>
-
+<div class="container">
+	
+</div>
 </body>
 </html>

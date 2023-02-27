@@ -36,7 +36,9 @@ public class OrderController {
 	public int buyProducts(@RequestParam("orderNum") Long orderNum
 			, @RequestParam("productCodes") int[] productCodes
 			, @RequestParam("prices") int[] prices
-			, @RequestParam("counts") int[] counts, String id) {
+			, @RequestParam("counts") int[] counts
+			, @RequestParam("id") String id
+			, @RequestParam("userName") String userName) {
 		int result = 0;
 		for(int i = 0; i < productCodes.length; i++) {
 			OrderVO order = new OrderVO();
@@ -45,6 +47,7 @@ public class OrderController {
 			order.setPrice(prices[i]);
 			order.setCount(counts[i]);
 			order.setId(id);
+			order.setUserName(userName);
 			
 			result = mapper.buy(order);
 		}

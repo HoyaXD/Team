@@ -10,8 +10,8 @@
 </head>
 <body>
 <input type="hidden" id="hiddenOrderNum" value="${orderNum }">
+	<%@include file="header.jsp" %>
 	<div class="container">
-		<%-- <%@include file="header.jsp" %> --%>
 		<header></header>
 		<main>
 			<ul class="items">
@@ -92,7 +92,7 @@
 						- 이미 사용된 교환권에 대해서는 취소/환불 불가<br><br>
 						<strong>※ 청약 철회 방법</strong><br>
 						- 마이 페이지 > 결제내역조회 > 해당 주문 상세내역에서 취소 선택<br>
-						- 기프티콘은 구매일로 부터 60일 이내 결제취소 가능<br><br><br>
+						- 기프티콘은 구매일로 부터 60일 이내 결제취소 가능<br><br><br><br>
 						- 미성년자인 고객께서 계약을 체결하시는 경우 법정대리인이<br>
 						&nbsp;&nbsp;그 계약에 동의하지 아니하면 미성년자 본인 또는 법정대리인이 그 계약을 취소할 수 있습니다.
 						<br><br><br><br>
@@ -102,11 +102,11 @@
 				</div>
 			</div>
 		</main>
-		<footer></footer>
 	</div>
+	<%@include file="footer.jsp" %>
 </body>
 <script>
-	getList();
+	$(document).ready(getList());
 	function getList(){
 		const xhttp = new XMLHttpRequest();
 		xhttp.onload = function(){
@@ -130,7 +130,7 @@
 						+ "<div class='titleLine'>사용 정보</div>"
 						+ "<div class='line itemLine'>"
 							+ "<div class='title'>주문자</div>"
-							+ "<div id='userId'>" + obj.id + "</div>"
+							+ "<div id='userId'>" + obj.userName + "</div>"
 						+ "</div>"
 						+ "<div class='line'>"
 							+ "<div class='title'>상품명</div>"
@@ -165,7 +165,7 @@
 		xhttp.send();
 	}
 	
-	
+	// 환불 실행
 	$("#allCancleBtn").on("click", function(){
 		if(confirm("결제를 취소하시겠습니까?") == true){
 			const xhttp = new XMLHttpRequest();

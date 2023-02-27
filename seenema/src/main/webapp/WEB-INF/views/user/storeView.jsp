@@ -12,8 +12,10 @@
 </head>
 <body>
 	<%@include file="header.jsp" %>
-	<div class="topImageWrap">
-		<img id="topImage" src="/images/storeTop.png">
+	<div class="blackColor">
+		<div class="topImageWrap">
+			<img id="topImage" src="/images/storeTop.png">
+		</div>
 	</div>
 	<div class="contents">
 		<nav class="navBar"><!-- 상단 메뉴바 -->
@@ -108,7 +110,7 @@
         	<a href="#header" class="scrollTopBtn">↑</a>
         </div>
 	</div>
-	<footer>푸터</footer>
+	<%@ include file="footer.jsp" %>
 <script>
 	// 스크롤 부드럽게
 	$(document).on('click', 'a[href^="#"]', function (event) {

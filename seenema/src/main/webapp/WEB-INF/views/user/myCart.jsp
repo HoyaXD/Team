@@ -12,15 +12,14 @@
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
+	<%@include file="header.jsp" %>
 	<div class="container">
-		<%-- <%@include file="header.jsp" %> --%>
-		<header></header>
-		<input type="hidden" id="id" value="kim">
-		<a href="/user/myOrderList" style="width:100px; height: 50px; border: 1px solid black;">결제내역보기</a>
+	<div class="topTitle">나의 장바구니</div>
 		<ul id="itemList">
+			<!-- 데이터 -->
 		</ul>
 		<div class="bottomWrap">
-			<div class="selectDeleteBtn">선택상품 삭제</div>
+			<div class="selectDeleteBtn"><div>선택상품 삭제</div><div class="selectedCount"></div></div>
 			<div class="priceInfoWrap">
 				<div class="chong">총 결제금액&nbsp;</div>
 				<div class="calcPriceWrap">
@@ -29,8 +28,8 @@
 			</div>
 		</div>
 		<div class="buyBtn">구매하기</div>
-		<footer>푸터</footer>
 	</div>
+	<%@include file="footer.jsp" %>
 <script>
 	// 리스트 출력
 	$(document).ready(getCartList());
@@ -73,6 +72,7 @@
 						+ "<div>선택</div>"
 					+ "</li>"
 				);
+				$(".selectedCount").empty();
 				$(list).each(function(index){
 					$("#itemList").append(
 						"<li class='item'>"
@@ -128,6 +128,8 @@
 				// 처음에 전부 체크인 상태로 로드
 				let checks = $(".check");
 				let totalPrice = parseInt($("#totalPrice").text().split(",").join(""), 10);
+				
+				$(".selectedCount").append("&nbsp;(" + checks.length + ")");	// 선택삭제 버튼 옆 갯수
 				for(let i = 0; i < checks.length; i++){
 					let price = parseInt(checks[i].parentElement.children[4].value, 10);
 					let count = parseInt(checks[i].parentElement.children[5].value, 10);
@@ -155,6 +157,7 @@
 		let productList = "";
 		let orderNum = new Date().getTime();	// 주문번호
 		let	id = $("#id").val();	// 유저 아이디
+		let userName = $("#name").val();
 		for(let i = 0; i < checks.length; i++){
 			let productCode = parseInt(checks[i].parentElement.children[1].value, 10);
 			let price = parseInt(checks[i].parentElement.children[4].value, 10);
@@ -177,7 +180,7 @@
 			merchant_uid: orderNum,   // 주문번호
 			name: productList,
 			amount: 100,
-			buyer_name: "김흥국",
+			buyer_name: userName, 
 		},  function (rsp) { // callback
 				if (rsp.success) {
 			  		// 결제 성공
@@ -194,7 +197,7 @@
 			  		}
 			  		xhttp.open("post", "/user/order/buyProducts.do", true);
 			  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			  		xhttp.send("orderNum=" + orderNum + "&productCodes=" + productCodes + "&prices=" + prices + "&counts=" + counts + "&id=" + id);
+			  		xhttp.send("orderNum=" + orderNum + "&productCodes=" + productCodes + "&prices=" + prices + "&counts=" + counts + "&id=" + id + "&userName=" + userName);
 				} else {
 			  		// 결제 실패
 			  		alert("결제 실패");
@@ -229,7 +232,7 @@
 		let count = parseInt($(this).parent().parent().children().eq(0).children().eq(5).val(), 10);	// 제품수량
 		let totalPrice = parseInt($(this).parent().parent().children().eq(0).children().eq(6).val(), 10);	// 결제 금액
 		let	id = $("#id").val();	// 유저 아이디
-		let userName = "김흥국";	//유저 이름
+		let userName = $("#name").val();
 		// console.log(
 		//	"주문 번호 : " + orderNum + "\n제품코드 : " + productCode + "\n제품명 : " + productName + "\n제품 단가 : " + price
 		//	+ "\n수량 : " + count + "\n총 결제 금액 : " + totalPrice + "\n아이디 : " + id
@@ -257,7 +260,7 @@
 			  		}
 			  		xhttp.open("post", "/user/order/buy.do", true);
 			  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			  		xhttp.send("orderNum=" + orderNum + "&productCode=" + productCode + "&price=" + price + "&count=" + count + "&id=" + id);
+			  		xhttp.send("orderNum=" + orderNum + "&productCode=" + productCode + "&price=" + price + "&count=" + count + "&id=" + id + "&userName=" + userName);
 				} else {
 			  		// 결제 실패
 			  		alert("결제를 취소하였습니다.");
@@ -288,7 +291,8 @@
 		let checks = $(".check");
 		let totalPrice = parseInt($("#totalPrice").text().split(",").join(""), 10);
 		if($(this).is(":checked")){
-    		checks.prop("checked", true);
+    		checks.prop("checked", true);	// 0221 추가 선택 삭제버튼 옆 갯수
+			$(".selectedCount").append("&nbsp;(" + checks.length + ")");
     		for(let i = 0; i < checks.length; i++){
     			let price = parseInt(checks[i].nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.value, 10);
     			let count = parseInt(checks[i].nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.value, 10);
@@ -297,6 +301,7 @@
 			//console.log("전체 체크(O) : " + totalPrice);
 		}else{
 			checks.prop("checked", false);
+			$(".selectedCount").empty();
 			totalPrice = 0;
 			//console.log("전체 체크(X) : " + totalPrice);
 		}
@@ -397,6 +402,7 @@
 			success: function(data){
 				let result = parseInt(data, 10);
 				if(result == 1){
+					alert("수량이 변경되었습니다.");
 					getCartList();
 				}else{
 					alert("수량변경을 실패하였습니다.");
@@ -436,7 +442,23 @@
 		}
 	});
 	
+	// 버튼에 선택된 상품 갯수 보여주기
+	$(document).on("click", ".check", function(){
+		let checks = $(".check:checked").length;
+		if(checks == 0){
+			$(".selectedCount").empty();
+			return;
+		}else{
+			$(".selectedCount").empty();
+			$(".selectedCount").append(
+				"&nbsp;(" + checks + ")"
+			);
+		}
+	});
 	
+	$("#myOrderBtn").on("click", function(){
+		location.href = "/user/myOrderList";
+	});
 </script>
 </body>
 </html>

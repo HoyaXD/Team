@@ -15,17 +15,32 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 <body>
+	<%@include file="header.jsp" %>
+	<div id="member_top">
+	    <div id="member_img">
+	        <img src="/images/user.png">
+	    </div>
+	    <div class="member_info">
+	        <span id="memberName">${member.name }님</span>
+	        <span id="memberId">${member.id }</span>
+	        <p>고객님은 ${member.grade }등급 입니다</p>
+	    </div>
+	</div>
+	<div id="sel_menu">
+	    <a href="myReservation"><div class="menu_option" id="option_left">내 예매내역</div></a>
+	    <a href="myOrderList"> <div class="menu_option" id="option_center">내 결제내역</div></a>
+	    <a href="myUpdate"><div class="menu_option" id="option_right">내 정보수정</div></a>
+	</div>
 	<div class="container">
-		<%-- <%@include file="header.jsp" %> --%>
-		<header></header>
 		<main>
 			<div class="buyListWrap">
 				<div class="myOrderListTitle">나의️ 결제내역</div>
 				<div class="searchBarWrap">
 					<div id="searchContentChoice">
 						<span>조회 내용</span>
-						<button class="grayBtn on" value="1">결제완료</button>
-						<button class="grayBtn" value="0">결제취소</button>
+						<button class="grayBtn on" value="0">전체조회</button>
+						<button class="grayBtn" value="1">결제완료</button>
+						<button class="grayBtn" value="-1">결제취소</button>
 					</div>
 					<div id="searchDateChoice">
 						<span>조회 기간</span>
@@ -46,7 +61,7 @@
 				<div id="totalCountWrap">
 					<div id="productNotice">※ (주문번호 또는 상품명을 클릭하면 결제내역 상세조회가 가능합니다.)</div>
 					<div id="right">
-						<span>총</span><span class="listSize"></span><span>개</span>
+						<span>총</span><span class="listSize">0</span><span>개</span>
 					</div>
 				</div>
 				<ul id="itemList">
@@ -54,8 +69,8 @@
 				</ul>
 			</div>
 		</main>
-		<footer>푸터</footer>
 	</div>
+	<%@include file="footer.jsp" %>
 <script>
 	// 조회하기 버튼
 	$("#searchBtn").on("click", function(){
@@ -214,7 +229,7 @@
 		}
 		let id = $("#id").val();
 		xhttp.open("get", "/user/order/getOrderList.do?id=" + id, true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		//xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send();
 	});
 	

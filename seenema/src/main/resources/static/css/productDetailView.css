@@ -19,11 +19,11 @@
 	border: solid 1px black;
 } */
 
-footer{
+/* footer{
 	width: 1300px;
 	height: 150px;
 	border: solid 1px blue;
-}
+} */
 
 .section{
 	width: 1000px;
@@ -164,5 +164,9 @@ footer{
 .noticeInfo > p{
 	font-size: 14px;
 	margin: 50px 0;
+	padding-bottom: 30px;
+	border-bottom: 1px solid gainsboro;
 }
-
+footer p{
+	color: white;
+}
