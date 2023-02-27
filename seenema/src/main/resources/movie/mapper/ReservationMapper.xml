@@ -5,7 +5,7 @@
 
 <mapper namespace="org.green.seenema.mapper.ReservationMapper">
     <select id="searchReservationList" resultType="org.green.seenema.vo.ReservationVO">
-        SELECT * FROM reservation_tbl WHERE id = #{id} ORDER BY reservationDate DESC LIMIT 0, 10;
+        SELECT * FROM reservation_tbl WHERE id = #{id} AND status = 1 ORDER BY reservationDate DESC LIMIT 0, 10;
     </select>
 
     <insert id="regReservation">

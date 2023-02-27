@@ -546,7 +546,7 @@
         let ticketCode = parseInt(new Date().getTime(), 10);	// 주문번호
         let movieTitle = document.getElementById('movieTitle').value;	// 영화제목
         let ticketPrice = document.getElementById('ticketPrice').value;	// 결제 금액
-        let userName = "김범수";	//유저 이름
+        let userName = document.getElementById('name').value;	//유저 이름
 
         IMP.request_pay({
             pg: "html5_inicis",
