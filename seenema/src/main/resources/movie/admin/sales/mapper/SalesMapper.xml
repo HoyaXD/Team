@@ -43,7 +43,7 @@
 	
 	<!-- 성별별 예매율 -->
 	<select id="genderReservedCnt" resultType="MovieSalesVO">
-		SELECT count(mt.gender) as reservationCnt, rt.movieTitle 
+		SELECT count(mt.gender) as reservationCnt, rt.movieTitle, rt.movieCode
 		FROM member_tbl mt, reservation_tbl rt 
 		WHERE mt.id = rt.id and gender = #{param1} and reservationDate LIKE #{param2}
 		GROUP by rt.movieTitle 
