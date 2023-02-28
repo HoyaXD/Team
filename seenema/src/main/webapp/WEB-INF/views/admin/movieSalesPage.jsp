@@ -9,7 +9,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="stylesheet" href="/css/adminMenu.css">
-<link rel="stylesheet" href="/css/salesPage.css">
+<link rel="stylesheet" href="/css/movieSalesPage.css">
 </head>
 <body>
      <div class="gamut1">
@@ -129,7 +129,7 @@
                 </div><!-- list4 -->
                <div id="list5_menu">
                 	<div id="list_title">
-                   		장르별
+                   		장르 별 예매량
                 	</div>
 					<div id="chart">
 						<div id="genreCntGraph" style="width:495px; height: 300px;"></div>
@@ -235,7 +235,7 @@
 	                    		"<input type='hidden' id='movie_sales_tbl_movieCode' value='"+obj[i].movieCode+"'>"+
 	                        	(i+1) +
 	                        "</td>"+
-	                        "<td class='tbody_title'>" + obj[i].movieTitle + "</td>"+
+	                        "<td class='tbody_title'><a href='movieUpdate?movieCode="+obj[i].movieCode+"'>" + obj[i].movieTitle + "</a></td>"+
 	                        "<td class='tbody_rate'>" + Math.round(visitor_rate) + "%</td>"+
 	                    "</tr>"
 	                );
@@ -363,11 +363,8 @@
 	    
 	    function drawVisualization(mTitle, mCnt) {
 	        // 영화 한달 예매율 총 그래프
-	        /* let mTitle = document.querySelectorAll(".tbody_title");
-	        let mHit = document.querySelectorAll(".tbody_cnt"); */
 	        google.charts.load('current', {'packages':['corechart']});
 	        google.charts.setOnLoadCallback(function() {
-	            // Some raw data (not necessarily accurate)
 	            var data = new google.visualization.DataTable();
 	            data.addColumn('string', '영화');
 	            data.addColumn('number', '예매량');
@@ -393,18 +390,14 @@
 	            data.addRows(arr);
 	            
 	            var options = {
-	                // title: '영화 예매량',
-	                // vAxis: {title: '예매율'},
-	                // hAxis: {title: '영화'},
 	                seriesType: 'bars',
-	                animation: { // 차트가 뿌려질 때 실행될 애니메이션 효과
+	                animation: {
 	                    startup: true,
 	                    duration: 1000,
 	                    easing: 'linear' 
 	                },
 	                legend : 'none',
 	                series: {1: {type: 'line'}},
-	                
 	                chartArea: {'width': '90%', 'height': '70%'}
 	            };
 	
@@ -429,12 +422,11 @@
 				for(let i = 0; i < obj.length; i++){
 					let	visitorByTheater = parseInt(obj[i].visitors);
 					let visitors_rate = visitorByTheater / allVisitors * 100;
-					//alert(obj[i].visitors)
 					$("#theater_sales_tbl_tbody").append(
 							"<tr>"+
 								"<td><input type='hidden' value='"+obj[i].theaterCode+"'>"+
 								(i+1)+"</td>"+
-								"<td id='theater_sales_tbl_theater'>"+obj[i].theater+"</td>"+
+								"<td id='theater_sales_tbl_theater'><a href='theaterUpdate?theaterCode="+obj[i].theaterCode+"'>"+obj[i].theater+"</a></td>"+
 								"<td>"+Math.round(visitors_rate)+"%</td>"+
 							"</tr>");
 					
@@ -459,8 +451,6 @@
  		
  		function theaterCntGraph(theaters, visitors) {
 	        // 총 영화관 한달 영화예매량 그래프
-	        /* let mTitle = document.querySelectorAll(".tbody_title");
-	        let mHit = document.querySelectorAll(".tbody_cnt"); */
 	
 	        google.charts.load('current', {'packages':['corechart']});
 	        google.charts.setOnLoadCallback(function() {
@@ -487,11 +477,8 @@
 	            data.addRows(arr);
 	
 	            var options = {
-	                // title: '영화 예매량',
-	                // vAxis: {title: '예매율'},
-	                // hAxis: {title: '영화'},
 	                seriesType: 'bars',
-	                animation: { // 차트가 뿌려질 때 실행될 애니메이션 효과
+	                animation: { 
 	                    startup: true,
 	                    duration: 1000,
 	                    easing: 'linear' 
@@ -594,8 +581,6 @@
 	    		
 	    		let maleAllCnt = 0;
 	    		
-	    		
-	    		
 	    		for(let i = 0; i < obj.length; i++){
 	    			
 	    			maleAllCnt = parseInt(maleAllCnt) + parseInt(obj[i].reservationCnt);
@@ -605,7 +590,7 @@
 	    		$("#genderTbl_tbody").append(
 	    				"<tr>"+
 	    					"<th id='tbl_male_cnt'>남</th>"+
-	    					"<td>"+obj[0].movieTitle+"</td>"+
+	    					"<td><a href='movieUpdate?movieCode="+obj[0].movieCode+"'>"+obj[0].movieTitle+"</a></td>"+
 	    					"<td>"+Math.round(maleLike)+"%</td>"+
 	    				"</tr>");
 	    		
@@ -618,7 +603,7 @@
 	    			$("#genderTbl_tbody1_1").append(
 	    					"<tr>"+
 		    					"<td>"+(j+1)+"</td>"+
-		    					"<td>"+obj[j].movieTitle+"</td>"+
+		    					"<td><a href='movieUpdate?movieCode="+obj[j].movieCode+"'>"+obj[j].movieTitle+"</a></td>"+
 		    					"<td>"+Math.round(cnt_rate)+"%</td>"+
 	    					"</tr>");
 	    		}
@@ -635,7 +620,6 @@
 		    				"border":"1px solid black"});
 		    			$(".gamut1").css("height", "2000px");
 	    			}
-	    			
 	    		});
 	    		
 	    		
@@ -683,7 +667,7 @@
 	    		$("#genderTbl_tbody2").append(
 	    				"<tr>"+
 	    					"<th id='tbl_female_cnt'>여</th>"+
-	    					"<td>"+obj[0].movieTitle+"</td>"+
+	    					"<td><a href='movieUpdate?movieCode="+obj[0].movieCode+"'>"+obj[0].movieTitle+"</a></td>"+
 	    					"<td>"+Math.round(femaleLike)+"%</td>"+
 	    				"</tr>");
 	    		
@@ -693,7 +677,7 @@
 	    			$("#genderTbl_tbody2_2").append(
 	    					"<tr>"+
 		    					"<td>"+(j+1)+"</td>"+
-		    					"<td>"+obj[j].movieTitle+"</td>"+
+		    					"<td><a href='movieUpdate?movieCode="+obj[j].movieCode+"'>"+obj[j].movieTitle+"</a></td>"+
 		    					"<td>"+Math.round(cnt_rate)+"%</td>"+
 	    					"</tr>");
 	    		}
@@ -743,12 +727,9 @@
     	//성별에 따른 파이차트
  		function cntPieChartByGender(maleCnt, femaleCnt) {
 	        // 총 영화관 한달 영화예매량 그래프
-	        /* let mTitle = document.querySelectorAll(".tbody_title");
-	        let mHit = document.querySelectorAll(".tbody_cnt"); */
 	
 	        google.charts.load('current', {'packages':['corechart']});
 	        google.charts.setOnLoadCallback(function() {
-	            // Some raw data (not necessarily accurate)
 	            var data = new google.visualization.DataTable();
 	            data.addColumn('string', '성별');
 	            
@@ -761,14 +742,10 @@
 	            data.addRows(arr);
 	
 	            var options = {
-	                // title: '영화 예매량',
-	                // vAxis: {title: '예매율'},
-	                // hAxis: {title: '영화'},
 	                seriesType: 'pie',
 	                is3D: true,
 	                fontSize: '15',
 	                series: {1: {type: 'line'}},
-	                
 	                chartArea: {'width': '100%', 'height': '80%'},
 	            
 	            };
@@ -808,7 +785,6 @@
 				
 				for(let i = 0; i < obj.length; i++){
 					const genre = obj[i].genre;
-					//alert(genre)
 					if(genre.includes("미스터리") == true){
 						mystery += 1;
 						genres[0] = "미스터리";
@@ -891,34 +867,24 @@
     	
     	function cntPieChartByGenre(genres, reservationCnt) {
 	        // 총 영화관 한달 영화예매량 그래프
-	        /* let mTitle = document.querySelectorAll(".tbody_title");
-	        let mHit = document.querySelectorAll(".tbody_cnt"); */
-	
 	        google.charts.load('current', {'packages':['corechart']});
 	        google.charts.setOnLoadCallback(function() {
-	            // Some raw data (not necessarily accurate)
 	            var data = new google.visualization.DataTable();
 	            data.addColumn('string', '장르');
 	            data.addColumn('number', '예매율');
 				
 	            let arr = new Array();
 	            for(let i = 0; i < genres.length; i++){
-	            	//alert(genres[i] +": " + reservationCnt[i])
 					arr[i] = [genres[i], reservationCnt[i]];
 	            }
 				
-	            
 	            data.addRows(arr);
 	
 	            var options = {
-	                // title: '영화 예매량',
-	                // vAxis: {title: '예매율'},
-	                // hAxis: {title: '영화'},
 	                seriesType: 'pie',
 	                is3D: true,
 	                fontSize: '15',
 	                series: {1: {type: 'line'}},
-	                //colors:['blue', 'red', 'pink', 'lightblue', 'lightcoral', 'gray', 'lightgray'],
 	                chartArea: {'width': '100%', 'height': '80%'}
 	            
 	            };

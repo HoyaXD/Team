@@ -95,7 +95,7 @@ public class AdminProductController {
 			
 		}else {
 			
-			product.setProductImage(fileName);
+			product.setProductImage("images/" + fileName);
 			
 			ServletContext ctx = request.getServletContext();
 			String uploadPath = "resources/images";
@@ -128,8 +128,10 @@ public class AdminProductController {
 	public @ResponseBody int products_deleteDo(int[] productCodes) {
 		//상품 선택 삭제 실행
 		int del_result = 0;
+		
 		for(int i = 0; i < productCodes.length; i++) {
 			del_result = mapper.delete(productCodes[i]);
+			System.out.println(productCodes[i]);
 		}
 		return del_result;
 	}

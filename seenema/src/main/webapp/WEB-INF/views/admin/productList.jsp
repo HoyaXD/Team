@@ -84,10 +84,11 @@
 	                        <td style="color:blue">${p.productSales}</td>
 	                      </tr>
 	                   </c:forEach>
+	                  </tbody>
 	                   <tfoot id="tfoot1">
 	                      <tr>
 	                      	<th>
-	                      		<button id="btn_delProducts">선택삭제</button>
+	                      		<button id="js_del">선택삭제</button>
 	                      	</th>
 	                      	<th id="pageNum" colspan="5"></th>
 	                      	<th> <button id="productReg" onclick="location.href='productReg'">제품등록</button></th>
@@ -199,7 +200,6 @@
 				let obj = JSON.parse(result);
 				$("#thead").empty();
 				$("#tbody").empty();
-				$("#tfoot").empty();
 				
 				$("#thead").html("<tr>"+
     					"<th></th><th></th><th></th><th></th><th></th><th></th>"+
@@ -235,22 +235,7 @@
 	                        	"<td style='color:blue'>"+obj[i].productSales+"</td>"+
 	                     	"</tr>");
 				}
-				$("#tfoot").append("<tr>"+
-						"<th>"+
-							"<button id='js_del'>선택삭제</button>"+
-						"</th>"+
-						"<th></th>"+
-						"<th></th>"+
-						"<th></th>"+
-						"<th></th>"+
-						"<th></th>"+
-						"<th>"+
-							"<button onclick='goProductRegPage();'>상품등록</button>"+
-						"</th>"+
-					"</tr>"+
-					"<tr>"+
-                		"<th id='pageNum' colspan='7'></th>"+
-             		"</tr>");//tfoot
+				
 			}
 					
 			xhttp.open("GET", "goPage?pageNum=" + pNo, true); 
@@ -322,6 +307,7 @@
 												"</tr>"
 												);//tbody
 						}//for
+						
 							
 					}else if(obj.length === 0){
 						$("#thead").html(
@@ -335,20 +321,19 @@
 									"<th id='list_cnt'>판매량</th>"+
 								"</tr>");
 						
-						$("#tbody").html("<tr>"+
-								"<th colspan='7' style='height:300px;'> 해당 상품은 존재 하지 않습니다. </th>"+
-						"</tr>");
-						$("#tfoot").html("<tr>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th>"+
-									"<button onclick='goProductReg()'>상품등록</button>"+
-								"</th>"+
-						"</tr>");
+						$("#tbody").html(
+									"<tr>"+
+										"<th colspan='7' style='height:300px;'> 해당 상품은 존재 하지 않습니다. </th>"+
+									"</tr>");
+						
+						$("#tfoot1").html(
+								"<tr>"+
+									"<th>"+
+										"<button id='js_del'>선택삭제</button>"+
+									"</th>"+
+									"<th id='pageNum' colspan='5'></th>"+
+									"<th><button id='productReg' onclick='location.href='productReg''>제품등록</button></th>"+
+								"</tr>");
 					};//if
 				}//func
 				xhttp.open("GET", "getListByName.do?productName=" + serchWord + "&pageNum=" + num, true); 
@@ -358,7 +343,7 @@
 			}else if(serchType == "price"){
 				//가격으로 상품조회
 				//alert($("#start").val());
-				if($("#start").val() > $("#end").val()){
+				if(parseInt($("#start").val()) > parseInt($("#end").val())){
 					alert("시작 금액대가 더 큽니다. 가격대를 다시 확인해주세요 !");
 					$("#start").focus();
 					return true;
@@ -406,19 +391,7 @@
 												"</tr>"
 												);
 						}
-						$("#tfoot").html("<tr>"+
-								"<th>"+
-									"<button id='js_del'>선택삭제</button>"+
-								"</th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th>"+
-									"<button onclick='goProductRegPage();'>상품등록</button>"+
-								"</th>"+
-							"</tr>");
+						
 					}else if(obj.length === 0){
 						$("#thead").html(
 								"<tr>"+
@@ -434,17 +407,7 @@
 						$("#tbody").html("<tr>"+
 								"<th colspan='7' style='height:300px;'> 해당 상품은 존재 하지 않습니다. </th>"+
 						"</tr>");
-						$("#tfoot").html("<tr>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th>"+
-									"<button onclick='goProductReg()'>상품등록</button>"+
-								"</th>"+
-						"</tr>");
+						
 					};
 					
 				}
@@ -497,19 +460,7 @@
 												"</tr>"
 												);
 						}
-						$("#tfoot").html("<tr>"+
-								"<th>"+
-									"<button id='js_del'>선택삭제</button>"+
-								"</th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th>"+
-									"<button onclick='goProductRegPage();'>상품등록</button>"+
-								"</th>"+
-							"</tr>");
+						
 					}else if(obj.length === 0){
 						$("#thead").html(
 								"<tr>"+
@@ -525,17 +476,7 @@
 						$("#tbody").html("<tr>"+
 								"<th colspan='7' style='height:300px;'> 해당 상품은 존재 하지 않습니다. </th>"+
 						"</tr>");
-						$("#tfoot").html("<tr>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th>"+
-									"<button onclick='goProductReg()'>상품등록</button>"+
-								"</th>"+
-						"</tr>");
+						
 					};
 					
 				}
@@ -623,32 +564,40 @@
 		//전체 선택
 		$("#allChk").on("change", allChk);
 		
-		const all = document.querySelector("#allChk");
-		const chks = document.querySelectorAll(".chk");
-		
+		let all = document.querySelector("#allChk");
+		let chks = document.querySelectorAll(".chk");
 		function allChk(){
 			for(let i = 0; i < chks.length; i++){
 				chks[i].checked = all.checked;
 			}
 		};
 		
-		//선택삭제
+		/* //선택삭제
 		$("#btn_delProducts").on("click", products_delete);
+		
 		function products_delete(){
+			let chks1 = document.querySelectorAll(".chk");
+			
+			alert(chks1[1].value)
+			/* let chks1 = document.querySelectorAll(".chk");
+			alert(chks1)
 			if (!confirm("선택된 상품을 삭제하시겠습니까?")) {
-	            
+	           
 	        }else{
+	        	
 				let chked = new Array();
 				
-				for(let i = 0; i < chks.length; i++){
-					if(chks[i].checked){
-						chked.push(chks[i].value);
+				for(let i = 0; i < chks1.length; i++){
+					
+					if(chks2[i].checked){
+						chked[i] = chks1[i].value;
 					}
 				}
-				
+			
 				const xhttp = new XMLHttpRequest();
 				xhttp.onload = function() {
 				let result = this.responseText; 
+				
 					if(result == 1){
 						alert("삭제완료!");
 						location.href="productList";
@@ -661,8 +610,8 @@
 				xhttp.open("GET", "products_delete.do?productCodes=" + chked, true); 
 					
 				xhttp.send();
-	        }
-		}//function
+	        } 
+		}*///function
 		
 		//조회 전체 선택
 		 $("#thead").on('click', $('#js_allChk'), function(){
@@ -679,7 +628,7 @@
 		});
 		
 		//조회 선택 삭제
-		$("#tfoot").on("click", $("#js_del"), serchDelete);
+		$("#tfoot1").on("click", "#js_del", serchDelete);
 		
 		function serchDelete(e){
 			if(e.target.id == "js_del"){
@@ -788,19 +737,14 @@
 												"</tr>"
 												);
 						}
-						$("#tfoot").html("<tr>"+
-								"<th>"+
-									"<button id='js_del'>선택삭제</button>"+
-								"</th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th>"+
-									"<button onclick='goProductRegPage();'>상품등록</button>"+
-								"</th>"+
-							"</tr>");
+						$("#tfoot1").html(
+								"<tr>"+
+									"<th>"+
+										"<button id='js_del'>선택삭제</button>"+
+									"</th>"+
+									"<th id='pageNum' colspan='5'></th>"+
+									"<th><button id='productReg' onclick='goProductRegPage()'>제품등록</button></th>"+
+								"</tr>");
 					}else if(obj.length === 0){
 						$("#thead").html(
 								"<tr>"+
@@ -816,17 +760,14 @@
 						$("#tbody").html("<tr>"+
 								"<th colspan='7' style='height:300px;'> 해당 상품은 존재 하지 않습니다. </th>"+
 						"</tr>");
-						$("#tfoot").html("<tr>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th>"+
-									"<button onclick='goProductReg()'>상품등록</button>"+
-								"</th>"+
-						"</tr>");
+						$("#tfoot1").html(
+								"<tr>"+
+									"<th>"+
+										"<button id='js_del'>선택삭제</button>"+
+									"</th>"+
+									"<th id='pageNum' colspan='5'></th>"+
+									"<th><button id='productReg' onclick='goProductRegPage()'>제품등록</button></th>"+
+								"</tr>");
 					};
 					
 				}
@@ -972,19 +913,7 @@
 												"</tr>"
 												);
 						}
-						$("#tfoot").html("<tr>"+
-								"<th>"+
-									"<button id='js_del'>선택삭제</button>"+
-								"</th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th>"+
-									"<button onclick='goProductRegPage();'>상품등록</button>"+
-								"</th>"+
-							"</tr>");
+						
 					}else if(obj.length === 0){
 						$("#thead").html("<tr>"+
             					"<th></th><th></th><th></th><th></th><th></th><th></th>"+
@@ -1013,17 +942,7 @@
 						$("#tbody").html("<tr>"+
 								"<th colspan='7' style='height:300px;'> 해당 상품은 존재 하지 않습니다. </th>"+
 						"</tr>");
-						$("#tfoot").html("<tr>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th></th>"+
-								"<th>"+
-									"<button onclick='goProductReg()'>상품등록</button>"+
-								"</th>"+
-						"</tr>");
+						
 					};
 					
 				}

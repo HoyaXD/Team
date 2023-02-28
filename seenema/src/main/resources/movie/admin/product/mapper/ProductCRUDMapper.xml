@@ -12,7 +12,7 @@
 	
 	<!-- 상품조회 -->
 	<select id="getList" resultType="org.green.seenema.vo.ProductVO">
-		SELECT * FROM seenema.product_tbl ORDER BY productCode ASC LIMIT #{param1}, 10; 
+		SELECT * FROM seenema.product_tbl ORDER BY productCode DESC LIMIT #{param1}, 10; 
 	</select>
 	
 	<!-- 상품cnt -->

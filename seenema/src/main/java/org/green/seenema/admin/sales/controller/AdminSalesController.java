@@ -22,8 +22,8 @@ public class AdminSalesController {
 	@Autowired
 	SalesMapper mapper;
 
-	@GetMapping("/salesPage")
-	public void salesPage() {
+	@GetMapping("/movieSalesPage")
+	public void movieSalesPage() {
 		
 	}
 	@GetMapping("/topFive")
