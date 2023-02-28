@@ -195,6 +195,7 @@
     $('.cal_list').click(function (e){  //날짜 선택시 css, hidden에 값 넣기
         $('#movieDate').val($(e.target).text());
         $('#timeInfo').text($(e.target).text());
+        $('#timeInfo2').text("");
         $('.cal_list').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -207,6 +208,11 @@
 
         $('.time').css({
             "display" : "inline-block"
+        })
+
+        $('.time').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
         })
     })
 
@@ -257,7 +263,9 @@
             "background-color":"#e8e5dd",
             "color":"black"
         })
-
+        $('.time').css({
+            "display" : "none"
+        })
 
         $('.movieTitle').css({
             "background-color":"#e8e5dd",
@@ -301,6 +309,10 @@
             "background-color":"#5c5c5c",
             "color":"white"
         });
+
+        $('.time').css({
+            "display" : "none"
+        })
     })
 
 
@@ -338,6 +350,10 @@
         $(e.target).parent( 'div' ).css({
             "background-color":"#e8e5dd",
         });
+
+        $('.time').css({
+            "display" : "none"
+        })
         var place = $(e.target).text();
     $.ajax({
             url : "getTheaterList.do?place="+place,
