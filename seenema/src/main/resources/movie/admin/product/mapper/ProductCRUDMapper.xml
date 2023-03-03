@@ -12,7 +12,7 @@
 	
 	<!-- 상품조회 -->
 	<select id="getList" resultType="org.green.seenema.vo.ProductVO">
-		SELECT * FROM seenema.product_tbl ORDER BY productCode ASC LIMIT #{param1}, 10; <!-- 고쳐야됨 -->
+		SELECT * FROM seenema.product_tbl ORDER BY productCode DESC LIMIT #{param1}, 10; 
 	</select>
 	
 	<!-- 상품cnt -->
@@ -40,22 +40,42 @@
 	
 	<!-- 상품명으로 상품조회하기 -->
 	<select id="getListByName" resultType="org.green.seenema.vo.ProductVO">
-		SELECT * FROM seenema.product_tbl WHERE productName LIKE #{param1} ORDER BY productSales DESC
+		SELECT * FROM seenema.product_tbl WHERE productName LIKE #{param1} ORDER BY productSales DESC LIMIT #{param2}, 10
+	</select>
+	
+	<!-- 상품명으로 상품조회 개수-->
+	<select id="getListByNameCnt" resultType="int">
+		select count(*) from product_tbl WHERE productName LIKE #{param1} ORDER BY productSales;
 	</select>
 	
 	<!-- 가격대로 상품조회하기 -->
 	<select id="getListByPrice" resultType="org.green.seenema.vo.ProductVO">
-		<![CDATA[ SELECT * FROM seenema.product_tbl WHERE price >= #{param1} and price <= #{param2} ORDER BY price ASC]]>
+		<![CDATA[ SELECT * FROM seenema.product_tbl WHERE price >= #{param1} and price <= #{param2} ORDER BY price ASC LIMIT #{param3}, 10]]>
+	</select>
+	
+	<!-- 가격대로 상품조회 개수 -->
+	<select id="productByPriceCnt" resultType="int">
+		<![CDATA[ SELECT count(*) FROM seenema.product_tbl WHERE price >= #{param1} and price <= #{param2} ORDER BY price ASC]]>
+	</select>
+	
+	<!-- 카테고리 조회 cnt -->
+	<select id="productByCategoryCnt" resultType="int">
+		SELECT count(*) FROM seenema.product_tbl WHERE category LIKE #{param1} ORDER BY productSales DESC
 	</select>
 	
 	<!-- 카테고리 조회하기 -->
 	<select id="getListByCategory" resultType="org.green.seenema.vo.ProductVO">
-		SELECT * FROM seenema.product_tbl WHERE category LIKE #{param1} ORDER BY productSales DESC
+		SELECT * FROM seenema.product_tbl WHERE category LIKE #{param1} ORDER BY productSales DESC LIMIT #{param2}, 10
 	</select>
 	
 	<!-- 낮은 가격 순으로 조회하기 -->
 	<select id="getListByLowPrice" resultType="ProductVO">
-		SELECT * FROM seenema.product_tbl ORDER BY price ASC;
+		SELECT * FROM seenema.product_tbl ORDER BY price ASC LIMIT #{param1}, 10;
+	</select>
+	
+	<!-- 낮은 가격 순으로 조회 cnt-->
+	<select id="listByLowPriceCnt" resultType="int">
+		SELECT count(*) FROM seenema.product_tbl ORDER BY price ASC;
 	</select>
 	
 	<!-- 높은 가격 순으로 조회하기 -->
@@ -142,4 +162,6 @@
 	<select id="getListCategoryHighSales" resultType="ProductVO">
 		SELECT * FROM seenema.product_tbl WHERE category LIKE #{param1} ORDER BY productSales DESC
 	</select>
+	
+	<!--  -->
 </mapper>

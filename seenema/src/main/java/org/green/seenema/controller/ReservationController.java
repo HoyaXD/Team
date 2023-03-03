@@ -1,10 +1,7 @@
 package org.green.seenema.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.green.seenema.mapper.MovieCRUDMapper;
-import org.green.seenema.mapper.MovieMapper;
-import org.green.seenema.mapper.ReservationMapper;
-import org.green.seenema.mapper.TheaterCRUDMapper;
+import org.green.seenema.mapper.*;
 import org.green.seenema.vo.MovieVO;
 import org.green.seenema.vo.ReservationVO;
 import org.green.seenema.vo.TheaterVO;
@@ -31,6 +28,9 @@ public class ReservationController {
 
     @Autowired
     MovieCRUDMapper movieCRUDMapper;
+
+    @Autowired
+    MemberMapper memberMapper;
 
     @GetMapping("/reservationMain") //예약 메인으로 가기
     public void reservation(Model model){
@@ -76,6 +76,7 @@ public class ReservationController {
     public String reservationdo(ReservationVO reservation, Model model) {
         log.info("예약정보 : " + reservation.toString());
         reservationMapper.cntPlus(reservation.getMovieCode(), reservation.getVisitors());
+        memberMapper.stampPlus(reservation.getId());
         int result = reservationMapper.regReservation(reservation);
         MovieVO movie = movieCRUDMapper.selectOne(reservation.getMovieCode());
         model.addAttribute("reservation", reservation);

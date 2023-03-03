@@ -16,12 +16,13 @@
 	<!-- 전체 조회 -->
 	<select id="getList" resultType="MovieVO">
 		SELECT *
-		FROM seenema.movie_tbl order by movieCode DESC LIMIT 8;
+		FROM seenema.movie_tbl order by movieCode DESC LIMIT #{param1}, 10;
 	</select>
 	
+	<!-- 전체조회 cnt -->
 	<select id="getListNum" resultType="MovieVO">
 		SELECT *
-		FROM seenema.movie_tbl order by movieCode DESC LIMIT #{param1}, 8;
+		FROM seenema.movie_tbl order by movieCode DESC LIMIT #{param1}, 10;
 	</select>
 	
 	<!-- 영화 코드로 조회 -->
@@ -29,16 +30,30 @@
 		SELECT * FROM seenema.movie_tbl WHERE movieCode = #{param1};
 	</select>
 	
+	<!-- 영화 제목으로 조회 cnt -->
+	<select id="titleCnt" resultType="int">
+		SELECT count(*) FROM seenema.movie_tbl WHERE movieTitle LIKE #{param1}
+	</select>
+	
 	<!-- 영화 제목으로 조회 -->
 	<select id="getListByTitle" resultType="MovieVO">
-		SELECT * FROM seenema.movie_tbl WHERE movieTitle LIKE #{param1};
+		SELECT * FROM seenema.movie_tbl WHERE movieTitle LIKE #{param1} LIMIT #{param2}, 10;
 	</select>
 	
 	<!-- 영화 개봉일로 조회 -->
 	<select id="getListByreleaseDate" resultType="MovieVO">
 		 <![CDATA[ 
 			SELECT * FROM seenema.movie_tbl
-			WHERE releaseDate >= #{param1} and releaseDate <= #{param2}; 
+			WHERE releaseDate >= #{param1} and releaseDate <= #{param2}
+			ORDER BY releaseDate ASC LIMIT #{param3}, 10 
+		]]>
+	</select>
+	
+	<!-- 영화 개봉일로 조회 cnt-->
+	<select id="dateCnt" resultType="int">
+		 <![CDATA[ 
+			SELECT count(*) FROM seenema.movie_tbl
+			WHERE releaseDate >= #{param1} and releaseDate <= #{param2} 
 		]]>
 	</select>
 	
@@ -46,6 +61,14 @@
 	<select id="getListByTitleDate" resultType="MovieVO">
 		 <![CDATA[ 
 			SELECT * FROM seenema.movie_tbl
+			WHERE movieTitle LIKE #{param1} and releaseDate >= #{param2} and releaseDate <= #{param3} LIMIT #{param4}, 10; 
+		]]>
+	</select>
+	
+	<!-- 제목+개봉일로 조회 -->
+	<select id="titleDateCnt" resultType="int">
+		 <![CDATA[ 
+			SELECT count(*) FROM seenema.movie_tbl
 			WHERE movieTitle LIKE #{param1} and releaseDate >= #{param2} and releaseDate <= #{param3}; 
 		]]>
 	</select>
@@ -64,4 +87,10 @@
 	<delete id="delete">
 		DELETE FROM seenema.movie_tbl WHERE movieCode=#{param1};
 	</delete>
+	
+	<!-- 영화개수 조회 -->
+	<select id="movieCnt" resultType="int">
+		SELECT count(*)
+		FROM seenema.movie_tbl order by movieCode DESC;
+	</select>
 </mapper>

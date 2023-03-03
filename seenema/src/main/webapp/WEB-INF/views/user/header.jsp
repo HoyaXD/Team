@@ -162,7 +162,7 @@
           <li><a href="#">영화</a></li>
           <li><a href="/user/reservationMain">예매</a></li>
           <li><a href="/user/storeView">스토어</a></li>
-          <li><a href="#">게시판</a></li>
+          <li><a href="/user/userNoticeBoard">게시판</a></li>
         </ul>
       </div>
       <div class="wrap_after"></div>
@@ -195,8 +195,8 @@
             </div>
             <div id="active_board" class="active_menu">
               <ul>
-                <a href="#"><li class="active_title">게시판</li></a>
-                <a href="#"><li>무비차트</li></a>
+                <a href="/user/userNoticeBoard"><li class="active_title">게시판</li></a>
+                <a href="/user/userNoticeBoard"><li>공지사항</li></a>
                 <a href="#"><li>아트하우스</li></a>
                 <a href="#"><li>icecon</li></a>
               </ul>

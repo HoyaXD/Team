@@ -30,18 +30,14 @@
 				</li>
 				<li>상품 관리
 					<ul class="submenu">
-						<li>상품 등록</li>
-						<li>상품 수정</li>
-						<li>상품 3</li>
-						<li>상품 4</li>
+						<li><a href="productReg">상품 등록</a></li>
+						<li><a href="productList">상품 목록 및 관리</a></li>
 					</ul>
 				</li>
 				<li>매출 관리
-					<ul class="submenu">
-						<li>매출 현황1</li>
+					<ul class="submenu">			
+						<li><a href="movieSalesPage">영화 및 영화관</a></li>
 						<li><a href="adminProductSalesView">상품</a></li>
-						<li>매출 현황3</li>
-						<li>매출 현황4</li>
 					</ul>
 				</li>
 				<li><a href="MemberMGMT">회원관리 관리</a></li>

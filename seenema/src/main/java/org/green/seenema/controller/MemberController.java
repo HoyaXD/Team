@@ -51,15 +51,11 @@ public String login(MemberVO memberVO, HttpSession session, Model model, HttpSer
     }else {
         session.setAttribute("logid", memberVO.getId());
         session.setAttribute("name", member.getName());
+        session.setAttribute("tel", member.getTel());
+        session.setAttribute("stamp", member.getStamp());
         model.addAttribute("msg", memberVO.getId()+"님 환영합니다!");
         model.addAttribute("url", "/");
-//        // 세션에 이전 페이지 URL 저장
-//        String referer = request.getHeader("Referer");
-//        String prevPage = (String) session.getAttribute("prevPage");
-//        session.setAttribute("prevPage", referer);
-//
-//        // 2번째 전의 페이지로 이동
-//        return "redirect:" + prevPage;
+
         return "user/alert";
     }
     return msg;
@@ -128,12 +124,6 @@ public String login(MemberVO memberVO, HttpSession session, Model model, HttpSer
     @GetMapping({"regMemberComplete", "/regAgree"})
     public void regMemberComplete(){}
 
-//    @PostMapping("/order/searchGetReservationList.do")
-//    public List<OrderVO> getSearchOrderList(String id, String startDate, String endDate, int status){
-////        List<OrderVO> list = mapper.getSearchOrderList(id, startDate, endDate, status);
-////        return list;
-//    }
-
     @GetMapping("/getReservationList.do")
     public @ResponseBody List<ReservationVO> getReservationList(String id){
         List<ReservationVO> list = reservationMapper.searchReservationList(id);
@@ -151,12 +141,6 @@ public String login(MemberVO memberVO, HttpSession session, Model model, HttpSer
         model.addAttribute("movie", movie);
     }
 
-//    @GetMapping("/searchGetReservationList.do")
-//    public @ResponseBody List<ReservationVO> searchGetReservationList(String id, String startDate, String endDate, int status){
-//        List<ReservationVO> list = reservationMapper.getSearchReservationList(id, startDate, endDate, status);
-//        log.info("조회하기1번 : " + list.get(0).toString());
-//        return list;
-//    }
 
     @GetMapping("/searchGetReservationList.do")
     public @ResponseBody List<ReservationVO> searchGetReservationList(String id, String startDate, String endDate, int status){

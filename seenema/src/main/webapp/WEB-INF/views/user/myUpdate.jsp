@@ -232,10 +232,17 @@
   <%@include file="footer.jsp"%>
 <script>
   $('#pwCheck').focusout(function() {  //비밀번호 확인
-    let pwRegExp = /^(?=.[a-zA-Z])(?=.\d)[a-zA-Z\d]{8,20}$/;
+    let passRule = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
     let pw = document.frm.pw.value;
     if(document.frm.pw2.value != ""){
-      if(document.frm.pw.value == document.frm.pw2.value){
+      if (pw.length < 8) {
+        document.getElementById("pwCheckComment").innerHTML ="<span style='color:red'>비밀번호는 8글자 이상이어야 합니다.</span>";
+      }else if (pw.length > 20) {
+        document.getElementById("pwCheckComment").innerHTML ="<span style='color:red'>비밀번호는 20글자를 초과할 수 없습니다.</span>";
+      }else if (!passRule.test(pw)) {
+        document.getElementById("pwCheckComment").innerHTML ="<span style='color:red'>비밀번호는 특수문자,영문,숫자 모두 포함해야 합니다.</span>";
+      }
+      else if(document.frm.pw.value == document.frm.pw2.value){
         document.getElementById("pwCheckComment").innerHTML = "<span style='color:green'>비밀번호 일치</span>";
       } else {
         document.getElementById("pwCheckComment").innerHTML = "<span style='color:red'>비밀번호가 일치하지 않습니다</span>";

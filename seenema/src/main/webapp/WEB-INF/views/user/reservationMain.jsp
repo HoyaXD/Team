@@ -36,11 +36,15 @@
             margin-top: 10px;
             width: 100px;
             height: 100px;
-            background-color: #ee1919;
+            background-color: #cc1616;
             border: solid 1px red;
             border-radius: 8px;
             color: white;
             font-size: 24px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover{
+            background-color: #ff0000;
         }
         #sel_title{
             margin-bottom: 10px;
@@ -177,19 +181,21 @@
     const startDate = new Date(dateString); // 시작 날짜 설정 (오늘)
     const endDate = new Date(dt); // 마지막 날짜 설정 (한달 뒤)
 
-    // Loop over each day and add it to the calendar
     const calendarList = document.getElementById('calendar-list');
     for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
         const listItem = document.createElement('li');
         listItem.className = "cal_list";
+        listItem.style.cursor = "pointer"; // 스타일 속성 추가
         const dateText = document.createTextNode(date.toISOString().slice(0, 10));
         listItem.appendChild(dateText);
         calendarList.appendChild(listItem);
     }
 
+
     $('.cal_list').click(function (e){  //날짜 선택시 css, hidden에 값 넣기
         $('#movieDate').val($(e.target).text());
         $('#timeInfo').text($(e.target).text());
+        $('#timeInfo2').text("");
         $('.cal_list').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -202,6 +208,11 @@
 
         $('.time').css({
             "display" : "inline-block"
+        })
+
+        $('.time').css({
+            "background-color":"#e8e5dd",
+            "color":"black"
         })
     })
 
@@ -252,7 +263,9 @@
             "background-color":"#e8e5dd",
             "color":"black"
         })
-
+        $('.time').css({
+            "display" : "none"
+        })
 
         $('.movieTitle').css({
             "background-color":"#e8e5dd",
@@ -296,6 +309,10 @@
             "background-color":"#5c5c5c",
             "color":"white"
         });
+
+        $('.time').css({
+            "display" : "none"
+        })
     })
 
 
@@ -333,6 +350,10 @@
         $(e.target).parent( 'div' ).css({
             "background-color":"#e8e5dd",
         });
+
+        $('.time').css({
+            "display" : "none"
+        })
         var place = $(e.target).text();
     $.ajax({
             url : "getTheaterList.do?place="+place,
@@ -394,7 +415,6 @@
         }
         return true;
     }
-
 
 </script>
 </body>
