@@ -39,6 +39,6 @@ public interface AdminQnaMapper {
 	
 	public List<QnaVO> qnaMainView();
 	
-	public void qnaAdminAnswer(@Param("updateCode") int qcode, @Param("updateContents") String contents);
+	public void qnaAdminAnswer(@Param("updateCode") int qcode, @Param("updateContents") String answer);
 
 }

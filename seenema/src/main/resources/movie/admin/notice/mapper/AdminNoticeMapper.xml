@@ -25,7 +25,7 @@
    </update>
    <!-- 공지사항 등록 -->
    <insert id="noticeRegi">
-      INSERT INTO notice_tbl(title, contents, regiDate, hit) VALUES(#{title}, #{contents}, NOW(), 0)
+      INSERT INTO notice_tbl(title, contents, regiDate, hit, importance) VALUES(#{title}, #{contents}, NOW(), 0, #{importance})
    </insert>
    
    <!-- 공지사항 코드검색 -->

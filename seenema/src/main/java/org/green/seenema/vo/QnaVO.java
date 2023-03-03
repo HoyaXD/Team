@@ -15,4 +15,6 @@ public class QnaVO {
 	private String contents;
 	private Timestamp regiDate;
 	private String fileName;
+	private int status;
+	private String answer;
 }
