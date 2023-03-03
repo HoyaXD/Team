@@ -16,7 +16,7 @@
 				<li>영화 관리
 					<ul class="submenu">
 						<li><a href="movieReg">영화등록</a></li>
-						<li><a href="movieList">영화 목록 및 괸리</a></li>
+						<li><a href="movieList">영화 목록 및 관리</a></li>
 					</ul>
 				</li>
 				<li>영화관 관리
@@ -25,10 +25,10 @@
 						<li><a href="theaterList">영화관 목록 및 관리</a></li>
 					</ul>
 				</li>
-				<li>상품 관리
+				<li>제품 관리
 					<ul class="submenu">
-						<li><a href="productReg">상품 등록</a></li>
-						<li><a href="productList">상품 목록 및 관리</a></li>
+						<li><a href="productReg">제품 등록</a></li>
+						<li><a href="productList">제품 목록 및 관리</a></li>
 					</ul>
 				</li>
 				<li>매출 관리
