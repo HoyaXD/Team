@@ -58,12 +58,10 @@
 							</tr>
 						</tbody>
 					</table>
-					<div style="display: inline-flex; margin-left: 240px;">
-						<button id="before_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">이전</button>
-						<div id="pageNum"></div>
-						<button id="next_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">다음</button>
+					<div id="span_box">
+						<span id="before_btn"><<</span>
+						<span id="pageNum"></span>
+						<span id="next_btn">>></span>
 					</div>
 				</div>
 
@@ -92,7 +90,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 
 													$("#tbodyView")
 															.append(
@@ -119,7 +117,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {//obj.length / 8 + 1
+												if (obj.length > 100) {//obj.length / 8 + 1
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -127,8 +125,8 @@
 																				+ j
 																				+ "</span>");
 													}
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -389,7 +387,7 @@
 														.last().text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -400,7 +398,7 @@
 													//첫페이지실행
 													$("#pageNum").children()
 															.first().click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
 													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
 														$("#pageNum")
 																.append(
@@ -438,7 +436,7 @@
 														.last().text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -449,7 +447,7 @@
 													//첫페이지실행
 													$("#pageNum").children()
 															.first().click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
 													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
 														$("#pageNum")
 																.append(
@@ -488,7 +486,7 @@
 														.last().text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -499,7 +497,7 @@
 													//첫페이지실행
 													$("#pageNum").children()
 															.first().click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
 													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
 														$("#pageNum")
 																.append(
@@ -537,7 +535,7 @@
 														.last().text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -548,7 +546,7 @@
 													//첫페이지실행
 													$("#pageNum").children()
 															.first().click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
 													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
 														$("#pageNum")
 																.append(
@@ -665,7 +663,7 @@
 												let i = 0;
 												$("#pageNum").empty();
 												$("#tbodyView").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 
 													$("#tbodyView")
 															.append(
@@ -692,7 +690,7 @@
 												//첫페이지실행
 										
 												$("#pageNum").empty();
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													$("#next_btn").show();
 												
 													for (let j = 1; j < 11; j++) {
@@ -706,10 +704,10 @@
 													$("#pageNum").children()
 															.first().click();
 													//수정하려면 여기서 
-												}else if (obj.length < 80){
+												}else if (obj.length < 100){
 													$("#next_btn").hide();
 													$("#before").hide();
-													for (let j = 1; j < obj.length/8 + 1; j++) {
+													for (let j = 1; j < obj.length/10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -749,7 +747,7 @@
 												//회원목록을 보여주는 창을 새로고침
 												let i = 0;
 												$("#tbodyView").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 
 													$("#tbodyView")
 															.append(
@@ -776,7 +774,7 @@
 												$("#pageNum").empty();
 												//첫페이지실행
 												
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													$("#next_btn").show();
 												
 													for (let j = 1; j < 11; j++) {
@@ -790,10 +788,10 @@
 													$("#pageNum").children()
 															.first().click();
 													//수정하려면 여기서 
-												}else if (obj.length < 80){
+												}else if (obj.length < 100){
 													$("#next_btn").hide();
 													$("#before").hide();
-													for (let j = 1; j < obj.length/8 + 1; j++) {
+													for (let j = 1; j < obj.length/10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -828,7 +826,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#tbodyView").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 
 													$("#tbodyView")
 															.append(
@@ -854,7 +852,7 @@
 												}
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -865,10 +863,10 @@
 													//첫페이지실행
 													$("#pageNum").children()
 															.first().click();
-												}else if (obj.length < 80){
+												}else if (obj.length < 100){
 													$("#next_btn").hide();
 													$("#before").hide();
-													for (let j = 1; j < obj.length/8 + 1; j++) {
+													for (let j = 1; j < obj.length/10+ 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -920,10 +918,10 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 												$("#tbodyView").empty();
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 
 													$("#tbodyView")
 															.append(
@@ -967,10 +965,10 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 												$("#tbodyView").empty();
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 
 													$("#tbodyView")
 															.append(
@@ -1014,10 +1012,10 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 												$("#tbodyView").empty();
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 
 													$("#tbodyView")
 															.append(
@@ -1061,10 +1059,10 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 												$("#tbodyView").empty();
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 
 													$("#tbodyView")
 															.append(
@@ -1091,7 +1089,7 @@
 
 											},
 											error : function() {
-												alert("회원 목록 출력 실패!");
+												alert("회원 목록 출력 실패!");	
 											}
 										});
 							}

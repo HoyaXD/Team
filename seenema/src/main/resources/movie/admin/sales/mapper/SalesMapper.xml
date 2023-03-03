@@ -55,4 +55,7 @@
 		FROM movie_tbl mt, reservation_tbl rt 
 		WHERE mt.movieCode = rt.movieCode
 	</select>
+
+	
+	
 </mapper>

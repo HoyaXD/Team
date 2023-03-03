@@ -12,11 +12,9 @@
 <%@ include file="header.jsp" %>
 	<main id="noticeBoard">
 		<div class="sideBar">
-			<div class="sideBarMenu menu1">고객센터 메인</div>
-			<div class="sideBarMenu menu2">공지 / 뉴스</div>
-			<div class="sideBarMenu menu3">???</div>
-			<div class="sideBarMenu menu4">???</div>
-			<div class="sideBarMenu menu5">???</div>
+			<div class="sideBarMenu menu1">공지 / 뉴스</div>
+			<div class="sideBarMenu menu2">Q&A</div>
+			<div class="sideBarMenu menu3">상영관</div>
 			<div class="ad1"></div>
 		</div>
 		<div class="section">
@@ -82,10 +80,13 @@
 		xhttp.open("get", "/user/getNextContent?noticeCode=" + noticeCode, true);
 		xhttp.send();
 	}
-
+	
+	$(".menu1").on("click", function(){
+		location.href = "/user/userNoticeBoard";
+	});
 	// 사이드바 메뉴2
 	$(".menu2").on("click", function(){
-		location.href = "/user/userNoticeBoard";
+		location.href = "/user/userQnaView";
 	});
 	
 	// 목록으로 버튼
@@ -95,8 +96,8 @@
 	
 	$(document).ready(function(){
 		if($("main").attr("id") == "noticeBoard"){
-			$(".menu2").css("backgroundColor", "#FB4357");
-			$(".menu2").css("color", "white");
+			$(".menu1").css("backgroundColor", "#FB4357");
+			$(".menu1").css("color", "white");
 		}
 	});
 	
@@ -105,8 +106,8 @@
 		$(this).css("backgroundColor", "#FB4357");
 		$(this).css("color", "white");
 		if($("main").attr("id") == "noticeBoard"){
-			$(".menu2").css("backgroundColor", "#FB4357");
-			$(".menu2").css("color", "white");
+			$(".menu1").css("backgroundColor", "#FB4357");
+			$(".menu1").css("color", "white");
 		}
 	});
 		
@@ -115,8 +116,8 @@
 		$(this).css("backgroundColor", "white");
 		$(this).css("color", "black");
 		if($("main").attr("id") == "noticeBoard"){
-			$(".menu2").css("backgroundColor", "#FB4357");
-			$(".menu2").css("color", "white");
+			$(".menu1").css("backgroundColor", "#FB4357");
+			$(".menu1").css("color", "white");
 		}
 	});
 </script>

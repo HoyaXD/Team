@@ -12,7 +12,6 @@
 <input type="hidden" id="hiddenOrderNum" value="${orderNum }">
 	<%@include file="header.jsp" %>
 	<div class="container">
-		<header></header>
 		<main>
 			<ul class="items">
 				<li class="item">
@@ -21,7 +20,8 @@
 						<div class="date"></div>
 						<div class="orderNumTitle">주문번호</div>
 						<div class="orderNum"></div>
-						<div class="allCancleBtnWrap"><button id="allCancleBtn" type="button" onclick="cancelPay()">결제취소</button></div>
+						<div class="refundCode" style="display:none;"></div>
+						<div class="allCancleBtnWrap"><button id="allCancleBtn" type="button">결제취소</button></div>
 					</div>
 				</li>
 			</ul>
@@ -85,17 +85,17 @@
 					<p>
 						- 구매하신 기프티콘 상품의 취소/환불을 원하실 경우에는 다음 내용을 참고해주세요.<br><br>
 						<strong>※ 청약 철회</strong><br>
-						- 기프티콘을 사용하기 이전에 청약 철회 가능<br><br>
+						- 기프티콘을 사용하기 이전에 청약 철회 가능<br>
 						<strong>※ 청약 철회를 할 수 없는 경우</strong><br>
 						- 이미 사용된 교환권에 대해서는 취소/환불 불가<br><br>
 						<strong>※ 청약 철회 대상자</strong><br>
 						- 이미 사용된 교환권에 대해서는 취소/환불 불가<br><br>
 						<strong>※ 청약 철회 방법</strong><br>
 						- 마이 페이지 > 결제내역조회 > 해당 주문 상세내역에서 취소 선택<br>
-						- 기프티콘은 구매일로 부터 60일 이내 결제취소 가능<br><br><br><br>
+						- 기프티콘은 구매일로 부터 60일 이내 결제취소 가능<br><br>
 						- 미성년자인 고객께서 계약을 체결하시는 경우 법정대리인이<br>
 						&nbsp;&nbsp;그 계약에 동의하지 아니하면 미성년자 본인 또는 법정대리인이 그 계약을 취소할 수 있습니다.
-						<br><br><br><br>
+						<br><br>
 						- 회사는 이용자가 제기하는 정당한 의견이나 불만을 반영하고 그 피해의 보상 등에 관한 처리를 위하여<br> 
 						&nbsp;&nbsp;&nbsp;SEENEMA 고객센터(1111-2222)를 설치 운영하고 있습니다.
 					</p>
@@ -115,6 +115,7 @@
 			
 			$(".date").text(obj.searchDate);
 			$(".orderNum").text(obj.orderNum);
+			$(".refundCode").text(obj.refundCode);
 			$("#productImg").attr("src", obj.productImage);
 			$("#productName").text(obj.productName);
 			$("#productInfo").text(obj.productInfo);
@@ -154,7 +155,7 @@
 						+ "</div>"
 					+ "</li>"
 				);
-				if(obj.status == 0){
+				if(obj.status == -1){
 					$("#allCancleBtn").css("display", "none");
 				}
 			}
@@ -168,22 +169,38 @@
 	// 환불 실행
 	$("#allCancleBtn").on("click", function(){
 		if(confirm("결제를 취소하시겠습니까?") == true){
+			let orderNum = $(this).val();
+			let refundCode = $(".refundCode").text();
+			
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function(){
-				let result = parseInt(this.responseText);
+				let result = parseInt(this.responseText, 10);
 				if(result == 1){
-					alert("환불이 완료되었습니다.");
-					getList();
+					alert("환불 성공");
+					changeStatus(orderNum);	//상태값 변경
 				}else{
-					alert("환불 못함ㅋ");
+					alert("환불 실패");
 				}
 			}
-			let orderNum = $(this).val();
-			//alert(orderNum);
-			xhttp.open("post", "/user/order/refund.do", true);
+			xhttp.open("post", "/user/order/refund.do");
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("orderNum=" + orderNum);
+			xhttp.send("refundCode=" + refundCode);
 		}
 	});
+	
+	function changeStatus(orderNum){
+		const xhttp = new XMLHttpRequest();
+		xhttp.onload = function(){
+			let result = parseInt(this.responseText);
+			if(result == 1){
+				getList();
+			}else{
+				alert("환불 못함ㅋ");
+			}
+		}
+		xhttp.open("post", "/user/order/changeStatus.do", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send("orderNum=" + orderNum);
+	}
 </script>
 </html>

@@ -3,7 +3,6 @@ package org.green.seenema.admin.reply.controller;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
-import org.green.seenema.admin.qna.controller.AdminQnaController;
 import org.green.seenema.mapper.AdminReplyMapper;
 import org.green.seenema.vo.ReplyVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +78,12 @@ public class AdminReplyController {
 	@GetMapping("/replyRateCount")
 	public @ResponseBody int replyRateCount(@Param("searchRate") int rate) {
 		return arMapper.replyRateCount(rate);
+	}
+
+	// 메인페이지에
+	@GetMapping("/replyMainView")
+	public @ResponseBody List<ReplyVO> replyMainView() {
+		return arMapper.replyMainView();
 	}
 
 }

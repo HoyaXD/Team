@@ -3,7 +3,9 @@ package org.green.seenema.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.green.seenema.vo.NoticeVO;
+import org.green.seenema.vo.QnaVO;
 
 @Mapper
 public interface UserNoticeMapper {
@@ -19,4 +21,18 @@ public interface UserNoticeMapper {
 	public NoticeVO getNextContent(int noticeCode);
 	// 공지 조회수 업데이트
 	public void plusView(int noticeCode);
+	// Q&A 목록
+	public List<QnaVO> getQnaList(int count);
+	// Q&A 상세
+	public QnaVO getQnaInfo(int qcode);
+	// Q&A 삭제
+	public int deleteQna(int qCode);
+	// 공지 갯수
+	public int getQnaCount();
+	// 키워드 조회(제목)
+	public List<NoticeVO> searchByTitleList(@Param("keyword") String keyword);
+	// 키워드 조회(내용)
+	public List<NoticeVO> searchByContentsList(@Param("keyword") String keyword);
+	// Q&A 등록
+	public int regQna(@Param("title") String title, @Param("contents") String contents, @Param("id") String id);
 }

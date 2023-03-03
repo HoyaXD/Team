@@ -22,7 +22,6 @@
     <div>
         <div class="titleWrap">
             <div class="sectionTitle on" id="movieChartTitle">무비차트</div>
-            <div class="sectionTitle" id="upcomingTitle">상영예정작</div>
         </div>
     </div>
     <div class="section">
@@ -104,13 +103,16 @@
     </div>
 </main>
 <script>
+    const id = $("#id").val();
+    const stamp = $("#stamp").val();
+    
 	$(document).ready(function() {
 	    getMainMovieList();
 	    getStoreList();
 	    randomVideo();
 	    getNoticeList();
 	});
-    const id = $("#id").val();
+	
     $(".myStampAnchor").on("click", function(){
     	if($("#id").val() == ""){
     		if(confirm("로그인 후 이용가능한 서비스 입니다.\n로그인 하시겠습니까?") == true){
@@ -339,6 +341,7 @@
             let data = this.responseText;
             let list = JSON.parse(data);
             for(let i = 0; i < 9; i++){
+            	console.log(list[i].category);
                 if(list[i].category == "package"){
                     $(".packageWrap").append(
                         "<a href='/user/productDetailView?productCode=" + list[i].productCode + "' class='storeItem storeItem1'>"

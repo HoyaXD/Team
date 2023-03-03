@@ -18,4 +18,5 @@ public class OrderVO {
 	private String searchDate;
 	private String productImage;
 	private String userName;	// 구매내역 필요 추가
+	private String refundCode;
 }

@@ -32,9 +32,9 @@
                     <span id="menu_inMenu">
                         <div id="input_title">카테고리</div>
                         <div id="textbox">
-                            <select class="selectMenu" name="category" size="1">
+                            <select class="selectMenu" name="category" id="category" size="1">
                                 <option value="${p.category }">${p.category }</option>
-                                <option value="">-선택-</option>
+                                <option>-선택-</option>
                                 <option value="best">best</option>
                                 <option value="snack">snack</option>
                                 <option value="ticket">ticket</option>
@@ -50,12 +50,12 @@
                     </span>
                     <span id="menu_inMenu">
                         <div id="input_title">가격</div>
-                        <div id="textbox"><input type="text" name="price" value="${p.price }"></div>
+                        <div id="textbox"><input type="text" name="price" id="price" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" value="${p.price }"></div>
                     </span>
                 </div>
                 <div id="input_menu">
                     <div id="input_title">상품정보</div>
-                    <div id="textbox"><textarea name="productInfo">${p.productInfo}</textarea></div>
+                    <div id="textbox"><textarea name="productInfo" id="productInfo">${p.productInfo}</textarea></div>
                 </div>
                 <div id="input_menu_1">
                         <div id="input_title">상품 이미지 업로드</div>
@@ -108,6 +108,7 @@
          });
       </script>
       <script>
+      	//제품정보 상세보기
         function setThumbnail(event) {
             let reader = new FileReader();
   
@@ -120,7 +121,138 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         }
-      </script>
-
+    </script>
+	<script>
+		//유효성검사
+		$("#submitBtn").on("click", function(){
+			if($("#productName").val() == ""){
+				alert("제품명을 입력해주세요.");
+				$("#productName").css("border", "1px solid red");
+				$("#productName").focus(); 
+				return false;
+			}else if($("#productName").val() != ""){
+				$("#productName").css("border", "1px solid lightgray");
+			}
+			
+			if($("#category").val() == "-선택-"){
+				alert("카테고리를 선택해주세요.");
+				$("#category").css("border", "1px solid red");
+				$("#category").focus(); 
+				return false;
+			}else if($("#category").val() != "-선택-"){
+				$("#category").css("border", "1px solid lightgray");
+			}
+			
+			if($("#price").val() == ""){
+				alert("가격을 입력해주세요.");
+				$("#price").css("border", "1px solid red");
+				$("#price").focus(); 
+				return false;
+			}else if($("#price").val() != ""){
+				$("#price").css("border", "1px solid lightgray");
+			}
+			
+			if($("#productInfo").val() == ""){
+				alert("제품정보를 입력해주세요.");
+				$("#productInfo").css("border", "1px solid red");
+				$("#productInfo").focus(); 
+				return false;
+			}else if($("#productInfo").val() != ""){
+				$("#productInfo").css("border", "1px solid lightgray");
+			}
+			
+			if($("#productImage").val() == ""){
+				alert("제품 이미지를 등록해주세요.");
+				$("#upload_btn").css("border", "1px solid red");
+				$("#upload_btn").focus(); 
+				return false;
+			}else if($("#productImage").val() != ""){
+				$("#upload_btn").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//제품명 입력완료하면 테두리 red-> lightgray
+		$("#productName").on("change", function(){
+			if($("#productName").val() != ""){
+				$("#productName").css("border", "1px solid lightgray");
+			}
+		});
+		//카테고리 선택완료하면 테두리 red-> lightgray
+		$("#category").on("change", function(){
+			if($("#category").val() != ""){
+				$("#category").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//가격 입력완료하면 테두리 red-> lightgray
+		$("#price").on("change", function(){
+			if($("#price").val() != ""){
+				$("#price").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//제품정보 입력완료하면 테두리 red-> lightgray
+		$("#productInfo").on("change", function(){
+			if($("#productInfo").val() != ""){
+				$("#productInfo").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//제품이미지 등록완료하면 테두리 red-> lightgray
+		$("#photoFileName").on("change", function(){
+			if($("#photoFileName").val() != ""){
+				$("#upload_btn").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//제품명 입력완료하면 테두리 red-> lightgray
+		$("#productName").on("change", function(){
+			if($("#productName").val() != ""){
+				$("#productName").css("border", "1px solid lightgray");
+			}
+		});
+		//카테고리 선택완료하면 테두리 red-> lightgray
+		$("#category").on("change", function(){
+			if($("#category").val() != ""){
+				$("#category").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//가격 입력완료하면 테두리 red-> lightgray
+		$("#price").on("change", function(){
+			if($("#price").val() != ""){
+				$("#price").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//제품정보 입력완료하면 테두리 red-> lightgray
+		$("#productInfo").on("change", function(){
+			if($("#productInfo").val() != ""){
+				$("#productInfo").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//제품이미지 등록완료하면 테두리 red-> lightgray
+		$("#photoFileName").on("change", function(){
+			if($("#photoFileName").val() != ""){
+				$("#upload_btn").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//가격에 숫자만 입력되도록
+		$("#price").on("keydown", function(e){
+			if(e.keyCode > 47 && e.keyCode < 58 ||
+				e.keyCode === 8 || //backspace
+				e.keyCode === 37 || //방향키
+				e.keyCode === 39 || //방향키
+				e.keyCode === 46 ||//delete키
+				e.keyCode === 9 || //tab키
+				e.keyCode === 13){ //enter키
+					$("#price").css("border", "1px solid lightgray");
+			}else{
+				alert("숫자만 입력가능합니다.");
+			}
+		});
+	</script>
 </body>
 </html>

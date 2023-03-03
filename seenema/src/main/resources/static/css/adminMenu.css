@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 * {
    padding: 0;
    margin: 0 auto;
@@ -85,7 +86,8 @@ a {
 }
 /*메인메뉴*/
 .main_view {
-   background-color: #f3f3f3; float : right;
+   background-color: #f3f3f3;
+   float: right;
    width: 1094px;
    height: 1000px;
    border: 1px solid green;
@@ -109,7 +111,8 @@ a {
 }
 
 .easy_menu {
-   background-color: white; margin : 20px 0 0 45px;
+   background-color: white;
+   margin: 20px 0 0 45px;
    display: flex;
    flex-wrap: wrap;
    width: 1000px;
@@ -121,12 +124,117 @@ a {
 .easy_menu div {
    margin-top: 30px;
 }
-
+/*여기서부터 */
 #doToday_menu {
    background-color: white;
+   text-align: center;
+}
+
+#each_num>#choiceMenu {
+   width: 148px;
+   height: 25px;
+}
+
+#each_num>input[type="button"] {
+   width: 45px;
+   height: 25px;
+}
+
+#each_num>#keyC {
+   width: 200px;
+   height: 25px;
+   border-radius: 3px;
+}
+
+#table_box {
+   width: 900px;
+   height: 820px;
 }
 
 table {
+   width: 900px;
+   border-collapse: collapse;
+   border-bottom: 2px solid gray;
+   text-align: center;
+}
+
+th {
+   border-bottom: 2px solid gray;
+   border-top:2px solid gray;
+   text-align: center;
+   height: 60px;
+   font-weight: bold;
+}
+#reservationTbody tr:nth-child(2n+1) {
+   background-color: rgb(246,246,246);
+}
+#reservationTbody > tr {
+   height: 50px;
+   font-size: 14px;
+}
+#span_box{
+   text-align: center;
+}
+#span_box span{
+   padding: 5px;
+}
+#tbodyView tr:nth-child(2n+1) {
+   background-color: rgb(246,246,246);
+}
+#tbodyView > tr {
+   height: 50px;
+   font-size: 14px;
+}
+#tbodyView button{
+   width: 45px;
+   height: 25px;
+}
+#replyTbody tr:nth-child(2n+1) {
+   background-color: rgb(246,246,246);
+}
+
+#replyTbody > tr {
+   height: 50px;
+   font-size: 14px;
+}
+
+#replyTbody button{
+   width: 45px;
+   height: 25px;
+}
+#noTbody tr:nth-child(2n+1) {
+   background-color: rgb(246,246,246);
+}
+
+#noTbody > tr {
+   height: 50px;
+   font-size: 14px;
+}
+
+#noTbody button{
+   width: 45px;
+   height: 25px;
+}
+#qnaTbody tr:nth-child(2n+1) {
+   background-color: rgb(246,246,246);
+}
+
+#qnaTbody > tr {
+   height: 50px;
+   font-size: 14px;
+}
+
+#qnaTbody button{
+   width: 45px;
+   height: 25px;
+}
+#keyC{
+   padding-left: 10px
+}
+#choiceMenu{
+   text-align: center;
+}
+/* table {
    width: 900px;
    border-collapse: collapse;
 }
@@ -145,7 +253,7 @@ td button {
 
 #each_num {
    margin-top: 30px;
-   margin-left: 38px;
+  
 }
 
 #each_num #keyC {
@@ -173,4 +281,4 @@ td button {
 
 #pageNum span{
    margin-left: 20px;
-}
+} */

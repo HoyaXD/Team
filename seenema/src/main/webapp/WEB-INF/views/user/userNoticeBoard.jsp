@@ -12,20 +12,29 @@
 <%@ include file="header.jsp" %>
 	<main id="noticeBoard">
 		<div class="sideBar">
-			<div class="sideBarMenu menu1">고객센터 메인</div>
-			<div class="sideBarMenu menu2">공지 / 뉴스</div>
-			<div class="sideBarMenu menu3">???</div>
-			<div class="sideBarMenu menu4">???</div>
-			<div class="sideBarMenu menu5">???</div>
+			<div class="sideBarMenu menu1">공지 / 뉴스</div>
+			<div class="sideBarMenu menu2">Q&A</div>
+			<div class="sideBarMenu menu3">상영관</div>
 			<div class="ad1"></div>
 		</div>
 		<div class="tableWrap">
 			<div class="pageBigTitle">공지 / 뉴스</div>
-			<div class="pageSmallTitle">SEENEMA의 주요한 이슈 및 여러가지 소식들을 확인하실 수 있습니다.</div>
+			<div class="wrap">
+				<div class="pageSmallTitle">SEENEMA의 주요한 이슈 및 여러가지 소식들을 확인하실 수 있습니다.</div>
+				<div class="searchWrap">
+					<select id="select">
+						<option value="">메뉴를 선택해주세요</option>
+						<option value="title">제목으로 검색</option>
+						<option value="contents">내용으로 검색</option>
+					</select>
+					<input id="keyword" type="text">
+					<input id="searchBtn" type="button" value="검색">
+				</div>
+			</div>
 			<table>
 				<thead>
 					<tr>
-						<th class="noticeCodeTh">번호</th>
+						<th class="noticeCodeTh">공지번호</th>
 						<th class="noticeTitleTh">제목</th>
 						<th class="noticeRegidateTh">등록일</th>
 						<th class="noticeHitTh">조회수</th>
@@ -37,36 +46,82 @@
 			</table>
 		</div>
 	</main>
-		<div class="beforeAfterWrap">
+	<div class="beforeAfterWrap">
 		<!-- 페이지네이션 -->
-		</div>
+	</div>
 <%@ include file="footer.jsp" %>
 </body>
 <script>
 	let totalPage = 0;
 	let num = 1;
 	
+	// 페이지가 시작되면
 	$(document).ready(function(){
 		getNoticeList(num);
 		getTotalPage();
-		if($("main").attr("id") == "noticeBoard"){
-			$(".menu2").css("backgroundColor", "#FB4357");
-			$(".menu2").css("color", "white");
+		$(".menu1").css("backgroundColor", "#FB4357");
+		$(".menu1").css("color", "white");
+	});
+	
+	// 검색
+	$("#searchBtn").on("click", function(){
+		if($("#select").val() == ""){
+			alert("메뉴를 선택해주세요.");
+			return;
+		}else if($("#keyword").val() == ""){
+			alert("키워드를 입력해주세요.")
+		}else{
+			const xhttp = new XMLHttpRequest();
+			xhttp.onload = function(){
+				let list = JSON.parse(this.responseText);
+				//console.log(obj);
+				$("tbody").empty();
+				if(list.length == 0){
+					$("tbody").append(
+						"<tr class='emptyWrap'><td colspan='4'>검색 조건에 맞는 공지가 존재하지 않습니다.</td></tr>"	
+					);
+				}else{
+					$(list).each(function(index){
+						$("tbody").append(
+								"<tr>"
+									+ "<td class='noticeCode'>" + list[index].noticeCode + "</td>"
+									+ "<td class='noticeTitle'>" 
+										+ "<a href='/user/noticeDetailView?noticeCode=" + list[index].noticeCode + "'>" + list[index].title + "</a>" 
+									+ "</td>"
+									+ "<td class='noticeRegidate'>" + list[index].regiDate + "</td>"
+									+ "<td class='noticeHit'>" + list[index].hit + "</td>"
+								+ "</tr>"
+						);
+					});
+				}
+				
+			}
+			let select = $("#select").val();
+			let keyword = $("#keyword").val();
+			xhttp.open("get", "getSearchNoticeList.do?select=" + select + "&keyword=" + keyword, true);
+			xhttp.send();
 		}
 	});
 	
 	// 사이드바 메뉴2
-	$(".menu2").on("click", function(){
+	$(".menu1").on("click", function(){
 		location.href = "/user/userNoticeBoard";
 	});
+	$(".menu2").on("click", function(){
+		location.href = "/user/userQnaView";
+	});
+	$(".menu3").on("click", function(){
+		location.href = "/user/theaterView";
+	});
+	
 	
 	// 색깔
 	$(".sideBarMenu").on("mouseover", function(){
 		$(this).css("backgroundColor", "#FB4357");
 		$(this).css("color", "white");
 		if($("main").attr("id") == "noticeBoard"){
-			$(".menu2").css("backgroundColor", "#FB4357");
-			$(".menu2").css("color", "white");
+			$(".menu1").css("backgroundColor", "#FB4357");
+			$(".menu1").css("color", "white");
 		}
 	});
 	
@@ -75,8 +130,8 @@
 		$(this).css("backgroundColor", "white");
 		$(this).css("color", "black");
 		if($("main").attr("id") == "noticeBoard"){
-			$(".menu2").css("backgroundColor", "#FB4357");
-			$(".menu2").css("color", "white");
+			$(".menu1").css("backgroundColor", "#FB4357");
+			$(".menu1").css("color", "white");
 		}
 	});
 	
@@ -86,7 +141,6 @@
 		xhttp.onload = function(){
 			let data = this.responseText;
 			let list = JSON.parse(data);
-			//console.log(list);
 			$("tbody").empty();
 			$(list).each(function(index){
 				$("tbody").append(

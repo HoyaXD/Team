@@ -187,6 +187,7 @@
 				if (rsp.success) {
 			  		// 결제 성공
 					//console.log(rsp);
+			  		let refundCode = rsp.imp_uid;
 					const xhttp = new XMLHttpRequest();
 			  		xhttp.onload = function(){
 			  			let result = parseInt(this.responseText, 10);
@@ -199,7 +200,7 @@
 			  		}
 			  		xhttp.open("post", "/user/order/buyProducts.do", true);
 			  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			  		xhttp.send("orderNum=" + orderNum + "&productCodes=" + productCodes + "&prices=" + prices + "&counts=" + counts + "&id=" + id + "&userName=" + userName);
+			  		xhttp.send("orderNum=" + orderNum + "&productCodes=" + productCodes + "&prices=" + prices + "&counts=" + counts + "&id=" + id + "&userName=" + userName + "&refundCode=" + refundCode);
 				} else {
 			  		// 결제 실패
 			  		alert("결제 실패");

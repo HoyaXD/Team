@@ -65,7 +65,7 @@
 	
 	<!-- 관리자가 답변하면 고객 문의 글에 저장 -->
 	<update id="qnaAdminAnswer">
-		UPDATE qna_mtbl SET contents = #{updateContents} WHERE qcode = #{updateCode}
+		UPDATE qna_mtbl SET answer = #{updateContents}, status = 1 WHERE qcode = #{updateCode} 
 	</update>
 
 

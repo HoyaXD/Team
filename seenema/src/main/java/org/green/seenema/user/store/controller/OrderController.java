@@ -7,6 +7,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import net.nurigo.sdk.message.model.Message;
+
 import org.green.seenema.user.store.mapper.OrderMapper;
 import org.green.seenema.vo.OrderVO;
 import org.json.JSONObject;
@@ -22,7 +24,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
-import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;

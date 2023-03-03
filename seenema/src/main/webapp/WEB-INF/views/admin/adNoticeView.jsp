@@ -18,13 +18,29 @@
 	display: none;
 	background-color: rgba(0, 0, 0, 0.4);
 }
+#text_box{
+	text-align: left;
+}
+#text_box text{
+	padding-top: 5px;
+}
+textarea{
+	border-top: 1px black solid;
+
+}
+#notice_box input{
+	border-top: 1px black solid;
+	width: 564px;
+	height: 25px;
+	margin-top:5px;
+}
 
 #notice_box {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 400px;
-	height: 600px;
+	width: 600px;
+	height: 500px;
 	padding: 40px;
 	text-align: center;
 	background-color: rgb(255, 255, 255);
@@ -86,10 +102,16 @@ textarea {
 		<div class="reginotice_modal">
 			<div id="reginotice_box" style="margin-left: 40px;">
 				공지사항 등록
-				<button id="close_modal">✖️</button>
+				<button id="close_modal">❌</button>
 				<div id="regitext_box" style="margin-top: 30px;">
-					<!-- 인풋박스 -->
 					<form id="regi_frm" method="post">
+				<div id="radio_box">
+					<p><label>중요도</label>
+					<input type="radio" name="importance" value="0">낮음
+					<input type="radio" name="importance" value="1">높음</p>
+				</div>
+				<br>
+					<!-- 인풋박스 -->
 						<label>제목</label><br> <input type="text" name="title"
 							id="regiTitle"
 							style="width: 550px; height: 30px; font-size: 20px;"> <br>
@@ -104,9 +126,10 @@ textarea {
 		</div>
 
 		<div class="notice_modal">
+		
 			<div id="notice_box">
-				모달창 확인
-				<button id="close_modal">X</button>
+				공지사항 수정
+				<button id="close_modal">❌</button>
 				<div id="text_box"></div>
 			</div>
 		</div>
@@ -117,8 +140,7 @@ textarea {
 				<div id="doToday_title" style="width: 970px; height: 30px;">
 					<p style="margin: 30px 0 0 40px;">
 						관리자 공지사항
-						<button type="button" id="regiNotice_btn"
-							style="width: 100px; height: 30px; radius: 8px;">공지사항 등록</button>
+						
 					</p>
 				</div>
 				<div id="each_num">
@@ -151,14 +173,16 @@ textarea {
 							<!-- 공지사항 출력 -->
 						</tbody>
 					</table>
-					<div style="display: inline-flex; margin-left: 240px;">
-						<button id="before_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">이전</button>
+					<button type="button" id="regiNotice_btn"
+							style="width: 100px; height: 30px; radius: 8px; float:left;">공지사항 등록</button>
+					<div id="span_box">
+						<span id="before_btn"><<</span>
 						<div id="pageNum"></div>
-						<button id="next_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">다음</button>
+						<span id="next_btn">>></span>
+						
 					</div>
 				</div>
+				
 			</div>
 
 		</div>
@@ -545,7 +569,7 @@ textarea {
 													let obj = JSON.parse(data);
 													let i = 0;
 
-													for (i; i < 8; i++) {
+													for (i; i < 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -569,7 +593,7 @@ textarea {
 													//페이지 번호나옴
 													$("#pageNum").empty();
 													//데이터가 80개보다 크다면 10개 출력
-													if (obj.length > 80) {
+													if (obj.length > 100) {
 														for (let j = 1; j < 11; j++) {
 															$("#pageNum")
 																	.append(
@@ -577,8 +601,8 @@ textarea {
 																					+ j
 																					+ "</span>");
 														}
-													}else if(obj.length < 80){
-														for (let j = 1; j < obj.length / 8 + 1; j++) {
+													}else if(obj.length < 100){
+														for (let j = 1; j < obj.length / 10 + 1; j++) {
 															$("#pageNum")
 																	.append(
 																			"<span>"
@@ -625,22 +649,19 @@ textarea {
 												$("#text_box").empty();
 												$("#text_box")
 														.append(
-																'<form id="edit_frm" method="post">'
+																'<form id="edit_frm" method="post">' + '<br>'
 																		+ '공지글 번호'
-																		+ '<input type="text" name="noticeCode" id="noticeCode" value="' + obj[0].noticeCode + '"><br>'
-																		+ '등록일자'
-																		+ '<input type="text" name="regiDate" id="regiDate" value="' + obj[0].regiDate + '"><br>'
-																		+ '조회수'
-																		+ '<input type="text" name="hit" id="hit" value="' + obj[0].hit + '"><br>'
-																		+ '제목'
+																	    + "&nbsp;&nbsp;&nbsp;" + obj[0].noticeCode 
+																		+ "&nbsp;&nbsp;&nbsp;" + '등록일자'
+																		+ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + '' + obj[0].regiDate + '<br>'										
+																		+ '제목' 
 																		+ '<input type="text" name="title" id="title" value="' + obj[0].title + '"><br>'
-																		+ '내용'
-																		+ '<textarea name="contents" id="contents" value="' + '" style="width:400px; height:200px; resize: none;">'
+																		+ '내용' + '<br>'
+																		+ '<textarea name="contents" id="contents" value="' + '" style="width:600px; height:350px; resize: none;">'
 																		+ obj[0].contents
 																		+ '</textarea><br>'
-																		+ '<input type="button" value="수정" id="noEdit_btn">'
-																		+ '</form>'
-																		+ '<button id="close_modal">닫기</button>')
+																		+ '<input type="button" value="수정" id="noEdit_btn" style="margin-left:20px;">'
+																		+ '</form>')
 
 											},
 											error : function() {
@@ -681,9 +702,9 @@ textarea {
 													let str = JSON
 															.stringify(data);
 													let obj = JSON.parse(str);
-													let i = (e.target.innerText) * 8 - 8;
+													let i = (e.target.innerText) * 10 - 10;
 
-													for (i; i < e.target.textContent * 8; i++) {
+													for (i; i < e.target.textContent * 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -731,9 +752,9 @@ textarea {
 													let str = JSON
 															.stringify(data);
 													let obj = JSON.parse(str);
-													let i = (e.target.innerText) * 8 - 8;
+													let i = (e.target.innerText) * 10 - 10;
 
-													for (i; i < e.target.innerText * 8; i++) {
+													for (i; i < e.target.innerText * 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -782,9 +803,9 @@ textarea {
 
 													let obj = JSON.parse(str);
 
-													let i = (e.target.innerText) * 8 - 8;
+													let i = (e.target.innerText) * 10 - 10;
 
-													for (i; i < e.target.innerText * 8; i++) {
+													for (i; i < e.target.innerText * 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -895,7 +916,7 @@ textarea {
 													$("#pageNum").empty();
 													$("#noTbody").empty();
 
-													for (i; i < 8; i++) {
+													for (i; i < 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -919,7 +940,7 @@ textarea {
 													}
 													$("#pageNum").empty();
 
-													if (obj.length > 8) {
+													if (obj.length > 100) {
 														for (let j = 1; j < 11; j++) {
 															$("#pageNum")
 																	.append(
@@ -961,7 +982,7 @@ textarea {
 
 													$("#noTbody").empty();
 													$("#pageNum").empty();
-													for (i; i < 8; i++) {
+													for (i; i < 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -985,7 +1006,7 @@ textarea {
 													}
 													$("#pageNum").empty();
 
-													if (obj.length > 8) {
+													if (obj.length > 100) {
 														for (let j = 1; j < 11; j++) {
 															$("#pageNum")
 																	.append(

@@ -16,7 +16,7 @@
 				<li>영화 관리
 					<ul class="submenu">
 						<li><a href="movieReg">영화등록</a></li>
-						<li><a href="movieList">영화 목록 및 괸리</a></li>
+						<li><a href="movieList">영화 목록 및 관리</a></li>
 					</ul>
 				</li>
 				<li>영화관 관리
@@ -25,6 +25,9 @@
 						<li><a href="theaterList">영화관 목록 및 관리</a></li>
 					</ul>
 				</li>
+				<li><a href="adminReservationView">예매내역 관리</a>
+				<ul class="submenu"></ul>
+				</li>
 				<li>상품 관리
 					<ul class="submenu">
 						<li><a href="productReg">상품 등록</a></li>
@@ -32,11 +35,9 @@
 					</ul>
 				</li>
 				<li>매출 관리
-					<ul class="submenu">
+					<ul class="submenu">			
 						<li><a href="movieSalesPage">영화 및 영화관</a></li>
-						<li>매출 현황2</li>
-						<li>매출 현황3</li>
-						<li>매출 현황4</li>
+						<li><a href="adminProductSalesView">상품</a></li>
 					</ul>
 				</li>
 				<li><a href="MemberMGMT">회원관리 관리</a></li>

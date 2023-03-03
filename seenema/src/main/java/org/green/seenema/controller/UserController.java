@@ -9,6 +9,7 @@ import org.green.seenema.user.main.mapper.UserMainMapper;
 import org.green.seenema.vo.MemberVO;
 import org.green.seenema.vo.MovieVO;
 import org.green.seenema.vo.NoticeVO;
+import org.green.seenema.vo.QnaVO;
 import org.green.seenema.vo.ReplyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,9 +49,21 @@ public class UserController {
 		model.addAttribute("member", member);
 	}
 	
+	// Q&A 등록 페이지
+	@GetMapping("/regQnaView")
+	public void regQnaView() {}
+	
 	// 공지사항 가기
 	@GetMapping("/userNoticeBoard")
 	public void userNoticeBoard() {}
+	
+	// QnA가기
+	@GetMapping("/userQnaView")
+	public void userQnaView() {}
+	
+	// 상영관 이동
+	@GetMapping("/theaterView")
+	public void theaterView() {}
 	
 	// 공지 상세보기
 	@GetMapping("/noticeDetailView")
@@ -58,13 +71,22 @@ public class UserController {
 		NoticeVO notice = noticeMapper.getNoticeInfo(noticeCode);
 		notice.setContents(notice.getContents().replaceAll("\n", "<br>"));
 		model.addAttribute("notice", notice);
-		plusView(noticeCode);
+		plusView(noticeCode);	// 조회수 메서드
 	}
 	
 	// 조회수 증가
 	public void plusView(int noticeCode) {
 		noticeMapper.plusView(noticeCode);	// 조회수 +1
 	}
+	
+	// Q&A 상세보기
+	@GetMapping("/qnaDetailView")
+	public void qnaDetailView(int qcode, Model model) {
+		QnaVO qna = noticeMapper.getQnaInfo(qcode);
+		qna.setAnswer(qna.getAnswer().replaceAll("\n", "<br>"));
+		model.addAttribute("qna", qna);
+	}
+	
 	
 	// 영화 상세보기
 	@GetMapping("/movieDetailView")
