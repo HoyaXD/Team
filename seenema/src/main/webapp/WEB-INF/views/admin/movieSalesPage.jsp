@@ -28,38 +28,43 @@
                 <div id="list_title"><!-- 영화예매top5 -->
                   	<span id="sales_title"></span>
                 </div>
-                <table id="movie_sales_tbl">
-                    <thead>
-                        <tr>
-                            <th>순위</th><th>제목</th><th>예매율</th>
-                        </tr>
-                    </thead>
-                    <tbody id="movie_sales_tbl_tbody">
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div id="list3_menu"><!-- 영화관별예매top5 -->
-                    <div id="list_title">
-                       <span id="sales_title3"></span>
-                    </div>
-                    <table id="movie_sales_tbl">
+                <div id="tbl_box">
+	                <table id="movie_sales_tbl">
 	                    <thead>
 	                        <tr>
-	                            <th>순위</th><th>영화관</th><th>예매율</th>
+	                            <th>순위</th><th>제목</th><th>예매율</th>
 	                        </tr>
 	                    </thead>
-	                    <tbody id="theater_sales_tbl_tbody">
+	                    <tbody id="movie_sales_tbl_tbody">
 	                        <tr>
 	                            <td></td>
 	                            <td></td>
 	                            <td></td>
 	                        </tr>
 	                    </tbody>
-                	</table>
+	                </table>
+	            </div>
+	            
+                <div id="list3_menu"><!-- 영화관별예매top5 -->
+                    <div id="list_title">
+                       <span id="sales_title3"></span>
+                    </div>
+                    <div id="tbl_box">
+	                    <table id="movie_sales_tbl">
+		                    <thead>
+		                        <tr>
+		                            <th>순위</th><th>영화관</th><th>예매율</th>
+		                        </tr>
+		                    </thead>
+		                    <tbody id="theater_sales_tbl_tbody">
+		                        <tr>
+		                            <td></td>
+		                            <td></td>
+		                            <td></td>
+		                        </tr>
+		                    </tbody>
+	                	</table>
+                    </div>
                 </div><!-- list3 -->
                 <div id="list1_menu_2">
                 	<div id="list_title">
@@ -71,7 +76,7 @@
                     <table id="gender_sales_tbl">
                     	<thead id="genderTbl_thead">
 	                    	<tr>
-	                    		<th colspan="3">성별에 따른 선호 영화</th>
+	                    		<td colspan="3">성별에 따른 선호 영화</td>
 	                    	</tr>
 	                    	<tr>
 	                    		<th>성별</th>
@@ -83,7 +88,7 @@
                     	</tbody>
                     	<tbody id="genderTbl_tbody1_1" style="display:none;">
                     		<tr>
-                    			<th colspan="3">남성 선호 영화 <button id="btn_x">X</button></th>
+                    			<th colspan="3">남성 선호 영화 <span id="btn_box"><button id="btn_x"> ✕ </button></span></th>
                     			
                     		</tr>
                     		<tr>
@@ -96,7 +101,7 @@
                     	</tbody>
                     	<tbody id="genderTbl_tbody2_2" style="display:none;">
                     		<tr>
-                    			<th colspan="3">여성 선호 영화 <button id="btn_x2">X</button></th>
+                    			<th colspan="3">여성 선호 영화  <span id="btn_box"><button id="btn_x2"> ✕ </button></span></th>
                     			
                     		</tr>
                     		<tr>
@@ -108,7 +113,7 @@
                     </table>
                    
                     <div id="gender_tbl_notice">
-                    	성별을 클릭하시면 전체보기가 실행됩니다.
+                    	⬆️ 성별을 클릭하시면 전체보기가 실행됩니다.
                     </div>
                 </div>
             </div><!-- list1 -->
@@ -117,14 +122,14 @@
                    	<span id="sales_title2"></span> 
                 </div>
                 <div id="chart">
-                    <div id="movie_chart_today" style="width:495px; height: 300px;"></div>
+                    <div id="movie_chart_today" style="width:495px; height: 295px;"></div>
                 </div>
                 <div id="list4_menu">
                 	 <div id="list_title">
                    		<span id="sales_title4"></span> <!-- 영화관 별 예매량 -->
                 	</div>
 					<div id="chart">
-						<div id="theaterCntGraph" style="width:495px; height: 300px;"></div>
+						<div id="theaterCntGraph" style="width:520px; height: 295px;"></div>
 					</div>
                 </div><!-- list4 -->
                <div id="list5_menu">
@@ -132,7 +137,10 @@
                    		장르 별 예매량
                 	</div>
 					<div id="chart">
-						<div id="genreCntGraph" style="width:495px; height: 300px;"></div>
+						<div id="genreCntGraph" style="width:500px; height: 295px;"></div>
+					</div>
+					<div>
+						hi
 					</div>
                 </div><!-- list4 -->
             </div><!-- list2 -->
@@ -141,13 +149,13 @@
 	</div>
 	
 	<div class="popup_movieInfo" style="display:none;">
-		<table id="popup_tbl" border="1">
+		<table id="popup_tbl">
 			<tbody id="popup_tbl_tbody">
 			</tbody>
 		</table>
 	</div>
 	<div class="popup_theaterInfo" style="display:none;">
-		<table id="popup_theaterInfo_tbl" border="1">
+		<table id="popup_theaterInfo_tbl">
 			<tbody id="thaterInfo_tbody">
 			</tbody>
 		</table>
@@ -187,8 +195,6 @@
         $("#sales_title2").html(month + "월 영화 총 예매량")
         $("#sales_title3").html(month + "월 영화관 별 총 예매율")
         $("#sales_title4").html(month + "월 영화관 별 총 예매량")
-        
-        
     </script>
     <script>
     	//한달 전체 영화 관람객수
@@ -280,7 +286,41 @@
 			}).show();
 				
 	    });
-	    
+		//성별 테이블 마우스오버시 영화정보출력
+		$(document).on("mouseover", "#movie_info", mouseOverEventMovie);
+		$(document).on("mouseover", "#movie_info", function(e){
+	    	
+	    	let sWidth = window.innerWidth;
+			let sHeight = window.innerHeight;
+
+			let oWidth = $(".popup_movieInfo").width();
+			let oHeight = $(".popup_movieInfo").height();
+
+			// 레이어가 나타날 위치를 셋팅한다.
+			let divLeft = e.clientX + 50;
+			let divTop = e.clientY + 500;
+
+			// 레이어가 화면 크기를 벗어나면 위치를 바꾸어 배치한다.
+			/* if( divLeft + oWidth > sWidth ) divLeft -= oWidth;
+			if( divTop + oHeight > sHeight ) divTop -= oHeight; */
+
+			// 레이어 위치를 바꾸었더니 상단기준점(0,0) 밖으로 벗어난다면 상단기준점(0,0)에 배치하자.
+			if( divLeft < 0 ) divLeft = 0;
+			if( divTop < 0 ) divTop = 0;
+
+			$(".popup_movieInfo").css({
+				"top": divTop,
+				"left": divLeft,
+				"position": "absolute"
+			}).show();
+	    });
+		
+		//성별테이블 mouseleave시 popup hide
+		$(document).on("mouseleave", "#movie_info", function(){
+			$(".popup_movieInfo").css("display", "none");
+		});
+		
+		//마우스오버시 영화정보출력
 	    function mouseOverEventMovie(e){
 			let movieCode = e.target.previousElementSibling.children[0].value;
 			
@@ -291,7 +331,7 @@
 	    		let obj = JSON.parse(result);
 	    		$("#popup_tbl_tbody").append(
 	    				"<tr>"+
-	    					"<th colspan='2'>"+
+	    					"<th colspan='2' id='poster'>"+
 	    					"<img src='/resources/images/"+obj.postFileName+"' width='150px;' height='200px;'>"+
 	    					"</th>"+
 	    				"</tr>"+
@@ -398,7 +438,7 @@
 	                },
 	                legend : 'none',
 	                series: {1: {type: 'line'}},
-	                chartArea: {'width': '90%', 'height': '70%'}
+	                chartArea: {'width': '90%', 'height': '69%'}
 	            };
 	
 	            var chart = new google.visualization.ColumnChart(document.getElementById('movie_chart_today'));
@@ -486,7 +526,7 @@
 	                legend : 'none',
 	                series: {1: {type: 'line'}},
 	                
-	                chartArea: {'width': '90%', 'height': '70%'}
+	                chartArea: {'width': '90%', 'height': '80%'}
 	            };
 	
 	            var chart = new google.visualization.ComboChart(document.getElementById('theaterCntGraph'));
@@ -551,11 +591,11 @@
 	    				"<tr>"+
 	    					"<th>연락처</th>"+
 	    					"<td>"+obj.theaterTel+"</td>"+
-	    				"</tr>"+
-	    				"<tr>"+
+	    				"</tr>");
+	    				/* "<tr>"+
 	    					"<th>총 좌석</th>"+
 	    					"<td>"+(parseInt(obj.seat_column)+parseInt(obj.seat_row))+"</td>"+
-	    				"</tr>");
+	    				"</tr>"); */
 	    		
  			}
  					
@@ -589,8 +629,11 @@
 	    		let maleLike = parseInt(obj[0].reservationCnt) / maleAllCnt * 100;
 	    		$("#genderTbl_tbody").append(
 	    				"<tr>"+
-	    					"<th id='tbl_male_cnt'>남</th>"+
-	    					"<td><a href='movieUpdate?movieCode="+obj[0].movieCode+"'>"+obj[0].movieTitle+"</a></td>"+
+	    					"<td id='tbl_male_cnt'>"+
+	    						"남"+
+	    						"<input type='hidden' value='"+obj[0].movieCode+"'>"+
+	    					"</td>"+
+	    					"<td id='movie_info'><a href='movieUpdate?movieCode="+obj[0].movieCode+"'>"+obj[0].movieTitle+"</a></td>"+
 	    					"<td>"+Math.round(maleLike)+"%</td>"+
 	    				"</tr>");
 	    		
@@ -602,8 +645,11 @@
 	    			let cnt_rate = parseInt(obj[j].reservationCnt) / maleReservedCnt * 100;
 	    			$("#genderTbl_tbody1_1").append(
 	    					"<tr>"+
-		    					"<td>"+(j+1)+"</td>"+
-		    					"<td><a href='movieUpdate?movieCode="+obj[j].movieCode+"'>"+obj[j].movieTitle+"</a></td>"+
+		    					"<td>"+
+		    						(j+1)+
+		    						"<input type='hidden' value='"+obj[j].movieCode+"'>"+
+		    					"</td>"+
+		    					"<td id='movie_info'><a href='movieUpdate?movieCode="+obj[j].movieCode+"'>"+obj[j].movieTitle+"</a></td>"+
 		    					"<td>"+Math.round(cnt_rate)+"%</td>"+
 	    					"</tr>");
 	    		}
@@ -615,10 +661,9 @@
 		    			$("#genderTbl_tbody").hide();
 		    			$("#genderTbl_tbody2").hide();
 		    			$("#gender_tbl_notice").hide();
-		    			$("#genderTbl_tbody1_1").show().css({
-		    				"background-color":"white", 
-		    				"border":"1px solid black"});
-		    			$(".gamut1").css("height", "2000px");
+		    			$("#genderTbl_tbody1_1").show();
+		    			$(".gamut1").css("height", "1600px");
+		    			$("html, body").stop().animate({ scrollTop : "+=160" });
 	    			}
 	    		});
 	    		
@@ -666,8 +711,11 @@
 	    		let femaleLike = parseInt(obj[0].reservationCnt) / femaleAllCnt * 100;
 	    		$("#genderTbl_tbody2").append(
 	    				"<tr>"+
-	    					"<th id='tbl_female_cnt'>여</th>"+
-	    					"<td><a href='movieUpdate?movieCode="+obj[0].movieCode+"'>"+obj[0].movieTitle+"</a></td>"+
+	    					"<td id='tbl_female_cnt'>"+
+	    						"여"+
+	    						"<input type='hidden' value='"+obj[0].movieCode+"'>"+
+	    					"</td>"+
+	    					"<td id='movie_info'><a href='movieUpdate?movieCode="+obj[0].movieCode+"'>"+obj[0].movieTitle+"</a></td>"+
 	    					"<td>"+Math.round(femaleLike)+"%</td>"+
 	    				"</tr>");
 	    		
@@ -676,8 +724,11 @@
 	    			let cnt_rate = parseInt(obj[j].reservationCnt) / _femaleCnt * 100;
 	    			$("#genderTbl_tbody2_2").append(
 	    					"<tr>"+
-		    					"<td>"+(j+1)+"</td>"+
-		    					"<td><a href='movieUpdate?movieCode="+obj[j].movieCode+"'>"+obj[j].movieTitle+"</a></td>"+
+		    					"<td>"+
+		    						(j+1)+
+		    						"<input type='hidden' value='"+obj[j].movieCode+"'>"+
+		    					"</td>"+
+		    					"<td id='movie_info'><a href='movieUpdate?movieCode="+obj[j].movieCode+"'>"+obj[j].movieTitle+"</a></td>"+
 		    					"<td>"+Math.round(cnt_rate)+"%</td>"+
 	    					"</tr>");
 	    		}
@@ -688,10 +739,9 @@
 		    			$("#genderTbl_tbody").hide();
 		    			$("#genderTbl_tbody2").hide();
 		    			$("#gender_tbl_notice").hide();
-		    			$("#genderTbl_tbody2_2").show().css({
-		    				"background-color":"white", 
-		    				"border":"1px solid black"});
-		    			$(".gamut1").css("height", "2000px");
+		    			$("#genderTbl_tbody2_2").show();
+		    			$(".gamut1").css("height", "1600px");
+		    			$("html, body").stop().animate({ scrollTop : "+=160" });
 	    			}
 	    			
 	    		});
@@ -705,8 +755,9 @@
     			
 	    		xhttp.send();
 	    	}
-    	}
+    	};
     	
+		//x버튼 누르면 성별전체보기 닫기
 		$("#btn_x").click(function(){
 			$("#genderTbl_thead").show();
 			$("#genderTbl_tbody").show();
@@ -714,6 +765,7 @@
 			$("#gender_tbl_notice").show();
 			$("#genderTbl_tbody1_1").hide();
 			$(".gamut1").css("height", "1500px");
+			$('html, body').animate({ scrollTop: "-=80"}, 500);
         });
 		$("#btn_x2").click(function(){
 			$("#genderTbl_thead").show();
@@ -722,6 +774,7 @@
 			$("#gender_tbl_notice").show();
 			$("#genderTbl_tbody2_2").hide();
 			$(".gamut1").css("height", "1500px");
+			$('html, body').animate({ scrollTop: "-=80"}, 500);
 		});
         
     	//성별에 따른 파이차트
@@ -732,9 +785,9 @@
 	        google.charts.setOnLoadCallback(function() {
 	            var data = new google.visualization.DataTable();
 	            data.addColumn('string', '성별');
-	            
 	            data.addColumn('number', '예매율');
-				
+	            
+	            
 	            let arr = new Array();
 				arr[0] = ["남", maleCnt];
 				arr[1] = ["여", femaleCnt];
@@ -745,6 +798,7 @@
 	                seriesType: 'pie',
 	                is3D: true,
 	                fontSize: '15',
+	                colors: ['#0299C6', '#DD4477'],
 	                series: {1: {type: 'line'}},
 	                chartArea: {'width': '100%', 'height': '80%'},
 	            
@@ -886,12 +940,12 @@
 	                fontSize: '15',
 	                series: {1: {type: 'line'}},
 	                chartArea: {'width': '100%', 'height': '80%'}
-	            
 	            };
-	
+				
 	            var chart = new google.visualization.PieChart(document.getElementById('genreCntGraph'));
 	            chart.draw(data, options);
 	        });
+	        
 	    }
     </script>
 </body>

@@ -232,7 +232,7 @@
 	      }else if($("#serchType option:selected").val() == "theaterPlace"){
 	         $("#serchBox").html("<input type='text' id='serchWord' placeholder='지역명을 입력해주세요.'>");
 	      }else if($("#serchType option:selected").val() == "theaterTel"){
-	         $("#serchBox").html("<input type='text' id='serchWord' placeholder='연락처를 입력해주세요.'>");
+	         $("#serchBox").html("<input type='text' id='serchWord' maxlength='13' placeholder='연락처를 입력해주세요.'>");
 	      }
 		});
 	
@@ -419,7 +419,80 @@
 		}
 	}
 	</script>
-	
+	<script>
+		//검색 유효성검사
+		$("#btn_serch").on("click", function(){
+			if($("#serchType").val() == "-선택-"){
+				alert("검색 할 카테고리를 먼저 선택해주세요.");
+				$("#serchType").css("border", "1px solid red");
+			}
+			if($("#serchWord").val() == ""){
+				alert("검색어를 입력해주세요.");
+				$("#serchWord").css("border", "1px solid red");
+			}
+		});
+		
+		//카테고리 선택 완료 시 테두리 red->lightgray
+		$("#serchType").on("change", function(){
+			$("#serchType").css("border", "1px solid lightgray");
+		})
+		//검색어 입력완료 시 테두리 red->lightgray
+		$(document).on("change", "#serchWord", function(){
+			$("#serchWord").css("border", "1px solid lightgray");
+		});
+		
+		//연락처 하이픈 자동 삽입
+  		let autoHypenTel = function(str){
+  	      str = str.replace(/[^0-9]/g, '');
+  	      let tmp = '';
+  	      if( str.length < 4){
+  	          return str;
+  	      }else if(str.length < 7){
+  	          tmp += str.substr(0, 3);
+  	          tmp += '-';
+  	          tmp += str.substr(3);
+  	          return tmp;
+  	      }else if(str.length < 11){
+  	          tmp += str.substr(0, 3);
+  	          tmp += '-';
+  	          tmp += str.substr(3, 3);
+  	          tmp += '-';
+  	          tmp += str.substr(6);
+  	          return tmp;
+  	      }else{              
+  	          tmp += str.substr(0, 3);
+  	          tmp += '-';
+  	          tmp += str.substr(3, 4);
+  	          tmp += '-';
+  	          tmp += str.substr(7);
+  	          return tmp;
+  	      }
+  	  
+  	      return str;
+  		}
+  		
+		//연락처 숫자만 입력되도록
+		$("#serchType").on("change", function(){
+			if($("#serchType option:selected").val() == "theaterTel"){
+				$("#serchWord").on("keyup", function(e){
+					if(e.keyCode > 47 && e.keyCode < 58 ||
+						e.keyCode === 8 || //backspace
+						e.keyCode === 37 || //방향키
+						e.keyCode === 39 || //방향키
+						e.keyCode === 46 ||//delete키
+						e.keyCode === 9 ||//tab키
+						e.keyCode === 13){ //enter키 
+							$("#price").css("border", "1px solid lightgray");
+							this.value = autoHypenTel(this.value) ;  
+					}else{
+						/* alert($("#serchWord").val()); */
+						$("#serchWord").val("");
+						alert("숫자만 입력가능합니다.");
+					}
+				});
+			}
+		})
+	</script>
 	<c:if test="${param.insert_result == 1}">
 		<script>
 			alert("등록완료!");

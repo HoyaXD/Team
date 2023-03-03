@@ -16,7 +16,7 @@
 				<li>영화 관리
 					<ul class="submenu">
 						<li><a href="movieReg">영화등록</a></li>
-						<li><a href="movieList">영화 목록 및 괸리</a></li>
+						<li><a href="movieList">영화 목록 및 관리</a></li>
 					</ul>
 				</li>
 				<li>영화관 관리
