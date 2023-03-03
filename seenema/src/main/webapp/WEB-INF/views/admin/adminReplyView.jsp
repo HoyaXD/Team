@@ -21,7 +21,7 @@
 
 			<div id="doToday_menu">
 				<div id="doToday_title" style="width: 970px; height: 30px;">
-					<p style="margin: 30px 0 0 40px;">한줄평 페이지 test</p>
+					<p style="margin: 30px 0 0 40px;">한줄평 페이지</p>
 				</div>
 				<div id="each_num">
 					<select id="choiceMenu">
@@ -55,12 +55,10 @@
 
 						</tbody>
 					</table>
-					<div style="display: inline-flex; margin-left: 240px;">
-						<button id="before_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">이전</button>
+					<div id="span_box">
+						<span id="before_btn"><<</span>
 						<div id="pageNum"></div>
-						<button id="next_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">다음</button>
+						<span id="next_btn">>></span>
 					</div>
 				</div>
 			</div>
@@ -87,7 +85,7 @@
 												let i = 0;
 												$("#before_btn").hide();
 												
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 
 													$("#replyTbody")
 															.append(
@@ -112,7 +110,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -120,8 +118,8 @@
 																				+ j
 																				+ "</span>");
 													}
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -172,7 +170,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#replyTbody").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
@@ -195,7 +193,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -203,8 +201,8 @@
 																				+ j
 																				+ "</span>");
 													}
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -240,7 +238,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#replyTbody").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
@@ -263,7 +261,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -271,8 +269,8 @@
 																				+ j
 																				+ "</span>");
 													}
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -308,7 +306,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#replyTbody").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
@@ -331,7 +329,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -339,8 +337,8 @@
 																				+ j
 																				+ "</span>");
 													}
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -394,9 +392,9 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
@@ -440,9 +438,9 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
@@ -486,9 +484,9 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
@@ -532,9 +530,9 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
@@ -825,7 +823,7 @@
 												$("#pageNum").empty();
 												$("#before_btn").show();
 												
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 												
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
@@ -840,9 +838,9 @@
 															.first()
 															.click();
 													
-												} else if (lastNum + 11 > obj / 8 + 1) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
 													
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -883,7 +881,7 @@
 														.text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -896,8 +894,8 @@
 															.children()
 															.first()
 															.click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -939,7 +937,7 @@
 														.text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -952,8 +950,8 @@
 															.children()
 															.first()
 															.click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -995,7 +993,7 @@
 														.text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(

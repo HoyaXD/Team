@@ -104,8 +104,14 @@ textarea {
 				공지사항 등록
 				<button id="close_modal">❌</button>
 				<div id="regitext_box" style="margin-top: 30px;">
-					<!-- 인풋박스 -->
 					<form id="regi_frm" method="post">
+				<div id="radio_box">
+					<p><label>중요도</label>
+					<input type="radio" name="importance" value="0">낮음
+					<input type="radio" name="importance" value="1">높음</p>
+				</div>
+				<br>
+					<!-- 인풋박스 -->
 						<label>제목</label><br> <input type="text" name="title"
 							id="regiTitle"
 							style="width: 550px; height: 30px; font-size: 20px;"> <br>
@@ -134,8 +140,7 @@ textarea {
 				<div id="doToday_title" style="width: 970px; height: 30px;">
 					<p style="margin: 30px 0 0 40px;">
 						관리자 공지사항
-						<button type="button" id="regiNotice_btn"
-							style="width: 100px; height: 30px; radius: 8px;">공지사항 등록</button>
+						
 					</p>
 				</div>
 				<div id="each_num">
@@ -168,14 +173,16 @@ textarea {
 							<!-- 공지사항 출력 -->
 						</tbody>
 					</table>
-					<div style="display: inline-flex; margin-left: 240px;">
-						<button id="before_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">이전</button>
+					<button type="button" id="regiNotice_btn"
+							style="width: 100px; height: 30px; radius: 8px; float:left;">공지사항 등록</button>
+					<div id="span_box">
+						<span id="before_btn"><<</span>
 						<div id="pageNum"></div>
-						<button id="next_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">다음</button>
+						<span id="next_btn">>></span>
+						
 					</div>
 				</div>
+				
 			</div>
 
 		</div>
@@ -562,7 +569,7 @@ textarea {
 													let obj = JSON.parse(data);
 													let i = 0;
 
-													for (i; i < 8; i++) {
+													for (i; i < 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -586,7 +593,7 @@ textarea {
 													//페이지 번호나옴
 													$("#pageNum").empty();
 													//데이터가 80개보다 크다면 10개 출력
-													if (obj.length > 80) {
+													if (obj.length > 100) {
 														for (let j = 1; j < 11; j++) {
 															$("#pageNum")
 																	.append(
@@ -594,8 +601,8 @@ textarea {
 																					+ j
 																					+ "</span>");
 														}
-													}else if(obj.length < 80){
-														for (let j = 1; j < obj.length / 8 + 1; j++) {
+													}else if(obj.length < 100){
+														for (let j = 1; j < obj.length / 10 + 1; j++) {
 															$("#pageNum")
 																	.append(
 																			"<span>"
@@ -695,9 +702,9 @@ textarea {
 													let str = JSON
 															.stringify(data);
 													let obj = JSON.parse(str);
-													let i = (e.target.innerText) * 8 - 8;
+													let i = (e.target.innerText) * 10 - 10;
 
-													for (i; i < e.target.textContent * 8; i++) {
+													for (i; i < e.target.textContent * 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -745,9 +752,9 @@ textarea {
 													let str = JSON
 															.stringify(data);
 													let obj = JSON.parse(str);
-													let i = (e.target.innerText) * 8 - 8;
+													let i = (e.target.innerText) * 10 - 10;
 
-													for (i; i < e.target.innerText * 8; i++) {
+													for (i; i < e.target.innerText * 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -796,9 +803,9 @@ textarea {
 
 													let obj = JSON.parse(str);
 
-													let i = (e.target.innerText) * 8 - 8;
+													let i = (e.target.innerText) * 10 - 10;
 
-													for (i; i < e.target.innerText * 8; i++) {
+													for (i; i < e.target.innerText * 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -909,7 +916,7 @@ textarea {
 													$("#pageNum").empty();
 													$("#noTbody").empty();
 
-													for (i; i < 8; i++) {
+													for (i; i < 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -933,7 +940,7 @@ textarea {
 													}
 													$("#pageNum").empty();
 
-													if (obj.length > 8) {
+													if (obj.length > 100) {
 														for (let j = 1; j < 11; j++) {
 															$("#pageNum")
 																	.append(
@@ -975,7 +982,7 @@ textarea {
 
 													$("#noTbody").empty();
 													$("#pageNum").empty();
-													for (i; i < 8; i++) {
+													for (i; i < 10; i++) {
 														$("#noTbody")
 																.append(
 																		'<tr><td style="height:50px;">'
@@ -999,7 +1006,7 @@ textarea {
 													}
 													$("#pageNum").empty();
 
-													if (obj.length > 8) {
+													if (obj.length > 100) {
 														for (let j = 1; j < 11; j++) {
 															$("#pageNum")
 																	.append(

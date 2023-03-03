@@ -23,7 +23,7 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	width: 600px;
+	width: 1000px;
 	height: 400px;
 	padding: 40px;
 	text-align: center;
@@ -31,6 +31,10 @@
 	border-radius: 10px;
 	box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
 	transform: translateX(-50%) translateY(-50%);
+}
+#ans_box > #text_box{
+	position: relative;
+	float:left;
 }
 #text_box button{
 	width: 50px;
@@ -91,12 +95,10 @@
 
 						</tbody>
 					</table>
-					<div style="display: inline-flex; margin-left: 240px;">
-						<button id="before_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">이전</button>
+					<div id="span_box">
+						<span id="before_btn"><<</span>
 						<div id="pageNum"></div>
-						<button id="next_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">다음</button>
+						<span id="next_btn">>></span>
 					</div>
 				</div>
 
@@ -123,7 +125,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													//regidate가 타입이 timestamp라서 10번째까지 잘라줌
 													var resultDate = obj[i].regiDate
 															.substring(0, 10);
@@ -150,7 +152,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -159,8 +161,8 @@
 																				+ "</span>");
 													}
 													$("#before_btn").hide();
-												}else if (obj.length < 80) {
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if (obj.length < 100) {
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -210,9 +212,9 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													//regidate가 타입이 timestamp라서 10번째까지 잘라줌
 													var resultDate = obj[i].regiDate
 															.substring(0, 10);
@@ -262,9 +264,9 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 01;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													//regidate가 타입이 timestamp라서 10번째까지 잘라줌
 													var resultDate = obj[i].regiDate
 															.substring(0, 10);
@@ -316,9 +318,9 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													//regidate가 타입이 timestamp라서 10번째까지 잘라줌
 													var resultDate = obj[i].regiDate
 															.substring(0, 10);
@@ -370,9 +372,9 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													//regidate가 타입이 timestamp라서 10번째까지 잘라줌
 													var resultDate = obj[i].regiDate
 															.substring(0, 10);
@@ -440,18 +442,17 @@
 											$("#text_box").empty();
 											$("#text_box")
 													.append(
-															'<br><div style="width:600px; text-align:left;"><span id="regiQcode">문의번호 : '+ obj.qcode + '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + '제목 : ' + obj.title + '</div><br>'
-														  + '<div style="width:600px; text-align:left;">작성자 : '+ obj.id + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + '등록시간 : '+  resultDate + '&nbsp;&nbsp;&nbsp;' + resultTime +'</div><br>'
+															'<br><div style="width:450px; text-align:left;"><span id="regiQcode">문의번호 : '+ obj.qcode + '</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + '제목 : ' + obj.title + '</div><br>'
+														  + '<div style="width:450px; text-align:left;">작성자 : '+ obj.id + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + '등록시간 : '+  resultDate + '&nbsp;&nbsp;&nbsp;' + resultTime +'</div><br>'
 														
-														  + '<div style="width:600px; text-align:left;">내용</div><br>'
-																	+ '<textarea id="text_val" style="width:600px; height:200px; resize: none;">'
+														  + '<div style="width:450px; text-align:left;">내용</div><br>'
+																	+ '<textarea style="width:450px; height:241px; resize: none;" readonly;>'
 																	+ obj.contents
 																	+ '\n\n'
-																	+ '-------------------------------------------------------'
-																	+ '\n\n'
-																	+ '안녕하세요. 영화를 사랑하는 Seenema 고객센터입니다.</textarea><br>'
-																	+ '<button id="qnaRegi_btn" style="width:100px; margin-top:10px;">답변등록하기</button>'
+																	
 																	);
+											$("#text_box").after('<br>'+'<textarea id="text_val" style="width:450px; height:350px; resize: none;" readonly;>');
+											$("#text_box").after('<button id="qnaRegi_btn">답변등록</button>');
 
 										},
 										error : function() {
@@ -469,7 +470,7 @@
 				type : "post",
 				url : "qnaAdminAnswer",
 				data : { qcode : qcode,
-					contents : contents },
+					answer : contents },
 			 
 			 	dataType : "text",
 			 	success : function(data){
@@ -512,7 +513,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#qnaTbody").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													//regidate가 타입이 timestamp라서 10번째까지 잘라줌
 													var resultDate = obj[i].regiDate
 															.substring(0, 10);
@@ -539,7 +540,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -549,8 +550,8 @@
 													}
 													$("#next_btn").show();
 													$("#before_btn").hide();
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -586,7 +587,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#qnaTbody").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													//regidate가 타입이 timestamp라서 10번째까지 잘라줌
 													var resultDate = obj[i].regiDate
 															.substring(0, 10);
@@ -613,7 +614,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -623,8 +624,8 @@
 													}
 													$("#next_btn").show();
 													$("#before_btn").hide();
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -659,7 +660,7 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#qnaTbody").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													//regidate가 타입이 timestamp라서 10번째까지 잘라줌
 													var resultDate = obj[i].regiDate
 															.substring(0, 10);
@@ -686,7 +687,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -697,8 +698,8 @@
 													$("#next_btn").show();
 													$("#before_btn").hide();
 
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -980,7 +981,7 @@
 												$("#pageNum").empty();
 												$("#before_btn").show();
 												
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 												
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
@@ -995,9 +996,9 @@
 															.first()
 															.click();
 													
-												} else if (lastNum + 11 > obj / 8 + 1) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
 													
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -1038,7 +1039,7 @@
 														.text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -1051,8 +1052,8 @@
 															.children()
 															.first()
 															.click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -1094,7 +1095,7 @@
 														.text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -1107,8 +1108,8 @@
 															.children()
 															.first()
 															.click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -1150,7 +1151,7 @@
 														.text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -1163,8 +1164,8 @@
 															.children()
 															.first()
 															.click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -1184,7 +1185,7 @@
 												alert("실패");
 											}
 
-										});
+										});	
 							}
 						});
 		

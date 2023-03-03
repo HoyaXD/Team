@@ -90,8 +90,9 @@ public class AdminQnaController {
 		}
 		
 		@PostMapping("/qnaAdminAnswer")
-		public @ResponseBody void qnaAdminAnswer(int qcode, String contents) {
-			adMapper.qnaAdminAnswer(qcode, contents);
+		public @ResponseBody void qnaAdminAnswer(int qcode, String answer) {
+			log.info(answer);
+			adMapper.qnaAdminAnswer(qcode, answer);
 		}
 
 }

@@ -47,8 +47,10 @@
 }
 
 h4 {
-	margin-left: 20px;
+	background-color : rgb(62, 77, 89);
+	/* //margin-left: 20px; */
 	font-size: 23px;
+	color: white;
 }
 
 #sm2 > #qnaView_box {
@@ -88,4 +90,11 @@ h4 {
 	white-space:nowrap;
 	text-overflow:ellipsis; 
 	resize: none;
+}
+#alink{
+	color: #f9f9f9;
+	float:right;
+	margin-top:5px;
+	margin-right: 20px;
+	font-size: 15px;
 }
