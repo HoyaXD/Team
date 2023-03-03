@@ -41,6 +41,7 @@
 							<tr>
 								<th>번호</th>
 								<th>영화코드</th>
+								<th>영화제목</th>
 								<th>한줄평</th>
 								<th>아이디</th>
 								<th>별점</th>
@@ -54,12 +55,10 @@
 
 						</tbody>
 					</table>
-					<div style="display: inline-flex; margin-left: 240px;">
-						<button id="before_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">이전</button>
+					<div id="span_box">
+						<span id="before_btn"><<</span>
 						<div id="pageNum"></div>
-						<button id="next_btn"
-							style="margin-left: 20px; margin-top: 23px; height: 30px; width: 40px;">다음</button>
+						<span id="next_btn">>></span>
 					</div>
 				</div>
 			</div>
@@ -85,8 +84,8 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#before_btn").hide();
-
-												for (i; i < 8; i++) {
+												
+												for (i; i < 10; i++) {
 
 													$("#replyTbody")
 															.append(
@@ -94,6 +93,9 @@
 																			+ obj[i].replyCode
 																			+ '</td><td>'
 																			+ obj[i].movieCode
+																			+ '</td><td>'
+																			
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:200px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -108,7 +110,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -116,8 +118,8 @@
 																				+ j
 																				+ "</span>");
 													}
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -168,13 +170,15 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#replyTbody").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -189,7 +193,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -197,8 +201,8 @@
 																				+ j
 																				+ "</span>");
 													}
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -234,13 +238,15 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#replyTbody").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -255,7 +261,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -263,8 +269,8 @@
 																				+ j
 																				+ "</span>");
 													}
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -300,13 +306,15 @@
 												let obj = JSON.parse(str);
 												let i = 0;
 												$("#replyTbody").empty();
-												for (i; i < 8; i++) {
+												for (i; i < 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -321,7 +329,7 @@
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
-												if (obj.length > 80) {
+												if (obj.length > 100) {
 													for (let j = 1; j < 11; j++) {
 														$("#pageNum")
 																.append(
@@ -329,8 +337,8 @@
 																				+ j
 																				+ "</span>");
 													}
-												}else if(obj.length < 80){
-													for (let j = 1; j < obj.length / 8 + 1; j++) {
+												}else if(obj.length < 100){
+													for (let j = 1; j < obj.length / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -384,15 +392,17 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -428,15 +438,17 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -472,15 +484,17 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -516,15 +530,17 @@
 											success : function(data) {
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
-												let i = (e.target.innerText) * 8 - 8;
+												let i = (e.target.innerText) * 10 - 10;
 
-												for (i; i < e.target.innerText * 8; i++) {
+												for (i; i < e.target.innerText * 10; i++) {
 													$("#replyTbody")
 															.append(
 																	'<tr><td>'
 																			+ obj[i].replyCode
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].movieCode
+																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+																			+ obj[i].movieTitle
 																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
 																			+ obj[i].comment
 																			+ '</td><td>'
@@ -807,7 +823,7 @@
 												$("#pageNum").empty();
 												$("#before_btn").show();
 												
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 												
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
@@ -822,9 +838,9 @@
 															.first()
 															.click();
 													
-												} else if (lastNum + 11 > obj / 8 + 1) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
 													
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -865,7 +881,7 @@
 														.text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -878,8 +894,8 @@
 															.children()
 															.first()
 															.click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -921,7 +937,7 @@
 														.text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(
@@ -934,8 +950,8 @@
 															.children()
 															.first()
 															.click();
-												} else if (lastNum + 11 > obj / 8 + 1) {
-													for (let j = lastNum + 1; j < obj / 8 + 1; j++) {
+												} else if (lastNum + 11 > obj / 10 + 1) {
+													for (let j = lastNum + 1; j < obj / 10 + 1; j++) {
 														$("#pageNum")
 																.append(
 																		"<span>"
@@ -977,7 +993,7 @@
 														.text());
 												$("#pageNum").empty();
 												$("#before_btn").show();
-												if (lastNum + 11 < obj / 8 + 1) {
+												if (lastNum + 11 < obj / 10 + 1) {
 													for (let j = lastNum + 1; j < lastNum + 11; j++) {
 														$("#pageNum")
 																.append(

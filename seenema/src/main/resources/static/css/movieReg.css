@@ -3,31 +3,33 @@
 .gamut1 {
    width: 1300px;
    height: 1150px;
-   border: 1px red solid;
+  /*  border: 1px red solid; */
    background-color: #f3f3f3;
 }
 /*메인메뉴*/
-.main_view1{
-   float: right;
+.main_view1 {
+   background-color: #f3f3f3;
    width: 1094px;
    height: 1150px;
-   border: 1px solid green;
+   /* border: 1px solid green; */
+   float: right;
 }
 
 .main_view1 #doToday_menu {
    margin: 20px 0 0 45px;
    /*상 오른쪽 아래 왼쪽*/
    width: 1000px;
-   height: 150px;
-   border: 1px solid blue;
+   height: 100px;
+   border: 1px solid white;
+   border-radius: 10px;
+   border: 1px solid #3E4D59;
+   /* border: 1px solid lightgray; */
 }
-
 #main_header {
    width: 1000px;
-   height: 50px;
-   /* border-bottom: 1px solid skyblue; */
+   height: 80px;
    text-align: center;
-   margin-top: 50px;
+   margin-top: 32px;
    font-size: 30px;
    font-weight: bolder;
 }
@@ -43,9 +45,14 @@
    display: flex;
    flex-wrap: wrap;
    width: 1000px;
-   height: 900px;
-   border: 1px solid darkgreen;
+   height: 1000px;
+   border: 1px solid #3E4D59;
+   /* border: 1px solid lightgray; */
+   border-radius: 10px;
    margin: 20px 0 0 45px;
+}
+#movieReg_Form{
+	margin-top: 13px;
 }
 #input_title{
     font-size: 15px;
@@ -53,12 +60,12 @@
 #input_menu{
   /*  border: 1px solid red; */
    width: 400px;
-   margin-top: 15px;
+   margin-top: 20px;
 }
 #input_menu_1{
    /*  border: 1px solid red; */
     width: 400px;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 #menu_inMenu{
     /* border: 1px solid black; */
@@ -125,10 +132,9 @@ textarea:hover, textarea:active, textarea:focus,
     height: 800px;
 }
 #regied_photo{
-    
     width: 370px;
     height: 450px;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 img{
     object-fit: contain;
@@ -178,7 +184,7 @@ textarea{
     /* border: 1px solid red; */
     width: 400px;
     height: 30px;
-    margin-top: 25px;
+    margin-top: 30px;
     text-align: center;
 }
 #submitBox input{
@@ -191,23 +197,23 @@ textarea{
     transition: 0.5s;
 }
 #submitBox input:hover{
-    background-color: RGB(56, 29, 27);
+    background-color: #3E4D59;
     color:white;
 }
 
 /**/
-.easy_menu {
+.easy_menu1{
    margin: 20px 0 0 45px;
    display: flex;
    flex-wrap: wrap;
    width: 1000px;
-   height: 900px;
-   border: 1px solid darkgreen;
+   height: 970px;
+   /* border: 1px solid darkgreen; */
 }
 
 .easy_menu #em_Box {
    flex: 3 3 35%;
-   border: 1px solid red;
+  /*  border: 1px solid red; */
 }
 
 #em_title {
@@ -220,6 +226,6 @@ textarea{
 #em_Box div {
    margin: 5px auto;
    width: 490px;
-   height: 380px;;
+   height: 380px;
    border: 1px solid orchid;
 }

@@ -15,4 +15,5 @@ public class NoticeVO {
 	private String contents;
 	private Date regiDate;
 	private int hit;
+	private int importance; //중요도
 }

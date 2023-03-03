@@ -36,4 +36,6 @@ public interface AdminReplyMapper {
 	// 한줄평 별점으로 갯수 구하기
 	public int replyRateCount(@Param("searchRate") int rate);
 
+	// 메인페이지에 최근 3개의 리플 보여줌
+	public List<ReplyVO> replyMainView();
 }

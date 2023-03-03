@@ -276,7 +276,7 @@
 	 $("#serchType").change(function(e){
 		 if($("#serchType option:selected").val() == "MovieTitle"){
 			 $("#serchBox").html("<span>"+
-					 				"<input type='text' id='serchWord' placeholder='검색어를 입력해주세요.'>"+
+					 				"<input type='text' id='serchWord' placeholder='영화 제목을 입력해주세요.'>"+
 					 			"</span>");
 			 
 		 }else if($("#serchType option:selected").val() == "MovieDate"){
@@ -287,7 +287,7 @@
 					 			"</span>"); 
 		 }else if($("#serchType option:selected").val() == "MovieTitleDate"){
 			 $("#serchBox").html("<span id='in_serch_box'>"+
-					 					"<input type='text' id='serchWord' name='serchWord' placeholder='검색어를 입력해주세요.'>"+
+					 					"<input type='text' id='serchWord' name='serchWord' placeholder='영화 제목을 입력해주세요.'>"+
 		 								"&nbsp;<input type='date' id='start' name='start'> ~ "+
 		 								"<input type='date' id='end' name='end'>"+
 		 						"</span>"); 
@@ -595,63 +595,111 @@
 		}
 	</script>
 	<script>
-	//조회 전체 선택
-	 $("#thead").on('click', $('#js_allChk'), function(){
-		if($('input:checkbox[name="js_allChk"]').prop("checked") == true){
-			 $('input:checkbox[name="js_chk"]').each(function() {
-			     	this.checked = true;
-			     	
-			 });
-		}else if($('input:checkbox[name="js_allChk"]').prop("checked") == false){
-			 $('input:checkbox[name="js_chk"]').each(function() {
-			     	this.checked = false;
-			 });
-		}
-	});
-	
-	//조회 선택 삭제
-	
-	$("#tfoot1").on("click", "#js_del", serchDelete);
-	function serchDelete(e){
-		if(e.target.id == "js_del"){
-	        if (!confirm("선택된 영화 정보를 삭제하시겠습니까?")) {
-	            
-	        } else {
-	            
-				let checked_val = new Array();
-				
-				$('input:checkbox[name="js_chk"]').each(function() {
-			     	if(this.checked){ //체크박스 체크되면
-			     		checked_val.push(this.value); //체크박스 value를 배열에 담음
-			     	};
+		//조회 전체 선택
+		 $("#thead").on('click', $('#js_allChk'), function(){
+			if($('input:checkbox[name="js_allChk"]').prop("checked") == true){
+				 $('input:checkbox[name="js_chk"]').each(function() {
+				     	this.checked = true;
+				     	
 				 });
-				
-				if(e.target.id == "js_del"){
-					const xhttp = new XMLHttpRequest();
-					xhttp.onload = function() {
-					let result = this.responseText; 
-						
-						if(result == 1){
-							alert("삭제완료!");
-							location.href="movieList";
-						}else{
-							alert("삭제실패..");
-							location.href="movieList";
-						}
-					}
+			}else if($('input:checkbox[name="js_allChk"]').prop("checked") == false){
+				 $('input:checkbox[name="js_chk"]').each(function() {
+				     	this.checked = false;
+				 });
+			}
+		});
+		
+		//조회 선택 삭제
+		
+		$("#tfoot1").on("click", "#js_del", serchDelete);
+		function serchDelete(e){
+			if(e.target.id == "js_del"){
+		        if (!confirm("선택된 영화 정보를 삭제하시겠습니까?")) {
+		            
+		        } else {
+		            
+					let checked_val = new Array();
 					
-					xhttp.open("GET", "delMoviesByCodes.do?movieCodes=" + checked_val, true); 
+					$('input:checkbox[name="js_chk"]').each(function() {
+				     	if(this.checked){ //체크박스 체크되면
+				     		checked_val.push(this.value); //체크박스 value를 배열에 담음
+				     	};
+					 });
+					
+					if(e.target.id == "js_del"){
+						const xhttp = new XMLHttpRequest();
+						xhttp.onload = function() {
+						let result = this.responseText; 
+							
+							if(result == 1){
+								alert("삭제완료!");
+								location.href="movieList";
+							}else{
+								alert("삭제실패..");
+								location.href="movieList";
+							}
+						}
 						
-					xhttp.send();
-				}
-	        }
+						xhttp.open("GET", "delMoviesByCodes.do?movieCodes=" + checked_val, true); 
+							
+						xhttp.send();
+					}
+		        }
+			}
 		}
-	}
-	//영화등록페이지로 이동
-	function goMovieReg(){
-		location.href="movieReg";
-	}
-</script>
+		//영화등록페이지로 이동
+		function goMovieReg(){
+			location.href="movieReg";
+		}
+	</script>
+	<script>
+		//검색 유효성 검사
+		$("#btn_serchMovie").on("click", function(){
+			if($("#serchType").val() == "-선택-"){
+				alert("검색 할 카테고리를 먼저 선택해주세요.");
+				$("#serchType").css("border", "1px solid red");
+				
+			}
+			if($("#serchWord").val() == ""){
+				alert("검색어를 입력해주세요.");
+				$("#serchWord").css("border", "1px solid red");
+				goPage(1);
+			}
+			
+			if($("#start").val() > $("#end").val()){
+				alert("검색 할 시작 날짜가 더 늦습니다. 다시 확인해주세요.");
+				$("#start").css("border", "1px solid red");
+				goPage(1);
+			}
+			
+			if($("#start").val() == "" || $("#end").val() == ""){
+				alert("검색 할 날짜를 선택해주세요.");
+				$("#start").css("border", "1px solid red");
+				$("#end").css("border", "1px solid red");
+				goPage(1);
+			}
+			
+		});
+		
+		//카테고리 선택완료시 테두리 red->lightgray
+		$("#serchType").on("change", function(){
+			$("#serchType").css("border", "1px solid lightgray");
+		});
+		
+		//검색어 입력완료 시 테두리 red->lightgray
+		$(document).on("change", "#serchWord", function(){
+			$("#serchWord").css("border", "1px solid lightgray");
+		});
+		
+		//개봉일 선택완료 시 테두리 red -> lightgray
+		$(document).on("change", "#start", function(){
+			$("#start").css("border", "1px solid lightgray");
+		});
+		$(document).on("change", "#end", function(){
+			$("#end").css("border", "1px solid lightgray");
+		});
+	</script>
+	
 
 <c:if test="${param.insert_result == 1 }">
 	<script>

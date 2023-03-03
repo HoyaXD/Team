@@ -17,4 +17,6 @@ public class ReplyVO {
 	private String comment;
 	private int rate;
 	private String regDate;
+	private String movieTitle;
+	
 }
