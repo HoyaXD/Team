@@ -5,6 +5,12 @@
   
 <mapper namespace="org.green.seenema.mapper.MovieMapper">
 	<select id="getMovieList" resultType="org.green.seenema.vo.MovieVO">
-        SELECT * FROM movie_tbl
+        SELECT * FROM movie_tbl WHERE CURDATE() BETWEEN start_date AND end_date
+    </select>
+    <select id="selectOne" resultType="String">
+    SELECT theater FROM seenema.movie_tbl WHERE movieCode = #{param1};
+    </select>
+    <select id="loadPlayingTime" resultType="String">
+    SELECT playingTime FROM seenema.movie_tbl WHERE movieCode = #{param1};
     </select>
 </mapper>

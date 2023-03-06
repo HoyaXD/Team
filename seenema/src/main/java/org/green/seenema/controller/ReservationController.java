@@ -5,6 +5,8 @@ import org.green.seenema.mapper.*;
 import org.green.seenema.vo.MovieVO;
 import org.green.seenema.vo.ReservationVO;
 import org.green.seenema.vo.TheaterVO;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -102,5 +104,32 @@ public class ReservationController {
         return "user/alert";
     }
 
+//    @GetMapping ("/getScreenTheater.do")
+//    public @ResponseBody String getScreenTheater(int movieCode){
+//        return movieMapper.selectOne(movieCode);
+//    }
+
+
+    @GetMapping("/getScreenTheater.do")
+    public @ResponseBody String getScreenTheater(int movieCode) {
+        String theaterList = movieMapper.selectOne(movieCode);
+        String[] theaterArray = theaterList.split(",");
+        JSONArray jsonArray = new JSONArray();
+
+        for (String theaterName : theaterArray) {
+            JSONObject theaterObject = new JSONObject();
+            theaterObject.put("theaterName", theaterName);
+            jsonArray.put(theaterObject);
+        }
+
+        return jsonArray.toString();
+    }
+
+
+    @GetMapping("loadPlayingTime.do")
+    public @ResponseBody String loadPlayingTime(int movieCode){
+        log.info(movieMapper.loadPlayingTime(movieCode));
+        return movieMapper.loadPlayingTime(movieCode);
+    }
 
 }

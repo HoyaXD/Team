@@ -342,7 +342,7 @@
 
 
 <script>
-    let selectedSeats = [];
+    let selectedSeats = []; //선택한 좌석을 저장할 배열
 
     $(document).ready(function() {
         var data = {
@@ -357,10 +357,10 @@
             url: 'loadSeats',
             data: data,
             success: function(result) {
-                // 예약된 좌석 배열을 저장할 변수를 선언합니다.
+                // 예약된 좌석 배열을 저장할 변수 선언.
                 const reservedSeats = [];
 
-                // 예약된 좌석을 `,`로 split하여 배열에 저장합니다.
+                // 예약된 좌석을 `,`로 split하여 배열에 저장.
                 for (let i = 0; i < result.length; i++) {
                     const seats = result[i].split(',');
                     reservedSeats.push(...seats);
@@ -371,9 +371,6 @@
                 let cols = document.getElementById("cols").value;
 
                 $('#remaining_seats').text((rows*cols - reservedSeats.length) + " / " + rows*cols);
-
-
-                //선택한 좌석을 저장할 배열
 
                 //좌석배치 생성
                 function generateSeatLayout(rows, cols) {

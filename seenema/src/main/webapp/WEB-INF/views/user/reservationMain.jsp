@@ -9,12 +9,15 @@
          pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql" %>
+
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>영화예매 - 시네마</title>
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <link rel="stylesheet" href="/css/reservationMain.css">
     <style>
         .reservationInfo{
@@ -75,13 +78,13 @@
                     <div class="movie">
                         <span><img src="/images/${movie.viewAge }.png"></span>
                         <span class="movieTitle">${movie.movieTitle }</span>
-                        <span><input type="hidden"value="${movie.movieCode }"></span>
+                        <span><input type="hidden"value="${movie.movieCode }" class="movieCode"></span>
                         <span id="postFileName2"><input type="hidden"value="${movie.postFileName }"></span>
                     </div>
                 </c:forEach>
           </div>
-
       </div>
+
       <div class="item" id="theaterList">
           <div class="listMenu">
               극장
@@ -112,14 +115,10 @@
           <div class="listMenu">
               시간
           </div>
-          <div class="time">10:20</div>
-          <div class="time">12:20</div>
-          <div class="time">13:30</div>
-          <div class="time">17:20</div>
-          <div class="time">18:30</div>
-          <div class="time">19:40</div>
-          <div class="time">21:30</div>
-          <div class="time">23:20</div>
+          <div class="timeItems">
+
+          </div>
+
       </div>
   </div>
     <div id="hidden">
@@ -160,42 +159,28 @@
     <%@ include file="../user/footer.jsp"%>
 </footer>
 <script>
-    var today = new Date();
 
-    var year = today.getFullYear();
-    var month = ('0' + (today.getMonth() + 1)).slice(-2);
-    var day = ('0' + today.getDate()).slice(-2);
+    $(document).ready(function() {
+        // URL에서 movieCode 값을 가져옴
+        const urlParams = new URLSearchParams(window.location.search);
+        const movieCode = urlParams.get('movieCode');
 
-    var dateString = year + '-' + month  + '-' + day; //오늘 날짜 구하기
+        // movieCode 값과 같은 값을 가진 input 요소와 그 형제 요소인 movieTitle 요소를 찾아서 클릭 이벤트 발생
+        alert($(".movie .movieCode").val().eq(movieCode).siblings(".movieTitle").text());
+        $(".movie input[value='" + movieCode + "']").siblings(".movieTitle").click();
 
-    let d = new Date();
-    let sel_month = 1; //
-    d.setMonth(d.getMonth() + sel_month );
-
-    let year2    = d.getFullYear();
-    let month2   = ('0' + (d.getMonth() +  1 )).slice(-2);
-    let day2     = ('0' + d.getDate()).slice(-2);
-    dt = year2+"-"+month2+"-"+day2;
-     //한달 뒤 날짜 구하기
-
-    const startDate = new Date(dateString); // 시작 날짜 설정 (오늘)
-    const endDate = new Date(dt); // 마지막 날짜 설정 (한달 뒤)
-
-    const calendarList = document.getElementById('calendar-list');
-    for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
-        const listItem = document.createElement('li');
-        listItem.className = "cal_list";
-        listItem.style.cursor = "pointer"; // 스타일 속성 추가
-        const dateText = document.createTextNode(date.toISOString().slice(0, 10));
-        listItem.appendChild(dateText);
-        calendarList.appendChild(listItem);
-    }
+    });
 
 
-    $('.cal_list').click(function (e){  //날짜 선택시 css, hidden에 값 넣기
+
+
+
+
+    $('#calendar-list').on("click", ".cal_list", function (e) {  //날짜 선택시 css, hidden에 값 넣기
         $('#movieDate').val($(e.target).text());
         $('#timeInfo').text($(e.target).text());
         $('#timeInfo2').text("");
+        document.getElementById("reservationTime").value = "";
         $('.cal_list').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -206,30 +191,55 @@
             "color":"white"
         });
 
-        $('.time').css({
-            "display" : "inline-block"
-        })
+        // 시간 정보 div 요소 삭제.
+        $('.timeItems').empty();
 
-        $('.time').css({
-            "background-color":"#e8e5dd",
-            "color":"black"
-        })
-    })
-
-    $('.time').click(function (e){  //시간 선택시 css, hidden에 값 넣기
-        $('#reservationTime').val($(e.target).text());
-        $('#timeInfo2').text($(e.target).text());
-        $('.time').css({
-            "background-color":"#e8e5dd",
-            "color":"black"
-        })
-
-        $(e.target).css({
-            "background-color":"#5c5c5c",
-            "color":"white"
+        let movieCode = $('#movieCode').val();
+        $.ajax({
+            url: "loadPlayingTime.do",
+            type: "GET",
+            data: { movieCode: movieCode },
+            success: function(response) {
+                var timeArray = response.split(",");
+                var timeList = $(".timeItems");
+                for (var i = 0; i < timeArray.length; i++) {
+                    var timeStr = timeArray[i].trim();
+                    var timeDiv = $("<div>").addClass("time").text(timeStr);
+                    var dateTimeStr = $('#movieDate').val() + ' ' + timeStr;
+                    if (moment(dateTimeStr, 'YYYY-MM-DD hh:mm A').isBefore(moment())) {
+                        timeDiv.css({ "opacity": 0.5, "cursor": "not-allowed" });
+                    } else {
+                        timeDiv.click(function (e){
+                            $('#reservationTime').val($(e.target).text());
+                            $('#timeInfo2').text($(e.target).text());
+                            $('.time').css({
+                                "background-color":"#e8e5dd",
+                                "color":"black"
+                            })
+                            $(e.target).css({
+                                "background-color":"#5c5c5c",
+                                "color":"white"
+                            });
+                        });
+                    }
+                    timeList.append(timeDiv);
+                }
+                $('.time').css({
+                    "background-color":"#e8e5dd",
+                    "color":"black"
+                });
+                $('.time').css({
+                    "display" : "inline-block"
+                });
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("Error:", textStatus, errorThrown);
+            }
         });
 
+
     })
+
 
     $('.movieTitle').click(function (e){ //영화 제목 선택
         $('#movieCode').val($(e.target).next().children().val()); //영화코드에 값넣기
@@ -241,6 +251,21 @@
         $('#timeInfo2').text("");
         $('#theaterInfo').text("");
         $('#theaterInfo2').text("");
+        $("#address").empty();
+        $('.timeItems').empty();
+        document.getElementById("theaterPlace").value = "";
+        document.getElementById("theater").value = "";
+        document.getElementById("movieDate").value = "";
+        document.getElementById("reservationTime").value = "";
+
+
+
+        const calendarList = document.getElementById('calendar-list');
+
+// 기존에 생성된 달력 삭제
+        while (calendarList.firstChild) {
+            calendarList.removeChild(calendarList.firstChild);
+        }
 
         $('.placeList').css({
             "background-color":"#dedad2",
@@ -251,10 +276,7 @@
             "background-color":"#dedad2",
             "color":"black"
         })
-        $('.theater').css({
-            "background-color":"#e8e5dd",
-            "color":"black"
-        })
+
         $('.time').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -287,33 +309,74 @@
         });
     })
 
-    $(document).on("click", ".theater",function (e){  //영화관 클릭
+    $(document).on("click", ".clickable", function (e) {  // 영화관 클릭
         $('#theater').val($(e.target).text().trim()); //영화관에 값넣기
         $('#theaterInfo2').text($(e.target).text()); //영화관에 값넣기
         $('#timeInfo').text("");//영화시간초기화
         $('#timeInfo2').text("");
+        document.getElementById("movieDate").value = "";
+        document.getElementById("reservationTime").value = "";
         $('.time').css({
-            "background-color":"#e8e5dd",
-            "color":"black"
+            "background-color": "#e8e5dd",
+            "color": "black"
         })
         $('.cal_list').css({
-            "background-color":"#e8e5dd",
-            "color":"black"
+            "background-color": "#e8e5dd",
+            "color": "black"
         })
 
-        $('.theater').css({
-            "background-color":"#e8e5dd",
-            "color":"black"
+        $('.clickable').css({
+            "background-color": "#e8e5dd",
+            "color": "black"
         })
         $(e.target).css({
-            "background-color":"#5c5c5c",
-            "color":"white"
+            "background-color": "#5c5c5c",
+            "color": "white"
         });
 
         $('.time').css({
-            "display" : "none"
+            "display": "none"
         })
-    })
+
+        var today = new Date();
+
+        var year = today.getFullYear();
+        var month = ('0' + (today.getMonth() + 1)).slice(-2);
+        var day = ('0' + today.getDate()).slice(-2);
+
+        var dateString = year + '-' + month  + '-' + day; //오늘 날짜 구하기
+
+        let d = new Date();
+        let sel_month = 1; //
+        d.setMonth(d.getMonth() + sel_month );
+
+        let year2    = d.getFullYear();
+        let month2   = ('0' + (d.getMonth() +  1 )).slice(-2);
+        let day2     = ('0' + d.getDate()).slice(-2);
+        dt = year2+"-"+month2+"-"+day2;
+        //한달 뒤 날짜 구하기
+
+        const startDate = new Date(dateString); // 시작 날짜 설정 (오늘)
+        const endDate = new Date(dt); // 마지막 날짜 설정 (한달 뒤)
+
+        const calendarList = document.getElementById('calendar-list');
+
+        // 기존에 생성된 달력 삭제
+        while (calendarList.firstChild) {
+            calendarList.removeChild(calendarList.firstChild);
+        }
+
+        // 새로운 달력 생성
+        for (let date = startDate; date <= endDate; date.setDate(date.getDate() + 1)) {
+            const listItem = document.createElement('li');
+            listItem.className = "cal_list";
+            listItem.style.cursor = "pointer"; // 스타일 속성 추가
+            const dateText = document.createTextNode(date.toISOString().slice(0, 10));
+            listItem.appendChild(dateText);
+            calendarList.appendChild(listItem);
+        }
+    });
+
 
 
     $(document).on("click", ".placeList",function (e){ // 선택된 영화지역에 있는 상영관 보여주기
@@ -322,6 +385,9 @@
         $('#theaterInfo2').text("");
         $('#timeInfo').text("");//영화시간초기화
         $('#timeInfo2').text("");
+        document.getElementById("theater").value = "";
+        document.getElementById("movieDate").value = "";
+        document.getElementById("reservationTime").value = "";
         $('.theater').css({
             "background-color":"#e8e5dd",
             "color":"black"
@@ -354,29 +420,60 @@
         $('.time').css({
             "display" : "none"
         })
+        let movieCode = $('#movieCode').val();
         var place = $(e.target).text();
-    $.ajax({
-            url : "getTheaterList.do?place="+place,
-            type : "get",
-            datatype : "text",
-            success : function(data) {
-                let obj = JSON.stringify(data);
-                let parse = JSON.parse(obj);
+
+        $.ajax({
+            url: "getTheaterList.do?place=" + place,
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                let parse = data;
                 let i = 0;
                 $("#address").empty();
                 for (i; i < parse.length; i++) {
-                    $("#address")
-                        .append(
-                            '<div class="theater" style="height: 30px; line-height: 30px; cursor: pointer;"> '
-                            + parse[i].theaterName
-                            + '<div>')
+                    $("#address").append(
+                        '<div class="theater" style="height: 30px; line-height: 30px; cursor: not-allowed; color: #cccccc"> ' +
+                        parse[i].theaterName + '</div>');
                 }
+
+                $.ajax({
+                    url: "getScreenTheater.do",
+                    type: "get",
+                    data: {
+                        movieCode: movieCode
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        let theaterList = data;
+                        let i = 0;
+                        for (i; i < theaterList.length; i++) {
+                            let theaterName = theaterList[i].theaterName;
+                            let $theater = $("#address").find('.theater:contains(' + theaterName + ')');
+                            if ($theater.length) {
+                                $theater.css('color', 'black');
+                                $theater.css('cursor', 'pointer');
+                                $theater.addClass('clickable');
+                            }
+                        }
+                    },
+                    error: function () {
+                        alert("영화를 먼저 선택해주세요");
+                    }
+                });
             },
-            error : function() {
-                alert("극장목록 불러오기 실패");
+            error: function () {
+                alert("영화를 먼저 선택해주세요");
+
             }
         });
+
+
+
     });
+
+
+
 
     function validateForm() {     //유효성검사
         var movieTitle = document.getElementById("movieTitle");
