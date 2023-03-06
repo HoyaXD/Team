@@ -23,6 +23,51 @@
 			</div>
 		</div>	
 	</div>
+	<div class="eventSectionTitle">EVENT ZONE</div>
+	<div class="eventSection">
+		<a href="/user/eventDetailView">
+			<div class="box">
+				<img class="thumbnail" src="/images/thumbnail2.jpeg">
+				<div class="eventInfoTitle">[귀멸의 칼날] IMAX 포스터</div>
+				<div class="eventInfoDate">기간: 2023.03.08 ~ 2023.03.31</div>
+			</div>
+		</a>
+		<!-- <a href="#">
+			<div class="box">
+				<img class="thumbnail" src="/images/thumbnail1.jpeg">
+				<div class="eventInfoTitle">[더 퍼스트 슬램덩크] 앵콜! 팬심대전</div>
+				<div class="eventInfoDate">기간: 2023.03.08 ~ 2023.03.31</div>
+			</div>
+		</a> -->
+		<a href="#">
+			<div class="box">
+				<img class="thumbnail" src="/images/thumbnail3.jpeg">
+				<div class="eventInfoTitle">[대외비] 필름마크</div>
+				<div class="eventInfoDate">기간: 2023.03.08 ~ 2023.03.31</div>
+			</div>
+		</a>
+		<a href="#">
+			<div class="box">
+				<img class="thumbnail" src="/images/thumbnail4.jpeg">
+				<div class="eventInfoTitle">[에브리씽 에브리웨어 올 앳 원스] 필름마크</div>
+				<div class="eventInfoDate">기간: 2023.03.08 ~ 2023.03.31</div>
+			</div>
+		</a>
+		<a href="#">
+			<div class="box">
+				<img class="thumbnail" src="/images/thumbnail5.jpeg">
+				<div class="eventInfoTitle">[앤트맨과 와스프 -퀸텀매니아] 필름마크</div>
+				<div class="eventInfoDate">기간: 2023.03.08 ~ 2023.03.31</div>
+			</div>
+		</a>
+		<a href="#">
+			<div class="box">
+				<img class="thumbnail" src="/images/thumbnail6.jpeg">
+				<div class="eventInfoTitle">[스즈메의 문단속] IMAX 포스터</div>
+				<div class="eventInfoDate">기간: 2023.03.08 ~ 2023.03.31</div>
+			</div>
+		</a>
+	</div>
 </div>
 <%@ include file="footer.jsp" %>
 </body>

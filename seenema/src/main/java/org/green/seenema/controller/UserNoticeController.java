@@ -5,6 +5,7 @@ import java.util.List;
 import org.green.seenema.mapper.UserNoticeMapper;
 import org.green.seenema.vo.NoticeVO;
 import org.green.seenema.vo.QnaVO;
+import org.green.seenema.vo.TheaterVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,12 +76,13 @@ public class UserNoticeController {
 	
 	// 키워드 조회(공지)
 	@GetMapping("/getSearchNoticeList.do")
-	public List<NoticeVO> getSearchNoticeList(String select, String keyword){
+	public List<NoticeVO> getSearchNoticeList(String select, String keyword, int pageNum){
+		int count = (pageNum - 1) * 20;
 		List<NoticeVO> list = null;
 		if(select.equals("title")) {
-			list = mapper.searchByTitleList(keyword);
+			list = mapper.searchByTitleList(keyword, count);
 		}else {
-			list = mapper.searchByContentsList(keyword);
+			list = mapper.searchByContentsList(keyword, count);
 		}
 		return list;
 	}
@@ -89,6 +91,25 @@ public class UserNoticeController {
 	@PostMapping("/regQna.do")
 	public int regQna(String title, String contents, String id) {
 		int result = mapper.regQna(title, contents, id);
+		return result;
+	}
+	
+	// 상영관 정보
+	@GetMapping("/getTheaterInfo.do")
+	public TheaterVO getTheaterInfo(String theaterName) {
+		TheaterVO theater = mapper.getTheaterInfo(theaterName);
+		return theater;
+	}
+	
+	// 조회 페이징
+	@GetMapping("/getSearchCount.do")
+	public int getSearchCount(String select, String keyword) {
+		int result = 0;
+		if(select.equals("title")) {
+			result = mapper.getSearchByTitleCount(keyword);
+		}else {
+			result = mapper.getSearchByContentsCount(keyword);
+		}
 		return result;
 	}
 }

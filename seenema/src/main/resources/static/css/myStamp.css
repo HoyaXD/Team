@@ -48,3 +48,40 @@
 footer p{
 	color: white;
 }
+
+.eventSectionTitle{
+	font-size: 30px;
+	font-weight: bold;
+	text-align: center;
+	margin: 30px 0 30px 0;
+}
+
+.eventSection{
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 10px;
+	margin-bottom: 30px;
+}
+
+.box{
+	height: 400px;
+	border: 1px solid gainsboro;
+}
+
+.thumbnail{
+	width: 426px;
+}
+
+.eventInfoTitle{
+	font-weight: 700;
+	font-size: 20px;
+	text-align: left;
+	padding: 10px;
+}
+
+.eventInfoDate{
+	color: gray;
+	padding: 10px;
+	text-align: left;
+	margin-top: 20px;
+}

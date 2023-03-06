@@ -15,7 +15,12 @@
 			<div class="sideBarMenu menu1">공지 / 뉴스</div>
 			<div class="sideBarMenu menu2">Q&A</div>
 			<div class="sideBarMenu menu3">상영관</div>
-			<div class="ad1"></div>
+			<div class="ad ad1">
+				<img src="/images/ad1.jpeg">
+			</div>
+			<div class="ad ad2">
+				<img src="/images/ad2.png">
+			</div>
 		</div>
 		<div class="qnaSection">
 			<div class="pageBigTitle">Q&A</div>
@@ -25,25 +30,27 @@
 					<span id="regQnaBtn">질문등록</span>
 				</div>
 			</div>
-			<table class="qnaTable">
-				<thead>
-					<tr>
-						<th class="noticeCodeTh">접수번호</th>
-						<th class="noticeTitleTh">제목</th>
-						<th class="noticeRegUserTh">작성자</th>
-						<th class="noticeRegidateTh">등록일</th>
-						<th class="answerStatusTh">답변상태</th>
-					</tr>
-				</thead>
-				<tbody>
-					<!-- 데이터 -->
-				</tbody>
-			</table>
+			<div class="tableWrap">
+				<table class="qnaTable">
+					<thead>
+						<tr>
+							<th class="noticeCodeTh">접수번호</th>
+							<th class="noticeTitleTh">제목</th>
+							<th class="noticeRegUserTh">작성자</th>
+							<th class="noticeRegidateTh">등록일</th>
+							<th class="answerStatusTh">답변상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- 데이터 -->
+					</tbody>
+				</table>
+			</div>
+			<div class="beforeAfterWrap">
+				<!-- 페이지네이션 -->
+			</div>
 		</div>
 	</main>
-	<div class="beforeAfterWrap">
-		<!-- 페이지네이션 -->
-	</div>
 <%@ include file="footer.jsp" %>
 <script>
 	let totalPage = 0;

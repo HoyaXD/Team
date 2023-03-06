@@ -135,3 +135,7 @@ footer p{
 	border-right: 1px solid gainsboro;
 	border-left: 1px solid gainsboro;
 }
+
+.ad > img{
+	width: 200px;
+}

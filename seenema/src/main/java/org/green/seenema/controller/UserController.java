@@ -83,9 +83,13 @@ public class UserController {
 	@GetMapping("/qnaDetailView")
 	public void qnaDetailView(int qcode, Model model) {
 		QnaVO qna = noticeMapper.getQnaInfo(qcode);
-		qna.setAnswer(qna.getAnswer().replaceAll("\n", "<br>"));
+		//qna.setAnswer(qna.getAnswer().replaceAll("\n", "<br>")); 에러 발생
 		model.addAttribute("qna", qna);
 	}
+	
+	// 이벤트 상세보기
+	@GetMapping("/eventDetailView")
+	public void eventDetailView() {}
 	
 	
 	// 영화 상세보기

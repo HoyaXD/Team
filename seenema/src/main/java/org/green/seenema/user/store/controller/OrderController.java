@@ -1,17 +1,17 @@
 package org.green.seenema.user.store.controller;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
-
-import net.nurigo.sdk.message.model.Message;
 
 import org.green.seenema.user.store.mapper.OrderMapper;
 import org.green.seenema.vo.OrderVO;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
@@ -123,80 +121,11 @@ public class OrderController {
 		OrderVO order = mapper.getOrderDetail(orderNum);
 		return order;
 	}
-	// 토큰
-	public String getToken() {
-		String accessToken = null;
-		try {
-            URL url = new URL("https://api.iamport.kr/users/getToken");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json");
-            conn.setDoOutput(true);
-
-            String data = "{\"imp_key\":\"7535084063571635\", \"imp_secret\":\"Eg7VY4XzIifAIozHhwg4X8HYlUONAzTTXG72Vr5ngfDzDptJlQmMloOiwFfDz4LnGXUm63swSGcX5ryE\"}";
-
-            OutputStream os = conn.getOutputStream();
-            os.write(data.getBytes("UTF-8"));
-            os.flush();
-            os.close();
-
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(response.toString());
-            accessToken = rootNode.get("response").get("access_token").asText();
-            System.out.println("Access token: " + accessToken);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		return accessToken;
-	}
 	
-	// 결제 취소
 	@PostMapping("/order/refund.do")
-	public int refund(String refundCode) {
-		String token = getToken();
-		try {
-	        URL url = new URL("https://api.iamport.kr/payments/" + refundCode + "/cancel");
-	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	        conn.setRequestMethod("POST");
-	        conn.setRequestProperty("Content-Type", "application/json");
-	        conn.setRequestProperty("Authorization", token);
-	        conn.setDoOutput(true);
-
-	        JSONObject json = new JSONObject();
-	        json.put("reason", "고객요청");
-
-	        OutputStream os = conn.getOutputStream();
-	        os.write(json.toString().getBytes("UTF-8"));
-	        os.flush();
-	        os.close();
-
-	        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-	        String inputLine;
-	        StringBuffer response = new StringBuffer();
-	        while ((inputLine = in.readLine()) != null) {
-	            response.append(inputLine);
-	        }
-	        in.close();
-
-	        int statusCode = conn.getResponseCode();
-	        if (statusCode == 200) {
-	            return 1;
-	        } else {
-	            return -1;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return 0;
+	public int refund(Long orderNum){
+		int result = mapper.refund(orderNum);
+		return result;
 	}
 	
 	// 결제 취소 상태 변경

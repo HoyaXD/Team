@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.green.seenema.vo.NoticeVO;
 import org.green.seenema.vo.QnaVO;
+import org.green.seenema.vo.TheaterVO;
 
 @Mapper
 public interface UserNoticeMapper {
@@ -30,9 +31,15 @@ public interface UserNoticeMapper {
 	// 공지 갯수
 	public int getQnaCount();
 	// 키워드 조회(제목)
-	public List<NoticeVO> searchByTitleList(@Param("keyword") String keyword);
+	public List<NoticeVO> searchByTitleList(@Param("keyword") String keyword, @Param("count") int count);
 	// 키워드 조회(내용)
-	public List<NoticeVO> searchByContentsList(@Param("keyword") String keyword);
+	public List<NoticeVO> searchByContentsList(@Param("keyword") String keyword, @Param("count") int count);
 	// Q&A 등록
 	public int regQna(@Param("title") String title, @Param("contents") String contents, @Param("id") String id);
+	// 상영관 정보
+	public TheaterVO getTheaterInfo(String theaterName);
+	// 페이징(제목)
+	public int getSearchByTitleCount(String keyword);
+	// 페이징(내용)
+	public int getSearchByContentsCount(String keyword);
 }

@@ -57,16 +57,31 @@
 	
 	<!-- 제목 조회 -->
 	<select id="searchByTitleList" resultType="NoticeVO">
-		SELECT * FROM notice_tbl WHERE title LIKE CONCAT('%', #{keyword}, '%');
+		SELECT * FROM notice_tbl WHERE title LIKE CONCAT('%', #{keyword}, '%') ORDER BY noticeCode DESC LIMIT #{count}, 20;
 	</select>
 	
 	<!-- 내용 조회 -->
 	<select id="searchByContentsList" resultType="NoticeVO">
-		SELECT * FROM notice_tbl WHERE contents LIKE CONCAT('%', #{keyword}, '%');
+		SELECT * FROM notice_tbl WHERE contents LIKE CONCAT('%', #{keyword}, '%') ORDER BY noticeCode DESC LIMIT #{count}, 20;
 	</select>
 	
 	<!-- Q&A 등록 -->
 	<insert id="regQna">
 		INSERT INTO qna_mtbl (title, contents, id) VALUES (#{title}, #{contents}, #{id});
 	</insert>
+	
+	<!-- 영화관 정보 -->
+	<select id="getTheaterInfo" resultType="theaterVO">
+		SELECT * FROM theater_tbl WHERE theaterName = #{theaterName};
+	</select>
+	
+	<!-- 페이징 -->
+	<select id="getSearchByTitleCount" resultType="int">
+		SELECT COUNT(*) FROM notice_tbl WHERE title LIKE CONCAT('%', #{keyword}, '%');
+	</select>
+	
+	<!-- 페이징 -->
+	<select id="getSearchByContentsCount" resultType="int">
+		SELECT COUNT(*) FROM notice_tbl WHERE contents LIKE CONCAT('%', #{keyword}, '%');
+	</select>
 </mapper>

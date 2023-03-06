@@ -15,7 +15,12 @@
 			<div class="sideBarMenu menu1">공지 / 뉴스</div>
 			<div class="sideBarMenu menu2">Q&A</div>
 			<div class="sideBarMenu menu3">상영관</div>
-			<div class="ad1"></div>
+			<div class="ad ad1">
+				<img src="/images/ad1.jpeg">
+			</div>
+			<div class="ad ad2">
+				<img src="/images/ad2.png">
+			</div>
 		</div>
 		<div class="section">
 			<div class="pageBigTitle">공지 / 뉴스</div>
@@ -87,6 +92,10 @@
 	// 사이드바 메뉴2
 	$(".menu2").on("click", function(){
 		location.href = "/user/userQnaView";
+	});
+	
+	$(".menu3").on("click", function(){
+		location.href = "/user/theaterView";
 	});
 	
 	// 목록으로 버튼

@@ -174,6 +174,54 @@
 		}
 	});
 	
+	// 이전 버튼
+	$(document).on("click", ".prevBtn", function(){
+		let status = $("#searchContentChoice > .grayBtn.on").val();
+		let prevPage = parseInt($(".pageCount").filter(":first").text(), 10) - 1;
+		if(status == 0){
+			getOrderList(prevPage);
+		}else{
+			getSearchList(prevPage);
+		}
+		$(".beforeAfterWrap").empty();
+		$(".beforeAfterWrap").append("<div class='prevBtn'><<</div>");
+		for(let i = 0; i < 10; i++){
+			$(".beforeAfterWrap").append("<div class='pageCount'>" + (prevPage + i - 9) + "</div>");
+		}
+		$(".beforeAfterWrap").append("<div class='nextBtn'>>></div>");
+		$(".pageCount").filter(":last").css("color", "red");
+		if($(".pageCount").filter(":first").text() == "1"){
+			$(".prevBtn").addClass("noBtn");
+			$(".noBtn").removeClass("prevBtn");
+		}
+	});
+	
+	// 다음버튼
+	$(document).on("click", ".nextBtn", function(){
+		let status = $("#searchContentChoice > .grayBtn.on").val();
+		let nextPage = parseInt($(".pageCount").filter(":last").text(), 10) + 1;
+		if(status == 0){
+			getOrderList(nextPage);
+		}else{
+			getSearchList(nextPage);
+		}
+		$(".beforeAfterWrap").empty();
+		if(totalPage - nextPage < 10){
+			let leng = totalPage - nextPage + 1;
+			$(".beforeAfterWrap").append("<div class='prevBtn'><<</div>");
+			for(let i = 0; i < leng; i++){
+				$(".beforeAfterWrap").append("<div class='pageCount'>" + (nextPage + i) + "</div>");
+			}
+			$(".pageCount").filter(":first").css("color", "red");
+		}else{
+			$(".beforeAfterWrap").append("<div class='prevBtn'><<</div>");
+			for(let j = 0; j < 10; j++){
+				$(".beforeAfterWrap").append("<div class='pageCount'>" + (nextPage + j) + "</div>");
+			}
+			$(".beforeAfterWrap").append("<div class='nextBtn'>>></div>");
+			$(".pageCount").filter(":first").css("color", "red");
+		}
+	});
 	//전체목록
 	function getOrderList(pageNum){
 		//alert(pageNum);

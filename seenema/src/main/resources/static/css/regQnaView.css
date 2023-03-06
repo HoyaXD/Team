@@ -106,3 +106,7 @@ td > input[type='text']{
 	cursor: pointer;
 	border-radius: 3px;
 }
+
+.ad > img{
+	width: 200px;
+}

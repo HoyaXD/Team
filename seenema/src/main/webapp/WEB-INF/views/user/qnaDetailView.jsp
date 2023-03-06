@@ -17,7 +17,12 @@
 			<div class="sideBarMenu menu1">공지 / 뉴스</div>
 			<div class="sideBarMenu menu2">Q&A</div>
 			<div class="sideBarMenu menu3">상영관</div>
-			<div class="ad1"></div>
+			<div class="ad ad1">
+				<img src="/images/ad1.jpeg">
+			</div>
+			<div class="ad ad2">
+				<img src="/images/ad2.png">
+			</div>
 		</div>
 		<div class="section">
 			<div class="pageBigTitle">Q&A</div>
@@ -40,9 +45,14 @@
 				</div>
 				<div class="adminAnswerTitle">[관리자 답변]</div>
 				<div class="adminAnswer">
+				<c:if test="${qna.answer != null}">
 					<p>
 						${qna.answer }
 					</p>
+				</c:if>
+				<c:if test="${qna.answer eq null}">
+					<div style="color: gray;">등록된 답변이 없습니다<br>최대한 신속하게 답변해드리도록 하겠습니다.</div>
+				</c:if>
 				</div>
 			</div>
 			<div class="goBtnWrap">
@@ -81,6 +91,10 @@
 	// 사이드바 메뉴2
 	$(".menu2").on("click", function(){
 		location.href = "/user/userQnaView";
+	});
+	
+	$(".menu3").on("click", function(){
+		location.href = "/user/theaterView";
 	});
 	
 	// 목록으로 버튼

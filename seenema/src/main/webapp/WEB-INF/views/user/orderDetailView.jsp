@@ -7,6 +7,7 @@
 <title>주문 상세페이지 - 시네마</title>
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
 <link rel="stylesheet" href="/css/orderDetailView.css">
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 </head>
 <body>
 <input type="hidden" id="hiddenOrderNum" value="${orderNum }">
@@ -169,38 +170,22 @@
 	// 환불 실행
 	$("#allCancleBtn").on("click", function(){
 		if(confirm("결제를 취소하시겠습니까?") == true){
-			let orderNum = $(this).val();
-			let refundCode = $(".refundCode").text();
 			
 			const xhttp = new XMLHttpRequest();
 			xhttp.onload = function(){
 				let result = parseInt(this.responseText, 10);
 				if(result == 1){
-					alert("환불 성공");
-					changeStatus(orderNum);	//상태값 변경
+					alert("결제를 취소하였습니다.");
+					getList();
 				}else{
-					alert("환불 실패");
+					alert("결제취소 실패");
 				}
 			}
-			xhttp.open("post", "/user/order/refund.do");
+			let orderNum = $(this).val();
+			xhttp.open("post", "/user/order/refund.do", true);
 			xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			xhttp.send("refundCode=" + refundCode);
+			xhttp.send("orderNum=" + orderNum);
 		}
 	});
-	
-	function changeStatus(orderNum){
-		const xhttp = new XMLHttpRequest();
-		xhttp.onload = function(){
-			let result = parseInt(this.responseText);
-			if(result == 1){
-				getList();
-			}else{
-				alert("환불 못함ㅋ");
-			}
-		}
-		xhttp.open("post", "/user/order/changeStatus.do", true);
-		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xhttp.send("orderNum=" + orderNum);
-	}
 </script>
 </html>

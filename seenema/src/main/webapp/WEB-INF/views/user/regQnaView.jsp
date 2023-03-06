@@ -15,7 +15,12 @@
 			<div class="sideBarMenu menu1">공지 / 뉴스</div>
 			<div class="sideBarMenu menu2">Q&A</div>
 			<div class="sideBarMenu menu3">상영관</div>
-			<div class="ad1"></div>
+			<div class="ad ad1">
+				<img src="/images/ad1.jpeg">
+			</div>
+			<div class="ad ad2">
+				<img src="/images/ad2.png">
+			</div>
 		</div>
 		<div class="qnaSection">
 			<div class="pageBigTitle">Q&A</div>
@@ -60,7 +65,7 @@
 			xhttp.onload = function(){
 				let result = parseInt(this.responseText, 10);
 				if(result == 1){
-					alert("등록 성공");
+					alert("문의글을 성공적으로 등록하였습니다\n최대한 빠른 시일내에 답변드리겠습니다.");
 					location.href = "/user/userQnaView";
 				}else{
 					alert("등록 실패");
@@ -81,6 +86,10 @@
 	
 	$(".menu2").on("click", function(){
 		location.href = "/user/userQnaView";
+	});
+	
+	$(".menu3").on("click", function(){
+		location.href = "/user/theaterView";
 	});
 </script>
 </body>

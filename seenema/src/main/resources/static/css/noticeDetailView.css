@@ -123,3 +123,7 @@ footer p{
 	padding-left: 10px;
 	border: 1px solid gainsboro;
 }
+
+.ad > img{
+	width: 200px;
+}

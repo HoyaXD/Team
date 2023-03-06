@@ -23,7 +23,7 @@ footer p{
 
 .tableWrap{
 	width: 800px;
-	min-height: 500px;
+	min-height: 1000px;
 	border-bottom: 2px solid gainsboro;
 }
 table{
@@ -194,4 +194,8 @@ td:nth-child(4){
 	width: 100%;
 	height: 300px;
 	line-height: 300px;
+}
+
+.ad > img{
+	width: 200px;
 }
