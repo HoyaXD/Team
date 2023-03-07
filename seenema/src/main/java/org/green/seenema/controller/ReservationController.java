@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.List;
 
@@ -75,9 +76,11 @@ public class ReservationController {
 
     @PostMapping("/reservation.do") //예매실행
     @Transactional
-    public String reservationdo(ReservationVO reservation, Model model) {
+    public String reservationdo(ReservationVO reservation, Model model, HttpSession session) {
         log.info("예약정보 : " + reservation.toString());
         reservationMapper.cntPlus(reservation.getMovieCode(), reservation.getVisitors());
+        reservation.setId((String) session.getAttribute("logid"));
+        log.info("아이디 : " + reservation.getId());
         memberMapper.stampPlus(reservation.getId());
         int result = reservationMapper.regReservation(reservation);
         MovieVO movie = movieCRUDMapper.selectOne(reservation.getMovieCode());

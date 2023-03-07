@@ -224,6 +224,9 @@
             width: 160px;
             height: 200px;
         }
+        #regBtn{
+            /*display: none;*/
+        }
     </style>
 </head>
 <body>
@@ -235,6 +238,10 @@
         인원 / 좌석
     </div>
     <div id="seats-top">
+
+        <div class="movieImg">
+            <img src="/resources/images/${movie.postFileName }">
+        </div>
         <div id="select_people">
             <label for="adults">성인</label> &nbsp;&nbsp;
             <select id="adults">
@@ -259,9 +266,6 @@
             </select>
 
         </div>
-        <div class="movieImg">
-            <img src="/images/${movie.postFileName }">
-        </div>
         <div class="reservation_info">
             ${reservation.movieTitle}<br><br>
             ${reservation.theaterPlace} ${reservation.theater}<br><br>
@@ -273,7 +277,7 @@
             <input type="hidden" name="movieCode" id="movieCode" value="${reservation.movieCode}">
             <input type="hidden" name="ticketCode" id="ticketCode" >
             <input type="hidden" name="movieTitle" id="movieTitle" value="${reservation.movieTitle}">
-            <input type="hidden" name="id" value="${sessionScope.logid}">
+            <input type="hidden" name="id" value="${sessionScope.logid }">
             <input type="hidden" name="theaterPlace" id="theaterPlace" value="${reservation.theaterPlace}">
             <input type="hidden" name="theater" id="theater" value="${reservation.theater}">
             <input type="hidden" name="ticketPrice" id="ticketPrice" value="${reservation.ticketPrice}">
@@ -281,7 +285,7 @@
             <input type="hidden" name="reservationTime" id="reservationTime" value="${reservation.reservationTime}">
             <input type="hidden" name="visitors" id="visitors">
             <input type="hidden" name="seats" id="seats">
-            <input type="submit" value="예매등록 테스트" id="regBtn" onclick="return f();" style="display:none;">
+            <input type="submit" value="예매등록 테스트" id="regBtn" onclick="return f();">
             <div class="buyNowBtn" >결제하기</div>
         </form>
     </div>

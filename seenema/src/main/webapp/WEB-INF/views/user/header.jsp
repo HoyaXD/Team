@@ -89,7 +89,6 @@
     }
     header .nav_active li{
       margin-top: 25px;
-      /*color: #4b4b48;*/
     }
     header .active_title{
       font-size: 18px;
@@ -97,7 +96,6 @@
       color: black;
     }
     header .nav_flex{
-      /* position: absolute; */
       width: 1300px;
       margin: 0 auto;
       z-index: 1;
