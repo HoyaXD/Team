@@ -166,8 +166,7 @@
         const movieCode = urlParams.get('movieCode');
 
         // movieCode 값과 같은 값을 가진 input 요소와 그 형제 요소인 movieTitle 요소를 찾아서 클릭 이벤트 발생
-        alert($(".movie .movieCode").val().eq(movieCode).siblings(".movieTitle").text());
-        $(".movie input[value='" + movieCode + "']").siblings(".movieTitle").click();
+        $(".movie input[value='" + movieCode + "']").parent().prev().click();
 
     });
 
@@ -244,7 +243,7 @@
     $('.movieTitle').click(function (e){ //영화 제목 선택
         $('#movieCode').val($(e.target).next().children().val()); //영화코드에 값넣기
         $('#postFileName').val($(e.target).nextAll('#postFileName2').children().val()); //파일네임에 값넣기
-        $('#sel_postFileName').html('<img src ="/images/'+$(e.target).nextAll('#postFileName2').children().val()+'" width="90px" height="130px">');
+        $('#sel_postFileName').html('<img src ="/resources/images/'+$(e.target).nextAll('#postFileName2').children().val()+'" width="90px" height="130px">');
         $('#movieTitle').val($(e.target).text()); //영화제목에 값넣기
         $('#sel_title').text($(e.target).text()); //영화제목에 값넣기
         $('#timeInfo').text("");//영화시간초기화
@@ -458,12 +457,12 @@
                         }
                     },
                     error: function () {
-                        alert("영화를 먼저 선택해주세요");
+                        // alert("영화를 먼저 선택해주세요");
                     }
                 });
             },
             error: function () {
-                alert("영화를 먼저 선택해주세요");
+                // alert("영화를 먼저 선택해주세요");
 
             }
         });
