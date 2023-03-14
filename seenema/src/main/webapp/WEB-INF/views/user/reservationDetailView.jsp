@@ -267,7 +267,7 @@
     const diffInMs = movieDate.getTime() - now.getTime();
 
     // 차이가 1시간 이전이면 버튼을 활성화, 그렇지 않으면 비활성화
-    if (diffInMs > 3600000) { // 3600000 밀리초 = 1시간
+    if (diffInMs > 1800000) { // 3600000 밀리초 = 1시간
                               // 버튼 활성화
         document.querySelector('.cancel-btn').disabled = false;
     } else {
@@ -282,7 +282,7 @@
 // 버튼 텍스트 변경
         document.querySelector('.cancel-btn').textContent = '취소불가';
         $(".movie-info").append(
-            '<p>(취소는 상영시간 1시간 전 까지만 가능합니다.)</p>'
+            '<p>(취소는 상영시간 30분 전 까지만 가능합니다.)</p>'
         )
     }
 
