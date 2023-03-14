@@ -14,10 +14,7 @@
     <!-- 등록된 영화 리스트 조회/삭제 페이지 -->
    <div class="gamut1">
 	    <%@ include file="adminMenu.jsp"%>
-	    <!--상단바-->
-	    <!--  <div class="top_bar">
-	          상단바
-	      </div> -->
+	    
 	    <div class="main_view1">
 	
 	       <div id="doToday_menu">
@@ -295,7 +292,6 @@
 										"</tr>");
 						
 						for(let i = 0; i < obj.length; i++){
-							
 							$("#tbody").append("<tr>"+
 													"<td><input type='checkbox' name='js_chk' class='js_chk' value="+obj[i].productCode+">"+
 													"<td>"+obj[i].productCode+"</td>"+
@@ -308,7 +304,6 @@
 												);//tbody
 						}//for
 						
-							
 					}else if(obj.length === 0){
 						$("#thead").html(
 								"<tr>"+
@@ -571,47 +566,6 @@
 				chks[i].checked = all.checked;
 			}
 		};
-		
-		/* //선택삭제
-		$("#btn_delProducts").on("click", products_delete);
-		
-		function products_delete(){
-			let chks1 = document.querySelectorAll(".chk");
-			
-			alert(chks1[1].value)
-			/* let chks1 = document.querySelectorAll(".chk");
-			alert(chks1)
-			if (!confirm("선택된 상품을 삭제하시겠습니까?")) {
-	           
-	        }else{
-	        	
-				let chked = new Array();
-				
-				for(let i = 0; i < chks1.length; i++){
-					
-					if(chks2[i].checked){
-						chked[i] = chks1[i].value;
-					}
-				}
-			
-				const xhttp = new XMLHttpRequest();
-				xhttp.onload = function() {
-				let result = this.responseText; 
-				
-					if(result == 1){
-						alert("삭제완료!");
-						location.href="productList";
-					}else{
-						alert("삭제실패..");
-						location.href="productList";
-					}
-				}
-				
-				xhttp.open("GET", "products_delete.do?productCodes=" + chked, true); 
-					
-				xhttp.send();
-	        } 
-		}*///function
 		
 		//조회 전체 선택
 		 $("#thead").on('click', $('#js_allChk'), function(){
@@ -1016,7 +970,91 @@
 			}//e.target if
 		}//src_sort function
 	</script>
-	
+	<script>
+		//검색 유효성검사
+		$("#btn_serchProduct").on("click", function(){
+			if($("#serchType").val() == "-선택-"){
+				alert("검색 할 카테고리를 먼저 선택해주세요.");
+				$("#serchType").css("border", "1px solid red");
+				goPage(1);
+			}
+			if($("#serchWord").val() == ""){
+				alert("검색어를 입력해주세요.");
+				$("#serchWord").css("border", "1px solid red");
+				goPage(1);
+			}
+			if($("#start").val() == "" || $("#end").val() == ""){
+				alert("가격을 입력해주세요.");
+				$("#start").css("border", "1px solid red");
+				$("#end").css("border", "1px solid red");
+				goPage(1);
+			}
+			
+		});
+		//카테고리 선택 완료 시 테두리 red->lightgray
+		$("#serchType").on("change", function(){
+			$("#serchType").css("border", "1px solid lightgray");
+		})
+		//검색어 입력완료 시 테두리 red->lightgray
+		$(document).on("change", "#serchWord", function(){
+			$("#serchWord").css("border", "1px solid lightgray");
+		});
+		
+		//가격 입력완료 시 테두리 red->lightgray
+		$(document).on("change", "#start", function(){
+			if($("start").val() != ""){
+				$("#start").css("border", "1px solid lightgray");
+				
+			}
+		});
+		$(document).on("change", "#end", function(){
+			if($("end").val() != ""){
+				$("#end").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//가격검색 숫자만 입력되도록
+		$(document).on("keyup", "#start", function(e){
+					if(e.keyCode > 47 && e.keyCode < 58 ||
+						e.keyCode === 8 || //backspace
+						e.keyCode === 37 || //방향키
+						e.keyCode === 39 || //방향키
+						e.keyCode === 46 ||//delete키
+						e.keyCode === 9 ||//tab키
+						e.keyCode === 13){ //enter키 
+							$("#price").css("border", "1px solid lightgray");
+							this.value = autoHypenTel(this.value) ;  
+					}else{
+						$("#start").val("");
+						alert("숫자만 입력가능합니다.");
+					}
+		});
+		$(document).on("keyup", "#end", function(e){
+			if(e.keyCode > 47 && e.keyCode < 58 ||
+				e.keyCode === 8 || //backspace
+				e.keyCode === 37 || //방향키
+				e.keyCode === 39 || //방향키
+				e.keyCode === 46 ||//delete키
+				e.keyCode === 9 ||//tab키
+				e.keyCode === 13){ //enter키 
+					$("#price").css("border", "1px solid lightgray");
+					this.value = autoHypenTel(this.value) ;  
+			}else{
+				$("#end").val("");
+				alert("숫자만 입력가능합니다.");
+			}
+		});
+	</script>
+<c:if test="${param.insert_result == 1 }">
+	<script>
+		alert("등록완료!")
+	</script>
+</c:if>
+<c:if test="${param.insert_result == 0 }">
+	<script>
+		alert("등록실패....")
+	</script>
+</c:if>
 <c:if test="${param.update_result == 1 }">
 	<script>
 		alert("수정완료!");

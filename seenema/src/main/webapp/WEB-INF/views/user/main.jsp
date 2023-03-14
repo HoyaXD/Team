@@ -22,7 +22,6 @@
     <div>
         <div class="titleWrap">
             <div class="sectionTitle on" id="movieChartTitle">무비차트</div>
-            <div class="sectionTitle" id="upcomingTitle">상영예정작</div>
         </div>
     </div>
     <div class="section">
@@ -104,13 +103,16 @@
     </div>
 </main>
 <script>
+    const id = $("#id").val();
+    const stamp = $("#stamp").val();
+    
 	$(document).ready(function() {
 	    getMainMovieList();
 	    getStoreList();
 	    randomVideo();
 	    getNoticeList();
 	});
-    const id = $("#id").val();
+	
     $(".myStampAnchor").on("click", function(){
     	if($("#id").val() == ""){
     		if(confirm("로그인 후 이용가능한 서비스 입니다.\n로그인 하시겠습니까?") == true){
@@ -222,7 +224,7 @@
 
 	//랜덤 영상
     function randomVideo(){
-        const randomNum = Math.floor(Math.random() * 4 + 1);
+        const randomNum = Math.floor(Math.random() * 5 + 1);
         if(randomNum == 1){
             // 앤트맨
             //$("#demo").text(randomNum);
@@ -235,10 +237,13 @@
             // 대외비
             //$("#demo").text(randomNum);
             $("#video").html("<source src='https://adimg.cgv.co.kr/images/202302/TheDevilsDeal/main_1080x608.mp4' type='video/mp4'>");
-        }else{
+        }else if(randomNum == 4){
             // 카운트
             //$("#demo").text(randomNum);
             $("#video").html("<source src='https://adimg.cgv.co.kr/images/202301/count/0214_count_1080x608.mp4' type='video/mp4'>");
+        }else{
+        	// 스즈메의 문단속
+        	$("#video").html("<source src='https://adimg.cgv.co.kr/images/202302/Suzume/Suzume_1080x608.mp4' type='video/mp4'>");
         }
     }
     
@@ -310,6 +315,7 @@
 	                        	+ "<div class='buttons'>"
 	                        	+ "<button class='goMovieResrvBtn' value=" + list[index].movieCode + ">예매하기</button>"
 	                        	+ "<button class='goMovieInfoBtn' value=" + list[index].movieCode + ">상세보기</button>"
+	                        	+ "<input type='hidden' value=" + list[index].end_date + ">"
 	                        	+ "</div>"
 	                        	+ "<div class='ranking'>" + (index + 1) + "</div>"
 	                        	+ "<div class='gradient'></div>"	// 그라데이션
@@ -339,6 +345,7 @@
             let data = this.responseText;
             let list = JSON.parse(data);
             for(let i = 0; i < 9; i++){
+            	console.log(list[i].category);
                 if(list[i].category == "package"){
                     $(".packageWrap").append(
                         "<a href='/user/productDetailView?productCode=" + list[i].productCode + "' class='storeItem storeItem1'>"
@@ -378,6 +385,8 @@
         xhttp.open("get", "/user/main/getStoreList.do", true);
         xhttp.send();
     }
+    
+    
 
     // 스크롤 부드럽게
     $(document).on('click', 'a[href^="#"]', function (event) {

@@ -152,7 +152,7 @@
 	// 일괄구매
 	$(document).on("click", ".buyBtn", function(){
 		let checks = $(".check:checked");
-		//let totalPrice = 0;	// 총 금액
+		let totalPrice = 0;	// 총 금액
 		let productCodes = new Array();	// 제품코드 배열
 		let prices = new Array();	// 제품수량 배열
 		let counts = new Array();	// 제품수량 배열
@@ -181,12 +181,13 @@
 			pay_method: "card",
 			merchant_uid: orderNum,   // 주문번호
 			name: productList,
-			amount: 100,
+			amount: totalPrice,
 			buyer_name: userName, 
 		},  function (rsp) { // callback
 				if (rsp.success) {
 			  		// 결제 성공
 					//console.log(rsp);
+			  		let refundCode = rsp.imp_uid;
 					const xhttp = new XMLHttpRequest();
 			  		xhttp.onload = function(){
 			  			let result = parseInt(this.responseText, 10);
@@ -199,7 +200,7 @@
 			  		}
 			  		xhttp.open("post", "/user/order/buyProducts.do", true);
 			  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-			  		xhttp.send("orderNum=" + orderNum + "&productCodes=" + productCodes + "&prices=" + prices + "&counts=" + counts + "&id=" + id + "&userName=" + userName);
+			  		xhttp.send("orderNum=" + orderNum + "&productCodes=" + productCodes + "&prices=" + prices + "&counts=" + counts + "&id=" + id + "&userName=" + userName + "&refundCode=" + refundCode);
 				} else {
 			  		// 결제 실패
 			  		alert("결제 실패");
@@ -307,6 +308,11 @@
 			totalPrice = 0;
 			//console.log("전체 체크(X) : " + totalPrice);
 		}
+		let check = $(".check:checked").length;
+		$(".selectedCount").empty();
+		$(".selectedCount").append(
+			"&nbsp;(" + check + ")"
+		);
 		$("#totalPrice").text(totalPrice.toLocaleString('ko-KR'));
 	});
 	
@@ -337,7 +343,7 @@
 	
 	// 상품 개별 삭제버튼
 	$(document).on("click", ".deleteBtn", function(e){
-		if(confirm("선택하신 상품을 삭제하시겠습니까?") == true){
+		if(confirm("해당 상품을 삭제하시겠습니까?") == true){
 			let productCode = e.target.parentElement.parentElement.children[0].children[1].value;	// 제품코드
 			let id = $("#id").val();	// 회원 아이디
 			let minPrice = parseInt(e.target.parentElement.parentElement.children[0].children[6].value, 10);
@@ -352,7 +358,7 @@
 				success: function(data){
 					let result = parseInt(data, 10);
 					if(result == 1){
-						alert("성공");
+						alert("해당상품을 장바구니에서 삭제하였습니다.");
 						getCartList();
 					}else{
 						alert("실패");
@@ -432,7 +438,7 @@
 			xhttp.onload = function(){
 				let data = this.responseText;
 				if(data == "1"){
-					alert("상품삭제 완료");
+					alert("선택한 상품을 장바구니에서 삭제하였습니다.");
 					getCartList();
 				}else{
 					alert("상품삭제 실패");

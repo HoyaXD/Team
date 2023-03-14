@@ -33,104 +33,117 @@
         }
 
         input[type="text"], input[type="password"], input[type="date"] {
-            width: 100%;
+            width: 460px;
             padding: 12px 20px;
             margin: 8px 0;
             display: inline-block;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
-        }
-
-        input[type="radio"] {
-            margin-right: 10px;
+            height: 50px;
         }
 
         input[type="submit"] {
             background-color: #373837;
             color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
+            /*padding: 14px 20px;*/
+            /*margin: 8px 0;*/
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            width: 150px;
+            width: 460px;
             height: 50px;
-            float: right;
+            font-size: 24px;
+            margin-top: 20px;
         }
 
         input[type="submit"]:hover {
             background-color: #474847;
         }
 
-        #idcheck {
-            position: relative;
-        }
-
         h1{
             margin-top: 20px;
             text-align: center;
+        }
+        .logImg img{
+            width: 350px;
+            height: 150px;
+        }
+        .mainContainer{
+            margin: 0 auto;
+            width: 780px;
+            text-align: center;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            flex-direction:column;
+        }
+        .input_title{
+            margin-top: 13px;
+            width: 460px;
+            margin-left: 15px;
+            padding-left: 5px;
+            text-align: left;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        #gender{
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            width: 460px;
+            height: 50px;
+            font-size: 16px;
+            padding-left: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 <div class="mainContainer">
-    <header>
-        <%@ include file="header.jsp"%>
-    </header>
-    <h1>회원가입</h1>
-    <br>
-    <table>
+    <div class="logImg" onclick="location.href='/'" style="cursor: pointer;">
+        <img src="/images/logo3.png">
+    </div>
 
-        <form action="reg.do" method="post" name="frm">
+        <form action="reg.do" method="post" name="frm" style="width: 100%; max-width: 500px;">
 
-            <tr>
-                <th>아이디</th>
-                <td id ="idcheck">
-                    <input type="text" name="id" placeholder="6글자 이상, 영문과 숫자로 이루어진 아이디를 입력해주세요.">
-                    <span id="idCheckComment"></span>
-                </td>
-            </tr>
-            <tr>
-                <th>비밀번호</th>
-                <td><input type="password" name="pw" placeholder="영문과 숫자를 포함한 8자 이상, 20자 이하의 비밀번호를 입력해주세요. "></td>
-            </tr>
-            <tr>
-                <th>비밀번호확인</th>
-                <td>
-                    <input type="password" name="pw2" id="pwCheck">
-                    <span id="pwCheckComment"></span>
-                </td>
-            </tr>
+                <div class="input_title">아이디</div>
+                    <div><input type="text" name="id" placeholder="6글자 이상, 영문과 숫자로 이루어진 아이디를 입력해주세요." id="idcheck"></div>
+                    <div class="input_title"><span id="idCheckComment"></span></div>
 
-            <tr>
-                <th>이름</th>
-                <td><input type="text" name="name"></td>
-            </tr>
-            <tr>
-                <th>전화번호</th>
-                <td><input type="text" name="tel" placeholder="- 을 제외하고 숫자만 입력해주세요"></td>
-            </tr>
-            <tr>
-                <th>성별</th>
-                <td>
-                    <input type="radio" value="남자" name="gender" checked>남자
-                    <input type="radio" value="여자" name="gender">여자
-                </td>
-            </tr>
-            <tr>
-                <th>생년월일</th>
-                <td><input type="date" name="birthday"></td>
-            </tr>
-            <tr>
-                <td colspan="2"> <input type="submit" value="회원등록" onclick="return check()"></td>
-            </tr>
+                <div class="input_title">비밀번호</div>
+            <div><input type="password" name="pw" placeholder="영문과 숫자를 포함한 8자 이상, 20자 이하의 비밀번호를 입력해주세요. "></div>
+
+                <div class="input_title">비밀번호 재확인</div>
+
+                    <div><input type="password" name="pw2" id="pwCheck"></div>
+                        <div class="input_title"><span id="pwCheckComment"></span></div>
+
+            <div class="input_title">이름</div>
+            <div><input type="text" name="name"></div>
+
+            <div class="input_title">전화번호</div>
+            <div><input type="text" name="tel"></div>
+
+            <div class="input_title">성별</div>
+
+            <div>
+                <select id="gender" name="gender">
+                    <option value="남자">남자</option>
+                    <option value="여자">여자</option>
+                </select>
+            </div>
+
+            <div class="input_title">생년월일</div>
+            <div><input type="date" name="birthday"></div>
+            <div><input type="submit" value="가입하기" onclick="return check()"></div>
         </form>
-    </table>
 </div>
-<%@ include file="footer.jsp"%>
+
 
 <script>
+
 
     $('#pwCheck').focusout(function() {  //비밀번호 확인
         let passRule = /^.*(?=^.{8,15}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
@@ -202,7 +215,7 @@
             document.frm.tel.focus();
             return false;
         } else if (document.frm.tel.value.length != 11) {
-            alert("'-'를 제외한 전화번호를 입력해주세요");
+            alert("전화번호를 다시 확인해주세요");
             document.frm.tel.focus();
             return false;
         }else if (document.getElementById("idCheckComment").innerText != "사용가능") {

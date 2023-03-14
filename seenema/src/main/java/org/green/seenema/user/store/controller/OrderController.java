@@ -1,8 +1,14 @@
 package org.green.seenema.user.store.controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.List;
-
-import net.nurigo.sdk.message.model.Message;
 
 import org.green.seenema.user.store.mapper.OrderMapper;
 import org.green.seenema.vo.OrderVO;
@@ -15,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
@@ -41,22 +48,22 @@ public class OrderController {
 	
     public OrderController() {
         // 반드시 계정 내 등록된 유효한 API 키, API Secret Key를 입력해주셔야 합니다!
-        this.messageService = NurigoApp.INSTANCE.initialize("NCS0TQ1V5STWBKVT", "KKMQT9E1WQINBFDSFZSE89QKAJ4NIW0I", "https://api.coolsms.co.kr");
+        this.messageService = NurigoApp.INSTANCE.initialize("NCSYUUMSYVNXTMC5", "SVLUDXYOALHHXR1VVVAMJQHQ7ZCL4UYT", "https://api.coolsms.co.kr");
     }
     
     // coolSms
 	@PostMapping("/send-one")
-  public SingleMessageSentResponse sendOne(String orderNum) {
+ 	public SingleMessageSentResponse sendOne(String orderNum) {
       Message message = new Message();
       // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
-      message.setFrom("01025955462");
+      message.setFrom("01047225462");
       message.setTo("01025955462");	// 고객 전화번호 필요
-      message.setText("[SEENEMA]\n고객님의 기프티콘 번호는\n" + orderNum + "\n입니다.");
+      message.setText("[SEENEMA]\n고객님의 관람권 번호는\n" + orderNum + "\n입니다.");
 
       SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
-       //System.out.println(response);
+      //System.out.println(response);
       return response;
-      }
+    }
 	
 	// 일괄구매
 	@PostMapping("/order/buyProducts.do")
@@ -65,7 +72,8 @@ public class OrderController {
 			, @RequestParam("prices") int[] prices
 			, @RequestParam("counts") int[] counts
 			, @RequestParam("id") String id
-			, @RequestParam("userName") String userName) {
+			, @RequestParam("userName") String userName
+			, @RequestParam("refundCode") String refundCode) {
 		int result = 0;
 		for(int i = 0; i < productCodes.length; i++) {
 			OrderVO order = new OrderVO();
@@ -75,6 +83,7 @@ public class OrderController {
 			order.setCount(counts[i]);
 			order.setId(id);
 			order.setUserName(userName);
+			order.setRefundCode(refundCode);
 			
 			result = mapper.buy(order);
 			if(result == 1) {
@@ -113,9 +122,15 @@ public class OrderController {
 		return order;
 	}
 	
-	// 결제 취소
 	@PostMapping("/order/refund.do")
-	public int refund(Long orderNum) {
+	public int refund(Long orderNum){
+		int result = mapper.refund(orderNum);
+		return result;
+	}
+	
+	// 결제 취소 상태 변경
+	@PostMapping("/order/changeStatus.do")
+	public int changeStatus(Long orderNum) {
 		int result = mapper.refund(orderNum);
 		return result;
 	}

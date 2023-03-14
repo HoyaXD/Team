@@ -127,7 +127,7 @@
 
     <div class="movie-details-container">
         <div class="movie-poster">
-            <img src="/images/${movie.postFileName }" alt="영화 포스터">
+            <img src="/resources/images/${movie.postFileName }" alt="영화 포스터">
         </div>
         <div class="movie-info">
             <h2 class="movie-title">${reservation.movieTitle}</h2>

@@ -8,8 +8,8 @@
 
 	<!-- 구매하기 -->
 	<insert id="buy">
-		INSERT INTO order_tbl (orderNum, productCode, price, count, id, userName) 
-		VALUES (#{order.orderNum}, #{order.productCode}, #{order.price}, #{order.count}, #{order.id}, #{order.userName});
+		INSERT INTO order_tbl (orderNum, productCode, price, count, id, userName, refundCode) 
+		VALUES (#{order.orderNum}, #{order.productCode}, #{order.price}, #{order.count}, #{order.id}, #{order.userName}, #{order.refundCode});
 	</insert>
 	
 	<!-- 초기 주문내역 -->
@@ -18,7 +18,7 @@
 			DATE_FORMAT(ot.orderDate, "%Y-%m-%d") as orderDate, ot.orderNum, pt.productCode, pt.productName, pt.productInfo, pt.price, 
 			ot.count, (ot.price * ot.count) AS totalPrice, ot.status
 		FROM seenema.product_tbl pt RIGHT JOIN seenema.order_tbl ot 
-		ON pt.productCode  = ot.productCode WHERE id = #{id} ORDER BY orderdate DESC LIMIT #{count}, 10;
+		ON pt.productCode  = ot.productCode WHERE id = #{id} ORDER BY ot.orderDate DESC LIMIT #{count}, 10;
 	</select>
 	
 	<!-- 주문내역 날짜별 조회 -->	
@@ -35,14 +35,14 @@
 	<!-- 제품상세정보 -->
 	<select id="getOrderDetail" resultType="OrderVO">
 		SELECT 
-			ot.searchDate, ot.orderNum, pt.productName, pt.productInfo, pt.price, ot.count, (ot.count * ot.price) as totalPrice, ot.id, ot.userName, ot.status, pt.productImage 
+			ot.searchDate, ot.orderNum, ot.refundCode, pt.productName, pt.productInfo, pt.price, ot.count, (ot.count * ot.price) as totalPrice, ot.id, ot.userName, ot.status, pt.productImage 
 		FROM seenema.product_tbl pt RIGHT JOIN seenema.order_tbl ot 
 		on pt.productCode = ot.productCode WHERE orderNum = #{orderNum};
 	</select>
 	
 	<!-- 환불 -->
 	<update id="refund">
-		UPDATE order_tbl SET status = 0 WHERE orderNum = #{orderNum};
+		UPDATE order_tbl SET status = -1 WHERE orderNum = #{orderNum};
 	</update>
 	
 	<!-- 페이지네이션 카운트(전체) -->

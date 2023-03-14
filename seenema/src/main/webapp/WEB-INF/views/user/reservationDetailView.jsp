@@ -200,7 +200,7 @@
     </c:if>
         <div class="movie-details-container">
             <div class="movie-poster">
-                <img src="/images/${movie.postFileName }" alt="영화 포스터">
+                <img src="/resources/images/${movie.postFileName }" alt="영화 포스터">
             </div>
             <div class="movie-info">
                 <h2 class="movie-title">${reservation.movieTitle}</h2>
@@ -215,6 +215,7 @@
                 <c:if test="${reservation.status eq 1}">
                     <p><button class="cancel-btn" onclick="openModal()">예매 취소</button></p>
                 </c:if>
+
             </div>
         </div>
     </div>
@@ -233,7 +234,7 @@
             3일 이후 예매 취소 시 카드사에 따라 3일 ~ 10일 카드사에서 환불됩니다.<br>
             휴대폰 결제<br>
             결제 일자 기준 당월(1일 ~ 말일까지) 취소만 가능합니다.<br>
-            익월 취소의 경우 롯데시네마 고객센터(1544-8855)로 문의 주시기 바랍니다.<br>
+            익월 취소의 경우 씨네마 고객센터(1588-0000)로 문의 주시기 바랍니다.<br>
             모바일캐시비/티머니<br>
             모바일캐시비(선불형): 모바일캐시비 APP 선물함으로 취소금액이 충전됩니다.<br>
             모바일티머니(선불형): 환불 SMS 수신 후 URL 클릭하시면 모바일티머니 APP이 자동으로 실행되어 취소금액이 충전됩니다.<br>
@@ -256,6 +257,34 @@
     </div>
 <%@include file="footer.jsp"%>
 <script>
+    // 상영일시를 Date 객체로 변환
+    const movieDate = new Date('${reservation.movieDate} ${reservation.reservationTime}');
+
+    // 현재시간을 구하기
+    const now = new Date();
+
+    // 상영일시와 현재시간 차이를 구하기 (밀리초 단위)
+    const diffInMs = movieDate.getTime() - now.getTime();
+
+    // 차이가 1시간 이전이면 버튼을 활성화, 그렇지 않으면 비활성화
+    if (diffInMs > 1800000) { // 3600000 밀리초 = 1시간
+                              // 버튼 활성화
+        document.querySelector('.cancel-btn').disabled = false;
+    } else {
+        // 버튼 비활성화
+        document.querySelector('.cancel-btn').disabled = true;
+        // 취소버튼의 배경색을 회색으로 바꾸기
+        document.querySelector('.cancel-btn').style.backgroundColor = 'gray';
+
+// 호버 이벤트 제거
+        document.querySelector('.cancel-btn').classList.remove('hover-class');
+
+// 버튼 텍스트 변경
+        document.querySelector('.cancel-btn').textContent = '취소불가';
+        $(".movie-info").append(
+            '<p>(취소는 상영시간 30분 전 까지만 가능합니다.)</p>'
+        )
+    }
 
     let totalPriceElement = document.getElementById("totalPrice");
     let totalPrice = totalPriceElement.innerHTML;

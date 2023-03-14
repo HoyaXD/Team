@@ -90,36 +90,33 @@ main{
 	margin-top: 10px;
 	padding: 10px;
 	/* border: solid 1px green; */
+	background-color: #5c5753;
 }
 
-.tabMenu{
-	display: flex;
-	justify-content: center;
-	background-image: linear-gradient(to left, rgb(255, 105, 86), rgb(251, 87, 87));
-	border: 1px solid red;
-	width: 500px;
-	padding: 5px 10px;
-	margin: 0 auto;
-	
+.tabMenu {
+  	display: flex;
 }
 
-.item{
-	width: 100px;
+.tabMenu .item {
+	flex: 1;
 	text-align: center;
-	padding: 5px;
-	margin: 0 10px;
-	/* border: 1px solid black; */
-	/* border: 1px solid red; */
+	position: relative; /* 아래 border를 위한 relative 설정 */
 }
-.item:nth-child(-n + 3){
-	border-right: 2px solid gainsboro;
-	padding-right: 20px;
-}
+
 .item > a{
-	padding: 5px;
+	padding: 10px 10px;
 	color: white;
-	/* border: 1px solid black; */
-	
+	font-weight: bold;
+}
+
+.tabMenu .item:not(.last)::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 1px;
+	background-color: #ccc;
 }
 
 .replySection{
@@ -254,6 +251,7 @@ main{
 /* 별 갯수 */
 #replyRate{
 	font-weight: bold;
+	margin-left: 10px;
 }
 
 /* 댓글 내용 */

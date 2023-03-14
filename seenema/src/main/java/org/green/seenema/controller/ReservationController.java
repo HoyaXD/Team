@@ -5,12 +5,15 @@ import org.green.seenema.mapper.*;
 import org.green.seenema.vo.MovieVO;
 import org.green.seenema.vo.ReservationVO;
 import org.green.seenema.vo.TheaterVO;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.util.List;
 
@@ -73,9 +76,11 @@ public class ReservationController {
 
     @PostMapping("/reservation.do") //예매실행
     @Transactional
-    public String reservationdo(ReservationVO reservation, Model model) {
+    public String reservationdo(ReservationVO reservation, Model model, HttpSession session) {
         log.info("예약정보 : " + reservation.toString());
         reservationMapper.cntPlus(reservation.getMovieCode(), reservation.getVisitors());
+        reservation.setId((String) session.getAttribute("logid"));
+        log.info("아이디 : " + reservation.getId());
         memberMapper.stampPlus(reservation.getId());
         int result = reservationMapper.regReservation(reservation);
         MovieVO movie = movieCRUDMapper.selectOne(reservation.getMovieCode());
@@ -102,5 +107,32 @@ public class ReservationController {
         return "user/alert";
     }
 
+//    @GetMapping ("/getScreenTheater.do")
+//    public @ResponseBody String getScreenTheater(int movieCode){
+//        return movieMapper.selectOne(movieCode);
+//    }
+
+
+    @GetMapping("/getScreenTheater.do")
+    public @ResponseBody String getScreenTheater(int movieCode) {
+        String theaterList = movieMapper.selectOne(movieCode);
+        String[] theaterArray = theaterList.split(",");
+        JSONArray jsonArray = new JSONArray();
+
+        for (String theaterName : theaterArray) {
+            JSONObject theaterObject = new JSONObject();
+            theaterObject.put("theaterName", theaterName);
+            jsonArray.put(theaterObject);
+        }
+
+        return jsonArray.toString();
+    }
+
+
+    @GetMapping("loadPlayingTime.do")
+    public @ResponseBody String loadPlayingTime(int movieCode){
+        log.info(movieMapper.loadPlayingTime(movieCode));
+        return movieMapper.loadPlayingTime(movieCode);
+    }
 
 }

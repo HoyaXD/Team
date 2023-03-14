@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QnaVO {
-	private int qCode;
+	private int qcode;
 	private String id;
 	private String title;
 	private String contents;

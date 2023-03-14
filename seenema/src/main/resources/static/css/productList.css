@@ -80,7 +80,7 @@ a {
 .gamut1 {
    width: 1300px;
    height: 1150px;
-   border: 1px red solid;
+  /*  border: 1px red solid; */
    background-color: #f3f3f3;
 }
 /*메인메뉴*/
@@ -88,7 +88,7 @@ a {
    background-color: #f3f3f3; float : right;
    width: 1094px;
    height: 1150px;
-   border: 1px solid green;
+   /* border: 1px solid green; */
    float: right;
 }
 
@@ -96,9 +96,11 @@ a {
    margin: 20px 0 0 45px;
    /*상 오른쪽 아래 왼쪽*/
    width: 1000px;
-   height: 150px;
-   border: 1px solid blue;
-   border-radius: 5px;
+   height: 140px;
+   border: 1px solid white;
+   border-radius: 10px;
+   border: 1px solid #3E4D59;
+   /* border: 1px solid lightgray; */
 }
 
 #doToday_title {
@@ -109,12 +111,14 @@ a {
 }
 
 .easy_menu1 {
-   background-color: white; margin : 20px 0 0 45px;
+   background-color: white; 
    display: flex;
    flex-wrap: wrap;
    width: 1000px;
-   height: 900px;
-   border: 1px solid darkgreen;
+   height: 890px;
+   border: 1px solid #3E4D59;
+   /* border: 1px solid lightgray; */
+   border-radius: 10px;
    margin: 20px 0 0 45px;
 }
 

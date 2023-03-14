@@ -44,10 +44,7 @@
 					<li class="item">
 						<a href="#trailer">예고편</a>
 					</li>
-					<li class="item">
-						<a href="#">스틸컷</a>
-					</li>
-					<li class="item">
+					<li class="item last">
 						<a href="#replySectionTitle">평점/리뷰</a>
 					</li>
 				</ul>
@@ -113,9 +110,7 @@
 						<div id="closeBtn">X</div>
 					</div>
 					<div class="updateReplyBoxWriteSection">
-						<div id="updateReplyBoxmovieTitle">
-							타이타닉
-						</div>
+						<div id="updateReplyBoxmovieTitle">${movie.movieTitle}</div>
 						<form name="updateReplyForm" id="updateReplyForm">
 							<fieldset>
 								<input type="radio" class="star" name="updateRate" value="5" id="updateRate5"><label for="updateRate5">★</label>
@@ -267,7 +262,7 @@
     		data.addColumn('number', '방문자수(명)');
     		data.addRows([
 	    		['10대', 121],		// 데이터 넣기
-		    	['20', 222],
+		    	['20대', 222],
 			    ['30대', 31],
 			    ['40대', 44],
 			    ['50대', 51]
@@ -332,12 +327,12 @@
 											+ "<span class='star'>" + star + "</span>" 
 											+ "<span class='unstar'>" + unstar + "</span>" 
 										+ "</div>" 
-										+ "<div id='replyRate'>" + rate + "</div>"
+										+ "<div id='replyRate'></div>"
 										: 
 										"<div id='replyStar'>" 
 											+ "<span class='star'>" + star + "</span>" 
 										+ "</div>" 
-										+ "<div id='replyRate'>" + rate + "</div>")
+										+ "<div id='replyRate'></div>")
 									+ (id == this.id? "<div class='btnWrap'><div id='updateBtn'>수정</div><div id='deleteBtn'>삭제</div></div>" : "")
 								+ "</div>"
 								+ "<div id='replyComment'>" + this.comment + "</div>" 

@@ -45,12 +45,12 @@ main{
 }
 
 /* 제목사이 파티션 (무비차트 | 상영예정작)*/
-#movieChartTitle:after{
+/* #movieChartTitle:after{
     position: relative;
     content: "";
     margin-left: 10px;
     border: 1px solid gainsboro;
-}
+} */
 
 /* 슬라이더 위 제목 */
 .sectionTitle .on{
@@ -341,7 +341,7 @@ video{
     height: 40px;
     text-align: center;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 30px;
     color: white;
     top: 260px;
     z-index: 3;
@@ -391,7 +391,7 @@ video{
 /* 버튼 wrap */
 .absoluteBtnWrap{
     position: fixed;
-    right: 20%;
+    right: 15%;
     bottom: 10%;
 }
 
@@ -502,7 +502,7 @@ video{
 	border-bottom: 2px dashed gainsboro;
 	font-size: 20px;
     text-align: left;
-    padding: 15px 0;
+    padding: 12px 0;
     font-weight: 400;
 }
 
@@ -512,6 +512,10 @@ video{
 
 .notice{
 	border: none;
+}
+
+.notice > a{
+	font-size: 15px;
 }
 .bottomSectionWrap{
     display: grid;
