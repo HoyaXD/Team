@@ -48,7 +48,7 @@ public class OrderController {
 	
     public OrderController() {
         // 반드시 계정 내 등록된 유효한 API 키, API Secret Key를 입력해주셔야 합니다!
-        this.messageService = NurigoApp.INSTANCE.initialize("NCS0TQ1V5STWBKVT", "KKMQT9E1WQINBFDSFZSE89QKAJ4NIW0I", "https://api.coolsms.co.kr");
+        this.messageService = NurigoApp.INSTANCE.initialize("NCSYUUMSYVNXTMC5", "SVLUDXYOALHHXR1VVVAMJQHQ7ZCL4UYT", "https://api.coolsms.co.kr");
     }
     
     // coolSms
@@ -56,9 +56,9 @@ public class OrderController {
  	public SingleMessageSentResponse sendOne(String orderNum) {
       Message message = new Message();
       // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
-      message.setFrom("01025955462");
+      message.setFrom("01047225462");
       message.setTo("01025955462");	// 고객 전화번호 필요
-      message.setText("[SEENEMA]\n고객님의 기프티콘 번호는\n" + orderNum + "\n입니다.");
+      message.setText("[SEENEMA]\n고객님의 관람권 번호는\n" + orderNum + "\n입니다.");
 
       SingleMessageSentResponse response = this.messageService.sendOne(new SingleMessageSendingRequest(message));
       //System.out.println(response);

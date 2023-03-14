@@ -89,7 +89,9 @@ public class UserController {
 	
 	// 이벤트 상세보기
 	@GetMapping("/eventDetailView")
-	public void eventDetailView() {}
+	public void eventDetailView() {
+		
+	}
 	
 	
 	// 영화 상세보기

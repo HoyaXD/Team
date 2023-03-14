@@ -18,7 +18,7 @@
 			DATE_FORMAT(ot.orderDate, "%Y-%m-%d") as orderDate, ot.orderNum, pt.productCode, pt.productName, pt.productInfo, pt.price, 
 			ot.count, (ot.price * ot.count) AS totalPrice, ot.status
 		FROM seenema.product_tbl pt RIGHT JOIN seenema.order_tbl ot 
-		ON pt.productCode  = ot.productCode WHERE id = #{id} ORDER BY orderdate DESC LIMIT #{count}, 10;
+		ON pt.productCode  = ot.productCode WHERE id = #{id} ORDER BY ot.orderDate DESC LIMIT #{count}, 10;
 	</select>
 	
 	<!-- 주문내역 날짜별 조회 -->	

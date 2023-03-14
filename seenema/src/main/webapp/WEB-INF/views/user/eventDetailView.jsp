@@ -23,7 +23,8 @@
 <%@ include file="footer.jsp" %>
 <script>
 	$(".goListBtn").on("click", function(){
-		location.href = "/user/myStamp";
+		const id = $("#id").val();
+		location.href = "/user/myStamp?id=" + id;
 	});
 </script>
 </body>

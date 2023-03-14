@@ -130,6 +130,7 @@
 		const xhttp = new XMLHttpRequest();
 		xhttp.onload = function(){
 			let result = parseInt(this.responseText, 10);
+			//alert("총 갯수 : " + result);
 			totalPage = Math.ceil(result / 10);
 			if(totalPage === 0){
 				$(".beforeAfterWrap").empty();
@@ -268,6 +269,7 @@
 	}
 	
 	$("#searchBtn").on("click", function() {
+		//alert("조회");
 		let status = $("#searchContentChoice > .grayBtn.on").val();
 		if(status === 0){
 			getOrderList(pageNum);

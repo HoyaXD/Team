@@ -21,18 +21,20 @@ public class UserMainController {
 	@Autowired
 	private UserMainMapper mapper;
 	
+	//메인 무비차트
 	@GetMapping("/main/getMainMoiveList.do")
 	public List<MovieVO> getMainMoiveList(){
 		List<MovieVO> mainList = mapper.getMainMovieList();
 		return mainList;
 	}
 	
+	//메인 스토어 상위
 	@GetMapping("/main/getStoreList.do")
 	public List<ProductVO> getStoreList(){
 		List<ProductVO> productList = mapper.getStoreList();
 		return productList;
 	}
-	
+	//메인 공지사항
 	@GetMapping("/main/getMainNoticeList.do")
 	public List<NoticeVO> getMainNoticeList(){
 		List<NoticeVO> noticeList = mapper.getMainNoticeList();

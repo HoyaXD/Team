@@ -391,7 +391,7 @@ video{
 /* 버튼 wrap */
 .absoluteBtnWrap{
     position: fixed;
-    right: 20%;
+    right: 15%;
     bottom: 10%;
 }
 

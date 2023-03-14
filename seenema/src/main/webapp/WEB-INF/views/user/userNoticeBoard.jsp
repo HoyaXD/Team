@@ -72,7 +72,7 @@
 	
 	// 검색
 	$("#searchBtn").on("click", function(){
-		alert($("#select").val());
+		//alert($("#select").val());
 		if($("#select").val() == ""){
 			alert("메뉴를 선택해주세요.");
 			return;

@@ -327,12 +327,12 @@
 											+ "<span class='star'>" + star + "</span>" 
 											+ "<span class='unstar'>" + unstar + "</span>" 
 										+ "</div>" 
-										+ "<div id='replyRate'>" + rate + "</div>"
+										+ "<div id='replyRate'></div>"
 										: 
 										"<div id='replyStar'>" 
 											+ "<span class='star'>" + star + "</span>" 
 										+ "</div>" 
-										+ "<div id='replyRate'>" + rate + "</div>")
+										+ "<div id='replyRate'></div>")
 									+ (id == this.id? "<div class='btnWrap'><div id='updateBtn'>수정</div><div id='deleteBtn'>삭제</div></div>" : "")
 								+ "</div>"
 								+ "<div id='replyComment'>" + this.comment + "</div>" 

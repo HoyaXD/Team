@@ -141,7 +141,7 @@
 			pay_method: "card",
 			merchant_uid: orderNum,   // 주문번호
 			name: productName,
-			amount: 100,
+			amount: totalPrice,
 			buyer_name: userName,
 		},  function (rsp) { // callback
 				if (rsp.success) {
