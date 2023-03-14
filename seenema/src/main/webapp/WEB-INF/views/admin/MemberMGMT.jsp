@@ -44,8 +44,8 @@
 								<th>비밀번호</th>
 								<th>이름</th>
 								<th>성별</th>
-								<th>생년월일</th>
 								<th>연락처</th>
+								<th>생년월일</th>
 								<th>등급</th>
 								<th>수정</th>
 								<th>삭제</th>
@@ -640,6 +640,7 @@
 							var userId = "userId";
 							var userName = "userName";
 							var userGrade = "userGrade";
+							$("#pageNum").hide();
 
 							//아이디로 회원목록 출력
 							if ($("#choiceMenu option:selected").val() == userId) {

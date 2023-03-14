@@ -81,7 +81,7 @@ a {
 .gamut {
    width: 1300px;
    height: 1000px;
-   border: 1px red solid;
+   border: 2px (128, 128, 128) solid;
    background-color: #f3f3f3;
 }
 /*메인메뉴*/
@@ -89,7 +89,6 @@ a {
    background-color: #f3f3f3; float : right;
    width: 1094px;
    height: 1000px;
-   border: 1px solid green;
    float: right;
 }
 
@@ -98,7 +97,6 @@ a {
    /*상 오른쪽 아래 왼쪽*/
    width: 1000px;
    height: 150px;
-   border: 1px solid blue;
    border-radius: 5px;
 }
 
@@ -106,11 +104,11 @@ a {
 	
 	width: 150px;
 	height: 30px;
-	border: 1px solid green;
 }
 
 #doToday_title {
 	width: 230px;
+	margin-top:20px;
 	height: auto;
 }
 
@@ -118,14 +116,12 @@ a {
 	display: flex;
 	width: 750px;
 	height: 320px;
-	border: 1px red solid;
 }
 
 #simpleView {
 	display: flex; margin-top : 30px;
 	width: 980px;
 	height: 580px;
-	border: 1px red solid;
 	margin-top: 30px;
 }
 

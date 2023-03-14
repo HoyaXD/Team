@@ -18,7 +18,10 @@
 	<!-- 아이디로 한줄평 검색 -->
 	<select id="replyLIdSearch"
 		resultType="org.green.seenema.vo.ReplyVO">
-		SELECT * FROM reply_tbl WHERE ID LIKE CONCAT('%',
+		SELECT r.replyCode, r.id, r.comment, r.rate, r.regDate, r.movieCode,
+		m.movieTitle
+		FROM reply_tbl r
+		INNER JOIN movie_tbl m ON r.movieCode = m.movieCode WHERE ID LIKE CONCAT('%',
 		#{searchId}, '%') ORDER BY
 		replyCode desc
 	</select>
@@ -26,7 +29,10 @@
 	<!-- 영화코드로 한줄평 검색 -->
 	<select id="replyMovieCodeSearch"
 		resultType="org.green.seenema.vo.ReplyVO">
-		SELECT * FROM reply_tbl WHERE movieCode LIKE CONCAT('%',
+		SELECT r.replyCode, r.id, r.comment, r.rate, r.regDate, r.movieCode,
+		m.movieTitle
+		FROM reply_tbl r
+		INNER JOIN movie_tbl m ON r.movieCode = m.movieCode WHERE movieCode LIKE CONCAT('%',
 		#{searchMovieCode},
 		'%') ORDER BY replyCode desc
 	</select>
@@ -34,7 +40,10 @@
 	<!-- 별점으로 한줄평 검색 -->
 	<select id="replyRateSearch"
 		resultType="org.green.seenema.vo.ReplyVO">
-		SELECT * FROM reply_tbl WHERE rate LIKE CONCAT('%',
+		SELECT r.replyCode, r.id, r.comment, r.rate, r.regDate, r.movieCode,
+		m.movieTitle
+		FROM reply_tbl r
+		INNER JOIN movie_tbl m ON r.movieCode = m.movieCode WHERE rate LIKE CONCAT('%',
 		#{searchRate}, '%')
 		ORDER BY replyCode desc
 	</select>
@@ -74,7 +83,7 @@
 		r.movieCode, m.movieTitle
 		FROM reply_tbl r
 		INNER JOIN movie_tbl m ON r.movieCode = m.movieCode ORDER BY replyCode desc
-		LIMIT 0,3;
+		LIMIT 0,8;
 	</select>
 
 

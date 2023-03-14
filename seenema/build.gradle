@@ -38,6 +38,11 @@ dependencies {
 	implementation 'org.json:json:20160810'
 	// coolSms 의존성 주입
 	implementation 'net.nurigo:sdk:4.2.7'
+	 // Bean Validation API
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    
+    // Hibernate Validator
+    implementation 'org.hibernate.validator:hibernate-validator:6.0.7.Final'
 }
 
 tasks.named('test') {

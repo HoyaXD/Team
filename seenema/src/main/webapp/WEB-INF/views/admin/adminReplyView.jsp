@@ -55,11 +55,11 @@
 
 						</tbody>
 					</table>
-					<div id="span_box">
+					<!-- <div id="span_box">
 						<span id="before_btn"><<</span>
 						<div id="pageNum"></div>
 						<span id="next_btn">>></span>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</div>
