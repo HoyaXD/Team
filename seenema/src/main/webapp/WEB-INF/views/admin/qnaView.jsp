@@ -40,6 +40,13 @@
 	width: 50px;
 	height: 30px;
 }
+#ans_btn{
+	border-radius: 3px;
+}
+#qnaRegi_btn{
+	border-radius: 3px;
+}
+
 </style>
 </head>
 <body>
@@ -69,7 +76,7 @@
 			<div class="ans_modal">
 				<div id="ans_box">
 					Q&A답변
-					<button id="close_modal">X</button>
+					<button id="close_modal">❌</button>
 					<div id="text_box"></div>
 				</div>
 			</div>
@@ -83,7 +90,7 @@
 								<th>제목</th>
 								<th>내용</th>
 								<th>아이디</th>
-								<th>파일유무</th>
+								<th>답변상황</th>
 								<th>등록시간</th>
 								<th>답변</th>
 							</tr>
@@ -124,31 +131,29 @@
 												let str = JSON.stringify(data);
 												let obj = JSON.parse(str);
 												let i = 0;
-
-												for (i; i < 10; i++) {
-													//regidate가 타입이 timestamp라서 10번째까지 잘라줌
-													var resultDate = obj[i].regiDate
-															.substring(0, 10);
-
-													$("#qnaTbody")
-															.append(
-																	'<tr><td>'
-																			+ obj[i].qcode
-																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
-																			+ obj[i].title
-																			+ '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
-																			+ obj[i].contents
-																			+ '</td><td>'
-																			+ obj[i].id
-																			+ '</td><td>'
-																			+ obj[i].fileName
-																			+ '</td><td>'
-																			+ resultDate
-																			+ '</td><td>'
-																			+ '<button id="ans_btn" style="width:70px;">답변하기</button>'
-																			+ '</td></tr>')//포문 끝
-
-												}
+									
+													for (i; i < 10; i++) {
+														//regidate가 타입이 timestamp라서 10번째까지 잘라줌
+														 var resultDate = obj[i].regiDate.substring(0, 10);
+														    $("#qnaTbody")
+														        .append(
+														            '<tr><td>'
+														            + obj[i].qcode
+														            + '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+														            + obj[i].title
+														            + '</td><td style="max-width:150px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis; resize: none;">'
+														            + obj[i].contents
+														            + '</td><td>'
+														            + obj[i].id
+														            + '</td><td>'
+														            + obj[i].status // 수정
+														            + '</td><td>'
+														            + resultDate
+														            + '</td><td>'
+														            + '<button id="ans_btn" style="width:70px;">답변하기</button>'
+														            + '</td></tr>'
+														        )
+														}
 												//페이지 번호나옴
 												$("#pageNum").empty();
 
@@ -230,7 +235,7 @@
 																			+ '</td><td>'
 																			+ obj[i].id
 																			+ '</td><td>'
-																			+ obj[i].fileName
+																			+ obj[i].status
 																			+ '</td><td>'
 																			+ resultDate
 																			+ '</td><td>'
@@ -282,7 +287,7 @@
 																			+ '</td><td>'
 																			+ obj[i].id
 																			+ '</td><td>'
-																			+ obj[i].fileName
+																			+ obj[i].status
 																			+ '</td><td>'
 																			+ resultDate
 																			+ '</td><td>'
@@ -336,7 +341,7 @@
 																			+ '</td><td>'
 																			+ obj[i].id
 																			+ '</td><td>'
-																			+ obj[i].fileName
+																			+ obj[i].status
 																			+ '</td><td>'
 																			+ resultDate
 																			+ '</td><td>'
@@ -390,7 +395,7 @@
 																			+ '</td><td>'
 																			+ obj[i].id
 																			+ '</td><td>'
-																			+ obj[i].fileName
+																			+ obj[i].status
 																			+ '</td><td>'
 																			+ resultDate
 																			+ '</td><td>'
@@ -451,7 +456,7 @@
 																	+ '\n\n'
 																	
 																	);
-											$("#text_box").after('<br>'+'<textarea id="text_val" style="width:450px; height:350px; resize: none;" readonly;>');
+											$("#text_box").after('<br><br>'+'<textarea id="text_val" style="width:450px; height:350px; resize: none;" readonly;>' + obj.answer);
 											$("#text_box").after('<button id="qnaRegi_btn">답변등록</button>');
 
 										},
@@ -465,7 +470,6 @@
 			var qcode2 = $("#regiQcode").text();
 			var qcode = parseInt(qcode2.substr(7));
 			var contents = $("#text_val").val();
-			alert(contents);
 			 $.ajax({
 				type : "post",
 				url : "qnaAdminAnswer",
@@ -529,7 +533,7 @@
 																			+ '</td><td>'
 																			+ obj[i].id
 																			+ '</td><td>'
-																			+ obj[i].fileName
+																			+ obj[i].status
 																			+ '</td><td>'
 																			+ resultDate
 																			+ '</td><td>'
@@ -603,7 +607,7 @@
 																			+ '</td><td>'
 																			+ obj[i].id
 																			+ '</td><td>'
-																			+ obj[i].fileName
+																			+ obj[i].status
 																			+ '</td><td>'
 																			+ resultDate
 																			+ '</td><td>'
@@ -676,7 +680,7 @@
 																			+ '</td><td>'
 																			+ obj[i].id
 																			+ '</td><td>'
-																			+ obj[i].fileName
+																			+ obj[i].status
 																			+ '</td><td>'
 																			+ resultDate
 																			+ '</td><td>'

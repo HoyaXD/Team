@@ -113,9 +113,9 @@
 					</table>
 					
 					<div id="span_box">
-					<span id="prev_btn"><<</span>
+					<!-- <span id="prev_btn"><<</span> -->
 						<span id="pageNum"></span>
-						<span id="next_btn">>></span>
+						<!-- <span id="next_btn">>></span> -->
 					</div>
 				</div>
 			</div>
@@ -250,7 +250,6 @@
 
 			  if (startPage > 1) {
 			    const $prev = $("<span>");
-			   // $prev.text("<<");
 			    $prev.attr("id", "prevPage");
 			    $pageNum.append($prev);
 			  }
@@ -266,7 +265,6 @@
 
 			  if (endPage < totalPage) {
 			    const $next = $("<span>");
-			    //$next.text(">>");
 			    $next.attr("id", "nextPage");
 			    $pageNum.append($next);
 			  }
@@ -274,7 +272,6 @@
 			  // 기존 이벤트 핸들러 삭제 후 재등록
 			  $pageNum.off("click", "span");
 			  $pageNum.on("click", "span", function(e) {
-				
 				
 			    const clickedPageStr = $(this).text();
 			    if (clickedPageStr === '') return;
@@ -302,8 +299,6 @@
 		});
 
 		$(document).on("click", "#prev_btn", function(e) {
-			alert($("#pageNum").children().first().text());
-
 			  if (currentPage > 1) {
 				currentPage = parseInt($("#pageNum").children().eq(1).text());
 			    currentPage -= 10;

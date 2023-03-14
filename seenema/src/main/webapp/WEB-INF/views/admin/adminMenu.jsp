@@ -8,7 +8,7 @@
 
 <body>
 	<div class="header">
-		<div class="logo">Seenema</div>
+		<div class="logo"><img src="/images/logo3.png" style="width: 200px; height: 100px;"></div>
 		<nav>
 			<ul class="mainmenu">
 				<li><a href="adminPage">관리자 메인</a>
@@ -40,7 +40,13 @@
 						<li><a href="adminProductSalesView">상품</a></li>
 					</ul>
 				</li>
-				<li><a href="MemberMGMT">회원관리 관리</a></li>
+				<li>이벤트
+					<ul class="submenu">			
+						<li><a href="adminEventRegi">이벤트 등록</a></li>
+						<li><a href="adminEventView">이벤트 목록 및 관리</a></li>
+					</ul>
+				</li>
+				<li><a href="MemberMGMT">회원 관리</a></li>
 				<li><a href="qnaView">Q&A 관리</a></li>
 				<li><a href="adNoticeView">공지사항 관리</a></li>
 				<li><a href="adminReplyView">한줄평 관리</a></li>

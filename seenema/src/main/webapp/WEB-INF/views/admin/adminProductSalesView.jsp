@@ -31,8 +31,8 @@
 				for (i; i < 12; i++) {
 					var jan = obj[0].totalPrice;
 					var feb = obj[1].totalPrice;
-					/* var mar = obj[2].totalPrice;
-					var apr = obj[3].totalPrice;
+					var mar = obj[2].totalPrice;
+					/*var apr = obj[3].totalPrice;
 					var may = obj[4].totalPrice;
 					var jun = obj[5].totalPrice;
 					var jul = obj[6].totalPrice;
@@ -43,17 +43,18 @@
 					var dec = obj[11].totalPrice; */
 
 					// Some raw data (not necessarily accurate)
-					var data2 = google.visualization
-							.arrayToDataTable([ [ 'Month', '상품 매출' ],
-									[ '1월', jan ], [ '2월', feb ], ]);/* , [ '3월', mar ],
-																																					[ '4월', apr ], [ '5월', may ],
-																																					[ '6월', jun ], [ '7월', jul ],
-																																					[ '8월', aug ], [ '9월', sep ],
-																																					[ '10월', oct ], [ '11월', nov ],
-																																					[ '12월', dec ], ]); */
+					var data2 = google.visualization.arrayToDataTable([
+							[ 'Month', '상품 매출' ], [ '1월', jan ], [ '2월', feb ],
+							[ '3월', mar ] ]);/*
+																																															[ '4월', apr ], [ '5월', may ],
+																																															[ '6월', jun ], [ '7월', jul ],
+																																															[ '8월', aug ], [ '9월', sep ],
+																																															[ '10월', oct ], [ '11월', nov ],
+																																															[ '12월', dec ], ]); */
 				}
 
 				var options = {
+					/* 	legend: 'none', */
 					seriesType : 'bars',
 					hAxis : {
 						format : 'decimal'
@@ -65,6 +66,7 @@
 							type : 'line'
 						}
 					}
+
 				};
 				var chart = new google.visualization.ComboChart(document
 						.getElementById('chart_div'));
@@ -115,46 +117,52 @@
 		'packages' : [ 'corechart' ]
 	});
 	google.charts.setOnLoadCallback(drawChart);
-	
+
 	$.ajax({
-		
+
 		url : "productManView",
 		type : "get",
 		dataType : "text",
-		
-		success : function(data){
+
+		success : function(data) {
 			let obj = JSON.parse(data);
 			let i = 0;
 
-			for(i; i < obj.length; i++){
-				$("#m_box").append('<td>'+ obj[i].total_count + '</td>');
-				$("#mTotalPrice_box").append('<td>'+ obj[i].total_price + '</td>');
+			for (i; i < obj.length; i++) {
+				$("#m_box").append('<td>' + obj[i].total_count + '</td>');
+				$("#mTotalPrice_box").append(
+						'<td>' + obj[i].total_price + '</td>');
 
-			} 
+			}
 		},
-		error : function (){}	
+		error : function() {
+		}
 	});
 	$.ajax({
-		
+
 		url : "productWomanView",
 		type : "get",
 		dataType : "text",
-		
-		success : function(data){
+
+		success : function(data) {
 			let obj = JSON.parse(data);
 			let i = 0;
 			const womonMonth1 = obj[0].total_count;
 			const womonMonth2 = obj[1].total_count;
+			const womonMonth3 = obj[2].total_count;
 
 		},
-		error : function (){}	
+		error : function() {
+		}
 	});
 	function drawChart() {
-		
+
 		var man1 = Number($("#man0").text());
 		var man2 = Number($("#man1").text());
+		var man3 = Number($("#man2").text());
 		var woman1 = Number($("#woman0").text());
 		var woman2 = Number($("#woman1").text());
+		var woman3 = Number($("#woman2").text());
 		/* var woman1 = $("#woman0").text();
 		var woman1 = $("#woman0").text();
 		var woman1 = $("#woman0").text();
@@ -164,10 +172,11 @@
 		var woman1 = $("#woman0").text();
 		var woman1 = $("#woman0").text(); */
 		var data = google.visualization.arrayToDataTable([ [ '달', '남자', '여자' ],
-				[ '1월', man1,woman1 ], [ '2월', man2, woman2 ],/*  [ '3월', 44, 25 ],
-				[ '4월', 57, 55 ], [ '5월', 62, 84 ], [ '6월', 79, 94 ],
-				[ '7월', 124, 135 ], [ '8월', 142, 121 ], [ '9월', 216, 195 ],
-				[ '10월', 184, 152 ], [ '11월', 201, 240 ], [ '12월', 46, 46 ], */
+				[ '1월', man1, woman1 ], [ '2월', man2, woman2 ],
+				[ '3월', man3, woman3 ],/*
+												[ '4월', 57, 55 ], [ '5월', 62, 84 ], [ '6월', 79, 94 ],
+												[ '7월', 124, 135 ], [ '8월', 142, 121 ], [ '9월', 216, 195 ],
+												[ '10월', 184, 152 ], [ '11월', 201, 240 ], [ '12월', 46, 46 ], */
 
 		]);
 
@@ -195,7 +204,6 @@
 #month_box {
 	margin-top: 20px;
 	width: 1040px;
-	border: 1px red solid;
 }
 
 table {
@@ -209,13 +217,22 @@ table {
 	text-align: center;
 }
 
+tbody {
+	max-height: 400px;
+	overflow-y: scroll;
+}
+
 table, td, th {
 	border: 1px solid black;
 	border-collapse: collapse;
 	max-height: 380px;
 }
 
-;
+#product_tbl {
+	max-height: 400px;
+	overflow-y: auto;
+}
+
 #month_box>table>tr>th {
 	width: 50px;
 }
@@ -232,7 +249,7 @@ table, td, th {
 #productView_box {
 	margin-top: 20px;
 	width: 1040px;
-	border: 1px red solid;
+	display: flex;
 }
 
 #piechart_3d {
@@ -247,6 +264,7 @@ table, td, th {
 	margin-top: 20px;
 	width: 1040px;
 	display: inline-block;
+	margin-bottom: 20px;
 }
 
 #gender_box>table {
@@ -259,6 +277,35 @@ table, td, th {
 	margin-top: 200px;
 	width: 950px;
 	height: 300px
+}
+
+tbody {
+	border-collapse: collapse;
+	border-bottom: 2px solid gray;
+	text-align: center;
+}
+
+thead {
+	background-color: rgb(62, 77, 89);
+	color: white;
+}
+
+th {
+	height: 30px;
+	border-bottom: 2px solid gray;
+	border-top: 2px solid gray;
+	text-align: center;
+	font-weight: bold;
+}
+
+tbody>tr:nth-child(2n+2) {
+	background-color: white;
+}
+#gender_tbl > thead{
+	background-color: rgb(62, 77, 89); 
+}
+#gender_tbl > tbody:nth-child(2n+1) {
+	background-color: white;
 }
 </style>
 </head>
@@ -273,6 +320,9 @@ table, td, th {
 				<table>
 					<thead>
 						<tr>
+							<th colspan="2">월별 상품 매출</th>
+						</tr>
+						<tr>
 							<th>월별</th>
 							<th>총 매출</th>
 						</tr>
@@ -284,61 +334,63 @@ table, td, th {
 				<div id="chart_div" style="width: 650px; height: 400px;"></div>
 			</div>
 			<div id="productView_box">
-				<table>
-					<thead>
-						<tr>
-							<th colspan="3">이번달 상품별 매출</th>
-						</tr>
-						<tr>
-							<th>이름</th>
-							<th>판매갯수</th>
-							<th>매출</th>
-						</tr>
-					</thead>
-					<tbody id="productView">
-						<!-- 상품갯수 총 매출 -->
-					</tbody>
-
-				</table>
+					<div id="product_tbl">
+						<table>
+							<thead>
+								<tr>
+									<th colspan="3">이번달 상품별 매출</th>
+								</tr>
+								<tr>
+									<th>이름</th>
+									<th>판매갯수</th>
+									<th>매출</th>
+								</tr>
+							</thead>
+							<tbody id="productView">
+								<!-- 상품갯수 총 매출 -->
+							</tbody>
+		
+						</table>
+					</div>
 				<div id="piechart_3d"></div>
 			</div>
 			<div id="gender_box">
-				<table>
+				<table id="gender_tbl">
+					<thead>
 					<tr>
 						<th colspan="13">성별에 따른 총 판매 갯수</th>
 					</tr>
-					<tr>
-						<th></th>
-						<th>1월</th>
-						<th>2월</th>
-						<th>3월</th>
-						<th>4월</th>
-						<th>5월</th>
-						<th>6월</th>
-						<th>7월</th>
-						<th>8월</th>
-						<th>9월</th>
-						<th>10월</th>
-						<th>11월</th>
-						<th>12월</th>
+					<tr id="th_month">
 					</tr>
-					<tbody >
-						<tr id="m_box"><td> 남자 </td></tr>
+					</thead>
+					<tbody>
+						<tr id="m_box">
+							<td>남자</td>
+						</tr>
 					</tbody>
 					<tbody>
-						<tr id="w_box"><td> 여자 </td></tr>
+						<tr id="w_box">
+							<td>여자</td>
+						</tr>
 					</tbody>
 					<tbody>
-						<tr  id="mTotalPrice_box"><td>남자 총 매출액</td></tr>
+						<tr id="mTotalPrice_box">
+							<td>남자 총 매출액</td>
+						</tr>
 					</tbody>
 					<tbody>
-						<tr  id="wTotalPrice_box"><td>여자 총 매출액</td></tr>
+						<tr id="wTotalPrice_box">
+							<td>여자 총 매출액</td>
+						</tr>
 					</tbody>
 					<tbody>
-						<tr id="totalPrice_box"><td>합산</td></tr>
+						<tr id="totalPrice_box">
+							<td>합산</td>
+						</tr>
 					</tbody>
 				</table>
-				<div id="curve_chart" style="width: 950px; height: 650px"></div>
+				<br><br><br>	
+				<div id="curve_chart" style="width: 950px; height: 450px; margin-bottom:50px;"></div>
 			</div>
 
 		</div>
@@ -349,7 +401,7 @@ table, td, th {
 		productTotalView();
 		productManView();
 		productWomanView();
-		
+
 		totalPrice();
 		function monthView() {
 
@@ -373,7 +425,7 @@ table, td, th {
 				}
 			});
 		}
-		function productTotalView(){
+		function productTotalView() {
 			$.ajax({
 
 				url : "productTotalView",
@@ -395,68 +447,80 @@ table, td, th {
 				}
 			});
 		}
-		function productManView(){
-			$.ajax({
-				
-				url : "productManView",
-				type : "get",
-				dataType : "text",
-				
-				success : function(data){
-					let obj = JSON.parse(data);
-					let i = 0;
-		
-					for(i; i < obj.length; i++){
-						$("#m_box").append('<td>'+ obj[i].total_count + '</td>');
-						$("#mTotalPrice_box").append('<td  id="man'+ i +'">'+ obj[i].total_price + '</td>');
+		function productManView() {
+			$
+					.ajax({
 
-					} 
-				},
-				error : function (){}	
-			});
+						url : "productManView",
+						type : "get",
+						dataType : "text",
+
+						success : function(data) {
+							let obj = JSON.parse(data);
+							let i = 0;
+							$("#th_month").append('<td></td>');
+							for (i; i < obj.length; i++) {
+								$("#th_month").append(
+										'<th>' + (i + 1) + '월' + '</th>');
+								$("#m_box").append(
+										'<td>' + obj[i].total_count + '</td>');
+								$("#mTotalPrice_box").append(
+										'<td  id="man'+ i +'">'
+												+ obj[i].total_price + '</td>');
+
+							}
+						},
+						error : function() {
+						}
+					});
 		}
-		
-		function productWomanView(){
+
+		function productWomanView() {
 			$.ajax({
-				
+
 				url : "productWomanView",
 				type : "get",
 				dataType : "text",
-				success : function(data){
+				success : function(data) {
 					let obj = JSON.parse(data);
 					let i = 0;
-					
-					for(i; i < obj.length; i++){
-			
-						$("#w_box").append('<td>'+ obj[i].total_count + '</td>');
-						$("#wTotalPrice_box").append('<td id="woman'+ i +'">'+ obj[i].total_price + '</td>');
 
-					} 
-					
+					for (i; i < obj.length; i++) {
+
+						$("#w_box").append(
+								'<td>' + obj[i].total_count + '</td>');
+						$("#wTotalPrice_box").append(
+								'<td id="woman'+ i +'">' + obj[i].total_price
+										+ '</td>');
+
+					}
+
 				},
-				error : function (){}
+				error : function() {
+				}
 			});
 		}
-		
-		function totalPrice(){
+
+		function totalPrice() {
 			$.ajax({
-				
+
 				url : "genderTotalPriceView",
 				type : "get",
 				dataType : "text",
-				success : function(data){
+				success : function(data) {
 					let obj = JSON.parse(data);
-					
-					let i = 0;
-					for(i; i < obj.length; i++){
-						$("#totalPrice_box").append('<td>'+ obj[i].totalPrice + '</td>');
 
-					} 
+					let i = 0;
+					for (i; i < obj.length; i++) {
+						$("#totalPrice_box").append(
+								'<td>' + obj[i].totalPrice + '</td>');
+
+					}
 				},
-				error : function (){}	
+				error : function() {
+				}
 			});
 		}
-		
 	</script>
 </body>
 </html>

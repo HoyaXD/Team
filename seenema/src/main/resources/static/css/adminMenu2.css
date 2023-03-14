@@ -80,7 +80,6 @@ a {
 .gamut {
    width: 1300px;
    height: 1000px;
-   border: 1px red solid;
    background-color: #f3f3f3;
 }
 /*메인메뉴*/
@@ -88,7 +87,6 @@ a {
    background-color: #f3f3f3; float : right;
    width: 1094px;
    height: 1000px;
-   border: 1px solid green;
    float: right;
 }
 

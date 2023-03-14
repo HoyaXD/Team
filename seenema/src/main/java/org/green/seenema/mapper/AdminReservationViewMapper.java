@@ -1,6 +1,7 @@
 package org.green.seenema.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -9,7 +10,8 @@ import org.green.seenema.vo.ReservationVO;
 @Mapper
 public interface AdminReservationViewMapper {
 
-	public List<ReservationVO> reservationMainView();
+
+	public List<Map<String, Object>> reservationMainView();
 
 	public List<ReservationVO> reservationAllView(@Param("searchKeyword") String searchKeyword, @Param("start") int start);
 
@@ -34,4 +36,5 @@ public interface AdminReservationViewMapper {
 	// 상영날짜
 	public List<ReservationVO> reservationDate(@Param("searchKeyword") String searchKeyword, @Param("start") int start);
 
+	public List<Map<String, Object>> reservationMainViewCount();
 }

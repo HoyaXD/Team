@@ -50,6 +50,7 @@ public class AdminNoticeController {
 	// 공지글 수정
 	@PostMapping("editNotice")
 	public void editNotice(NoticeVO v) {
+		log.info(v.toString());
 		anMapper.noticeEdit(v);
 	}
 

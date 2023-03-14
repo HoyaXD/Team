@@ -7,9 +7,32 @@
 <meta charset="UTF-8">
 <title>Seenema Member Management Edit View</title>
 <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/adminMenu.css">
+<style>
+		h1{
+		margin-left:80px;
+		}
+	.editBox{
+		margin: 0 auto;
+		margin-left:100px;
+		
+		font-size: 20px;
+	}
+	input[type='text']{
+		width: 150px;
+		height: 30px;
+		font-size: 20px;
+	}
+	input[type='button']{
+		width: 50px;
+		height: 30px;
+		border-radius: 5px;
+	}
+</style>
+
 </head>
 <body>
-<h1>회원 수정 윈도우 창</h1>
+<h1>회원 수정</h1>
 <hr>
    <div class="editBox">
       <form id="edit_frm" name="form_name" method="post">
@@ -51,8 +74,8 @@
             <input type="text" id="editGrade" name="grade" value="${member.grade}">
          </div>
       </c:forEach>
-         <div>
-            <input type="button" value="회원정보수정" onclick="edit_btn()">
+         <div style="margin-top:10px;">
+            <input type="button" value="수정" onclick="edit_btn()">
             <input type="button" value="닫기" onclick="popClose()">
          </div>
      </form>
@@ -74,7 +97,6 @@
           data : form,
           dataType : "json",
           success : function(json){
-             alert("회원목록을 수정하였습니다.");
              //한명의 회원목록 수정창을 닫음
              window.close();
              //회원목록을 보여주는 창을 새로고침
