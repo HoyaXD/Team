@@ -976,25 +976,20 @@
 			if($("#serchType").val() == "-선택-"){
 				alert("검색 할 카테고리를 먼저 선택해주세요.");
 				$("#serchType").css("border", "1px solid red");
-				goPage(0);
+				goPage(1);
 			}
 			if($("#serchWord").val() == ""){
 				alert("검색어를 입력해주세요.");
 				$("#serchWord").css("border", "1px solid red");
-				goPage(0);
+				goPage(1);
 			}
 			if($("#start").val() == "" || $("#end").val() == ""){
 				alert("가격을 입력해주세요.");
 				$("#start").css("border", "1px solid red");
 				$("#end").css("border", "1px solid red");
-				goPage(0);
+				goPage(1);
 			}
-			if($("#start").val() > $("#end").val()){
-				alert("시작 가격이 더 큽니다. 가격을 다시 입력해주세요.");
-				$("#start").css("border", "1px solid red");
-				$("#end").css("border", "1px solid red");
-				goPage(0);
-			}
+			
 		});
 		//카테고리 선택 완료 시 테두리 red->lightgray
 		$("#serchType").on("change", function(){
@@ -1050,6 +1045,16 @@
 			}
 		});
 	</script>
+<c:if test="${param.insert_result == 1 }">
+	<script>
+		alert("등록완료!")
+	</script>
+</c:if>
+<c:if test="${param.insert_result == 0 }">
+	<script>
+		alert("등록실패....")
+	</script>
+</c:if>
 <c:if test="${param.update_result == 1 }">
 	<script>
 		alert("수정완료!");
