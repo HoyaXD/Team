@@ -65,8 +65,16 @@
 	                                <option value="15">15세 이상 관람가</option>
 	                                <option value="19">청소년 관람불가</option>
                             	</c:if>
-                            	<c:if test="${movie.viewAge != 0 }">
+                            	<c:if test="${movie.viewAge == 12 || movie.viewAge == 15 }">
 	                                <option value="${movie.viewAge }">${movie.viewAge }세 이상 관람가</option>
+	                                <option>-선택-</option>
+	                                <option value="0">전체관람가</option>
+	                                <option value="12">12세 이상 관람가</option>
+	                                <option value="15">15세 이상 관람가</option>
+	                                <option value="19">청소년 관람불가</option>
+                            	</c:if>
+                            	<c:if test="${movie.viewAge == 19 }">
+	                                <option value="${movie.viewAge }">청소년 관람불가</option>
 	                                <option>-선택-</option>
 	                                <option value="0">전체관람가</option>
 	                                <option value="12">12세 이상 관람가</option>

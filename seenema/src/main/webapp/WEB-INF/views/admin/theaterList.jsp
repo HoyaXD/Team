@@ -65,7 +65,6 @@
 					<tfoot id="tfoot1">
 	                      <tr>
 	                      	<th>
-	                      		<button id="btn_delProducts">선택삭제</button>
 	                      	</th>
 	                      	<th></th>
 	                      	<th id="pageNum"></th>

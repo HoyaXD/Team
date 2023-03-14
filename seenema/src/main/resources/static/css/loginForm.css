@@ -27,7 +27,6 @@ form input {
     margin-bottom: 10px;
     border: 1px solid #e8e8e8;
     border-radius: 4px;
-    font-size: 16px;
 }
 
 form button {
@@ -96,4 +95,7 @@ form button {
 }
 a{
     text-decoration-line: none;
+}
+input[type=text], input[type=password]{
+    font-size: 22px;
 }

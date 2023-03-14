@@ -42,9 +42,9 @@
 }
 #gender_tbl_notice{
 	text-align: left;
-	margin-left: 40px;
+	margin-left: 35px;
 	margin-top: 10px;
-	font-size: 13px;
+	font-size: 14px;
 }
 /**/
 #list_title{
@@ -95,7 +95,7 @@
 #list5_menu{
    margin-top: 20px;
    width: 550px;
-   height: 350px;
+   height: 450px;
    border: 1px solid lightgray;
    border-radius: 10px;
 }
@@ -107,23 +107,35 @@
 	width: 400px;
 	
 }
+#genre_tbl{
+	width: 550px;
+}
+#genre_tbl th{
+	height: 40px;
+	border:1px solid black;
+}
+#genre_tbl th:nth-child(3){
+	width: 100px;
+}
 #tbl_box{
 	height: 307px;
 	border: none;
 	overflow: hidden;
 	border-radius: 0px 0px 10px 10px;
 }
+
 #movie_sales_tbl th, #gender_sales_tbl th{
-   height: 20px;
+   height: 35px;
    border-top: 1px solid black;
    background-color: #7490a8;
    color: white;
    font-weight: normal;
 }
 #movie_sales_tbl td, #gender_sales_tbl td{
-   height: 25px;
+   height: 45px;
    border: none;
 }
+
 #tbl_male_cnt, #tbl_female_cnt{
 	cursor: pointer;
 }
@@ -147,7 +159,7 @@
 	background-color: #F6F6F6;
 }
 #genderTbl_thead td{
-	height: 20px;
+	height: 35px;
 	background-color:#F6F6F6;
 }
 #genderTbl_tbody2{
@@ -185,7 +197,7 @@
 	border: 1px solid lightgray;
 	border-radius: 20px;
 	width: 350px;
-	height: 385px;
+	height: 380px;
 	background-color: white;
 	text-align: center;
 }
@@ -203,26 +215,28 @@
 }
 #popup_tbl th, #popup_tbl td,
 #popup_theaterInfo_tbl th, #popup_theaterInfo_tbl td{
-	height:10px;
+	height: 25px;
 	border: none;
 }
 #popup_theaterInfo_tbl th{
-	width:33px;
+	width: 50px;
 }
 #thaterInfo_tbody tr:nth-child(4) > td{
 	font-size: 15px;
 }
-#popup_tbl tr:nth-child(2), #thaterInfo_tbody tr:nth-child(2){
+#popup_tbl tr:nth-child(2), #theaterInfo_tbody tr:nth-child(2){
 	border-top: 1px solid lightgray;
 	border-bottom: 1px solid lightgray;
 	background-color: #3F4D59;
 	color: white;
 	font-weight:normal;
 }
-#popup_tbl tr:nth-child(4), #thaterInfo_tbody tr:nth-child(4){
+#popup_tbl tr:nth-child(4), #theaterInfo_tbody tr:nth-child(4){
 	border-top: 1px solid lightgray;
 	border-bottom: 1px solid lightgray;
-	
+}
+#popup_theaterInfo_tbl{
+	border:none;
 }
 #listBox{
   /*  border: 1px solid red; */
@@ -233,7 +247,6 @@
 #movie_sales_tbl tbody tr:nth-child(2n+1){
    background-color: RGB(246, 246, 246);
 }
-
 /**/
 .easy_menu1 {
    background-color: white;

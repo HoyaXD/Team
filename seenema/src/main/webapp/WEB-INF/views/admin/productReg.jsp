@@ -107,100 +107,100 @@
         }
     </script>
 	<script>
-	//유효성검사
-	$("#submitBtn").on("click", function(){
-		if($("#productName").val() == ""){
-			alert("제품명을 입력해주세요.");
-			$("#productName").css("border", "1px solid red");
-			$("#productName").focus(); 
-			return false;
-		}else if($("#productName").val() != ""){
-			$("#productName").css("border", "1px solid lightgray");
-		}
-		
-		if($("#category").val() == "-선택-"){
-			alert("카테고리를 선택해주세요.");
-			$("#category").css("border", "1px solid red");
-			$("#category").focus(); 
-			return false;
-		}else if($("#category").val() != "-선택-"){
-			$("#category").css("border", "1px solid lightgray");
-		}
-		
-		if($("#price").val() == ""){
-			alert("가격을 입력해주세요.");
-			$("#price").css("border", "1px solid red");
-			$("#price").focus(); 
-			return false;
-		}else if($("#price").val() != ""){
-			$("#price").css("border", "1px solid lightgray");
-		}
-		
-		if($("#productInfo").val() == ""){
-			alert("제품정보를 입력해주세요.");
-			$("#productInfo").css("border", "1px solid red");
-			$("#productInfo").focus(); 
-			return false;
-		}else if($("#productInfo").val() != ""){
-			$("#productInfo").css("border", "1px solid lightgray");
-		}
-		
-		if($("#photoFileName").val() == ""){
-			alert("제품 이미지를 등록해주세요.");
-			$("#upload_btn").css("border", "1px solid red");
-			$("#upload_btn").focus(); 
-			return false;
-		}else if($("#photoFileName").val() != ""){
-			$("#upload_btn").css("border", "1px solid lightgray");
-		}
-	});
-	//가격에 숫자만 입력되도록
-	$("#price").on("keydown", function(e){
-		if(e.keyCode > 47 && e.keyCode < 58 ||
-			e.keyCode === 8 || //backspace
-			e.keyCode === 37 || //방향키
-			e.keyCode === 39 || //방향키
-			e.keyCode === 46 ||//delete키
-			e.keyCode === 9 ||//tab키
-			e.keyCode === 13){ //enter키 
+		//유효성검사
+		$("#submitBtn").on("click", function(){
+			if($("#productName").val() == ""){
+				alert("제품명을 입력해주세요.");
+				$("#productName").css("border", "1px solid red");
+				$("#productName").focus(); 
+				return false;
+			}else if($("#productName").val() != ""){
+				$("#productName").css("border", "1px solid lightgray");
+			}
+			
+			if($("#category").val() == "-선택-"){
+				alert("카테고리를 선택해주세요.");
+				$("#category").css("border", "1px solid red");
+				$("#category").focus(); 
+				return false;
+			}else if($("#category").val() != "-선택-"){
+				$("#category").css("border", "1px solid lightgray");
+			}
+			
+			if($("#price").val() == ""){
+				alert("가격을 입력해주세요.");
+				$("#price").css("border", "1px solid red");
+				$("#price").focus(); 
+				return false;
+			}else if($("#price").val() != ""){
 				$("#price").css("border", "1px solid lightgray");
-		}else{
-			alert("숫자만 입력가능합니다.");
-		}
-	});
-	//제품명 입력완료하면 테두리 red-> lightgray
-	$("#productName").on("change", function(){
-		if($("#productName").val() != ""){
-			$("#productName").css("border", "1px solid lightgray");
-		}
-	});
-	//카테고리 선택완료하면 테두리 red-> lightgray
-	$("#category").on("change", function(){
-		if($("#category").val() != ""){
-			$("#category").css("border", "1px solid lightgray");
-		}
-	});
-	
-	//가격 입력완료하면 테두리 red-> lightgray
-	$("#price").on("change", function(){
-		if($("#price").val() != ""){
-			$("#price").css("border", "1px solid lightgray");
-		}
-	});
-	
-	//제품정보 입력완료하면 테두리 red-> lightgray
-	$("#productInfo").on("change", function(){
-		if($("#productInfo").val() != ""){
-			$("#productInfo").css("border", "1px solid lightgray");
-		}
-	});
-	
-	//제품이미지 등록완료하면 테두리 red-> lightgray
-	$("#photoFileName").on("change", function(){
-		if($("#photoFileName").val() != ""){
-			$("#upload_btn").css("border", "1px solid lightgray");
-		}
-	});
+			}
+			
+			if($("#productInfo").val() == ""){
+				alert("제품정보를 입력해주세요.");
+				$("#productInfo").css("border", "1px solid red");
+				$("#productInfo").focus(); 
+				return false;
+			}else if($("#productInfo").val() != ""){
+				$("#productInfo").css("border", "1px solid lightgray");
+			}
+			
+			if($("#photoFileName").val() == ""){
+				alert("제품 이미지를 등록해주세요.");
+				$("#upload_btn").css("border", "1px solid red");
+				$("#upload_btn").focus(); 
+				return false;
+			}else if($("#photoFileName").val() != ""){
+				$("#upload_btn").css("border", "1px solid lightgray");
+			}
+		});
+		//가격에 숫자만 입력되도록
+		$("#price").on("keydown", function(e){
+			if(e.keyCode > 47 && e.keyCode < 58 ||
+				e.keyCode === 8 || //backspace
+				e.keyCode === 37 || //방향키
+				e.keyCode === 39 || //방향키
+				e.keyCode === 46 ||//delete키
+				e.keyCode === 9 ||//tab키
+				e.keyCode === 13){ //enter키 
+					$("#price").css("border", "1px solid lightgray");
+			}else{
+				alert("숫자만 입력가능합니다.");
+			}
+		});
+		//제품명 입력완료하면 테두리 red-> lightgray
+		$("#productName").on("change", function(){
+			if($("#productName").val() != ""){
+				$("#productName").css("border", "1px solid lightgray");
+			}
+		});
+		//카테고리 선택완료하면 테두리 red-> lightgray
+		$("#category").on("change", function(){
+			if($("#category").val() != ""){
+				$("#category").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//가격 입력완료하면 테두리 red-> lightgray
+		$("#price").on("change", function(){
+			if($("#price").val() != ""){
+				$("#price").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//제품정보 입력완료하면 테두리 red-> lightgray
+		$("#productInfo").on("change", function(){
+			if($("#productInfo").val() != ""){
+				$("#productInfo").css("border", "1px solid lightgray");
+			}
+		});
+		
+		//제품이미지 등록완료하면 테두리 red-> lightgray
+		$("#photoFileName").on("change", function(){
+			if($("#photoFileName").val() != ""){
+				$("#upload_btn").css("border", "1px solid lightgray");
+			}
+		});
 	</script>
 </body>
 </html>
