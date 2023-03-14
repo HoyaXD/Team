@@ -178,25 +178,25 @@
             <div id="active_reservation" class="active_menu">
               <ul>
                 <a href="/user/reservationMain"><li class="active_title">예매</li></a>
-                <a href="/user/reservationMain"><li>빠른예매</li></a>
+                <a href="/user/reservationMain"><li>빠른 예매</li></a>
                 <a href="/user/myReservation"><li>내 예매내역</li></a>
-                <a href="#"><li>icecon</li></a>
+                <a href="#"><li>상영 일정</li></a>
               </ul>
             </div>
             <div id="active_store" class="active_menu">
               <ul>
                 <a href="/user/storeView"><li class="active_title">스토어</li></a>
-                <a href="#"><li>무비차트</li></a>
-                <a href="#"><li>아트하우스</li></a>
-                <a href="#"><li>icecon</li></a>
+                <a href="#"><li>베스트</li></a>
+                <a href="#"><li>관람권</li></a>
+                <a href="#"><li>스낵 / 음료</li></a>
               </ul>
             </div>
             <div id="active_board" class="active_menu">
               <ul>
                 <a href="/user/userNoticeBoard"><li class="active_title">게시판</li></a>
-                <a href="/user/userNoticeBoard"><li>공지사항</li></a>
-                <a href="#"><li>아트하우스</li></a>
-                <a href="#"><li>icecon</li></a>
+                <a href="/user/userNoticeBoard"><li>공지 / 뉴스</li></a>
+                <a href="#"><li>Q&A</li></a>
+                <a href="#"><li>상영관</li></a>
               </ul>
             </div>
           </div>
