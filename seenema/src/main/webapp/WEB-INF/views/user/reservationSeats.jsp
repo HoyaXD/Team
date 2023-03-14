@@ -225,7 +225,7 @@
             height: 200px;
         }
         #regBtn{
-            /*display: none;*/
+            display: none;
         }
     </style>
 </head>
@@ -341,6 +341,7 @@
 </div>
 </c:if>
 <footer>
+
     <%@ include file="footer.jsp"%>
 </footer>
 
@@ -554,7 +555,7 @@
             pay_method: "card",
             merchant_uid: ticketCode,   // 주문번호
             name: movieTitle,
-            amount: 100,  //ticketPrice로 수정해야함
+            amount: ticketPrice,  //ticketPrice로 수정해야함
             buyer_name: userName,
         },  function (rsp) { // callback
             if (rsp.success) {
