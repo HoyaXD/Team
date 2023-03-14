@@ -30,7 +30,7 @@
                 </div>
                 <div id="tbl_box">
 	                <table id="movie_sales_tbl">
-	                    <thead>
+	                    <thead id="movie_sales_tbl_thead">
 	                        <tr>
 	                            <th>순위</th><th>제목</th><th>예매율</th>
 	                        </tr>
@@ -139,9 +139,14 @@
 					<div id="chart">
 						<div id="genreCntGraph" style="width:500px; height: 295px;"></div>
 					</div>
-					<div>
-						hi
-					</div>
+					<table id="genre_tbl">
+           				<tr>
+           					<th>장르</th><th>영화</th><th>예매율</th>
+           				</tr>
+           				<tbody id="genre_tbl_tbody">
+           				
+           				</tbody>
+           			</table>
                 </div><!-- list4 -->
             </div><!-- list2 -->
          </div>
@@ -156,7 +161,7 @@
 	</div>
 	<div class="popup_theaterInfo" style="display:none;">
 		<table id="popup_theaterInfo_tbl">
-			<tbody id="thaterInfo_tbody">
+			<tbody id="theaterInfo_tbody">
 			</tbody>
 		</table>
 	</div>
@@ -568,10 +573,10 @@
  			
  			const xhttp = new XMLHttpRequest();
  			xhttp.onload = function() {
- 				$("#thaterInfo_tbody").empty();
+ 				$("#theaterInfo_tbody").empty();
  				let result = this.responseText; 
 				let obj = JSON.parse(result);
-				$("#thaterInfo_tbody").append(
+				$("#theaterInfo_tbody").append(
 	    				"<tr>"+
 	    					"<th colspan='2'>"+
 	    					"<img src='/resources/images/"+obj.theaterImage+"' width='250px;' height='200px;'>"+
@@ -912,6 +917,15 @@
 					
 				}
 				cntPieChartByGenre(genres, reservationCnt);
+				for(let i = 0; i < genres.length; i++){
+					if(genres[i] != undefined){
+						$("#genre_tbl_tbody").append(
+								"<tr>"+
+									"<td>" + genres[i] + "</td>"+
+									
+								"</tr>");
+					}
+				}
     		}
     				
     		xhttp.open("GET", "allGenre", true); 
@@ -945,8 +959,9 @@
 	            var chart = new google.visualization.PieChart(document.getElementById('genreCntGraph'));
 	            chart.draw(data, options);
 	        });
-	        
 	    }
+    	
+    	
     </script>
 </body>
 </body>

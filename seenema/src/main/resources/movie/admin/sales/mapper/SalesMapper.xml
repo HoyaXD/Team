@@ -51,7 +51,7 @@
 	</select>
 	
 	<select id="allGenre" resultType="MovieSalesVO">
-		SELECT mt.genre 
+		SELECT mt.genre, rt.movieTitle
 		FROM movie_tbl mt, reservation_tbl rt 
 		WHERE mt.movieCode = rt.movieCode
 	</select>

@@ -402,8 +402,8 @@
 				e.keyCode === 8 || //backspace
 				e.keyCode === 37 || //방향키
 				e.keyCode === 39 || //방향키
-				e.keyCode === 46 ||//delete키
-				e.keyCode === 9 ||//tab키
+				e.keyCode === 46 || //delete키
+				e.keyCode === 9 || //tab키
 				e.keyCode === 13){ //enter키 
 					$("#price").css("border", "1px solid lightgray");
 			}else{

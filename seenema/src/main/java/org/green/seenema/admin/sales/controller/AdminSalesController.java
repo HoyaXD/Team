@@ -79,4 +79,8 @@ public class AdminSalesController {
 		
 		return list;
 	}
+	@GetMapping("/test")
+	public void test() {
+		
+	}
 }

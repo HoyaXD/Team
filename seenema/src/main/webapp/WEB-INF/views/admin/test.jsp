@@ -36,7 +36,7 @@
 	</tbody>
 	
 </table>
-
+<div style="background-color:blue; width:500px; height:500px"><img src="/resources/images/logo4.png"></div>
 <div id=chart_div style="width:400px; height:400px"></div>
 
 <span id="pagenum"></span>
