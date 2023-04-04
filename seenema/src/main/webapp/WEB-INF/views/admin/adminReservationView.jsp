@@ -113,9 +113,9 @@
 					</table>
 					
 					<div id="span_box">
-					<!-- <span id="prev_btn"><<</span> -->
+					 <span id="prev_btn"><<</span> 
 						<span id="pageNum"></span>
-						<!-- <span id="next_btn">>></span> -->
+						 <span id="next_btn">>></span> 
 					</div>
 				</div>
 			</div>

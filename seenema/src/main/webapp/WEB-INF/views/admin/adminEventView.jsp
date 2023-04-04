@@ -50,9 +50,9 @@
 					<a href="adminEventRegi"><br><button type="button" id="regiNotice_btn"
 						style="width: 100px; height: 30px; radius: 8px; float: left;">이벤트 등록</button></a>
 					<div id="span_box">
-						<!-- <span id="before_btn"><<</span>
+						 <span id="before_btn"><<</span>
 						<span id="pageNum"></span>
-						<span id="next_btn">>></span> -->
+						<span id="next_btn">>></span> 
 
 					</div>
 				</div>
